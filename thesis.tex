@@ -1,51 +1,37 @@
 \documentclass[12pt,oneside,final]{huthesis}
 \usepackage{url,graphicx,color}
 
-% Table of contents max depth listed:
-% 1 = section, 2 = subsection, 3 = subsubsection
-% (Adam Lupu-Sax had 1. Is this standard at Harvard? I'm going for 2)
+% 11 Jan 2010 : GWA : Maximum table of contents depth.
+%               1 = section
+%               2 = subsection
+%               3 = subsubsection
 \setcounter{tocdepth}{2}
-
-% custom command
-\newcommand{\pic}[5][ht]{
-\begin{figure}[t] %[t]
-\begin{center}
-\includegraphics[keepaspectratio,#2]{#3}
-\end{center}
-\caption{#4}
-\label{#5}
-\end{figure}
-}
 
 \begin{document}
 
-% UNDERLYING SPACING FOR WHOLE DOCUMENT:
-% Single spacing: takes place of `draft' mode, without losing figures.
-% \ssp
-% makes double-spaced: (for GSAS requirement, microfiche):
-\dsp
+% 11 Jan 2010 : GWA : Spacing: \ssp for draft mode, \dsp for GSAS
+%               requirement.
+\ssp
+%\dsp
+
+% 11 Jan 2010 : GWA : Chapter content.
+
+% 11 Jan 2010 : GWA : frontmatter includes the abstract, table of contents,
+%               acknowledgments and dedication.
 
 \include{frontmatter}
-
-\include{intro}
+\include{introduction}
+\include{background}
 \include{related}
-\include{codeblue}
-\include{multicast}
-\include{livenet}
-\include{evaluation}
-\include{lessons}
 \include{conclusion}
 
-% insert other chapters here...
+% 11 Jan 2010 : GWA : Bibliography.
 
-% bibliography:
-% \include{b}
 \ssp
 \bibliography{thesis}
 
+% 11 Jan 2010 : GWA : No appendices currently.
 % \appendix
-% \include{ap1}
-
-% insert other appendices here...
+% \include{appendix}
 
 \end{document}
