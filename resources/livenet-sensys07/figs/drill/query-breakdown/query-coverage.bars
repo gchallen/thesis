@@ -1,0 +1,100 @@
+# Heart Rate
+# 84.44
+# 90.48
+# 72.73
+# 86.05
+# 86.36
+# 81.4
+# 83.72
+# 86.05
+# 85.71
+# 81.4
+#
+# PULSE
+# 80
+# 90
+# 72.73
+# 88.64
+# 91.3
+# 69.77
+# 86.05
+# 80.95
+# 83.33
+# 80.95
+#
+Title: 
+XAxis: Patient Sensor
+YAxis: Percentage of Minutes Reported(%) : -setmax 100
+Key: right-(0.425*inch), top ::
+#Options:   -xlabel 0.25 -keyfirst -rightmargin 2 -keywidth 2.2
+Options: -keyfirst -plotspacing 1.0 -ticfont helvetica10 -labeldist 0.5 -xlabel 0.2 -textfont helvetica10 -labelfont helvetica10 -keywidth 2.2 -valueangle 90 -valuefont helvetica8 -valuealign left -topmargin 0.75 -bottommargin 0.85 -rightmargin 2 -leftmargin 0.85 
+
+            # 21
+            BeginCluster: 21 :
+            Bar: 84.44: Heart Rate : -pattern fill
+            #Bar: 80.00: PULSE : -pattern fill
+            EndCluster
+            
+
+            # 22
+            BeginCluster: 22 :
+            Bar: 90.48: Heart Rate : -pattern fill
+            #Bar: 90.00: PULSE : -pattern fill
+            EndCluster
+            
+
+            # 23
+            BeginCluster: 23 :
+            Bar: 72.73: Heart Rate : -pattern fill
+            #Bar: 72.73: PULSE : -pattern fill
+            EndCluster
+            
+
+            # 24
+            BeginCluster: 24 :
+            Bar: 86.05: Heart Rate : -pattern fill
+            #Bar: 88.64: PULSE : -pattern fill
+            EndCluster
+            
+
+            # 25
+            BeginCluster: 25 :
+            Bar: 86.36: Heart Rate : -pattern fill
+            #Bar: 91.30: PULSE : -pattern fill
+            EndCluster
+            
+
+            # 26
+            BeginCluster: 26 :
+            Bar: 81.4: Heart Rate : -pattern fill
+            #Bar: 69.77: PULSE : -pattern fill
+            EndCluster
+            
+
+            # 27
+            BeginCluster: 27 :
+            Bar: 83.72: Heart Rate : -pattern fill
+            #Bar: 86.05: PULSE : -pattern fill
+            EndCluster
+            
+
+            # 28
+            BeginCluster: 28 :
+            Bar: 86.05: Heart Rate : -pattern fill
+            #Bar: 80.95: PULSE : -pattern fill
+            EndCluster
+            
+
+            # 29
+            BeginCluster: 29 :
+            Bar: 85.71: Heart Rate : -pattern fill
+            #Bar: 83.33: PULSE : -pattern fill
+            EndCluster
+            
+
+            # 30
+            BeginCluster: 30 :
+            Bar: 81.4: Heart Rate : -pattern fill
+            #Bar: 80.95: PULSE : -pattern fill
+            EndCluster
+            

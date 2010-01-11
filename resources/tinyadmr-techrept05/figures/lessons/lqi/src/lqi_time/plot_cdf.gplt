@@ -1,0 +1,15 @@
+# this script is written by Bor-rong Chen to plot data for TinyADMR project
+set terminal postscript eps color enhanced 'Helvetica' 18
+set output "plot_cdf.eps"
+#set title ""
+set key left top
+set xlabel "CC2420 LQI"
+set ylabel "Cumulative Percentage (%)"
+set yrange [0:100]
+set xrange [50:110]
+set ytics 10
+set xtics 10
+#plot 'plot.dat' using 1:2 title 'Measured' with line lw 5, 'plot.dat' using 1:3 title 'Piecewise Linear Model' with line lw 5
+#plot 'plot.dat' using 1:3 title 'Piecewise Linear Model' with line lw 5, 'plot.dat' using 1:2 title 'Measurement' with points 
+set grid xtics ytics
+plot 'plot.dat' using 3:2 title "" with line lw 5

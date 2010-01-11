@@ -1,0 +1,23 @@
+time (sec)  room
+=========   ====
+300         start MD238
+340         hall
+373         enter MD233
+445         hall
+493         enter MD227
+575         hall
+610         enter MD207
+730         hall
+780         enter MD209
+910         hall
+960         enter MD217
+1100	    hall
+1140	    outside of MD221
+1250	    hall
+1320	    enter MD223
+1500	    hall
+1565	    enter MD235
+1785	    hall
+1795	    enter MD238
+1900	    stopped in MD238
+

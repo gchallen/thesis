@@ -1,0 +1,3 @@
+Need to use gnuplot 4.2 or higher, otherwise my color commands aren't recognized.
+gnuplot 4.2 is installed on motelab, so to make the eps log into motelab and run:
+% cat 121_101_route_change_plot.gp | gnuplot; epstopdf 121_101_route_change_plot.eps

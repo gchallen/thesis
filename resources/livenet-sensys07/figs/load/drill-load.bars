@@ -1,0 +1,93 @@
+XAxis: : -labelfont helvetica10 -ticfont helvetica10 
+YAxis: Packets: -labelalign center -labeldist 0.5
+Key: left+(0.5*inch), top: : -keytitlealign center 
+Options: -plotspacing 1.0 -size 5x3 -ticfont helvetica10 -labeldist 0.5 -xlabel 0.2 -textfont helvetica10 -labelfont helvetica10 -keyframe 0 -valueangle 90 -valuefont helvetica8 -valuealign left -topmargin 0.75 -bottommargin 0.85 -rightmargin 0.2 -leftmargin 0.85 
+
+Bar: 0 : :
+
+BeginCluster: : 
+Bar: 146 : received :-inkey -printvalue
+Bar: 2590 : transmitted :-inkey -printvalue
+EndCluster
+BeginCluster: : 
+Bar: 9 :in:-printvalue
+Bar: 1784 :out : -printvalue
+EndCluster
+BeginCluster: :
+Bar: 0 :in:-printvalue
+Bar: 2637 :out : -printvalue
+EndCluster
+BeginCluster: :
+Bar: 245 :in:-printvalue
+Bar: 3819 :out : -printvalue
+EndCluster
+BeginCluster: :
+Bar: 51 :in:-printvalue
+Bar: 1731 :out : -printvalue
+EndCluster
+BeginCluster: Patient sensors:
+Bar: 334 :in:-printvalue
+Bar: 4805 :out : -printvalue
+EndCluster
+BeginCluster: :
+Bar: 64 :in:-printvalue
+Bar: 2595 :out : -printvalue
+EndCluster
+BeginCluster: :
+Bar: 279 :in:-printvalue
+Bar: 4839 :out : -printvalue
+EndCluster
+BeginCluster: :
+Bar: 233 :in:-printvalue
+Bar: 3157 :out : -printvalue
+EndCluster
+BeginCluster: :
+Bar: 4 :in:-printvalue
+Bar: 4595 :out : -printvalue
+EndCluster
+BeginCluster: :
+Bar: 497 :in:-printvalue
+Bar: 2837 :out : -printvalue
+EndCluster
+
+Bar: 0 : :
+
+BeginCluster: :
+Bar: 509 :in:-printvalue
+Bar: 6289 :out : -printvalue
+EndCluster
+BeginCluster: :
+Bar: 3887 :in:-printvalue
+Bar: 10803 :out : -printvalue
+EndCluster
+BeginCluster: Repeaters:
+Bar: 951 :in:-printvalue
+Bar: 6540 :out : -printvalue
+EndCluster
+BeginCluster: :
+Bar: 330 :in:-printvalue
+Bar: 5277 :out : -printvalue
+EndCluster
+BeginCluster: :
+Bar: 706 :in:-printvalue
+Bar: 6300 :out : -printvalue
+EndCluster
+BeginCluster: :
+Bar: 994 :in:-printvalue
+Bar: 6849 :out : -printvalue
+EndCluster
+
+Bar: 0 : :
+
+BeginCluster: :
+Bar: 198 :in:-printvalue
+Bar: 914 :out : -printvalue
+EndCluster
+BeginCluster: Sinks:
+Bar: 7239 :in:-printvalue
+Bar: 4180 :out : -printvalue
+EndCluster
+BeginCluster: :
+Bar: 5343 :in:-printvalue
+Bar: 7465 :out : -printvalue
+EndCluster

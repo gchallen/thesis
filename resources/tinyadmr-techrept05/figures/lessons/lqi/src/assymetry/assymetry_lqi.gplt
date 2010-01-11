@@ -1,0 +1,10 @@
+# this script is written by Bor-rong Chen to plot data for TinyADMR project
+set terminal postscript eps color enhanced 'Helvetica' 18
+set output "assymetry_lqi.eps"
+#set title "Link Assymetry"
+set xlabel "Pair of motes (sorted by foward LQI)"
+set ylabel "CC2420LQI LQI(%)"
+set ytics 10
+set grid ytics xtics
+set yrange [50:108]
+plot 'assymetry_lqi.dat' using 0:1 title 'LQI of forward link' with line lw 5, 'assymetry_lqi.dat' using 0:2 title 'LQI of reverse link' with line lw 5

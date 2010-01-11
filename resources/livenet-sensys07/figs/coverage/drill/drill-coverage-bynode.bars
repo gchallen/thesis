@@ -1,0 +1,40 @@
+XAxis: :
+
+YAxis: Coverage: -labelalign center -labeldist 0.5
+
+Key: right-(1.0*inch), top: : -keytitlealign center
+
+Options: -subplotspacing 0.1 -size 5x3 -ticfont helvetica9 -plotspacing 1.0 -labeldist 0.5 -xlabel 0.2 -textfont helvetica12 -labelfont helvetica12 -keyframe 0 -valueangle 90 -valuefont helvetica10 -valuealign left -topmargin 0.75 -bottommargin 0.85 -rightmargin 0.2 -leftmargin 0.85 
+
+Bar: 0: :
+
+Bar: 0.258: :  -setcolor blue -printvalue
+Bar: 0.425: :  -setcolor blue -printvalue
+Bar: 0.285: :  -setcolor blue -printvalue
+Bar: 0.255: :  -setcolor blue -printvalue
+Bar: 0.587: :  -setcolor blue -printvalue
+Bar: 0.410: Patient sensors:  -setcolor blue -printvalue
+Bar: 0.372: :  -setcolor blue -printvalue
+Bar: 0.427: :  -setcolor blue -printvalue
+Bar: 0.290: :  -setcolor blue -printvalue
+Bar: 0.423: :  -setcolor blue -printvalue
+Bar: 0.463: :  -setcolor blue -printvalue
+
+Bar: 0: :
+
+Bar: 0.734: :  -setcolor red  -printvalue
+Bar: 0.836: :  -setcolor red -printvalue
+Bar: 0.708: Repeaters:  -setcolor red -printvalue
+Bar: 0.608: :  -setcolor red -printvalue
+Bar: 0.490: :  -setcolor red -printvalue
+Bar: 0.711: :  -setcolor red -printvalue
+
+Bar: 0: :
+
+Bar: 0.263: :  -setcolor green  -printvalue
+Bar: 0.918: Sinks:  -setcolor green -printvalue
+Bar: 0.841: :  -setcolor green -printvalue
+
+Bar: 0: :
+
+Bar: 0.588: Total: -setcolor black -printvalue

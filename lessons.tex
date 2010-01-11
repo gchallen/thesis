@@ -1,0 +1,239 @@
+\chapter{Discussion and Future Work}
+\label{chap-lessons}
+\label{sec-cb-future}
+\label{sec-cb-futurework}
+
+The preceding chapters demonstrated that medical sensor networks can be
+realistically constructed and practically monitored with mote-based 
+sensors. Medical sensor networks represent a new class of sensor networks that
+is different from conventional systems designed for
+single-sink data collection from all statically deployed nodes with
+static sensing parameters. Instead, a medical sensor network demands
+flexibility in node mobility, node population, and sensing with the goal to
+deliver relevant data in real time to responsible receiving devices. 
+
+The CodeBlue architecture ties
+together a number of current areas in sensor network research, including node
+discovery, routing protocols, and query interfaces, into a single system that
+is specifically designed for medical applications. An important contribution
+of our design is the realization of a publish/subscribe communication
+architecture for sensor networks, and its integration into a complete
+application-centric platform.
+The dynamic nature of CodeBlue architecture and TinyADMR multicast routing
+layer allows medical teams to set up a medical sensor network easily to start
+monitoring patients with no
+prior infrastructure. The
+publish/subscribe communication model allows multicast capability in the
+network to improve bandwidth efficiency. The choice of ad-hoc routing protocol
+allows nodes to be joining and leaving the network
+dynamically. The CBQ query layer provides flexibility to acquire sensor
+readings with different sampling rates, for different durations, or only when
+certain conditions are met. In addition, LiveNet provides practical
+monitoring of a deployed medical sensor network so that the engineering team
+can measure and troubleshoot the network without sacrificing the efficiency or
+reliability of the network.
+
+Besides the contributions described above, it is worth revisiting the design
+goals to justify the design decisions. Moreover, there are several valuable
+lessons learned by designing and deploying medical sensor networks. The
+remaining part of this chapter discusses these lessons and provides potential
+future research directions.
+
+\section{Revisiting design goals}
+
+CodeBlue was designed to fulfill the specific needs of medical sensor
+networks. Returning to the goals set forth in Chapter~\ref{chap-codeblue}, the
+following highlights the features of CodeBlue design that help achieve each one.
+
+\begin{description}
+\item[Scalability and robustness:] Scalability derives directly
+from the publish/subscribe communication model, because it allows
+efficient multicast delivery of identical data to multiple sinks.
+In addition, the use of trigger predicates in CBQ permits queries
+to remain quiescent until the trigger conditions are met. 
+
+\item[Multiple concurrent queries:] CBQ supports multiple queries per
+node with different query parameters and
+destinations. Accomplishing this is simplified by decoupling the query
+engine from the routing layer.
+
+\item[Ad-hoc deployment:] CodeBlue supports rapid, ad-hoc deployment 
+via its dynamic discovery protocol without need for manual network
+configuration.
+
+\item[Support a broad class of medical sensors:] The sensor hardware
+abstraction layer makes it easy to add new sensor types, as only a
+low-level driver and an entry to the query processor's table of
+supported sensors is required.
+
+\item[External programmatic interface:] The CodeBlue network is made
+available to many potential Internet-based applications through a
+proxy server using standard Web Services protocols.
+\end{description}
+
+\section{Improving reliability}
+
+Even though most of the design goals are met, our evaluation of the CodeBlue
+prototype points to a number of areas for future work. The first priority is
+to add reliability mechanisms to the communication layer, although our results
+show that packet loss can be mitigated somewhat through redundant
+transmissions. The fact that CodeBlue system suffers from low packet delivery
+performance under high load shows that our adoption of a best effort protocol
+was not suitable for some of our target scenarios. However, we do not believe
+that reliable routing is required for all medical data; rather, the system
+should allow each query to specify its reliability needs in terms of
+acceptable loss, data rate, or jitter.
+
+Another area to explore is the design of effective techniques to mitigate the
+impact of bandwidth limitation. For example, each CodeBlue query could specify
+a data priority that would allow certain messages (say, an alert from a
+critical patient) to have higher priority than others in the presence of radio
+congestion. This approach can be combined with rate-limiting congestion
+control~\cite{paek_rcrt:_2007, ee-congestion,hull-congestion} to bound the
+bandwidth usage of patient sensors to avoid network congestion while 
+ensuring the delivery of high priority data packets.
+
+The evaluation of the disaster drill shows that a significant portion
+(16-25\%) of packet loss can be attributed to premature query timeouts. 
+Under this situation, the data packets were not lost {\em per se} but they
+were never transmitted by sensor nodes. This
+indicates a significant portion of CBQ query packets, sent as network floods,
+did not reach the relevant nodes to renew the desired queries. As a result,
+the patient sensors stopped reporting relevant sensor data after previous
+queries expired. This is most likely caused by the long-lasting flood that
+happened due to a software bug and created heavy interference to normal
+query packets. This suggests that using simply network floods to send queries
+is not sufficient to obtain acceptable performance when there is heavy traffic
+on the wireless channel. Future designs could consider replacing simple
+network flooding with more reliable network-wide dissemination approaches 
+when sending CBQ queries to prevent this type of data loss.
+Trickle~\cite{trickle} and RBP~\cite{rbp-sensys06}
+are two examples of such dissemination protocols.
+
+\section{Sensor networks as MANETs}
+
+Chapter~\ref{chap-tinyadmr} presented an investigation of the issues that arise 
+when translating MANET-based protocol designs into a sensor 
+network context. As sensor networks become more widespread, 
+new applications will be developed that present a broad set of 
+communication requirements. Given that the MANET community has 
+invested a great deal of effort into routing protocols for 
+mobile wireless environments, we believe that there is real
+value in understanding to what extent this work can be reapplied.
+
+Many of the design concepts in CodeBlue are drawn from both the sensor
+networks and mobile ad-hoc networking (MANETs) communities.  As with
+much current sensor networks research, we are targeting at very
+resource-limited sensor nodes, which are desirable for their small
+size and power requirements. Unlike much of the previous work,
+CodeBlue is concerned with sensor networks that have variable data
+rates, dynamic node populations, node mobility, and multiple
+simultaneous users.
+
+These requirements drives us closer to the MANETs space, albeit with an
+important distinction: most of the research undertaken by the MANETs community
+has not been translated into extremely resource-constrained environments. For
+instance, most MANETs routing protocols
+(e.g.,~\cite{admr-mobihoc01,aodv,dsr,dsdv}) were designed with PDAs or laptops
+in mind. The limitations of our hardware forces us to revisit the design of
+MANETs protocols, in particular paying close attention to memory usage and
+communication overheads.
+
+Many of the lessons arising from our TinyOS-based implementation of 
+ADMR stem from the enormous differences in the assumed hardware
+environment. ADMR was developed for relatively high-powered
+devices with significantly more radio bandwidth and memory than
+is found on typical motes. It is not surprising, then, that 
+we faced some challenges implementing ADMR on this platform.
+
+While our goal was to remain faithful to the original ADMR design as
+much as possible, the most substantial modification was the introduction
+of alternate path-selection metrics. Minimizing hop count performs
+poorly, while a simple LQI-based estimation of the path delivery ratio
+works well and incurs no additional measurement overhead. 
+
+There is still significant space for improvement 
+if TinyADMR is to be effective in large networks. With a large number
+of nodes, protocol overhead will readily saturate available bandwidth.
+Most MANET protocols use a fixed transmission rate for protocol
+packets such as discovery messages. Dynamically tuning these rates
+based on background traffic or node density would permit overhead
+to scale with available bandwidth. 
+
+Protocol state management under severe memory limitations is another 
+area for future work. We have explored various node table eviction
+policies, although results demonstrate that deliberately dropping
+this state has an adverse effect on performance. More efficient
+data structure design and swapping state to external flash may be
+viable solutions.
+
+
+\section{Deployment monitoring}
+
+We have found LiveNet to be a valuable tool in understanding the behavior of
+deployed sensor networks, as shown in Chapter~\ref{chap-deploy}. There are
+several directions that one could take to further improve LiveNet's
+value to studies of deployed sensor networks.
+
+\subsection{On-line trace analysis}
+
+LiveNet, with the current design, performs on-line data collection with offline
+post processing and analysis. We believe it would be valuable to 
+investigate a somewhat different model, in which the infrastructure 
+passively monitors network traffic and alerts an end-user when certain
+conditions are met. For example, LiveNet nodes could be seeded with event
+detectors to trigger on interesting behavior such as routing
+loops, packet floods, or corrupt packets. 
+
+To increase scalability and decrease overhead for merging traces, it may be
+possible to perform {\em partial merging} of packet traces 
+around windows containing interesting activity. In this way the
+LiveNet infrastructure can discard (or perhaps summarize) the
+majority of the traffic that is deemed uninteresting. 
+
+Such an approach would
+require decomposing event detection and analysis code into components
+that run on individual sniffers and those that run on a back-end
+server for merging and analysis. For example, it may be possible to
+perform merging in a distributed fashion, merging traces pairwise
+along a tree; however, this requires that at each level there is
+enough correspondence between peer traces to ensure timing correction
+can be performed. Having an expressive language for specifying
+trigger conditions and high-level analyses strikes us as an
+interesting area for future work.
+
+\subsection{Passive monitoring friendly design}
+
+Knowing the value of passive monitoring, future protocols can be designed to
+be "friendly" to the passive monitoring systems to improve the
+efficiency and accuracy of trace processing. For example, making every packet
+unique, even across re-transmissions, will simplify trace merging. Being
+able to identify each packet transmission makes it easier to identify bugs
+that cause unexpected packet transmissions and allow analyses related
+to packet re-transmissions. A protocol could also include internal states such
+as number of packets that were forwarded or dropped in infrequent diagnostic
+packets to reveal more internal details of the protocol. 
+
+
+\section{Security}
+
+One shortcoming of CodeBlue system design is security.  Security is
+an extremely important concern in medical sensor networks, in order to
+maintain patient privacy, avoid external spoofing, and defend against
+denial-of-service attacks. However, exploring the rich design space of
+security mechanisms in medical sensor networks is beyond the scope of
+this dissertation. Our current design assumes that nodes in a CodeBlue
+network share encryption keys and use an efficient private-key
+encryption scheme such as TinySec~\cite{tinysec}.  A shortcoming of
+this design is that it does not support access to the CodeBlue network
+from multiple administrative domains with separate keys, and assumes
+an out-of-band mechanism for establishing keys.  In a hospital or
+disaster response setting, it is reasonable to assume that all nodes
+will be programmed in advance with the necessary keys, although this
+approach makes it difficult to change keys.
+
+The privacy and security requirements for medical care are
+complex and differ depending on the scenario. For example, HIPAA privacy
+regulations need not be enforced during life-saving procedures. Designing
+the right security into medical sensor networks is worth future research.
+

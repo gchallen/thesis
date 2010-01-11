@@ -1,0 +1,12 @@
+# this script is written by Bor-rong Chen to plot data for TinyADMR project
+set terminal postscript eps color enhanced 'Helvetica' 18
+set output "lqi_vs_del_fwd.eps"
+#set title "LQI vs Delivery Ratio"
+set xlabel "Pair of motes (sorted by delivery ratio)"
+set ylabel "Delivery Ratio (%)"
+set y2label "CC2420 LQI"
+set y2tics 10
+set yrange [0:100]
+set y2range [50:108]
+plot 'lqi_vs_del_fwd.dat' using 0:1 title 'Delivery Ratio' with line lw 5, 'lqi_vs_del_fwd.dat' using 0:2 axis x1y2 title 'CC2420 LQI' with line lw 5
+

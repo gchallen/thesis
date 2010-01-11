@@ -1,0 +1,40 @@
+\chapter{Conclusion}
+\label{sec-cb-conclusions}
+\label{sec-cb-conclusion}
+
+Driven by the observation that low power wireless sensor technologies have
+matured enough to be used to help medical care, this dissertation has shown
+that building medical sensor networks with resource-limited nodes is
+practical after addressing several key challenges.
+
+We argued that a new network architecture is needed and proposed CodeBlue, a
+system architecture for medical sensor networks. CodeBlue is based on the
+publish/subscribe communication model in order to allow dynamic and efficient
+data transmission between patient sensors and the receiving devices. CodeBlue
+provides a simple query layer that supports continuous and trigger-based 
+physiologic sensor queries. It also defines a flexible sensor abstraction
+layer that allows new sensor hardware to be easily added to the system.
+
+We presented lessons learned by applying an ad-hoc multicast routing protocol,
+ADMR, on resource limited wireless sensors. We showed that using a novel path
+delivery ratio routing metric (PATH-DR) results in significant routing
+performance improvement. We also identified the scalability limitations of the
+multicast layer caused by the bandwidth and memory constraints. These
+scalability issues are caused by the routing tree maintenance overhead and
+the limitation on routing table size. These lessons resulted in TinyADMR, a
+critical component to support multicast routing in CodeBlue. 
+
+In addition, we addressed the challenges for monitoring and evaluating 
+deployed medical sensor networks. Under the resource constraints from the mote
+platform, we argued that studying a deployed network must rely on a passive
+approach. We designed and implemented LiveNet to facilitate practical
+monitoring of a deployed sensor network without affecting the monitored
+network. We showed such approach is effective and practical by applying it to
+evaluate a CodeBlue deployment.
+
+Finally, the research presented in this dissertation is merely a
+first step in designing and building medical sensor networks. There are
+remaining challenges to be addressed by future work. They include
+avoiding network congestion, providing quality of service, and network
+security. We hope our effort serves as the basis of future designs that will
+address remaining issues and further advance the field of study. 
