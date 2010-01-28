@@ -1,0 +1,86 @@
+\subsection{Datum v Dataset Quality}
+\label{sec-datavdatumquality}
+
+Reviewing our previous work, we have found it useful to divide our focus on
+data quality into two separate concerns, \textit{datum} quality and
+\textit{dataset} quality.  The former encompasses the quality of any one data
+point, and requires addressing sampling rates, resolution, fidelity, and
+accurate timestamping. Datum quality does not consider broader measures such
+as the value of the data to the application, coverage or latency.  Such
+higher-level metrics are incorporated in the idea of \textit{dataset}
+quality, which considers the entire corpus of data presented to the
+application or end user. This distinction is important because each requires
+separate techniques to address.
+
+Placed in this context, our first two deployments served to push the datum
+quality to a level acceptable to the domain scientists.  Through the
+experience that came with iteration, at the end we were able to convince
+ourselves that we had built a system capable of meeting the science
+\textit{datum quality} goals~\cite{volcano-osdi06}. Because the
+application we chose happened to have fairly well-established datum quality
+requirements, this work was iterating towards a fixed target.
+
+Our interest in dataset quality reflects the inherent limitations of sensor
+network devices.  Due to storage, bandwidth or power limitations, at some
+point as the size of the network grows or the target lifetime increases, it
+becomes infeasible to collect all signals from all nodes during the entire
+deployment.  Thus the question emerges: what data should be collected in real
+time and what data should not?  If the network is provisioned with adequate
+storage and the deployment is of fixed length, data not delivered in
+real-time may be eventually recovered manually; otherwise it will be lost.
+
+Return a partial dataset to the end user also requires sorting the wheat from
+the chaff.  Either some of the data has to be interesting enough to justify
+eliding a great deal of the rest, or some of the data has to be uninteresting
+enough to justify dropping it entirely.  Our application, volcano monitoring,
+falls more into the first category, since seismologists would never concede
+that any piece of signal is, prima facie, uninteresting. However,
+they do have metrics allowing the value of a signal to be estimated and
+compared against others, which allows system resources to be directed at the
+most valuable signals.  Because seismological applications may benefit
+sufficiently from the increased network resolution made possible by small,
+low-power sensors, the discarded data that these networks imply is tolerable.
+
+The high sample rates and per-sample resolution of seismic signals meant that
+it only took a medium-size network to make full-signal streaming data
+collection infeasible.  Given that the problem worsens as the network size
+grows and target lifetimes increase, and our long-term goal is to deploy a
+perpetually-powered network of several hundred nodes --- an order of
+magnitude larger than any of our efforts to date --- addressing this problem
+remains central to our ongoing research.
+
+\subsection{Structure of this Chapter}
+
+We begin by describing the key changes made between our initial deployment at
+Tungurahua Volcano in 2004 and our second more significant effort at
+Reventador Volcano in 2005.  Between these two deployments we made a large
+number of changes addressing both datum quality --- including hardware board
+development and time synchronization rectification --- and dataset quality
+--- including reliable transport and event-driven data collection. We discuss
+iterative improvements to the interface board and time synchronization in
+Sects.~\ref{subsec-signalhardware} and \ref{subsec-multihoptimesync} below,
+and outline the event triggered approach in Sect.~\ref{subsec-eventdriven}.
+
+After beginning to address the datum quality requirements, we focused on
+developing techniques that would advance the science goals by allowing the
+size of the network or the duration of our deployments to be increased. This
+meant addressing the dataset quality component. Our research in this area has
+been a great deal more speculative since our seismologists are not used to
+working with incomplete data sets, and while some of the flaws in earlier
+systems drove our initial research direction, work in this area became
+largely driven by the constraints inherent in wireless sensor network nodes:
+storage, bandwidth, and power. Our work in this area culminated in
+Lance~\cite{lance-sensys08}, an architectural framework for optimizing
+dataset quality in the presence of constraints such as storage, bandwidth and
+energy. Sections \ref{sec-prioritylance} and \ref{sec-utilitylance} describe
+successive iterations of this framework, which emerged as part of our third
+deployment in 2007, while Sect.~\ref{sec-policymodules} describes the
+policy module component common to both.
+
+Finally, addressing either datum or dataset quality in isolation, even while
+holding one of them fixed, does not address overall data quality or
+application-driven quality metrics.  Collected data is expected to be put to
+use in service of some broader scientific goal, which likely has complex data
+quality requirements not easily distilled into separate datum and dataset
+goals.  We outline future directions intended to bridge this gap and conclude
+in Sect.~\ref{sec-conclusions}.

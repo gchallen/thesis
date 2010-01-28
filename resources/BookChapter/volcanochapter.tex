@@ -1,0 +1,71 @@
+% This is LLNCS.DEM the demonstration file of
+% the LaTeX macro package from Springer-Verlag
+% for Lecture Notes in Computer Science,
+% version 2.3 for LaTeX2e
+%
+\documentclass[graybox]{svmult}
+
+\usepackage{mathptmx}
+\usepackage{helvet}
+\usepackage{courier}
+\usepackage{type1cm}
+
+\usepackage{makeidx}
+\usepackage{graphicx}
+
+\usepackage{multicol}
+\usepackage[bottom]{footmisc}
+
+\usepackage{url}
+\usepackage{color}
+\usepackage{multirow}
+
+\makeindex
+%\newcommand{\XXXnote}[1]{{\bf\textcolor{red}{XXX: #1}}}
+\newcommand{\XXXnote}[1]{{}}
+
+\begin{document}
+
+\title*{Volcano Monitoring : Addressing Data Quality\\Through Iterative Deployment}
+\titlerunning{Volcano Monitoring}
+
+\author{Geoffrey Werner Challen and Matt Welsh}
+
+\institute{
+Geoffrey Werner Challen \at Harvard School of Engineering and Applied Sciences,
+\email{challen@eecs.harvard.edu}
+\and Matt Welsh \at Harvard School of Engineering and Applied Sciences,
+\email{mdw@eecs.harvard.edu}}
+
+\maketitle
+
+\abstract*{
+\input{abstract}
+}
+
+\abstract{\newline
+\input{abstract}
+}
+
+\newpage
+
+% 18 Apr 2009 : GWA : Body of chapter.
+
+\input{introduction.tex}
+\input{datavdatumquality.tex}
+\input{interfaceboard.tex}
+\input{timesynchronization.tex}
+\input{eventtriggering.tex}
+\input{prioritylance.tex}
+\input{policymodules.tex}
+\input{utilitylance.tex}
+\input{conclusions.tex}
+
+\acknowledgement{
+\input{acknowledgments.tex}
+}
+
+\bibliographystyle{spmpsci}
+\bibliography{volcanochapter}
+
+\end{document}

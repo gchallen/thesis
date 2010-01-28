@@ -1,0 +1,60 @@
+\section{Event Triggering}
+\label{sec-eventtriggering}
+\label{subsec-eventdriven}
+
+While our proof-of-concept deployment had each node attempting to stream a
+continuous signal over a single radio hop to the base station, this approach
+did not scale to more nodes deployed into a multi-hop topology.  In fact, it
+didn't even work that well with the small number of nodes we deployed in
+2004. Analysis of our data showed many dropouts and periods of missing data
+caused by simple packet delivery failures. Some nodes were impacted more than
+others, but all deployed nodes displayed this weakness.
+
+Going into the 2005 deployment we knew that we needed a more scalable
+approach. The one that we developed was, in its own way, a precursor to the
+more intensive dataset work that would develop into a separate
+data-collection framework.  What we decided to do was exploit the network's
+monitoring capability to help decide what data was interesting, and capture
+that data at the expense of other signals.
+
+The way that this worked was as follows.  Nodes were programmed to locally
+detect interesting seismic events and transmit event reports to the base
+station. If enough nodes triggered in a short time interval, the base station
+attempted to download the last 60~sec of data from each node.  The download
+window of 60~sec was chosen to capture the bulk of the eruptive and
+earthquake events, although many volcanic events can exceed this window
+(sometimes lasting minutes or hours).  To validate our network against
+existing scientific instrumentation, our network was designed for
+high-resolution signal collection rather than extensive in-network
+processing.
+
+Nodes run an {\em event detection algorithm} that computes two
+exponentially-weighted moving averages (EWMA) over the input signal with
+different gain settings. When the ratio between the two EWMAs exceeds a
+threshold --- indicating that the signal's short term average has exceeded
+its long-term average by a large amount --- the node transmits an event
+report to the base station.  If the base station receives triggers from 30\
+of the active nodes within a 10~sec window, it considers the event to be
+well-correlated and initiates data collection.
+
+The bulk-transfer phase operated as follows.  The base station waits for
+30~sec following an event before iterating through all nodes in the network.
+The base sends each node a command to temporarily stop sampling, ensuring the
+event will not be overwritten by subsequent samples.  For each of the
+206~blocks in the 60~sec window, the base sends a {\em block request} to the
+node.  The node reads the requested block from flash and transmits the data
+as a series of 8~packets.  After a short timeout the base will issue a repair
+request to fill in any missing packets from the block.  Once all blocks have
+been received or a timeout occurs, the base station sends the node a command
+to resume sampling and proceeds to download data from the next node. 
+
+At Reventador this event detection approach proved difficult to properly
+calibrate. We discovered that it detected a small percentage of the seismic
+events located by one of our domain scientists during a particular window of
+time. The reason for this was probably the parameters chosen for the EWMA
+algorithm, which produced a system that was not sensitive enough. Calibrating
+the system a priori using data collected from the targeted volcano would have
+been ideal, but was difficult to do given the difference in frequency
+response between our instruments and the ones that had been deployed at the
+volcano previously.  Other weaknesses of the event-triggered approach to data
+collection led us to move away from it in subsequent deployments.
