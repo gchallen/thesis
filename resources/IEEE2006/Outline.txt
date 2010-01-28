@@ -1,0 +1,84 @@
+Outline for IEEE article.
+26 Sep 2005 : GWA.
+Relatively stream-of-consciousness.
+
+We're penalized 250 words/picture or tables so I think that we should aim for
+2 or 3:
+
+PHOTOS/DIAGRAMS:
+
+1) Digitally-generated map showing Reventador and the location of all 16
+stations.
+
+GWA : I don't have this... MDW?
+
+2) Close-up photo of one station.  Nice to get some extra miles out of this
+so it would be neat if it also worked one of us and the volcano into the
+picture.  This is probably at the price of a bit of loss of clarity when
+describing the equipment but probably best to do that in general terms
+anyway.
+
+GWA : I have these photos on my laptop but we should choose one.  Worth
+trying to label the components or just describe them loosely in the caption?
+
+* 3) One set of data collected.  Probably most impressive would be a 16-node
+seismic-only plot.
+
+GWA : I have this as well; might want to clean it up a bit but it's pretty
+much ready to go.
+
+*** If we end up dropping one I would propose #3.  Yes it's the only real
+data that we would be presenting but given the brevity and purpose of the
+article I think that the locations of the stations and pictures of the
+volcano are going to be sexier and more appropriate.
+
+SKELETON OUTLINE:
+
+The way I'm going to approach writing this is to cover a lot of what's listed
+below and not worry about the word limit on the first pass.  It's likely that
+what emerges will require some serious paring-down and certain sections will
+vanish beneath the waves but that's fine.  Those same sections may appear in
+other guises in later papers.
+
+The most important parts to preserve IMHO are sections relating to:
+
+1) Why this work is important, i.e. useful to the scientific community at
+which it's aimed, i.e. interesting to our collaborators.
+
+2) Why this work is hard _computer science_: high data rate, high fidelity.
+
+3) How the systems works in _broad_ strokes: triggered data collection model,
+multi-hop routing, smart laptop base station, pull-based data recovery, etc.
+
+4) Description of the output of the system; not really worth calling an
+evaluation as such but more just a description of how long the system ran,
+how much data we collected, number of events, etc etc etc.
+
+5) Some forward-looking material (very brief) perhaps discussing the utility
+of this system for future volcanic monitoring or tomographic experiments,
+plans for utilizing the data acquired and the triggers for mobilizing other
+resources (satellites), etc.
+
+I. 3 paragram intro as described in requirements.txt.
+
+II. Description of the system as deployed; normally I'd slot this later but
+MDW's suggested that we get right into it.
+
+III. Segue into the usefulness of this type of 'macroscope' for volcano
+monitoring; should naturally allow a bit of a step backwards to elucidate the
+scientific requirements that led us to this point in the first place.
+
+IV. Move from those scientific requirements to what makes this application
+hard for computer scientists; briefly position our work within the current
+application space emphasizing the much large scale and much higher data
+rates.
+
+V. Discussion of the output of the experiment and plans for future work.
+
+
+NOTES:
+
+Is it worth trying to make the argument (as we've discussed previously) that
+this sort of array can be applied to other forms of trigger-based scientific
+monitoring or should we stick to describing our own deployment?
+

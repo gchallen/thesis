@@ -1,0 +1,14 @@
+1) Word Limit: 5000
+
+2) Abstract: 150 words
+
+3) Figures/Tables: each counted as 250 words
+
+4) References: no more than 15; 10 in sidebars
+
+5) Style: active voice, three paragraph introduction:
+  * the Internet-related problem space,
+  * the proposed solution that the article presents, and
+  * they way the article progresses (while avoiding "signposting")
+
+

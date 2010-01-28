@@ -1,0 +1,99 @@
+% Document template based on LNCS, adapted by Matt Welsh <mdw@cs.berkeley.edu>
+
+% This version is adapted to use PDFTEX to render to PDF directly. 
+% If you want to use dvi, you need to change any figures to use '.eps'
+% rather than '.pdf', and probably get rid of the hyperref package.
+
+%\documentclass[11pt, onecolumn, draftcls]{IEEEtran}
+\documentclass[11pt]{IEEEtran}
+\usepackage{program}
+\usepackage{epsfig}
+\usepackage{url}
+\usepackage[english]{babel} % mdw: Required to get good hyphenation on RH6.0
+                            % (fixed in RH6.1)
+\usepackage{graphicx} 
+\usepackage{color}    
+\usepackage{cite}
+
+\newcommand{\XXXnote}[1]{{\textcolor{red}{\bf MDW: #1}}}
+\newcommand{\GWAnote}[1]{{\textcolor{red}{\bf GWA: #1}}}
+%\newcommand{\XXXnote}[1]{}
+%\newcommand{\GWAnote}[1]{}
+
+\pagestyle{empty}
+\begin{document}
+
+%don't want date printed
+\date{}
+
+%%%%%%%%%%%% THIS IS WHERE WE PUT IN THE TITLE AND AUTHORS %%%%%%%%%%%%
+
+
+% MDW: We need to say "Wireless Sensor Network" here
+%\title{Developing a Wireless Sensor Network for High-Bandwidth, High-Fidelity
+%Volcanic Monitoring}
+
+\title{Deploying a Wireless Sensor Network on an Active Volcano}
+\def\footnotemark{}
+
+\author{\authorblockN{Geoffrey Werner-Allen\authorrefmark{1}, 
+Konrad Lorincz\authorrefmark{1}, 
+Mario Ruiz\authorrefmark{2}\authorrefmark{4}, 
+Omar Marcillo\authorrefmark{3}\authorrefmark{4}, 
+Jeff Johnson\authorrefmark{2},
+Jonathan Lees\authorrefmark{3},
+and Matt Welsh\authorrefmark{1}} \\
+\authorblockA{\authorrefmark{1} Division of Engineering and Applied
+Sciences, Harvard University} \\
+\authorblockA{\authorrefmark{2} Dept. of Earth Sciences, University of
+New Hampshire} \\
+\authorblockA{\authorrefmark{3} Dept. of Geological Sciences, University of 
+North Carolina} \\
+\authorblockA{\authorrefmark{4} Instituto Geof\'{i}sico, Escuela 
+Polit\'{e}cnica Nacional, Ecuador}}
+
+%\author{\authorblockN{Geoffrey Werner-Allen, Konrad Lorincz, and Matt
+%Welsh\\}
+%\authorblockA{Harvard University, \{werner,konrad,mdw\}@eecs.harvard.edu\\}
+%\authorblockN{Mario Ruiz and Jonathan Lees\\}
+%\authorblockA{University of North Carolina, \{mruiz,leesj\}@email.unc.edu\\}
+%\authorblockN{Omar Marcillo and Jeff Johnson\\}
+%\authorblockA{University of New Hampshire,
+%\{omar.marcillo,jeff.johnson\}@unh.edu}
+%}
+
+\maketitle
+\thispagestyle{empty}
+
+%%%%%%%%%%%%%  ABSTRACT GOES HERE %%%%%%%%%%%%%%
+
+\begin{abstract} 
+Wireless sensor networks have the potential to aid the study of active
+volcanoes.  Augmenting heavy and power-hungry data collection
+equipment with lighter, smaller wireless sensor network nodes leads to
+faster, larger deployments.  Arrays consisting of dozens of wireless sensor
+nodes are now possible.  The additional scale and resolution of these
+networks permits scientific studies not feasible with traditional
+instrumentation.  Designing sensor networks to support volcanic studies
+requires addressing the high data rates and high data fidelity these studies
+demand.  We have designed a sensor network application for volcanic data
+collection that relies on triggered event detection and reliable data
+retrieval to meet bandwidth and data quality demands.  Here we describe our
+design and relate our experience deploying our network on Volc\'{a}n
+Reventador, an active volcano in northern Ecuador.  
+\end{abstract}
+
+\input{intro.tex}
+\input{description.tex}
+\input{monitoring.tex}
+\input{cs.tex}
+\input{conclusions.tex}
+
+%%%%%%%%%%%%%  THIS IS WHERE THE BIBLIOGRAPHY GOES %%%%%%%%%
+
+\def\baselinestretch{0.92}
+\begin{footnotesize}
+\setlength{\itemsep}{2in}
+\bibliographystyle{IEEEtran} \bibliography{IEEEComputing}
+\end{footnotesize}
+\end{document}
