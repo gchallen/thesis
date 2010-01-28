@@ -1,0 +1,55 @@
+Robustness
+----------
+  - Node reliability vs time [MDW]
+  - Node reliability vs node [MDW]
+     -> With and without infrastructure failures
+
+  - Node reboots [KL]
+    - Determine manual vs. automatic reboots
+    - Correlate reboots to other node properties (routing load?)
+    - Impact of reboot (latency)
+
+Event detection
+---------------
+  - Overall statistics: [MDW]
+    - Number events detected vs. node
+    - Number events detected vs. time
+
+  - Event detector accuracy vs. Reftek data [MDW]
+    - Vary E.D. parameters
+  - Global detector accuracy [MDW]
+    - How well did global detector filter out false events
+    - Specificity/sensitivity analysis
+
+Performance
+-----------
+  - Yield [MDW]
+    - % of detected events that we successfully downloaded data for
+    - How much data per event
+    - Consider all nodes vs. only "active" nodes
+    - Before and after reprogram
+
+  - Throughput [MDW]
+    - Bytes/sec
+    - Latency for data transfer
+    - Vs. node or hopcount
+
+Timing
+------
+  - FTSP stability: How often did FTSP go down and for how long? [GWA]
+  - % of events with 'good' FTSP timing  [GWA]
+  - Accuracy of time rectification on Teloslab [GWA]
+    - Vary time rectification parameters
+
+Fidelity
+--------
+  - xcorr with Node 213 and Reftek data [GWA]
+    - Relate to timing confidence: Are events with good FTSP timing 
+      more accurate?
+
+  - Arrival time distribution across the array [KL]
+    - Back-projection to possible event sources
+    - Consistency with Reftek data
+
+
+

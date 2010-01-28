@@ -1,0 +1,153 @@
+% Document template based on LNCS, adapted by Matt Welsh <mdw@cs.berkeley.edu>
+
+% This version is adapted to use PDFTEX to render to PDF directly. 
+% If you want to use dvi, you need to change any figures to use '.eps'
+% rather than '.pdf', and probably get rid of the hyperref package.
+
+\documentclass[10pt]{article}
+\usepackage{program}
+\usepackage{acm-style10} % ACM proceedings formatting
+\usepackage{times}  % Use Adobe Times font set
+\usepackage{epsfig,twocolumn}
+\usepackage{url}
+\usepackage{textcomp}
+\usepackage{usenix}
+\usepackage[english]{babel} % mdw: Required to get good hyphenation on RH6.0
+                            % (fixed in RH6.1)
+\usepackage{graphicx} 
+\usepackage{color}
+
+% This will generate links within the PDF as well as a set of bookmarks
+% \usepackage[colorlinks,pdfpagemode=None]{hyperref} 
+
+%\def\dsp{\def\baselinestretch{0.92}\large\normalsize}
+%\def\dsp{\def\baselinestretch{0.92}}
+%\dsp
+%\def\dsp{\def\baselinestretch{1.0}}
+%\dsp
+
+% DO NOT REMOVE THIS DEFINITION --- IF I HAVE LEFT AN XXXNOTE IN THE
+% TEXT IT NEEDS TO BE ADDRESSED AND NOT HIDDEN!
+\newcommand{\XXXnote}[1]{{\bf\color{red} XXX: #1}}
+%\newcommand{\XXXnote}[1]{}
+
+%\pagestyle{plain}
+\pagestyle{empty}
+%\pagenumbering{arabic}
+
+%set dimensions of columns, gap between columns, and space between
+%paragraphs
+%\setlength{\textheight}{9.25in}
+\setlength{\textheight}{9.0in}
+\setlength{\columnsep}{0.25in}
+\setlength{\textwidth}{6.75in}
+\setlength{\footskip}{0.0in}
+%\setlength{\topmargin}{-0.25in}
+\setlength{\topmargin}{0.0in}
+\setlength{\headheight}{0.0in}
+\setlength{\headsep}{0.0in}
+%\setlength{\oddsidemargin}{-0.15in}
+\setlength{\oddsidemargin}{-0.125in}
+\setlength{\evensidemargin}{0in}
+\setlength{\parindent}{1pc}
+\setlength{\itemindent}{0.0in}
+%\setlength{\parskip}{\baselineskip}
+\setlength{\baselineskip}{12pt}
+
+%\setlength{\textheight}{9.25in}
+%\setlength{\columnsep}{0.33in}
+%\setlength{\textwidth}{7.4in}
+%\setlength{\footskip}{0.0in}
+%\setlength{\topmargin}{-0.25in}
+%\setlength{\headheight}{0.0in}
+%\setlength{\headsep}{0.0in}
+%\setlength{\oddsidemargin}{-.45in}
+%%\setlength{\oddsidemargin}{0in}
+%\setlength{\parindent}{1pc}
+%%\setlength{\parskip}{\baselineskip}
+
+\begin{document}
+% MDW: This needs to be HERE (after the \begin{document})
+%\setlength{\baselineskip}{12pt}
+
+%don't want date printed
+\date{}
+
+%%%%%%%%%%%% THIS IS WHERE WE PUT IN THE TITLE AND AUTHORS %%%%%%%%%%%%
+
+\title{{\ttlfnt Fidelity and Yield in a \\ Volcano Monitoring Sensor
+Network}}
+\author{{\aufnt Geoff Werner-Allen$^\star$, Konrad Lorincz$^\star$, 
+Jeff Johnson$^\dag$, Jonathan Lees$^\ddag$, and Matt Welsh$^\star$} \\
+{\affaddr $^\star$ Division of Engineering and Applied Sciences, Harvard University} \\
+{\affaddr $^\dag$ Dept. of Earth Sciences, University of New Hampshire} \\
+{\affaddr $^\ddag$ Dept. of Geological Sciences, University of North
+Carolina}}
+\maketitle
+%\copyrightspace
+
+\thispagestyle{empty}
+
+%%%%%%%%%%%%%  ABSTRACT GOES HERE %%%%%%%%%%%%%%
+
+\subsection*{Abstract}
+%\abstract{
+\begin{small}
+%\setlength{\baselineskip}{20pt}
+We present a science-centric evaluation of a 19-day sensor
+network deployment at Reventador, an active volcano in Ecuador.
+Each of the 16~sensors continuously sampled seismic and acoustic 
+data at 100~Hz. Nodes used an event-detection algorithm to trigger 
+on interesting volcanic activity and initiate reliable data transfer 
+to the base station. During the deployment, the network recorded
+229~earthquakes, eruptions, and other seismoacoustic events. 
+\end{small}
+
+%\setlength{\baselineskip}{9pt}
+\begin{small}
+The science requirements of reliable data
+collection, accurate event detection, and high timing precision 
+drive sensor networks in new directions for geophysical monitoring.
+The main contribution of this paper is an evaluation of the sensor
+network as a scientific instrument, holding it to the standards
+of existing instrumentation in terms of data {\em fidelity} (the
+quality and accuracy of the recorded signals) and {\em yield} (the quantity
+of the captured data).  
+We describe an approach to {\em time rectification} of the acquired 
+signals that can recover accurate timing despite failures of the 
+underlying time synchronization protocol. In addition, we perform a 
+detailed study of the sensor network's data using a direct comparison 
+to a standalone data logger, as well as an investigation of seismic 
+and acoustic wave arrival times across the network. 
+%\setlength{\baselineskip}{9pt}
+\end{small}
+%}
+
+%%%%%%%%%%%%%  BODY OF PAPER GOES HERE %%%%%%%%%%%%%%
+
+\tensize
+\setlength{\baselineskip}{12pt}
+
+%\setlength{\baselineskip}{11.5pt}
+\input{intro.tex} 
+\input{background.tex}
+\input{design.tex}
+\input{robustness.tex}
+\input{eventdetection.tex}
+\input{performance.tex}
+\input{timing.tex}
+\input{fidelity.tex}
+\input{related.tex}
+%\input{conclusions.tex}
+\input{lessons.tex}
+\input{acknowledgements.tex}
+
+%%%%%%%%%%%%%  THIS IS WHERE THE BIBLIOGRAPHY GOES %%%%%%%%%
+
+\def\baselinestretch{0.92}
+\begin{footnotesize}
+\setlength{\itemsep}{1in}
+\bibliographystyle{abbrv} \bibliography{osdi}
+\end{footnotesize}
+
+\end{document}

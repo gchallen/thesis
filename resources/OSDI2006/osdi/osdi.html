@@ -1,0 +1,2267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.70)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Fidelity and Yield in a Volcano Monitoring Sensor
+Network</TITLE>
+<META NAME="description" CONTENT="Fidelity and Yield in a Volcano Monitoring Sensor
+Network">
+<META NAME="keywords" CONTENT="osdi">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="osdi.css">
+
+</HEAD>
+
+<BODY >
+
+<P>
+
+<P>
+
+<H1 ALIGN="CENTER">Fidelity and Yield in a 
+<BR>Volcano Monitoring Sensor
+Network</H1><DIV>
+
+<P ALIGN="CENTER">
+  <STRONG>
+    Geoff Werner-Allen<IMG WIDTH="11" HEIGHT="16" ALIGN="BOTTOM" BORDER="0" SRC="img5.png" ALT="$^\star$">, 
+    Konrad Lorincz<IMG WIDTH="11" HEIGHT="16" ALIGN="BOTTOM" BORDER="0" SRC="img5.png" ALT="$^\star$">, 
+    Jeff Johnson<IMG WIDTH="10" HEIGHT="20" ALIGN="BOTTOM" BORDER="0" SRC="img6.png" ALT="$^\dag$">, 
+    Jonathan Lees<IMG WIDTH="10" HEIGHT="20" ALIGN="BOTTOM" BORDER="0" SRC="img7.png" ALT="$^\ddag$">, 
+    and Matt Welsh<IMG WIDTH="11" HEIGHT="16" ALIGN="BOTTOM" BORDER="0" SRC="img5.png" ALT="$^\star$"></STRONG></P>
+<center>
+<P><I><IMG
+ WIDTH="11" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img5.png"
+ ALT="$^\star$"> Division of Engineering and Applied Sciences, Harvard University</I>
+<br><IMG WIDTH="10" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img6.png"
+ ALT="$^\dag$"> Dept. of Earth Sciences, University of New Hampshire
+<br><IMG WIDTH="10" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img7.png"
+ ALT="$^\ddag$">Dept. of Geological Sciences, University of North Carolina
+</ center>
+</DIV>
+
+<P>
+
+<P>
+
+<H2><A NAME="SECTION00001000000000000000">
+Abstract</A>
+</H2>
+<FONT SIZE="-1">We present a science-centric evaluation of a 19-day sensor
+network deployment at Reventador, an active volcano in Ecuador.
+Each of the 16&nbsp;sensors continuously sampled seismic and acoustic 
+data at 100&nbsp;Hz. Nodes used an event-detection algorithm to trigger 
+on interesting volcanic activity and initiate reliable data transfer 
+to the base station. During the deployment, the network recorded
+229&nbsp;earthquakes, eruptions, and other seismoacoustic events. 
+</FONT>
+
+<P>
+<FONT SIZE="-1">The science requirements of reliable data
+collection, accurate event detection, and high timing precision 
+drive sensor networks in new directions for geophysical monitoring.
+The main contribution of this paper is an evaluation of the sensor
+network as a scientific instrument, holding it to the standards
+of existing instrumentation in terms of data <EM>fidelity</EM> (the
+quality and accuracy of the recorded signals) and <EM>yield</EM> (the quantity
+of the captured data).  
+We describe an approach to <EM>time rectification</EM> of the acquired 
+signals that can recover accurate timing despite failures of the 
+underlying time synchronization protocol. In addition, we perform a 
+detailed study of the sensor network's data using a direct comparison 
+to a standalone data logger, as well as an investigation of seismic 
+and acoustic wave arrival times across the network. 
+</FONT>
+
+<P>
+
+<H1><A NAME="SECTION00010000000000000000">
+Introduction</A>
+</H1>
+
+<P>
+Sensor networks are making inroads into a number of scientific explorations,
+including environmental
+monitoring&nbsp;[<A
+ HREF="osdi.html#rope-emnets05">1</A>,<A
+ HREF="osdi.html#berkeley-redwoods">25</A>], habitat
+monitoring&nbsp;[<A
+ HREF="osdi.html#cerpa-habitat">2</A>,<A
+ HREF="osdi.html#mainwaring-habitat">10</A>,<A
+ HREF="osdi.html#gdi-sensys04">23</A>], and
+structural monitoring&nbsp;[<A
+ HREF="osdi.html#ggb-monitoring">16</A>,<A
+ HREF="osdi.html#netshm-emnets05">14</A>,<A
+ HREF="osdi.html#wisan">30</A>].  
+In each of these
+domains, the use of low-power wireless sensors offers the potential to 
+collect data at spatial and temporal scales that are 
+not feasible with existing instrumentation.
+Despite increased interest in this area, little has been done to
+evaluate the ability of sensor networks to provide meaningful
+data to domain scientists. A number of challenges confound such an effort,
+including node failure, message loss, sensor calibration, and inaccurate time
+synchronization. To successfully aid scientific studies, sensor networks
+must be held to the high standards of 
+current scientific instrumentation.
+
+<P>
+In this paper, we take a hard look at the performance of a wireless sensor
+network deployed on an active volcano. We evaluate its effectiveness as a
+scientific instrument using two metrics: <EM>data fidelity</EM> and <EM>yield</EM>. Data fidelity encompasses the quality and
+consistency of retrieved seismoacoustic signals, while data yield reflects
+the quantity of data delivered by the network. 
+
+<P>
+Typical volcano monitoring studies employ GPS-synchronized data
+loggers recording both seismic and acoustic signals. These provide 
+high data fidelity and yield but are bulky, power
+hungry, and difficult to deploy. Existing analog and digital
+telemetry is similarly cumbersome. 
+The use of wireless sensors could enable studies involving many 
+more sensors distributed over a larger area. However, the 
+science requirements pose a number of difficult challenges for sensor
+networks.  First, seismoacoustic monitoring requires high data rates, 
+with each node sampling multiple channels at 100&nbsp;Hz. Second,
+signal analysis requires complete data, necessitating reliable 
+data collection. Third, volcano studies compare signals
+across multiple sensors, requiring that collected data be accurately 
+timestamped against a GPS-based global clock.
+
+<P>
+The core contribution of this paper is an analysis of the efficacy 
+and accuracy of a volcano-monitoring sensor network as a scientific 
+instrument. This is the
+first paper to our knowledge to take a science-centric view of 
+a sensor network with such demanding data-quality requirements. 
+In this paper, we evaluate the data collected from 
+a 19-day field deployment of 16&nbsp;wireless sensors on 
+Reventador volcano, Ecuador, along the following axes:
+
+<P>
+
+<ul>
+<li>
+<B>Robustness:</B> We find that the sensor nodes
+themselves were extremely reliable but that overall robustness 
+was limited by power outages at the base station and a single 
+three-day software failure. Discounting the power outages
+and this single failure, mean node uptime exceeded 96%.
+<li>
+<B>Event detection accuracy:</B> Our network was designed to 
+trigger data collection following volcanic events such as 
+earthquakes and eruptions. We measure the accuracy of our
+distributed event-detection algorithm, finding that the 
+algorithm has a zero false positive rate. However, the network
+failed to detect many seismic events due to a poor choice of 
+event-detection parameters and limitations of our data collection
+protocol.
+<li>
+<B>Data transfer performance:</B> We evaluate the ability of our
+data collection protocol to transfer complete signals following an 
+event. We find a 90th percentile <EM>event yield</EM> (fraction of nodes for
+which all data for an event was collected) of 94% and a latency 
+of 63&nbsp;sec per radio hop for downloading 60&nbsp;sec worth of data.
+<li>
+<B>Timing accuracy:</B> Data collected by each node
+must be timestamped to within a single sample time (10&nbsp;ms) to
+enable seismological analysis. We evaluate the
+stability of the underlying time synchronization protocol 
+(FTSP&nbsp;[<A
+ HREF="osdi.html#ftsp">11</A>]), and develop a novel approach to <EM>time 
+rectification</EM> that accurately timestamps each sample despite
+failures of the FTSP protocol. We show that this approach
+recovers timing with a 90th-percentile error of 6.8&nbsp;msec in a 6-hop network.
+<li>
+<B>Data fidelity:</B> Finally, we take a seismological view of
+the captured data and present a head-to-head comparison of data 
+recorded by our sensor network against a colocated data logger.  
+We also evaluate the consistency of the recorded signals in terms 
+of seismic and acoustic wave arrival times across the network, 
+showing that the data is consistent with expected physical models 
+of the volcano's activity.
+</ul>
+
+<P>
+The rest of this paper is organized as follows. The next section
+provides background on the use of wireless sensors for volcano
+monitoring and outlines the underlying science goals. In 
+Section&nbsp;<A HREF="#sec-design">3</A> we describe the architecture of our 
+system and the field deployment at Reventador.
+Sections&nbsp;<A HREF="#sec-robustness">4</A>&nbsp;through&nbsp;<A HREF="#sec-fidelity">8</A> present
+a detailed analysis of the network's performance along each of the
+evaluation metrics described above. Section&nbsp;<A HREF="#sec-related">9</A> 
+discusses related work and Section&nbsp;<A HREF="#sec-lessons">10</A> presents several
+lessons learned from the deployment. Section&nbsp;<A HREF="#sec-conclusions">11</A> 
+outlines future work and concludes.
+
+<H1><A NAME="SECTION00020000000000000000"></A>
+<A NAME="sec-background"></A><BR>
+Background
+</H1>
+
+<P>
+Scientists monitor volcanoes for two non-exclusive reasons: (1) to
+monitor hazards by assessing the level of volcanic unrest; 
+and (2) to understand physical processes occurring within the
+volcano, such as magma migration and eruption
+mechanisms&nbsp;[<A
+ HREF="osdi.html#scarpa-96">21</A>,<A
+ HREF="osdi.html#mcnutt-96">12</A>]. 
+The most common instrument used is the seismometer, which
+measures ground-propagating elastic radiation from both sources internal 
+to the volcano (e.g., fracture induced by pressurization) and on the 
+surface (e.g., expansion of gases during an eruption)&nbsp;[<A
+ HREF="osdi.html#mcnutt-96">12</A>].  
+In addition, microphones are sometimes employed to record <EM>infrasound</EM>, low-frequency (<IMG
+ WIDTH="16" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$&lt;$"> 20&nbsp;Hz) acoustic waves generated during
+explosive events. Infrasound is useful for differentiating
+shallow and surface seismicity and for quantifying eruptive styles and
+intensity&nbsp;[<A
+ HREF="osdi.html#johnson-etal-04b">7</A>].
+
+<P>
+
+<H2><A NAME="SECTION00021000000000000000">
+Existing volcano instrumentation</A>
+</H2>
+
+<P>
+The type of instrumentation used to study volcanoes depends on the 
+the science goals of the deployment. We are focused on the use of
+wireless sensors for temporary field deployments involving
+dozens of sensor stations deployed around an
+expected earthquake source region, with inter-node spacing of
+hundreds of meters. A typical campaign-style deployment will last 
+weeks to months depending on the activity level of the volcano, 
+weather conditions, and science requirements.
+
+<P>
+Geophysicists often use standalone dataloggers 
+(e.g., Reftek 130&nbsp;[<A
+ HREF="osdi.html#reftek">20</A>]) that record signals
+from seismometers and microphones to a flash drive.
+These data loggers are large and power-hungry,
+typically powered by car batteries charged by solar panels. 
+The sheer size and weight precludes deployments of 
+more than a small number of stations
+in remote or hazardous areas. Additionally, data must be 
+retrieved manually from each station every few weeks,
+involving significant effort. Analog and digital radio telemetry 
+enables real-time transmission of data back to an observatory. 
+However, existing telemetry equipment is very bulky and its limited 
+radio bandwidth is a problem for collecting continuous data 
+from multiple channels.
+
+<P>
+
+<H2><A NAME="SECTION00022000000000000000">
+Sensor network challenges</A>
+</H2>
+
+<P>
+Wireless sensor networks have the potential to greatly enhance
+understanding of volcanic processes by permitting large deployments 
+of sensors in remote areas.
+Our group is one of the first to explore the use of wireless
+sensor networks for volcano monitoring. We have deployed
+two wireless arrays on volcanoes in Ecuador: at Volc&#225;n Tungurahua 
+in July 2004&nbsp;[<A
+ HREF="osdi.html#volcano-ewsn05">27</A>], and at 
+Reventador in August 2005&nbsp;[<A
+ HREF="osdi.html#volcano-ieeeic06">28</A>]. 
+The science requirements give rise to a 
+number of unique challenges for sensor networks, which we 
+outline below.
+
+<P>
+<B>High-resolution signal collection:</B>
+Data from seismometers and microphones must be recorded at 
+relatively high data rates with adequate per-sample resolution. 
+A sampling rate of 100&nbsp;Hz and resolution of 24&nbsp;bits is typical.
+This is in contrast
+to sensor networks targeting low-rate data collection,
+such as environmental monitoring&nbsp;[<A
+ HREF="osdi.html#gdi-sensys04">23</A>,<A
+ HREF="osdi.html#berkeley-redwoods">25</A>].
+
+<P>
+<B>Triggered data acquisition:</B>
+Due to limited radio bandwidth (less than 100&nbsp;Kbps when accounting 
+for MAC overhead), it is infeasible 
+to continuously transmit the full-resolution signal.
+Instead, we rely on triggered data collection that
+downloads data from each sensor following
+a significant earthquake or eruption. This requires sensor nodes
+to continuously sample data and detect events of interest. 
+Event reports from multiple nodes must be collated to accurately 
+detect <EM>global</EM> triggers across the network.
+
+<P>
+<B>Timing accuracy:</B> 
+To facilitate comparisons of signals across nodes, signals
+must be timestamped with an accuracy of one sample time 
+(i.e., 10&nbsp;ms at 100&nbsp;Hz). 
+Data loggers generally incorporate a GPS receiver and use low-drift 
+oscillators to maintain accurate timing. However, equipping each
+sensor node with a GPS receiver would greatly increase power
+consumption and cost. Instead, we rely on a network time 
+synchronization protocol&nbsp;[<A
+ HREF="osdi.html#rbs">4</A>,<A
+ HREF="osdi.html#ftsp">11</A>] and a <EM>single</EM> GPS
+receiver. However, correcting for errors in the time 
+synchronization protocol requires extensive post-processing 
+of the raw timestamps.
+
+<P>
+
+<H1><A NAME="SECTION00030000000000000000"></A>
+<A NAME="sec-design"></A><BR>
+System Architecture
+</H1>
+
+<P>
+In this section we provide a brief overview of the design of our
+volcano monitoring sensor network and details of the deployment
+at Reventador. In an earlier magazine article&nbsp;[<A
+ HREF="osdi.html#volcano-ieeeic06">28</A>]
+we describe the system and deployment in more detail, although we have
+not previously published results evaluating its performance.
+
+<P>
+
+<H2><A NAME="SECTION00031000000000000000"></A>
+<A NAME="sec-hardware"></A>
+Sensor hardware
+</H2>
+
+<DIV ALIGN="CENTER"><A NAME="fig-station"></A><A NAME="302"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1: </STRONG>
+<FONT SIZE="-1"><B>Our wireless volcano monitoring sensor node.</B></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="figs/pics/Station2-small.png">
+<IMG SRC="figs/pics/Station2-small-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Our wireless sensor node (Figure&nbsp;<A HREF="#fig-station">1</A>)
+is based on the TMote Sky&nbsp;[<A
+ HREF="osdi.html#moteiv">13</A>] 
+platform, which integrates a TI&nbsp;MSP430 processor, 10&nbsp;KB of SRAM,
+48&nbsp;KB of program ROM, 1&nbsp;MByte of flash memory, and a Chipcon 
+CC2420 radio. All software is implemented in TinyOS&nbsp;[<A
+ HREF="osdi.html#tinyos-asplos00">5</A>].
+We designed a custom sampling board that 
+provides four channels of 24-bit analog-to-digital 
+conversion (TI&nbsp;AD7710). 
+
+<P>
+Nodes were interfaced to either a single-axis seismometer
+(GeoSpace GS-11) or three seismometers in 
+a triaxial configuration (GeoSpace GS-1). 
+Both sensors are
+passive instruments; ground motion generates a voltage which is 
+amplified and digitized by the sampling board. 
+In addition, each node was attached to an
+omnidirectional microphone (Panasonic WM-034BY). This microphone has
+been used in other infrasonic monitoring studies&nbsp;[<A
+ HREF="osdi.html#johnson-etal-04b">7</A>].
+
+<P>
+Each node was equipped with an 8.5&nbsp;dBi omnidirectional antenna 
+mounted on 1.5&nbsp;m of PVC pipe. 
+This permitted line-of-sight radio range of over 1&nbsp;km 
+without amplification; nodes were typically placed 200-400&nbsp;m apart 
+in our deployment. Nodes were powered by two D-cell batteries with 
+a lifetime of approximately 1&nbsp;week.  
+Each node was enclosed in a weatherproof Pelican case.
+
+<P>
+Several other pieces of hardware complete the system. FreeWave radio 
+modems provided a long-distance radio link between the
+sensor array and the volcano observatory, 4.6&nbsp;km away. A laptop 
+located at the observatory logged data and was used to
+monitor and control the network.  Finally, to establish
+a global timebase, we used a single Crossbow MicaZ&nbsp;[<A
+ HREF="osdi.html#xbow">3</A>] mote
+interfaced to a GPS receiver (Garmin OEM&nbsp;18&nbsp;LVC).  The GPS receiver
+provided a 1&nbsp;Hz pulse that is accurate to GPS time within 1&nbsp;<IMG
+ WIDTH="13" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img11.png"
+ ALT="$\mu$">s,
+and acted as the root of the network time synchronization protocol as
+described in Section&nbsp;<A HREF="#sec-timing">7</A>.
+
+<P>
+
+<H2><A NAME="SECTION00032000000000000000">
+Network topology and status monitoring</A>
+</H2>
+
+<P>
+Nodes form a multihop routing tree rooted at the gateway node that is
+physically attached to the FreeWave modem; we use a variant of
+MintRoute&nbsp;[<A
+ HREF="osdi.html#awoo-multihop">29</A>] that uses the CC2420's Link
+Quality Indicator metric to select routing paths. Each node transmits a
+<EM>status message</EM> every 10&nbsp;sec that includes its position in 
+the routing tree, buffer status, local and global timestamps, 
+battery voltage, and other information. 
+In addition, the base station can issue a <EM>command</EM> to each node,
+instructing it to respond with an immediate status message, start or
+stop data sampling, and set various software parameters.
+Commands are propagated using a simple flooding protocol. 
+The <EM>Deluge</EM> protocol&nbsp;[<A
+ HREF="osdi.html#deluge">6</A>] was also used to permit over-the-air
+reprogramming and rebooting of nodes.
+
+<P>
+
+<H2><A NAME="SECTION00033000000000000000">
+Event detection and data collection</A>
+</H2>
+
+<P>
+Because of the high data rates involved (600-1200&nbsp;bytes/sec 
+from each node) it is infeasible to continuously transmit 
+all sensor data. Rather,
+nodes are programmed to locally detect interesting seismic events
+and transmit event reports to the base station. If enough nodes
+trigger in a short time interval, the base station attempts to
+download the last 60&nbsp;sec of data from each node. 
+This design forgoes continuous
+data collection for increased resolution following significant seismic
+events, which include earthquakes, eruptions, or long-period (LP)
+events, such as tremor.
+The download window of 60&nbsp;sec was chosen to capture the bulk
+of the eruptive and earthquake events, although many LP events
+can exceed this window (sometimes lasting minutes or hours).
+To validate our network against existing scientific instrumentation,
+our network was designed for high-resolution signal collection
+rather than extensive in-network processing.
+
+<P>
+During normal operation, each node continuously samples its seismic 
+and acoustic sensors at 100&nbsp;Hz, storing the data to flash
+memory. Data is stored as 256-byte <EM>blocks</EM> in the flash.
+Each block 
+is tagged with the <EM>local timestamp</EM> corresponding 
+to the first sample in the block. 
+This timestamp is later mapped onto a global time reference
+as described in Section&nbsp;<A HREF="#sec-timing">7</A>. The 1&nbsp;Mbyte flash is treated 
+as a circular buffer storing approximately 20&nbsp;min of data. 
+
+<P>
+In addition, nodes run an <EM>event detection algorithm</EM> that
+computes two exponentially-weighted moving averages (EWMA) 
+over the input signal with different gain
+settings. When the ratio between the two EWMAs exceeds a threshold,
+the node transmits an event report to the base station.
+If the base station receives triggers from 30% of the active nodes
+within a 10&nbsp;sec window, it considers the event to be well-correlated 
+and initiates data collection.
+
+<P>
+Our reliable bulk-transfer protocol, called <EM>Fetch</EM>, operates
+as follows. The base station waits for 30&nbsp;sec following an event
+before iterating through all nodes in the network. The base sends each
+node a command to temporarily stop sampling, ensuring the event
+will not be overwritten by subsequent samples. 
+For each of the 206&nbsp;blocks in the 60&nbsp;sec window, 
+the base sends a <EM>block request</EM> to the node.
+The node reads the requested block from flash and 
+transmits the data as a series of 8&nbsp;packets. 
+After a short timeout the base will issue
+a repair request to fill in any missing packets from the block.
+Once all blocks have been received or a timeout occurs, the base 
+station sends the node a command to resume sampling and proceeds 
+to download data from the next node. 
+
+<P>
+
+<H2><A NAME="SECTION00034000000000000000">
+Deployment on Volc&#225;n Reventador</A>
+</H2>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-schematic"></A><A NAME="304"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2: </STRONG>
+<FONT SIZE="-1"><B>Sensor network architecture.</B> </FONT><FONT
+SIZE="-1"><br><EM>Nodes form a
+multihop routing topology, relaying data via a long-distance radio
+modem to the observatory. A GPS receiver is used to establish a global
+timebase. The network topology shown here was used during
+our deployment at Reventador.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="figs/pics/schematic2.png">
+<IMG SRC="figs/pics/schematic2-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-map"></A><A NAME="306"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3: </STRONG>
+<FONT SIZE="-1"><B>Map of sensor deployment at Volc&#225;n Reventador.</B>
+</FONT><FONT SIZE="-1"><br><EM>In addition to the 16&nbsp;sensor nodes, two broadband seismometers
+with data loggers (RRVENT and RRLAV3) were colocated with the network.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="figs/pics/reventador-map-crop.png">
+<IMG SRC="figs/pics/reventador-map-crop-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Our deployment at Reventador took place between August 1-19, 2005.
+Reventador is an active volcano located in northern Ecuador, about 100&nbsp;km
+from Quito. 
+During this time, Reventador's activity consisted of small explosive events
+that ejected ash and incandescent blocks several times a day. Associated
+seismicity included numerous explosion earthquakes as well as
+extended-duration shaking (tremor) and shallow rock-fracturing earthquakes.
+
+<P>
+We deployed 16&nbsp;sensor nodes on the upper flanks of Reventador, as
+shown in Figure&nbsp;<A HREF="#fig-map">3</A>, over a 3&nbsp;km linear configuration
+radiating away from the vent. The resulting multihop topology is shown
+in Figure&nbsp;<A HREF="#fig-schematic">2</A>. The upper flanks of the volcano were
+completely deforested by a large eruption in November 2002, allowing
+for line-of-sight radio communication between adjacent sensor nodes.
+Two standalone seismic stations, consisting of a broadband sensor, a
+Reftek 130 data logger with 1&nbsp;GByte flash memory cards, and a GPS
+receiver for timestamping, were colocated with sensor nodes. The data
+from these stations is essential to our network validation, described
+in Sections&nbsp;<A HREF="#sec-eventdetection">5</A>&nbsp;and&nbsp;<A HREF="#sec-timing">7</A>. The base
+station was located at a small hotel 4.6&nbsp;km from the deployment site.
+The sensors were deployed for a total of 19&nbsp;days, during which time
+the network recorded data from 229&nbsp;earthquakes, eruptions, and tremor
+events, logging 107&nbsp;MBytes of data. The long hike and lack of roads
+prevented frequent returns to the deployment site, although we
+returned several times to change batteries and perform other network
+maintenance.
+
+<P>
+
+<H1><A NAME="SECTION00040000000000000000"></A>
+<A NAME="sec-robustness"></A><BR>
+Network Robustness
+</H1>
+
+<P>
+The first evaluation metric that we consider is the <EM>robustness</EM>
+of the sensor network.  Sensor network deployments have typically been
+plagued by failures of individual nodes and the support
+infrastructure. Clearly, robustness has a direct effect on the
+resulting data yield.  Our evaluation shows that while nodes exhibited
+very high uptimes, the base station
+infrastructure was very unreliable, and a single
+bug affecting the Deluge protocol caused a three-day outage of
+the entire network.
+
+<P>
+
+<H2><A NAME="SECTION00041000000000000000">
+Overall network uptime</A>
+</H2>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-nodesalive"></A><A NAME="401"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 4: </STRONG>
+<FONT SIZE="-1"><B>Nodes reporting over time.</B>
+</FONT><FONT SIZE="-1"><br><EM>This figure shows the number of nodes reporting over each
+10&nbsp;min window during the 19-day deployment period. 
+The annotations (1) through (6) are described in the text.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="figs/robustness/nodesalive/nodesalive.png">
+<IMG SRC="figs/robustness/nodesalive/nodesalive-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Figure&nbsp;<A HREF="#fig-nodesalive">4</A> shows the number of nodes reporting over each
+10-minute interval during the entire 19-day deployment. A node is included in
+the count if any of its status messages were received at the base station
+during the 10-minute window.  Annotations show several significant events
+that occurred during the deployment. The network was installed in two phases
+of 8&nbsp;nodes each, the first on August&nbsp;1 and the second on August&nbsp;3.  At label
+(1) the entire 16&nbsp;node network is operational.  However, initial software
+misconfiguration required rebooting several nodes during a third visit to
+the deployment site on August&nbsp;5.  The network then ran with 16&nbsp;nodes active
+for a little more than 2&nbsp;days. 
+
+<P>
+At label (2) on August&nbsp;8, a software command was transmitted to reboot the
+network, using Deluge&nbsp;[<A
+ HREF="osdi.html#deluge">6</A>], in an attempt to correct the
+time synchronization fault described in Section&nbsp;<A HREF="#sec-timing">7</A>.
+This caused a software failure affecting all nodes, 
+with only a few reports being
+received at the base station later on August&nbsp;8. 
+After repeated attempts to
+recover the network, we returned to the deployment site on
+August&nbsp;11 (label (3)) to manually reprogram each node.  However, only
+11&nbsp;nodes could be reached before nightfall, forcing a return to the
+observatory. On August&nbsp;12 (label (4)) we returned to the
+deployment site and reprogrammed the remaining 5&nbsp;nodes. 
+
+<P>
+From August&nbsp;13&nbsp;through&nbsp;18, all&nbsp;16&nbsp;nodes were reporting nearly continuously.
+The intermittent failures (label (5)) were caused by power outages at the
+observatory, causing the base station laptop and radio modem to fail. During
+these times no data was logged by the base station although the sensor nodes
+themselves were probably operational, since all nodes would report when the 
+base station recovered.
+
+<P>
+Several days before the end of the deployment, node 204, located closest to
+the vent, stopped reporting data (label (6)). When the network was
+disassembled we discovered that the antenna mast had been destroyed, 
+most likely by a bomb ejected from the volcano during an eruption, 
+although the node itself remained intact. 
+This failure underscores the importance of remote
+telemetry for acquiring data at hazardous volcanoes.
+
+<P>
+
+<H2><A NAME="SECTION00042000000000000000">
+Individual node uptime</A>
+</H2>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-nodeuptime"></A><A NAME="402"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5:</STRONG>
+<FONT SIZE="-1"><B>Individual node uptimes.</B>
+</FONT><FONT SIZE="-1"><br><EM>This figure shows the percentage of time that each node 
+reported status messages during the 19-day deployment.
+Shown separately are the apparent node uptimes caused by
+the whole-network outage and 
+base station outages. While the former was true
+sensor node failure, the latter did not seem to affect the sensor 
+nodes themselves.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="./figs/robustness/nodesalive/node-uptime2.png">
+<IMG SRC="./figs/robustness/nodesalive/node-uptime2-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Figure&nbsp;<A HREF="#fig-nodeuptime">5</A> shows the uptime for each node during the 19-day
+deployment. Each bar consists of three portions. The lowest portion is the
+<EM>apparent</EM> uptime of each node accounting for both the base station
+failures and single 3-day&nbsp;software outage. Because base station failures did not
+affect individual nodes, the middle bar shows the apparent uptime including
+only the 3-day&nbsp;outage. In this case, the mean node uptime is&nbsp;69%.
+However, with the 3-day outage factored out, nodes achieved an average
+uptime of&nbsp;96%.  These numbers are encouraging and suggest that the sensor
+nodes were very reliable in spite of the software crash.
+
+<P>
+Based on discussions with the authors of Deluge, we believe this failure was
+caused by a single bug in the <TT>InternalFlash</TT> TinyOS component (which has
+since been fixed).  This bug prevented Deluge from storing critical state
+information, causing nodes to reboot continuously at short intervals.  We did
+not see this behavior in the lab before deployment, although we had not
+rigorously tested this portion of the code. In retrospect, it was optimistic
+of us to rely on a complex network reboot protocol that had not been
+field-tested.  Deluge was removed from the binary used during the network
+reprogram following the failure; it was replaced with a simpler mechanism to
+reboot individual nodes using a radio command.
+
+<P>
+
+<H2><A NAME="SECTION00043000000000000000">
+Discussion</A>
+</H2>
+
+<P>
+Failures of the base station infrastructure were a significant
+source of network downtime during the deployment.  This contrasts with 
+common assumptions
+that the base station is generally reliable and operating on a continuous
+power source. This was our expectation prior to the deployment, and we did
+not make adequate preparations for the intermittent electrical supply at the
+observatory. A backup diesel generator was used during nightly power outages,
+with extra laptop and car batteries supplying power when it failed.  However,
+this approach was not ultimately successful.
+
+<P>
+It may be surprising that node uptime is not related to depth in the
+routing tree. This suggests that if a node is ``down'' (i.e., we do
+not receive any status messages from it during a 10-minute window)
+that it is still active and routing packets for its children in the
+tree, even as its own status messages are being lost. An alternate
+explanation is that a node could select an alternate parent in the
+routing topology when its parent fails. However, our analysis of the
+routing topology (Figure&nbsp;<A HREF="#fig-schematic">2</A>) does not support this
+view, since nodes rarely use more than one parent. For example,
+node&nbsp;214 <EM>always</EM> routes data through node&nbsp;251. The
+volcano-induced failure of node&nbsp;204 near the end of the deployment
+is the only notable failure of a single node.
+
+<P>
+
+<H1><A NAME="SECTION00050000000000000000"></A>
+<A NAME="sec-eventdetection"></A><BR>
+Event Detector Accuracy
+</H1>
+
+<P>
+Our network was designed to capture interesting volcanic signals.  Thus, it
+is critical that the system correctly identify and report such events.  This
+section evaluates our event detection algorithm both in terms of the number
+and rate of event triggers as well as its ability to detect
+scientifically interesting events.
+
+<P>
+
+<H2><A NAME="SECTION00051000000000000000">
+Event triggers per node</A>
+</H2>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-eventspernode"></A><A NAME="472"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6: </STRONG>
+<FONT SIZE="-1"><B>Event triggers per node.</B>
+</FONT><FONT SIZE="-1"><br><EM>This figure shows the total number of event triggers reported by each
+node. It demonstrates a wide variation in trigger rates that cannot be
+attributed only to varying node uptimes. For example, node&nbsp;204 had the lowest
+uptime but the largest number of event triggers.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="./figs/eventdetection/eruptionTriggers/eruptCount.png">
+<IMG SRC="./figs/eventdetection/eruptionTriggers/eruptCount-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-eventspertime"></A><A NAME="473"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7: </STRONG>
+<FONT SIZE="-1"><B>Event triggers over time.</B>
+</FONT><FONT SIZE="-1"><br><EM>The upper graph shows the total number of individual node triggers per
+hour. The lower graph shows the corresponding number of global
+triggers. Reventador's varying seismic activity generated between 0&nbsp;to&nbsp;5
+global triggers per hour.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="./figs/eventdetection/eruptionTriggers/eruptCountVsTime.png">
+<IMG SRC="./figs/eventdetection/eruptionTriggers/eruptCountVsTime-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Figure&nbsp;<A HREF="#fig-eventspernode">6</A> shows the total number of events reported by
+each node during the deployment. It shows a wide variation in the event
+trigger rate, from 70&nbsp;triggers for node&nbsp;213 to 1830&nbsp;triggers for node&nbsp;204.
+Variation in the trigger rate can be attributed to many factors, including the
+location of the node, the orientation of the seismometer, and the quality of
+the seismometer-to-ground coupling.  Note that the trigger rate does not seem
+to be related to distance from the vent. Although node&nbsp;204 was closest 
+to the vent and reported the most triggers, nodes 200, 205, and 210 
+all had high trigger counts despite being significantly farther away.
+
+<P>
+
+<H2><A NAME="SECTION00052000000000000000">
+Event triggers over time</A>
+</H2>
+
+<P>
+Figure&nbsp;<A HREF="#fig-eventspertime">7</A> shows both the number of individual node and
+global event triggers over each hour. We observe
+that the volcano's activity varied greatly, generating trigger counts ranging
+between&nbsp;2&nbsp;and&nbsp;405 events per hour when the network was online.  This activity
+translates into up to 5&nbsp;global event triggers an hour, each initiating a
+Fetch download cycle of the associated data.
+
+<P>
+The volcano's bursty and unpredictable activity makes the network's design more
+challenging than systems designed for statically-scheduled data collection.
+The data collection protocol, based on our earlier deployment at
+Tungurahua&nbsp;[<A
+ HREF="osdi.html#volcano-ewsn05">27</A>], assumed that events would be rare and that
+it would be unnecessary to simultaneously record signals for one event while
+downloading another. As a result, we missed a number of impressive
+back-to-back eruptions typical of the activity at Reventador. It is worth
+noting that the variable number of event reports is itself a measure
+of the volcano's activity level and could be used to assess hazard levels. 
+
+<P>
+
+<H2><A NAME="SECTION00053000000000000000"></A>
+<A NAME="sec-eventdetectaccuracy"></A><BR>
+Event detector accuracy
+</H2>
+
+<P>
+The network detected 229&nbsp;eruptions, explosions, earthquakes, and
+tremor events during the deployment. Ideally, we would like to assess
+its accuracy in terms of the fraction of true events detected, as well
+as the false positive rate. Given the high degree of coherence
+required by the global event detector (requiring 30% of the active
+nodes to trigger within a short time window), we would be surprised if
+the sensor network recorded any false events. Indeed, all of the
+signals we did capture appear to be based on true volcanic activity,
+indicating a zero false positive rate.
+
+<P>
+We intended to apply our event detection algorithm to the signals collected 
+by the two broadband seismic stations to establish the algorithm's accuracy. 
+Unfortunately, we found this to
+be difficult for several reasons.  First, each of the broadband stations
+suffered intermittent power and software failures, either preventing them
+from logging any data, or corrupting the collected signals or timestamps.
+Thus, even in those cases where broadband data is available, it is
+not always accurate. 
+Second, the broadband stations deployed a more
+sensitive seismometer with a much wider frequency response. 
+The geophones used by our sensor nodes have a corner frequency of
+4.5&nbsp;Hz, while the broadband sensors have a corner frequency of 0.033&nbsp;Hz. 
+Additionally, the broadband seismometers
+are much more sensitive, generating voltages of 800&nbsp;V/m/sec, whereas
+the geophones have a sensitivity of only 32&nbsp;V/m/sec. As a
+result, the broadband sensors are able to detect much weaker seismic 
+signals.
+
+<P>
+We focus our attention on a single day of data where the
+broadband stations were recording clean data and the sensor network
+was relatively stable. One of the authors, a seismologist, visually 
+extracted events from the broadband data; during this 24-hour period,
+a total of 589&nbsp;events were recorded by the broadband sensors. During
+the same time, the sensor network triggered on just 7&nbsp;events,
+suggesting that our detection accuracy is very low (about 1%).
+
+<P>
+The network could have failed to detect a seismic event for one
+of four reasons: (1) failure of individual nodes; (2) failure of
+the base station or radio modem; (3) the low sensitivity of our
+seismometers; or (4) failure of the event detection
+algorithm itself. To factor out the increased sensitivity of the 
+broadband seismometers, we only consider the 174&nbsp;events with SNR&nbsp;<IMG
+ WIDTH="37" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img18.png"
+ ALT="$\geq 10$"> 
+from both stations, which we expect the geophones should 
+have been able to detect as well. 
+Also, Section&nbsp;<A HREF="#sec-robustness">4</A> has already addressed 
+the question of uptime, so we focus here on the inherent accuracy 
+of the event detector when the network was 
+operating correctly. 136&nbsp;of the 174&nbsp;broadband events occurred during times
+when the network was operational. Taking these two factors into
+account, the network's detection accuracy is still only about 5%. 
+
+<P>
+Recall that during a Fetch download cycle, nodes disabled sampling to
+avoid overwriting data in flash. Download cycles could take up to
+several minutes <EM>per node</EM> (see Section&nbsp;<A HREF="#sec-performance">6</A>), meaning
+that there are significant time windows when the network was unable to
+detect new events. During the Fetch cycles on August 15, the broadband
+stations recorded 42&nbsp;events, 24% of the total events detected. 
+This indicates that, all else being equal, the sensor network could
+have detected approximately 24% more events had we designed the
+protocol to sample and download simultaneously. We plan to add this
+feature in the next version of our system.
+
+<P>
+In the end, we believe that our low detection rate is the result of
+the parameters used in the EWMA-based event detection algorithm.
+These parameters were chosen prior to the deployment, based on our 
+experience with detecting infrasonic events at a different
+volcano&nbsp;[<A
+ HREF="osdi.html#volcano-ewsn05">27</A>]. We did not experiment with modifying 
+them in the field. Indeed,
+using our algorithm with these same parameters 
+on the broadband data for August&nbsp;15 detects only
+101&nbsp;events, a fraction of the events chosen manually by an expert. 
+We plan to tune our event-detection parameters for future deployments
+based on the data collected by the broadband stations.
+
+<P>
+
+<H1><A NAME="SECTION00060000000000000000"></A>
+<A NAME="sec-performance"></A><BR>
+Data Collection Performance
+</H1>
+
+<P>
+In this section we assess the performance of the <EM>Fetch</EM> data collection
+protocol. We evaluate Fetch in terms of its <EM>yield</EM>, its ability 
+to successfully collect requested data; and its <EM>latency</EM>, the 
+time to download events from the network.
+
+<P>
+
+<H2><A NAME="SECTION00061000000000000000">
+Data yield</A>
+</H2>
+
+<P>
+We define the <EM>event yield</EM> of a Fetch transfer as the fraction of
+nodes for which the entire 60&nbsp;sec signal was successfully downloaded
+following an event. The calculation only considers those nodes that
+were active at the time of the event detection (Figure&nbsp;<A HREF="#fig-nodesalive">4</A>). 
+For example, if 10&nbsp;nodes were active
+during an event, then the event yield is defined in terms of 10&nbsp;nodes.
+Note that the Fetch protocol attempts to download a signal from all
+active nodes, even those that did not detect the event.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-compBlockYieldCDF"></A><A NAME="555"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 8: </STRONG>
+<FONT SIZE="-1"><B>Event yield.</B>
+</FONT><FONT SIZE="-1"><br><EM>This graph shows a CDF of the event yield for each of the 229&nbsp;events
+recorded during the entire deployment. Event yield is the fraction of
+active nodes from which a complete 60&nbsp;sec signal was downloaded
+following an event.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="./figs/performance/yields/comparison/availableEventNodeYieldCDF.png">
+<IMG
+SRC="./figs/performance/yields/comparison/availableEventNodeYieldCDF-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Figure&nbsp;<A HREF="#fig-compBlockYieldCDF">8</A> shows a CDF of the event 
+yield for all 229&nbsp;events recorded during the deployment.  As the
+figure shows, the median event yield was 68.5% and the 90th
+percentile was 94%.  The yield can be affected by several factors.
+First, the protocol will abort a transfer from a node after
+re-requesting the same block more than 20&nbsp;times, or if the transfer
+from a single node exceeds 10&nbsp;minutes.  Second, because sampling is
+disabled while performing a data transfer, if two back-to-back events
+occur a node may not end up storing data for the second event.
+
+<P>
+Next, we look at the <EM>node yield</EM> which we define as the
+probability that an event was successfully downloaded from a given
+node.  Like the event yield, the calculation only considers those
+nodes that were active at the time of each event detection.  Node yield
+can be affected by several factors.  The depth and radio link quality
+of a node's routing path to the base station affect packet loss rate
+and thereby the likelihood of a Fetch timeout.
+Additionally, two nodes outfitted with triaxial seismometers
+(nodes&nbsp;250&nbsp;and&nbsp;251) sample and store twice as much data as the others,
+increasing the probability of a timeout.  Finally, a bug in our control
+application caused node&nbsp;250 to sample data continuously, even during a Fetch
+operation. As a result, this node was more likely to overwrite an 
+event stored in flash before it could be downloaded.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-nodeYield"></A><A NAME="556"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 9: </STRONG>
+<FONT SIZE="-1"><B>Node yield.</B>
+</FONT><FONT SIZE="-1"><br><EM>This graph shows the node yield for each of the 16 nodes
+over the entire deployment, defined as the probability that an event
+was successfully downloaded from a node, as long as that node is active 
+during the corresponding event detection.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="./figs/performance/yields/nodeYield/nodeYieldOnly.png">
+<IMG SRC="./figs/performance/yields/nodeYield/nodeYieldOnly-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Figure&nbsp;<A HREF="#fig-nodeYield">9</A> shows the node yield for each of the nodes.
+We can see how the factors mentioned above affected performance.
+First, the nodes with the highest yield (above 80%) tend to be within
+two hops from the root (see Figure&nbsp;<A HREF="#fig-schematic">2</A>).  However,
+despite being within two or three hops, node&nbsp;209 had a fairly low
+yield.  This is explained by the fact that node&nbsp;209 had a poor link to
+its closest parent, node&nbsp;200.  In fact, although most nodes had a
+stable parent throughout the deployment, node&nbsp;209 used node&nbsp;200 as its
+parent only 33% of the time and nodes 206&nbsp;and&nbsp;207 the remaining 66%
+of the time.  Node&nbsp;213 also switched parents between nodes
+204&nbsp;and&nbsp;208, but unlike node&nbsp;209 it was always three hops away.
+Node&nbsp;214 was the farthest node in terms of hopcount and as a result
+had one of the lowest yields.  The larger amount of data was also a
+factor for the four-channel nodes, 250&nbsp;and&nbsp;251. In addition, node&nbsp;251
+was five radio hops from the gateway.
+
+<P>
+
+<H2><A NAME="SECTION00062000000000000000">
+Fetch latency</A>
+</H2>
+
+<P>
+Transfer latency directly impacts data yield. Because we disabled sampling on
+each node (apart from node&nbsp;250) during a Fetch download cycle, 
+the duration of the data transfer also affects a node's ability to 
+record back-to-back events.  
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-fetchlatency-byhops"></A><A NAME="557"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 10: </STRONG>
+<FONT SIZE="-1"><B>Distribution of Fetch latency for two nodes.</B>
+</FONT><FONT SIZE="-1"><EM><br>The
+latency for a Fetch download depends on the depth of the node in the
+routing tree, which affects both command propagation latency and
+reliability of the routing path. Node&nbsp;200 is located 1&nbsp;hop from the 
+sink and node&nbsp;214 is located 6&nbsp;hops away.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="./figs/performance/CDFByHops/CDFBYHOPS.png">
+<IMG SRC="./figs/performance/CDFByHops/CDFBYHOPS-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+The median latency for Fetch operations (downloading 60&nbsp;sec worth of
+data from a single node) was 186&nbsp;sec and the 90th
+percentile was 444&nbsp;sec. Unsurprisingly, latency varies with the depth of
+the node in the routing tree.  Figure&nbsp;<A HREF="#fig-fetchlatency-byhops">10</A>
+compares Fetch latency for nodes 200&nbsp;and&nbsp;214, located 1&nbsp;and&nbsp;6 hops
+away from the sink, respectively. Node&nbsp;200 had a median Fetch latency
+of 94&nbsp;sec, while node 214&nbsp;had a median latency of 409&nbsp;sec,
+about 63&nbsp;sec per hop.  This is due to both increased delay for propagating
+Fetch command messages, as well as increasing packet loss and
+retransmission overheads as the data flows over multiple hops to the
+base.
+
+<P>
+Fetch was initially designed to support reliable downloads of infrequent
+events and we did not anticipate the need to capture back-to-back signals.
+Unfortunately, these were common at Reventador, and may necessitate a
+redesign. For example, it may be possible to reduce latency by streaming
+multiple blocks in one request and reconstructing partial blocks after a
+burst. Caching recently-received blocks on intermediate nodes could reduce
+latency for repair requests&nbsp;[<A
+ HREF="osdi.html#netshm-emnets05">14</A>].  However, such changes
+would greatly increase the complexity of the protocol. For this deployment
+we opted to prioritize simplicity and stability over performance.
+
+<P>
+
+<H1><A NAME="SECTION00070000000000000000"></A>
+<A NAME="sec-timing"></A><BR>
+Time Rectification and Accuracy
+</H1>
+
+<P>
+When analyzing seismoacoustic data acquired at volcanoes, accurate 
+timing of recorded signals is paramount. Studying volcanic source processes
+necessitates precisely identifying the arrival time of P-&nbsp;and S-waves 
+at each sensor. Also, correlating signals across the sensor
+array requires accurately timestamping each sample.  Ideally, timing should
+be accurate to within one sample interval, or 10&nbsp;ms when sampling at 100&nbsp;Hz.
+As described earlier, 
+we opted to
+use a single GPS receiver and employ a multihop time-synchronization protocol
+to establish a global timebase. The protocol worked well
+in laboratory experiments. However, it experienced significant failures in
+the field, requiring extensive postprocessing of the data to recover accurate
+timing for each signal.
+
+<P>
+In this section, we provide an overview of the time synchronization errors
+observed in the field. We then present a novel <EM>time rectification</EM>
+technique that allows us to recover accurate timing despite protocol
+failures.  
+We evaluate our approach through
+lab experiments with a known, ground-truth timebase, and by comparing our
+signals with signals recorded by the colocated data loggers. This
+paper is the first to our knowledge to evaluate the stability of a multihop
+time synchronization protocol during a lengthy sensor network 
+field deployment. 
+
+<P>
+
+<H2><A NAME="SECTION00071000000000000000">
+Time synchronization architecture</A>
+</H2>
+
+<P>
+We chose to use the Flooding Time Synchronization Protocol
+(FTSP)&nbsp;[<A
+ HREF="osdi.html#ftsp">11</A>], an existing protocol developed for
+wireless sensor nodes.  In the original FTSP work&nbsp;[<A
+ HREF="osdi.html#ftsp">11</A>], timing errors
+of less than 67&nbsp;<IMG
+ WIDTH="13" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img11.png"
+ ALT="$\mu$">sec were reported for an 11-hop network of Mica2 nodes.
+We verified in our testbed that FTSP provided a 90th-percentile time
+error of under 2.1&nbsp;ms in a 5-hop linear network of TMote Sky nodes.
+
+<P>
+A single MicaZ sensor node was used as the root of the FTSP synchronization
+tree. It interfaced to a Garmin GPS receiver and received a 1&nbsp;Hz interrupt
+synchronized to within 1&nbsp;<IMG
+ WIDTH="13" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img11.png"
+ ALT="$\mu$">sec of the GPS ``pulse per second'' signal.
+When the interrupt is raised, the node records the GPS time and corresponding
+FTSP global time and sends a short message containing this information to the
+base station.  Each sensor node runs the FTSP protocol which maintains a
+global timebase. Every 10&nbsp;sec, each node records its local time and the
+corresponding FTSP global time, sending this information in its status
+message to the base station. Finally, as each node records data, the first
+sample of each block is marked with the node's local time. After downloading
+data from each node following an event, this local time can be used to
+recover the time for each sample in the block.
+
+<P>
+Therefore, we have three relevant timebases: the <EM>local time</EM> at each
+node; the <EM>global time</EM> established by the FTSP protocol; and the
+<EM>GPS time</EM> recorded by the FTSP root. The information in the nodes'
+status messages can be used to map local time to global time, and the
+information in the GPS node's status messages can be used to map global time
+to GPS-based GMT.
+
+<P>
+
+<H2><A NAME="SECTION00072000000000000000"></A>
+<A NAME="timing-deploymentfailures"></A><BR>
+FTSP failures in the field
+</H2>
+
+<P>
+In the absence of failures, this mapping would be a straightforward process.
+However, in the field, we noticed that nodes would occasionally lose
+synchronization with the rest of the network and report FTSP global times
+with significant errors, sometimes exceeding several hours. We suspect that
+the sparse deployment conditions at the volcano might have led to different
+behavior in the time synchronization protocol than in the lab. For
+example, occasional message loss or failure of a neighbor could cause the 
+node's global time to drift from the rest of the network.  
+However, in lab tests that constrained the network topology we 
+did not observe these instabilities.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-globaltimeproblem"></A><A NAME="701"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 11: </STRONG>
+<FONT SIZE="-1"><B>Example of FTSP instability observed during field
+deployment:</B> </FONT><FONT SIZE="-1"><br><EM>The global time value reported by sensor nodes and the
+GPS node is plotted against the time that the base station received the
+corresponding status messages. All nodes are initially synchronized, but
+starting at 1230 GMT, nodes 212&nbsp;and&nbsp;250 report incorrect global times for the
+next 4.5&nbsp;hours. When the nodes eventually resynchronize, the global
+timestamps of other nodes initially experience some instability.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="./figs/timing/MDW/instability/FTSPINSTABILITY.png">
+<IMG SRC="./figs/timing/MDW/instability/FTSPINSTABILITY-SMALL.png">
+</a>
+</DIV> 
+<P></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Figure&nbsp;<A HREF="#fig-globaltimeproblem">11</A> shows an example of the FTSP instability
+observed in the field. The global time reported by two nodes
+suddenly jumps off by several hours, and the nodes do not resynchronize until
+rebooted 4.5&nbsp;hours later.  It turns out that two bugs conflated to cause this
+problem.  First, it was discovered that the TinyOS clock driver would
+occasionally return bogus local timestamps.  This bug was fixed in
+February 2006, several months after our deployment. 
+Second, FTSP does not check the
+validity of synchronization messages, so a node reading an incorrect 
+value for its local clock can corrupt the state of other nodes, 
+throwing off the global time calculation.  
+To our knowledge, few if any sensor network deployments have
+attempted to use network time synchronization protocols for extended periods.
+In addition, ours may have been the first deployment of FTSP on the TMote Sky
+platform where the clock driver bug manifested itself. 
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-rectificationcartoon"></A><A NAME="696"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 12: </STRONG>
+<FONT SIZE="-1"><B>Time rectification process overview.</B></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="./figs/timing/RectificationCartoon/cartoon.png">
+<IMG SRC="./figs/timing/RectificationCartoon/cartoon-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+The failures of the time synchronization protocol make establishing the
+correct GPS-based timestamp for each data sample extremely challenging. Our
+<EM>time rectification</EM> approach filters and remaps recorded timestamps to
+accurately recover timing despite these failures.  The time rectification
+process is illustrated in Figure&nbsp;<A HREF="#fig-rectificationcartoon">12</A>. The first
+step is to <EM>filter</EM> the global timestamps recorded by each node,
+discarding bogus data. Second, we build a model mapping the local time on
+each node to FTSP-based global time.  Third, we use the GPS timestamp
+information to build a second model mapping FTSP time to GMT. Finally, both
+models are applied to the timestamps recorded in each data block producing a
+GMT time for each sample.
+
+<P>
+
+<H2><A NAME="SECTION00073000000000000000"></A>
+<A NAME="subsection-filtering"></A><BR>
+Timestamp filtering
+</H2>
+
+<P>
+We begin by filtering out status messages appearing to contain incorrect
+global timestamps. To do this, we correlate global timestamps from each node
+against a common reference timebase and reject those that differ by more than
+some threshold.  For this, we use the base station laptop's local time, which
+is <EM>only</EM> used for filtering FTSP timestamps, not for establishing the
+correct timing. The filtering process in is many ways similar to prior
+work&nbsp;[<A
+ HREF="osdi.html#paxson98calibrating">17</A>,<A
+ HREF="osdi.html#1028824">18</A>] on detecting adjustments in
+network-synchronized clocks. 
+<P>
+We use the following abbreviations: <EM>LT</EM> is the local
+time of a node; <EM>GT</EM> is the FTSP global time; <EM>BT</EM> is the base
+station's local time; and <EM>GMT</EM> is the true GMT from the GPS signal.
+Each GPS status message logged by the base station consists of the 
+triple <EM>(GT, GMT, BT)</EM>. 
+We use linear regression on this data to produce a reference
+timebase mapping <EM>BT</EM> to <EM>GT</EM>.<A NAME="tex2html13"
+  HREF="footnode.html#foot643"><SUP>1</SUP></A> For each node status message logged by
+the laptop <EM>(LT, GT, BT)</EM>, we map <EM>BT</EM> to the expected
+<!-- MATH
+ $\mathit{GT}_{\mathit{ref}}$
+ -->
+<IMG
+ WIDTH="48" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img24.png"
+ ALT="$\mathit{GT}_{\mathit{ref}}$"> using the reference timebase. If <!-- MATH
+ $\mid
+\mathit{GT}_{\mathit{ref}} - \mathit{GT} \mid > \delta$
+ -->
+<IMG
+ WIDTH="135" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img25.png"
+ ALT="$ \mid
+\mathit{GT}_{\mathit{ref}} - \mathit{GT} \mid &gt; \delta$">, we discard the
+status message from further consideration.  We use a threshold of <IMG
+ WIDTH="41" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img26.png"
+ ALT="$\delta =
+1$">&nbsp;sec.  Although radio message propagation and delays on the base station
+can affect the <EM>BT</EM> for each status message, a small rejection
+threshold <IMG
+ WIDTH="12" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img27.png"
+ ALT="$\delta$"> makes it unlikely that any truly incorrect FTSP
+timestamps pass the filter. Indeed, of the 7.8% of timestamps filtered out,
+the median <EM>GT</EM> error was 8.1&nbsp;hours.
+
+<P>
+
+<H2><A NAME="SECTION00074000000000000000"></A>
+<A NAME="section-timerectification"></A><BR>
+Timestamp rectification
+</H2>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-rectificationprocess"></A><A NAME="699"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 13: </STRONG>
+<FONT SIZE="-1"><B>Time rectification example.</B>
+</FONT><FONT SIZE="-1"><br><EM>The raw (LT, GT) pairs collected from the node show that
+it experiences a period of FTSP instability.  The time rectification process
+removes the errant timestamps creating an accurate mapping between LT
+and GT created using a linear regression on the remaining
+timestamps.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="./figs/timing/MDW/rectification/rectify.png">
+<IMG SRC="./figs/timing/MDW/rectification/rectify-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+The goal of <EM>time rectification</EM> is to assign a GMT timestamp to each
+sample in the recorded data. In order to do so, we build two models: one
+mapping a node's local time to global time, and another mapping global time
+to GMT. 
+From those 
+status messages that pass the
+filter, we build a piecewise linear model mapping <EM>LT</EM> to <EM>GT</EM> using a series of linear regressions. 
+Models are constructed for each node separately, since local
+times vary significantly between nodes.  Each regression spans up to
+5&nbsp;minutes of data and we initiate a new regression if the gap between
+subsequent <EM>(LT, GT)</EM> pairs exceeds 5&nbsp;minutes.  Each interval must
+contain at least two valid status messages to construct the model.  We take
+the <EM>LT</EM> value stored in each data block and use this model to recover
+the corresponding <EM>GT</EM> value.
+
+<P>
+The next step is to map global time to GMT. Each of the GPS node's status
+messages contain a <EM>(GT, GMT)</EM> pair. As above, we build a piecewise
+linear model mapping <EM>GT</EM> to <EM>GMT</EM>, and apply this model to the <EM>GT</EM> values for each data block. Finally, we assign a GMT value to each sample
+contained in the block, using linear interpolation between the GMT values
+assigned to the first sample in each block.  This process makes no
+assumptions about sampling rate, which varies slightly from node to node due
+to clock drift.
+
+<P>
+
+<H2><A NAME="SECTION00075000000000000000"></A>
+<A NAME="timing-postdeployment"></A><BR>
+Evaluation
+</H2>
+
+<P>
+Evaluating this time rectification process has proved
+difficult, primarily because we have no ground truth for the timing
+of the signals recorded in the field. However, by reproducing the deployment
+conditions in the lab, we have been able to measure the accuracy of the
+recovered timing in a controlled setting. In addition, as described earlier,
+two GPS-synchronized data loggers were colocated with our sensor network,
+providing us the opportunity to directly compare our time-rectified signals
+with those recorded by conventional instrumentation.
+
+<P>
+Our first validation took place in the lab. Feeding the
+output of a signal generator to both a miniature version of our sensor
+network and to a Reftek&nbsp;130 data logger allowed us to directly compare the data
+between both systems.  The miniature network consisted of a single
+sensor node, routing gateway, and GPS receiver node. The same software was
+used as in the field deployment. The Reftek&nbsp;130 logs data
+to a flash memory card and timestamps each sample using its own GPS receiver.
+
+<P>
+The results showed a consistent 15&nbsp;ms offset between the time-rectified 
+signals recorded by the sensor node and the Reftek data logger.  
+We discovered that this offset was due to delays introduced by 
+the digital filtering performed by the
+ADC on our sensor board (see Section&nbsp;<A HREF="#sec-hardware">3.1</A>). Adjusting for this
+delay resulted in an indiscernible offset between the sensor node and 
+Reftek signals. While this experiment does not reproduce the full 
+complexity of our deployed network, it does serve as a baseline for 
+validation.
+
+<P>
+In the second lab experiment, we set up a network of 7&nbsp;sensor nodes in a
+6-hop linear topology. The topology is enforced by software, but all nodes
+are within radio range of each other, making it possible to stimulate all
+nodes simultaneously with a radio message.  Each node samples data and sends
+status messages using the same software as the field deployment. The FTSP
+root node periodically transmits a beacon message. On reception of the
+beacon, each node records the FTSP global timestamp of the message reception
+time (note that reception of the beacon message is not limited by the
+software-induced topology).  Because we expect all nodes to receive this
+message at the same instant, modulo interrupt latency jitter, we expect the
+FTSP time recorded by each node to be nearly identical. The FTSP root also
+records the time that the beacon was transmitted, accounting for MAC delay.
+The experiment ran for 34&nbsp;hours, during which time FTSP experienced
+instabilities similar to those seen during our deployment.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-time-rect-lab"></A><A NAME="700"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 14: </STRONG>
+<FONT SIZE="-1"><B>Timestamp errors in a 6-hop lab testbed:</B>
+</FONT><FONT SIZE="-1"><br><EM>This table shows the 50th and 90th-percentile timing errors
+on both the raw FTSP timestamps, and rectified timestamps.</EM></FONT></CAPTION>
+<TR><TD><IMG
+ WIDTH="377" HEIGHT="87" BORDER="0"
+ SRC="img29.png"
+ ALT="\begin{figure}\begin{tabular}{\vert lll\vert} \hline
+&amp; {\bf Raw error} &amp; {\bf R...
+...ntile &amp; 13.5 ms &amp; 6.8 ms \\ \hline
+\end{tabular} \\
+\vspace{2ex}\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+This allows us to compare the <EM>true</EM> global time of each beacon message
+transmission and the <EM>apparent</EM> global time on each receiving node, both
+before and after subjecting the data to our time rectification process.  We
+call the difference between the true and apparent times the <EM>timestamp
+error</EM>. Figure&nbsp;<A HREF="#fig-time-rect-lab">14</A> shows the results for nodes one and
+six hops away from the FTSP root.  After rectification, 99.9% of the errors
+for the one-hop node and 93.1% of the errors for the six-hop node fall
+within our 10&nbsp;ms error envelope.
+
+<P>
+
+<P>
+
+<H2><A NAME="SECTION00076000000000000000"></A>
+<A NAME="sec-datagroundtruthing"></A><BR>
+Comparison with broadband station
+</H2>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-rvenv213"></A><A NAME="875"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 15: </STRONG>
+<FONT SIZE="-1"><B>Comparison of RVEN and node&nbsp;213 signals.</B> 
+</FONT><FONT SIZE="-1"><br><EM>This figure shows two seismic waves recorded by sensor node 213 and a
+broadband seismometer located 56&nbsp;m away. After time rectification, a 29&nbsp;ms
+time shift produces an excellent match.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="./figs/timing/ReftekV213/2005-08-15_09.11.28/213VREFTEK-NEGATIVE29MS-OFFSET.png">
+<IMG
+SRC="./figs/timing/ReftekV213/2005-08-15_09.11.28/213VREFTEK-NEGATIVE29MS-OFFSET-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Although time rectification works well in the laboratory, it is also
+necessary to evaluate its accuracy on the data collected during the field
+deployment. For this purpose, we made use of one of the broadband seismometer
+stations colocated with our sensor network. The RVEN (for ``Reventador
+vent'') station was located 56&nbsp;m from sensor node&nbsp;213.  
+Given their proximity, we would expect
+the seismic waveforms captured by both RVEN and node&nbsp;213 to be
+well correlated.  Some time shift between the two signals would be expected:
+a seismic wave passing each station could be as slow as 1.5&nbsp;km/sec, so
+the time lag between the signals could be as high as 37&nbsp;ms.  However, due to
+differences in the seismometers and the placement and ground coupling of the
+sensors, we would not expect perfectly correlated signals in every
+case.
+
+<P>
+We identified 28&nbsp;events recorded by both RVEN and node&nbsp;213.  The data for
+node&nbsp;213 was time rectified as described earlier, and the RVEN data was
+timestamped by the Reftek's internal GPS receiver.  We applied a bandpass
+filter of 6-8&nbsp;Hz to each signal to reduce sensor-specific artifacts. The
+cross-correlation between the signals produces a set of
+of <EM>lag times</EM> indicating possible time shifts between the two signals.
+Due to the periodic nature of the signals, this results in
+several lag times at multiples of the dominant signal period. For each lag
+time, we visually inspected how well the time-shifted signals overlapped and
+picked the best match by hand.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-rvenv213all"></A><A NAME="876"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 16: </STRONG>
+<FONT SIZE="-1"><B>Lag times between Node 213 and RVEN.</B>
+</FONT><FONT SIZE="-1"><br><EM>The best lag time between the two stations is shown for 28 events.  best
+time lag between the two stations is shown.  Most time shifts into the
++/-&nbsp;47&nbsp;ms window that we would expect given the distance between the two
+stations and up to 10&nbsp;ms of timing error.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="./figs/timing/ReftekV213/Table/213-GOODDIFFS2.png">
+<IMG SRC="./figs/timing/ReftekV213/Table/213-GOODDIFFS2-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Figure&nbsp;<A HREF="#fig-rvenv213">15</A> shows an example of this process that demonstrates
+excellent correlation between the RVEN and node&nbsp;213 signals with a 29&nbsp;ms time
+shift. Figure&nbsp;<A HREF="#fig-rvenv213all">16</A> shows a scatterplot of the best lag times
+for all&nbsp;28&nbsp;events.  Of these, only 5&nbsp;events fall outside of a <IMG
+ WIDTH="37" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img32.png"
+ ALT="$+/-$">&nbsp;47&nbsp;ms
+window defined by the distance between the stations (<IMG
+ WIDTH="37" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img32.png"
+ ALT="$+/-$">&nbsp;37&nbsp;ms) and our
+acceptable sampling error (10&nbsp;ms). We have high confidence that our
+time rectification process was able to recover accurate timing despite
+failures of the FTSP protocol.
+
+<P>
+
+<P>
+
+<H1><A NAME="SECTION00080000000000000000"></A>
+<A NAME="sec-fidelity"></A><BR>
+Data Fidelity
+</H1>
+
+<P>
+The final and most important measure of our network is its ability to
+provide scientifically-meaningful data on the volcano's activity. In
+this section, we perform an initial analysis of the seismic and
+acoustic signals from a seismological perspective, with the goal of
+validating the accuracy of the signal quality and timing.
+
+<P>
+
+<H2><A NAME="SECTION00081000000000000000">
+Acoustic wave propagation</A>
+</H2>
+
+<P>
+The infrasonic (low-frequency acoustic) waves generated by the
+volcano are primarily the result of explosive events. 
+We start by measuring the velocity of infrasonic waves recorded by our
+network, which is more straightforward than seismic analysis for
+several reasons.  First, infrasonic waves generate a clear
+impulse in the microphone signal, making it easy to determine the
+time of the wave arrival at each sensor. In addition, acoustic waves
+propagate about an order of magnitude slower than seismic waves
+(roughly 340&nbsp;m/s versus 1500-4000&nbsp;m/s).
+We also expect an infrasonic wave to originate at the 
+vent of the volcano, simplifying the wave velocity calculation.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-acousticSketch"></A><A NAME="964"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 17: </STRONG>
+<FONT SIZE="-1"><B>Computing acoustic wave velocity.</B>  
+</FONT><FONT SIZE="-1"><br><EM>The velocity of the acoustic wave is calculated based on
+the distance of each station from the vent, <IMG
+ WIDTH="17" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$d_i$">, and the 
+arrival time of the wave at each station, <IMG
+ WIDTH="15" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$t_i$">.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="./figs/fidelity/acousticSeismicSketches.png">
+<IMG SRC="./figs/fidelity/acousticSeismicSketches-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+We identified four events in our data set with a clear infrasonic
+component. For each event, we hand-picked the arrival time of the wave
+at each node using the time-rectified signal.
+Figure&nbsp;<A HREF="#fig-acousticArrival">18</A> plots the wave arrival time versus
+the distance of each node from the vent. As shown in
+Figure&nbsp;<A HREF="#fig-acousticSketch">17</A>, the velocity of the wave can be 
+calculated by performing a linear regression on this dataset.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-acousticArrival"></A><A NAME="965"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 18: </STRONG>
+<FONT SIZE="-1"><B>Acoustic wave arrival times and velocity.</B>
+</FONT><FONT SIZE="-1"><br><EM>This figure shows the acoustic wave arrival time vs. distance
+from the vent for 4&nbsp;separate events. Also shown is the resulting
+acoustic wave velocity and the <IMG
+ WIDTH="23" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3.png"
+ ALT="$R^2$"> coefficient of determination.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="./figs/fidelity/acousticArrival/acoustic.png">
+<IMG SRC="./figs/fidelity/acousticArrival/acoustic-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+The result of this calculation is also shown in
+Figure&nbsp;<A HREF="#fig-acousticArrival">18</A>.  The velocity of sound in air is
+temperature-dependent; for temperatures between 10-20 <IMG
+ WIDTH="11" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img35.png"
+ ALT="$^{\circ}$">C
+the velocity range is 337-343&nbsp;m/s.  The calculated wave velocities are
+mostly in this range, with a mean of 339.5&nbsp;m/s. The coefficients of
+determination <IMG
+ WIDTH="23" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3.png"
+ ALT="$R^2$"> are very high, between
+0.9988&nbsp;and&nbsp;0.9999, showing that the timing and quality of the
+acoustic data closely matches our expectation
+of the infrasonic waves produced by the volcano.
+
+<P>
+
+<H2><A NAME="SECTION00082000000000000000">
+Seismic wave propagation</A>
+</H2>
+
+<P>
+Analyzing the seismic waves captured by our network is
+significantly more challenging. This is primarily because the 
+source locations of seismic waves are unknown. 
+Seismic events may originate at the vent (in the case of an explosion)
+or deep within the edifice, producing very different patterns of
+P-&nbsp;and S-wave arrivals at each node. A full seismological analysis
+of our data is beyond the scope of this paper. However, we 
+present a high-level measure of the <EM>consistency</EM> of the 
+signals captured by our network: that is, we evaluate whether
+the seismic wave arrivals are consistent with expected volcanic
+activity.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-seismicArrivalScatteredNode"></A><A NAME="966"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 19: </STRONG>
+<FONT SIZE="-1"><B>Time of arrival of each node over multiple
+events.</B>  </FONT><FONT SIZE="-1"><br><EM>This graph shows the spread of arrival times for each
+node.  The arrival time and distance is relative to node&nbsp;207.  The
+arrival time for each node is fairly consistent over multiple events,
+with the exception of node&nbsp;214.  The shaded area indicates a move-out
+velocity of less than 1,500 <IMG
+ WIDTH="33" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4.png"
+ ALT="$m/s$">.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="./figs/fidelity/seismicArrival/arrivalTimesPlotScatteredNode.png">
+<IMG SRC="./figs/fidelity/seismicArrival/arrivalTimesPlotScatteredNode-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+The most natural measure of data consistency is whether the
+time of the seismic P-wave arrival at each sensor falls within 
+an expected <EM>envelope</EM> based on the minimum speed at which
+seismic waves are believed to propagate at Reventador, which 
+we estimate as 1500&nbsp;m/s. We took 15&nbsp;seismic events with clear
+P-wave arrivals and used an automatic algorithm&nbsp;[<A
+ HREF="osdi.html#pwave-picking">22</A>] to 
+determine the wave arrival time.<A NAME="tex2html21"
+  HREF="footnode.html#foot967"><SUP>2</SUP></A> 
+
+<P>
+Figure&nbsp;<A HREF="#fig-seismicArrivalScatteredNode">19</A> shows a scatterplot of
+the arrival times with respect to node&nbsp;207, which was chosen as an
+arbitrary reference point since data for this node appeared in all
+15&nbsp;events. The <IMG
+ WIDTH="12" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img37.png"
+ ALT="$y$">-axis represents the distance of each node
+from&nbsp;207. Depending on the seismic source location, we expect waves to
+arrive both before and after node&nbsp;207.  However, the slowest wave
+speed (1500&nbsp;m/s) dictates the maximum difference in the wave arrival
+between each station.<A NAME="tex2html22"
+  HREF="footnode.html#foot941"><SUP>3</SUP></A> The shaded area in
+Figure&nbsp;<A HREF="#fig-seismicArrivalScatteredNode">19</A> covers the ``exclusion
+envelope'' of arrival times at each station.  As the figure shows,
+only 2&nbsp;out of&nbsp;124 arrivals fall outside of this envelope.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-jjExplosion"></A><A NAME="968"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 20: </STRONG>
+<FONT SIZE="-1"><B>Explosion earthquake event at 08/16/2005 09:45:14 GMT.</B>
+</FONT><FONT SIZE="-1"><br><EM>P-wave arrivals have been identified manually and a second-order
+polynomial (solid line) is fit to the arrivals. The arrival time
+move-outs are consistent with a shallow near-vent source.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="./figs/fidelity/seismicArrival/johnson/2005-08-16_09-45-14.png">
+<IMG SRC="./figs/fidelity/seismicArrival/johnson/2005-08-16_09-45-14-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig-jjTectonic"></A><A NAME="969"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 21: </STRONG>
+<FONT SIZE="-1"><B>Tectonic earthquake event at 08/15/2005 16:04:37
+GMT.</B> </FONT><FONT SIZE="-1"><br><EM>In this event, seismic waves are first recorded near the
+middle of the sensor array. This is due either to a source closer 
+to the center of the array, variations in velocity structure, 
+or most likely both.</EM></FONT></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<a href="./figs/fidelity/seismicArrival/johnson/2005-08-15_16-04-37.png">
+<IMG SRC="./figs/fidelity/seismicArrival/johnson/2005-08-15_16-04-37-SMALL.png">
+</a>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Finally, we take a closer look at two seismic events recorded by our
+array.  Figures&nbsp;<A HREF="#fig-jjExplosion">20</A>&nbsp;and&nbsp;<A HREF="#fig-jjTectonic">21</A> show
+seismograms from each of the sensor nodes after time rectification.
+The <IMG
+ WIDTH="12" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img37.png"
+ ALT="$y$">-axis corresponds to the distance of each node from the vent.
+For each event, the P-wave arrivals have been determined by hand and a
+second-order polynomial has been fit to the arrival times at each node
+for clarity.
+
+<P>
+These two events show a very different pattern of wave arrival
+times. Figure&nbsp;<A HREF="#fig-jjExplosion">20</A> shows the seismic wave
+arriving first at stations near the vent (nodes&nbsp;204 and 213). This
+is consistent with a shallow near-vent source corresponding to an
+explosion. This is confirmed by the corresponding acoustic data (shown
+in Figure&nbsp;<A HREF="#fig-acousticArrival">18</A>) attributed to explosive expansion
+of gas. 
+
+<P>
+In contrast, Figure&nbsp;<A HREF="#fig-jjTectonic">21</A> shows an event with the earliest
+arrivals in the middle of the sensor array and the endpoints relatively
+delayed; many such events were recorded by our network. 
+This distribution implies a deeper source.  At the same time,
+seismic velocity in the uppermost cone, which is comprised of unconsolidated
+volcanic deposits, is presumed to be slower.  Such volcano-tectonic events
+are likely generated by the fracturing of solid media typically induced
+by pressurization within the edifice. This preliminary study
+demonstrates the value of our wireless sensor network for collecting
+accurate signals that can be subjected to seismological analysis.
+
+<P>
+
+<H1><A NAME="SECTION00090000000000000000"></A>
+<A NAME="sec-related"></A><BR>
+Related Work
+</H1>
+
+<P>
+While the number of sensor network deployments described in the
+literature has been increasing, little prior work has focused on
+evaluating sensor networks from a scientific perspective. 
+In addition, the high data rates and stringent timing accuracy
+requirements of volcano monitoring represent a departure from
+many of the previously-studied applications for sensor networks.
+
+<P>
+<B>Low-data-rate monitoring:</B>
+The first generation of sensor network deployments focused on 
+distributed monitoring of environmental conditions. Representative 
+projects include the Great Duck 
+Island&nbsp;[<A
+ HREF="osdi.html#spm:04habitat">24</A>,<A
+ HREF="osdi.html#polastre-masters">19</A>,<A
+ HREF="osdi.html#mainwaring-habitat">10</A>], 
+Berkeley Redwood Forest&nbsp;[<A
+ HREF="osdi.html#berkeley-redwoods">25</A>], and 
+James Reserve&nbsp;[<A
+ HREF="osdi.html#cerpa-habitat">2</A>] deployments. These systems are 
+characterized by low data rates (sampling intervals on the order of
+minutes) and very low-duty-cycle operation to conserve power.
+Research in this area has made valuable contributions in establishing
+sensor networks as a viable platform for scientific monitoring and
+developing essential components used in our work. 
+
+<P>
+This previous work has not yet focused on the efficacy of a sensor
+network as a scientific instrument.  The best example is the Berkeley
+Redwood Forest deployment&nbsp;[<A
+ HREF="osdi.html#berkeley-redwoods">25</A>], which involved
+33&nbsp;nodes monitoring the microclimate of a redwood tree for 44&nbsp;days.
+Their study focuses on novel ways of visualizing and presenting the
+data captured by the sensor network, as well as on the data yield of
+the system. The authors show that the microclimactic measurements are
+consistent with existing models; however, no ground truth of the data
+is established. This paper highlights many of the challenges involved
+in using wireless sensors to augment or replace existing scientific
+instrumentation.
+
+<P>
+<B>High-data-rate monitoring:</B> 
+A second class of sensor network applications involves relatively 
+high data rates and precise timing of the captured signals. The two
+dominant applications in this area are structural health monitoring
+and condition-based maintenance. In each case, arrays
+of sensors are used to capture vibration or accelerometer waveforms
+that must be appropriately timestamped for later analysis.
+
+<P>
+NetSHM&nbsp;[<A
+ HREF="osdi.html#netshm-ewsnsubmission">15</A>,<A
+ HREF="osdi.html#netshm-emnets05">14</A>,<A
+ HREF="osdi.html#wisan">30</A>] is a 
+wireless sensor network for structural health monitoring, which
+involves studying the response of buildings, bridges, and other
+structures to localize structural damage, e.g., following an
+earthquake. This system shares many of the challenges of 
+geophysical monitoring; indeed, the data rates involved (500&nbsp;Hz 
+per channel) are higher than are typically used in volcano
+studies. 
+
+<P>
+NetSHM implements reliable data collection using both hop-by-hop caching
+and end-to-end retransmissions. Their work explores the use of
+local computations on sensors to reduce bandwidth requirements.
+Rather than a global time-synchronization protocol, the base station 
+timestamps each sample upon reception. The <EM>residence time</EM> of 
+each sample as it flows from sensor to base is calculated based on
+measurements at each transmission hop and used to deduce the 
+original sample time.
+
+<P>
+Several factors distinguish our work. First, NetSHM is designed to collect
+signals following controlled excitations of a structure, which simplifies
+scheduling.  In our case, volcanic activity is bursty and highly variable,
+requiring more sophisticated approaches to event detection and data transfer.
+Second, NetSHM has been deployed in relatively dense networks, making data
+collection and time synchronization more robust.  Third, to date the NetSHM
+evaluations have focused more on network performance and less on the fidelity
+of the extracted data.  Other systems for wireless SHM include one developed
+by the Stanford Earthquake Engineering
+Center&nbsp;[<A
+ HREF="osdi.html#wimms-lynch06">9</A>,<A
+ HREF="osdi.html#wimms-wang05">26</A>] and earlier work by Berkeley on
+monitoring the Golden Gate Bridge&nbsp;[<A
+ HREF="osdi.html#ggb-monitoring">16</A>].
+
+<P>
+Condition-based maintenance is another emerging area for
+wireless sensor networks. The typical approach is to collect
+vibration waveforms from equipment (e.g., chillers, pumps, etc.) 
+and perform time- and frequency-domain analysis to determine when
+the equipment requires servicing. Intel Research has explored this
+area through two deployments at a fabrication plant and an oil tanker 
+in the North Sea&nbsp;[<A
+ HREF="osdi.html#intel-northseasensys">8</A>]. Although this application
+involves high sampling rates, it does not necessarily require time
+synchronization as signals from multiple sensors need not be correlated.
+The initial evaluation of these deployments only considers the
+network performance and does not address data fidelity issues.
+
+<P>
+
+<H1><A NAME="SECTION000100000000000000000"></A>
+<A NAME="sec-lessons"></A><BR>
+Lessons Learned
+</H1>
+
+<P>
+Sensor network deployments, particularly in remote areas, involve 
+significant cost in terms of time and equipment. Failures of hardware
+and software can have a negative impact on the uptake of this technology 
+by domain science experts. Our experiences at Reventador have yielded 
+a number of valuable lessons for future sensor network deployments. 
+
+<P>
+<B>1. Ground truth and self-validation mechanisms are critical:</B>
+We did not initially consider colocating several of our wireless
+sensors with existing data loggers in order to establish ground
+truth. This would have clearly aided our analysis, though we 
+were fortunate to locate one of
+our sensors near (but not immediately adjacent to) the RVEN station.
+In addition, self-validation mechanisms are needed to provide detailed
+information on the health and accuracy of the data recorded by the
+network. The periodic ``heartbeat'' messages that we built into our 
+system proved essential to remotely tracking system operation.
+
+<P>
+<B>2. Coping with infrastructure and protocol failures:</B> As discussed
+previously, the sensor nodes themselves were the most reliable 
+components of the system. Even without classifying the 3-day network outage 
+as an infrastructure failure, this downtime was far exceeded by outages 
+caused by power failures at the base station. 
+We did not devote enough attention to assuring the reliability of the
+base station and radio modem infrastructure, assuming it would be a
+trivial matter of plugging into wall power. This single point
+of failure was more fragile than expected.
+
+<P>
+Additionally, several pieces deployed software, including Deluge and FTSP,
+exhibited failures in the field than we not had expected given our laboratory
+experiments.  These failures both speak for and show the limitations of
+careful, pre-deployment testing.  We were fortunate to be able to correct
+protocol errors in the field and during post-processing, but the risk of
+uncorrectable problems will lead us towards more rigorous testing and
+analysis in the future.
+
+<P>
+<B>3. Building confidence inside cross-domain scientific collaborations:</B>
+It is important when working with domain scientists to understand their
+expectations and plan carefully to meet them. There is a clear tension
+between the desire of CS researchers to develop more interesting and
+sophisticated systems, and the needs of domain science, which relies
+upon thoroughly validated instrumentation. Pushing more
+complexity into the sensor network can improve lifetime and
+performance, but the resulting system must be carefully validated
+before deployment to ensure that the resulting data is scientifically
+accurate.
+
+<P>
+Good communication between CS and domain scientists is also critical.
+During the deployment, the seismologists were eager to see the
+collected signals, which were initially in an unprocessed format with
+timing errors as described earlier. From the CS perspective, the
+early data provided evidence of successful data collection, but from
+the geophysics perspective it highlighted failures in the time
+synchronization protocol. It took a great deal of effort after 
+the deployment to build confidence in the validity of our data.
+
+<P>
+
+<H1><A NAME="SECTION000110000000000000000"></A>
+<A NAME="sec-conclusions"></A><A NAME="sec-future"></A><A NAME="sec-futurework"></A><BR>
+Conclusions and Future Work
+</H1>
+
+<P>
+As sensor networks continue to evolve for scientific monitoring,
+taking a domain science-centric view of their capabilities is essential.
+In this
+paper, we have attempted to understand how well a wireless sensor
+network can serve as a scientific instrument for volcano monitoring. 
+We have presented an evaluation of the data fidelity and yield of a real sensor 
+network deployment, subjecting the system to the rigorous standards 
+expected for geophysical instrumentation.
+
+<P>
+We find that wireless sensors have great potential for
+rapid and dense instrumentation of active volcanoes, although challenges 
+remain including improving reliability and validating the timing 
+accuracy of captured signals. The network was able to detect and
+retrieve data for a large number of seismic events, although our event
+detection parameters require tuning to capture more signals.
+In terms of reliability, base station outages affected the network about 
+27%&nbsp;of the time during our deployment, with a single software failure 
+causing a 3-day outage. However, nodes appeared to exhibit an uptime of
+96%, which is very encouraging. Clearly, work is needed to improve 
+the robustness of the base station and system software infrastructure.
+
+<P>
+Our most difficult challenge was correcting the timing in the captured
+signals and validating timing accuracy. A comparative analysis against a
+GPS-synchronized standalone data logger shows very good correlation: 23&nbsp;out
+of 28&nbsp;events correlated against the Reftek broadband station exhibited lag
+times within the expected 47&nbsp;ms window.  Across the sensor array, only 2&nbsp;out
+of&nbsp;124 P-wave arrivals fall outside of an expected velocity envelope,
+suggesting that our timing rectification is very consistent.  This is further
+reinforced by linear regression of acoustic wave arrival times with <IMG
+ WIDTH="23" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3.png"
+ ALT="$R^2$">
+values of greater than <IMG
+ WIDTH="32" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img40.png"
+ ALT="$0.99$">.  Finally, preliminary analysis of the recorded
+seismic signals is consistent with expected volcanic activity, exhibiting
+differences between explosion-related activity and deep-source events.
+
+<P>
+<B>Future directions:</B> Our group is continuing to develop sensor networks
+for volcano monitoring and we expect to conduct future deployments. Our eventual goal is to design a large (50 to 100 node) sensor
+array capable of operating autonomously for an entire field season
+of three&nbsp;months.
+
+<P>
+A primary concern for future work is reducing power consumption to
+extend network lifetimes. Although we did not experience power-related
+failures of sensor nodes, we were fortunate that the deployment logistics
+permitted us to change batteries as needed. The highest power draw on
+our platform is the sampling board, which cannot be powered down since
+we must sample continuously. One approach is to perform more extensive
+signal analysis on the sensor nodes to reduce the amount of data 
+that must be transmitted following an event. However, geophysicists
+are accustomed to obtaining complete signals, so we must balance 
+network lifetime with signal fidelity. 
+
+<P>
+In addition, we are interested
+in exploring novel approaches to programming large sensor arrays to
+perform collaborative signal processing. Domain scientists should
+not have to concern themselves with the details of sensor node 
+programming. We plan to develop a high-level programming interface 
+to facilitate more rapid adoption of this technology. 
+
+<P>
+
+<H1><A NAME="SECTION000120000000000000000"></A>
+<A NAME="sec-acknowledgements"></A><BR>
+Acknowledgments
+</H1>
+
+<P>
+The authors wish to thank Thaddeus Fulford-Jones and Jim MacArthur for
+their assistance with hardware design; Omar Marcillo and Mario Ruiz
+for assistance with the field deployment; and the staff of the 
+Instituto Geof&#237;sico, IGEPN, Ecuador, for logistical and hardware 
+development support. Finally, many thanks to our shepherd, Chandu Thekkath, 
+whose suggestions greatly improved the paper. 
+This project is supported by the National Science Foundation under 
+grant numbers CNS-0519675 and CNS-0531631.
+
+<P>
+<FONT SIZE="-1"> 
+ </FONT>
+<H2><A NAME="SECTION000130000000000000000">
+Bibliography</A>
+</H2><DL COMPACT><DD><P></P><DT><A NAME="rope-emnets05">1</A>
+<DD>
+R.&nbsp;Cardell-Oliver.
+<BR>Rope: A reactive, opportunistic protocol for environment monitoring
+  sensor network.
+<BR>In <EM>Proc. The Second IEEE Workshop on Embedded Networked Sensors
+  (EmNetS-II)</EM>, May 2005.
+
+<P></P><DT><A NAME="cerpa-habitat">2</A>
+<DD>
+A.&nbsp;Cerpa, J.&nbsp;Elson, D.&nbsp;Estrin, L.&nbsp;Girod, M.&nbsp;Hamilton, and J.&nbsp;Zhao.
+<BR>Habitat monitoring: Application driver for wireless communications
+  technology.
+<BR>In <EM>Proc. the Workshop on Data Communications in Latin America
+  and the Caribbean</EM>, Apr. 2001.
+
+<P></P><DT><A NAME="xbow">3</A>
+<DD>
+Crossbow Technology Inc.
+<BR><TT><A NAME="tex2html25"
+  HREF="http://www.xbow.com">http://www.xbow.com</A></TT>.
+
+<P></P><DT><A NAME="rbs">4</A>
+<DD>
+J.&nbsp;Elson, L.&nbsp;Girod, and D.&nbsp;Estrin.
+<BR>Fine-grained network time synchronization using reference broadcasts.
+<BR>In <EM>Fifth Symposium on Operating Systems Design and
+  Implementation</EM>, December 2002.
+
+<P></P><DT><A NAME="tinyos-asplos00">5</A>
+<DD>
+J.&nbsp;Hill, R.&nbsp;Szewczyk, A.&nbsp;Woo, S.&nbsp;Hollar, D.&nbsp;E. Culler, and K.&nbsp;S.&nbsp;J. Pister.
+<BR>System architecture directions for networked sensors.
+<BR>In <EM>Proc. the 9th International Conference on Architectural
+  Support for Programming Languages and Operating Systems</EM>, pages 93-104,
+  Boston, MA, USA, Nov. 2000.
+
+<P></P><DT><A NAME="deluge">6</A>
+<DD>
+J.&nbsp;W. Hui and D.&nbsp;Culler.
+<BR>The dynamic behavior of a data dissemination protocol for network
+  programming at scale.
+<BR>In <EM>Proc. 2nd ACM Conference on Embedded Networked Sensor Systems
+  (SenSys'04)</EM>, November 2004.
+
+<P></P><DT><A NAME="johnson-etal-04b">7</A>
+<DD>
+J.&nbsp;Johnson, R.&nbsp;Aster, and P.&nbsp;Kyle.
+<BR>Volcanic eruptions observed with infrasound.
+<BR><EM>Geophys. Res. Lett.</EM>, 31(L14604):doi:10.1029/2004GL020020, 2004.
+
+<P></P><DT><A NAME="intel-northseasensys">8</A>
+<DD>
+L.&nbsp;Krishnamurthy, R.&nbsp;Adler, P.&nbsp;Buonadonna, J.&nbsp;Chhabra, M.&nbsp;Flanigan,
+  N.&nbsp;Kushalnagar, L.&nbsp;Nachman, and M.&nbsp;Yarvis.
+<BR>Design and deployment of industrial sensor networks: experiences from
+  a semiconductor plant and the north sea.
+<BR>In <EM>SenSys '05: Proceedings of the 3rd international conference
+  on Embedded networked sensor systems</EM>, pages 64-75, New York, NY, USA, 2005.
+  ACM Press.
+
+<P></P><DT><A NAME="wimms-lynch06">9</A>
+<DD>
+J.&nbsp;P. Lynch, Y.&nbsp;Wang, K.-C. Lu, T.-C. Hou, and C.-H. Loh.
+<BR>Post-seismic damage assessment of steel structures instrumented with
+  self-interrogating wireless sensors.
+<BR>In <EM>Proceedings of the 8th National Conference on Earthquake
+  Engineering</EM>, 2006.
+
+<P></P><DT><A NAME="mainwaring-habitat">10</A>
+<DD>
+A.&nbsp;Mainwaring, J.&nbsp;Polastre, R.&nbsp;Szewczyk, D.&nbsp;Culler, and J.&nbsp;Anderson.
+<BR>Wireless sensor networks for habitat monitoring.
+<BR>In <EM>ACM International Workshop on Wireless Sensor Networks and
+  Applications (WSNA'02)</EM>, Atlanta, GA, USA, Sept. 2002.
+
+<P></P><DT><A NAME="ftsp">11</A>
+<DD>
+M.&nbsp;Maroti, B.&nbsp;Kusy, G.&nbsp;Simon, and A.&nbsp;Ledeczi.
+<BR>The flooding time synchronization protocol.
+<BR>In <EM>Second ACM Conference on Embedded Networked Sensor Systems</EM>,
+  November 2004.
+
+<P></P><DT><A NAME="mcnutt-96">12</A>
+<DD>
+S.&nbsp;McNutt.
+<BR>Seismic monitoring and eruption forecasting of volcanoes: A review of
+  the state of the art and case histories.
+<BR>In Scarpa and Tilling, editors, <EM>Monitoring and Mitigation of
+  Volcano Hazards</EM>, pages 99-146. Springer-Verlag Berlin Heidelberg, 1996.
+
+<P></P><DT><A NAME="moteiv">13</A>
+<DD>
+Moteiv, Inc.
+<BR><TT><A NAME="tex2html26"
+  HREF="http://www.moteiv.com">http://www.moteiv.com</A></TT>.
+
+<P></P><DT><A NAME="netshm-emnets05">14</A>
+<DD>
+J.&nbsp;Paek, K.&nbsp;Chintalapudi, J.&nbsp;Caffrey, R.&nbsp;Govindan, and S.&nbsp;Masri.
+<BR>A wireless sensor network for structural health monitoring:
+  Performance and experience.
+<BR>In <EM>Proc. The Second IEEE Workshop on Embedded Networked Sensors
+  (EmNetS-II)</EM>, May 2005.
+
+<P></P><DT><A NAME="netshm-ewsnsubmission">15</A>
+<DD>
+J.&nbsp;Paek, N.&nbsp;Kothari, K.&nbsp;Chintalapudi, S.&nbsp;Rangwala, N.&nbsp;Xu, J.&nbsp;Caffrey,
+  R.&nbsp;Govindan, S.&nbsp;Masri, J.&nbsp;Wallace, and D.&nbsp;Whang.
+<BR>The performance of a wireless sensor network for structural health
+  monitoring.
+
+<P></P><DT><A NAME="ggb-monitoring">16</A>
+<DD>
+S.&nbsp;N. Pakzad, S.&nbsp;Kim, G.&nbsp;L. Fenves, S.&nbsp;D. Glaser, D.&nbsp;E. Culler, and J.&nbsp;W.
+  Demmel.
+<BR>Multi-purpose wireless accelerometers for civil infrastructure
+  monitoring.
+<BR>In <EM>Proc. 5th International Workshop on Structural Health
+  Monitoring (IWSHM 2005)</EM>, Stanford, CA, September 2005.
+
+<P></P><DT><A NAME="paxson98calibrating">17</A>
+<DD>
+V.&nbsp;Paxson.
+<BR>On calibrating measurements of packet transit times.
+<BR>In <EM>Measurement and Modeling of Computer Systems</EM>, pages 11-21,
+  1998.
+
+<P></P><DT><A NAME="1028824">18</A>
+<DD>
+V.&nbsp;Paxson.
+<BR>Strategies for sound internet measurement.
+<BR>In <EM>IMC '04: Proceedings of the 4th ACM SIGCOMM conference on
+  Internet measurement</EM>, pages 263-271, New York, NY, USA, 2004. ACM Press.
+
+<P></P><DT><A NAME="polastre-masters">19</A>
+<DD>
+J.&nbsp;Polastre.
+<BR>Design and implementation of wireless sensor networks for habitat
+  monitoring.
+<BR>Master's thesis, University of California at Berkeley, 2003.
+
+<P></P><DT><A NAME="reftek">20</A>
+<DD>
+Refraction Technology Inc.
+<BR><TT><A NAME="tex2html27"
+  HREF="http://www.reftek.com">http://www.reftek.com</A></TT>.
+
+<P></P><DT><A NAME="scarpa-96">21</A>
+<DD>
+R.&nbsp;Scarpa and R.&nbsp;Tilling.
+<BR><EM>Monitoring and Mitigation of Volcano Hazards</EM>.
+<BR>Springer-Verlag, Berlin, 1996.
+
+<P></P><DT><A NAME="pwave-picking">22</A>
+<DD>
+R.&nbsp;Sleeman and T.&nbsp;van Eck.
+<BR>Robust automatic p-phase picking: an on-line implementation in the
+  analysis of broadband seismogram recordings.
+<BR>Phys. Earth Planet. Int, 1999, 113, 1-4, 265-275.
+
+<P></P><DT><A NAME="gdi-sensys04">23</A>
+<DD>
+R.&nbsp;Szewczyk, A.&nbsp;Mainwaring, J.&nbsp;Polastre, and D.&nbsp;Culler.
+<BR>An analysis of a large scale habitat monitoring application.
+<BR>In <EM>Proc. Second ACM Conference on Embedded Networked Sensor
+  Systems (SenSys)</EM>, 2004.
+
+<P></P><DT><A NAME="spm:04habitat">24</A>
+<DD>
+R.&nbsp;Szewczyk, J.&nbsp;Polastre, A.&nbsp;Mainwaring, and D.&nbsp;Culler.
+<BR>Lessons from a sensor network expedition.
+<BR>In <EM>Proceedings of the First European Workshop on Sensor Networks
+  (EWSN)</EM>, January 2004.
+
+<P></P><DT><A NAME="berkeley-redwoods">25</A>
+<DD>
+G.&nbsp;Tolle, J.&nbsp;Polastre, R.&nbsp;Szewczyk, D.&nbsp;Culler, N.&nbsp;Turner, K.&nbsp;Tu, S.&nbsp;Burgess,
+  T.&nbsp;Dawson, P.&nbsp;Buonadonna, D.&nbsp;Gay, and W.&nbsp;Hong.
+<BR>A macroscope in the redwoods.
+<BR>In <EM>Proc. the Third ACM Conference on Embedded Networked Sensor
+  Systems (SenSys 2005)</EM>, November 2005.
+
+<P></P><DT><A NAME="wimms-wang05">26</A>
+<DD>
+Y.&nbsp;Wang, J.&nbsp;P. Lynch, and K.&nbsp;H. Law.
+<BR>A wireless structural health monitoring system with multithreaded
+  sensing devices: Design and validation.
+<BR>In <EM>Structure and Infrastructure Engineering</EM>, 2005.
+
+<P></P><DT><A NAME="volcano-ewsn05">27</A>
+<DD>
+G.&nbsp;Werner-Allen, J.&nbsp;Johnson, M.&nbsp;Ruiz, J.&nbsp;Lees, and M.&nbsp;Welsh.
+<BR>Monitoring volcanic eruptions with a wireless sensor network.
+<BR>In <EM>Proc. Second European Workshop on Wireless Sensor Networks
+  (EWSN'05)</EM>, January 2005.
+
+<P></P><DT><A NAME="volcano-ieeeic06">28</A>
+<DD>
+G.&nbsp;Werner-Allen, K.&nbsp;Lorincz, M.&nbsp;Ruiz, O.&nbsp;Marcillo, J.&nbsp;Johnson, J.&nbsp;Lees, and
+  M.&nbsp;Welsh.
+<BR>Deploying a wireless sensor network on an active volcano.
+<BR><EM>IEEE Internet Computing, Special Issue on Data-Driven
+  Applications in Sensor Networks</EM>, March/April 2006.
+
+<P></P><DT><A NAME="awoo-multihop">29</A>
+<DD>
+A.&nbsp;Woo, T.&nbsp;Tong, and D.&nbsp;Culler.
+<BR>Taming the underlying challenges of reliable multihop routing in
+  sensor networks.
+<BR>In <EM>Proc. the First ACM Conference on Embedded Networked Sensor
+  Systems (SenSys 2003)</EM>, November 2003.
+
+<P></P><DT><A NAME="wisan">30</A>
+<DD>
+N.&nbsp;Xu, S.&nbsp;Rangwala, K.&nbsp;Chintalapudi, D.&nbsp;Ganesan, A.&nbsp;Broad, R.&nbsp;Govindan, and
+  D.&nbsp;Estrin.
+<BR>A wireless sensor network for structural monitoring.
+<BR>In <EM>Proc. ACM SenSys '04</EM>, November 2004.
+</DL>
+
+<P>
+<BR><HR>
+<ADDRESS>
+Geoffrey Werner-Allen
+2006-09-04
+</ADDRESS>
+</BODY>
+</HTML>
