@@ -1,0 +1,101 @@
+\section{Introduction}
+
+Many sensor network applications involve the acquisition
+of high-resolution signals using low-power wireless sensor nodes. Examples
+include monitoring acoustic, seismic, and vibration waveforms in
+bridges~\cite{ggb-ipsn07}, industrial equipment~\cite{intel-northseasensys}, 
+volcanoes~\cite{volcano-osdi06}, and animal
+habitats~\cite{girod-ipsn07,enviromic}.  These systems all attempt to acquire
+high data-rate (100~Hz or higher), high-fidelity data across the network,
+subject to severe constraints on radio bandwidth and energy usage.
+
+Given these constraints, it is typically not possible to acquire
+continuous waveforms from all nodes.  As a result, applications strive
+to acquire the most ``interesting'' signals, such as a marmot call or
+earthquake, and avoid wasting resources on ``uninteresting'' signals.
+Currently, these resource-management decisions are made on an {\em ad
+hoc} basis for each application, often resulting in suboptimal solutions
+that can consume excessive bandwidth or lose data.  We argue that all
+of these applications would benefit from a general approach to managing
+resources that optimizes the application-specific value of the
+data acquired by the network.
+
+% Define challenges here
+Optimizing reliable data acquisition requires a coordinated approach
+to managing both limited energy capacity and severely constrained
+radio bandwidth. Depending on the sampling rate and
+resolution, downloading signals may take longer than real time;
+while low-power 
+sensor node radios obtain single-hop throughput of about 100~Kbps, the
+the best reliable protocols achieve less than 
+8~Kbps for a single transfer over multiple hops~\cite{flush-sensys07}. 
+Likewise, to achieve long lifetimes in the field, the energy cost of 
+downloading a signal from the network must be carefully considered. 
+The fundamental challenge is how to best direct these limited network
+resources to acquire the most valuable data to the application.
+
+This paper presents {\em Lance}, a general approach to bandwidth and energy
+management for reliable signal collection in wireless sensor networks. In
+Lance, each node acquires data at potentially high rates. For each
+application data unit (ADU), each node generates a concise ADU {\em summary},
+which is periodically sent to the base station and used to compute a ADU {\em
+value}.  Lance computes an ADU {\em download schedule} based on these values,
+and uses a reliable transfer protocol to download ADUs according to this
+schedule.
+
+Energy usage and battery lifetime are major concerns for long-term
+sensor network deployments. 
+Lance incorporates a {\em cost estimator} that
+predicts the energy cost for reliably
+downloading each ADU from the network. We describe a novel energy cost
+estimation algorithm that uses information on the network topology to 
+determine the energy cost at the sensor node hosting the ADU as well
+as intermediate nodes impacted by the multihop transfer protocol. 
+Information from the cost estimator is used to adjust the download
+schedule for ADUs, allowing Lance to target a battery lifetime for 
+the network by load-balancing download operations in a manner that
+adheres to an energy schedule.
+
+Lance incorporates a general framework for managing bandwidth and
+energy that decouples the mechanism for prioritizing resource allocation from
+the application-specific policies used to assign ADU values.
+This is accomplished through user-supplied {\em policy modules} that
+permit a range of sophisticated prioritization policies to be
+tailored for specific applications. Policy modules allow Lance to
+target a broad range of optimization metrics, including node-local and
+network-wide value maximization, lifetime targeting, 
+and acquiring temporally-
+or spatially-correlated data from across the network. 
+Policy modules allow the network's behavior to be significantly altered
+at the base station, without reprogramming the sensor nodes themselves.
+
+The contributions of this paper are as follows. First, we present the
+Lance architecture in detail, which is the first system to provide 
+a value-driven bandwidth and energy management framework for 
+high-data-rate sensor networks. Second, we describe Lance's policy 
+modules, which offer a clean separation of policy and mechanism that 
+allows the system to be tailored to a broad range of applications. 
+We focus on one application in detail: using Lance to maximize data 
+quality for a network of seismic and acoustic sensors deployed at 
+an active volcano. Third, we show through detailed simulation 
+measurements that Lance achieves {\em near optimal} efficiency 
+(greater than 96\% in most cases) under a range of data distributions 
+and resource limitations. 
+Fourth, we present results from 
+an eight-node field deployment of Lance at Tungurahua Volcano, 
+Ecuador, demonstrating the system's performance in a real 
+field setting and the flexibility of policy modules for 
+altering the network's operation following deployment. 
+
+The rest of this paper is organized as follows.
+Section~\ref{sec-motivation} presents motivation and related
+work. We describe the architecture of Lance in detail in
+Section~\ref{sec-architecture} and discuss the use of application-specific
+policy modules in Section~\ref{sec-policies}.  Section~\ref{sec-casestudy}
+presents a case study of several applications that can make use
+of the Lance architecture.  We briefly describe our prototype in
+Section~\ref{sec-implementation}.  Section~\ref{sec-evaluation}
+presents a detailed evaluation while Section~\ref{sec-deployment}
+presents results from our field deployment. Finally,
+Section~\ref{sec-conclusions} discusses future work and concludes.
+

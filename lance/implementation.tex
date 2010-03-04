@@ -1,0 +1,35 @@
+\section{Prototype Implementation}
+\label{sec-implementation}
+\label{sec-implementation-nsm}
+
+We have implemented Lance in TinyOS 2.x~\cite{tinyos-asplos00} for 
+TMote~Sky and iMote2 sensor nodes. The TMote~Sky features a
+1~MB flash memory (ST~M25P80) divided into 16~sectors of 64~KB each.
+Our current prototype matches the ADU size to the sector size to
+simplify storage management, but this is not a fundamental limitation
+in the design. Sensor nodes participate in a multihop spanning-tree 
+protocol rooted
+at the base station; we use the Collection Tree Protocol provided with
+TinyOS~2.0 for this purpose. Nodes send a periodic storage summary to the
+base station. To improve reliability, we use a
+sliding window approach in which each summary includes information on
+the last 5~ADUs recorded by the node. The node prioritization function
+is implemented as an application-supplied NesC component conforming to
+a simple API. Our prototype uses our own Fetch~\cite{volcano-osdi06}
+reliable transfer protocol, although it would be straightforward to
+replace this with another protocol such as Flush~\cite{flush-sensys07}.
+
+The Lance download manager runs at the base station and receives
+data from the network via a ``gateway node'' connected to the base
+station by a serial cable or radio modem.  The download manager is 
+implemented in Perl and makes use of several external utilities for
+reading and parsing storage summary packets and sending download
+requests to the network. Policy modules are implemented as separate
+UNIX processes (which can be in any language; we typically use Perl) 
+that read storage summaries on {\tt stdin} and produce modified
+storage summaries on {\tt stdout}. A simple configuration script is
+used to compose multiple policy modules into a pipe. We find that
+using standard scripting languages and UNIX utilities makes it very
+easy to implement a range of policy modules.
+A suite of Python utilities for logging, data visualization, and 
+managing the network through a GUI are also provided.
