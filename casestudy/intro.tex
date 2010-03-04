@@ -1,202 +1,42 @@
 \section{Introduction}
 
-% Sensor networks used in many scientific explorations:
-%     - Habitat monitoring (GDI, original Cerpa paper)
-%     - Environment (redwoods) soil monitoring
-%     - Civil structures (NetSHM, Wisden, GGB)
-% Despite the great interest, however, not much has been done to
-% validate the sensor network's ability to provide scientifically
-% meaningful data to end-users. A number of challenges arise in
-% sensor nets that make this difficult: sensor calibration, node
-% failure, message loss, and imprecise time synchronization.
-% However, if sensor nets are ultimately going to be successful
-% in scientific field work they must be held to a very high standard;
-% meeting or exceeding the capabilities of existing scientific 
-% instrumentation.
+Wireless sensor networks, comprised of many resource-limited nodes linked by
+low-bandwidth wireless radios, have been the focus of intense research during
+the last few years.  Ever since their conception, wireless sensor networks
+have excited other scientific communities because of their potential to
+facilitate data acquisition and scientific studies.  Collaborations between
+computer scientists and other domain scientists have produced networks
+capable of recording data at a scale and resolution not previously possible.
+Wireless sensor networks have the potential to greatly advance the pursuit of
+scientific knowledge across a wide variety of disciplines.
 
-Sensor networks are making inroads into a number of scientific explorations,
-including environmental
-monitoring~\cite{rope-emnets05,berkeley-redwoods}, habitat
-monitoring~\cite{cerpa-habitat,mainwaring-habitat,gdi-sensys04}, and
-structural monitoring~\cite{ggb-monitoring,netshm-emnets05,wisan}.  
-In each of these
-domains, the use of low-power wireless sensors offers the potential to 
-collect data at spatial and temporal scales that are 
-not feasible with existing instrumentation.
-Despite increased interest in this area, little has been done to
-evaluate the ability of sensor networks to provide meaningful
-data to domain scientists. A number of challenges confound such an effort,
-including node failure, message loss, sensor calibration, and inaccurate time
-synchronization. To successfully aid scientific studies, sensor networks
-must be held to the high standards of 
-%meeting or exceeding 
-current scientific instrumentation.
-%capabilities.
+Two years ago, our team of computer scientists from Harvard University began
+collaborating with volcanologists at the University of North Carolina, the
+University of New Hampshire, and the Instituto Geof\'{i}sico in Ecuador.
+Studying active volcanoes involves a wide range of instrumentation, including
+arrays built to collect seismic and infrasonic (low-frequency acoustic)
+signals. In the summer of 2004 we deployed a small wireless sensor network on
+Volc\'{a}n Tungurahua in central Ecuador as a proof of
+concept~\cite{volcano-ewsn05}.  For three days four nodes equipped with
+microphones collected continuous data from the erupting volcano.
 
-% In this paper, we take a hard
-% look at the performance of a sensor network deployed on an active
-% volcano with a focus on its effectiveness as a scientific instrument.
-% This requires evaluation along two core metrics: data fidelity
-% and data yield. Fidelity is defined in terms of the quality of
-% the captured signals both in terms of individual samples as well
-% as consistency of the signals across multiple nodes. Data yield is
-% a measure of the quantity of data returned by the network during
-% the field deployment.
+In August, 2005, we deployed a larger, more capable network on Volc\'{a}n
+Reventador in northern Ecuador.  The array consisted of sixteen nodes
+equipped with seismoacoustic sensors deployed over 3~km.  Collected data was
+routed through a multihop network and over a long-distance radio link to an
+observatory where it was logged by a laptop.  Over three weeks our network
+captured 230 volcanic events, producing useful data and providing the
+opportunity for us to evaluate the performance of large-scale sensor networks
+for collecting high-resolution volcanic data.
 
-In this paper, we take a hard look at the performance of a wireless sensor
-network deployed on an active volcano. We evaluate its effectiveness as a
-scientific instrument using two metrics: {\em
-data fidelity} and {\em yield}. Data fidelity encompasses the quality and
-consistency of retrieved seismoacoustic signals, while data yield reflects
-the quantity of data delivered by the network. 
-%and latencies associated with data collection.
-%the network delivered.
-
-% Monitoring volcanic eruptions raises new challenges for sensor
-% networking as the data fidelity requirements are very high.
-% First, data rates are relatively high with each node sampling
-% multiple channels of data at 100 Hz. This is in contrast to
-% many previous sensor network applications that focus on
-% very low-rate data collection (one sample every few minutes).
-% Second, signal collection must be reliable with no dropped samples
-% in order to support detailed analysis of the signal. Third,
-% data from multiple nodes must be accurately timestamped against
-% a global clock (typically tied to GPS) to support comparisons of
-% signals across multiple nodes; e.g., determining the seismic
-% wave arrival.
-
-Typical volcano monitoring studies employ GPS-synchronized data
-loggers recording both seismic and acoustic signals. These provide 
-high data fidelity and yield but are bulky, power
-hungry, and difficult to deploy. Existing analog and digital
-telemetry is similarly cumbersome. 
-% MDW: The spin here is CRITICAL: we are not just replacing
-% dataloggers with motes.
-The use of wireless sensors could enable studies involving many 
-more sensors distributed over a larger area. However, the 
-science requirements pose a number of difficult challenges for sensor
-networks.  First, seismoacoustic monitoring requires high data rates, 
-with each node sampling multiple channels at 100~Hz. Second,
-signal analysis requires complete data, necessitating reliable 
-data collection. Third, volcano studies compare signals
-across multiple sensors, requiring that collected data be accurately 
-timestamped against a GPS-based global clock.
-% MDW: "meaningful global clock" is too vague.
-
-% The core contribution of this paper is a thorough analysis of the
-% efficacy of a volcano-monitoring sensor network as a scientific
-% instrument, and is the first paper (to our knowledge) to take a
-% holistic view of sensor network performance and data quality against
-% such a stringent measure. XXX Check this claim against GDI stuff!!!
-
-% MDW: "core" makes it stronger. 
-The core contribution of this paper is an analysis of the efficacy 
-and accuracy of a volcano-monitoring sensor network as a scientific 
-instrument. This is the
-first paper to our knowledge to take a science-centric view of 
-a sensor network with such demanding data-quality requirements. 
-In this paper, we evaluate the data collected from 
-a 19-day field deployment of 16~wireless sensors on 
-Reventador volcano, Ecuador, along the following axes:
-
-\begin{list}{$\bullet$}{\setlength{\topsep}{0.05in}
-                        \setlength{\leftmargin}{0.15in}
-                        \setlength{\itemsep}{0.05in}}
-%\begin{itemize}{}{\setlength{\topsep}{1.0in}}
-%   - Robustness: How effectively did the network continuously 
-%     report data during its lifetime. We find that the sensor
-%     nodes themselves were very reliable (with uptimes exceeding
-%     99%) but the base station infrastructure suffered numerous
-%     outages due to power failures.
-
-\item 
-{\bf Robustness:} We find that the sensor nodes
-themselves were extremely reliable but that overall robustness 
-was limited by power outages at the base station and a single 
-three-day software failure. Discounting the power outages
-and this single failure, mean node uptime exceeded 96\%.
-%
-%   - Event detection accuracy: Our network was designed to
-%     trigger data collection following earthquakes and eruptions
-%     and we evaluate the effectiveness of our distributed event
-%     detector in capturing signals of interest.
-%
-% MDW: "interesting seismoacoustic events" is jargon and too vague.
-\item 
-{\bf Event detection accuracy:} Our network was designed to 
-trigger data collection following volcanic events such as 
-earthquakes and eruptions. We measure the accuracy of our
-distributed event-detection algorithm, finding that the 
-algorithm has a zero false positive rate. However, the network
-failed to detect many seismic events due to a poor choice of 
-event-detection parameters and limitations of our data collection
-protocol.
-%Establishing detection 
-%accuracy is hindered by the lack of complete ground truth.
-%
-%
-%   - Performance: We evaluate the ability of the network to deliver
-%     complete signals to the base station following an event, 
-%     both in terms of the yield as well as throughput and latency.
-%
-\item 
-{\bf Data transfer performance:} We evaluate the ability of our
-data collection protocol to transfer complete signals following an 
-event. We find a 90th percentile {\em event yield} (fraction of nodes for
-which all data for an event was collected) of 94\% and a latency 
-of 63~sec per radio hop for downloading 60~sec worth of data.
-
-%   - Timing accuracy: As mentioned above, time synchronization is
-%     essential. We evaluate both the raw performance of the
-%     underlying time synchronization protocol (FTSP) and describe
-%     a new technique for time rectification of the captured signals
-%     allowing us to map each sample onto a global, GPS-based
-%     timestamp despite only having a single GPS receiver in the field
-%     and failures of the FTSP protocol.
-%
-\item 
-{\bf Timing accuracy:} Data collected by each node
-must be timestamped to within a single sample time (10~ms) to
-enable seismological analysis. We evaluate the
-stability of the underlying time synchronization protocol 
-(FTSP~\cite{ftsp}), and develop a novel approach to {\em time 
-rectification} that accurately timestamps each sample despite
-failures of the FTSP protocol. We show that this approach
-recovers timing with a 90th-percentile error of 6.8~msec in a 6-hop network.
-%
-%   - Data fidelity: Finally, we take a seismological view of the
-%     captured data and present a head-to-head comparison of signals
-%     recorded by our sensor network against a data logger colocated
-%     with one of our nodes; and also look at the consistency of the
-%     data across the network, with an interesting seismological
-%     finding that suggests many earthquakes originated near the
-%     {\em middle} of our sensor array rather than at or near the
-%     vent.
-%
-\item 
-{\bf Data fidelity:} Finally, we take a seismological view of
-the captured data and present a head-to-head comparison of data 
-recorded by our sensor network against a colocated data logger.  
-We also evaluate the consistency of the recorded signals in terms 
-of seismic and acoustic wave arrival times across the network, 
-showing that the data is consistent with expected physical models 
-of the volcano's activity.
-% MDW: I think the discrimination is irrelevent here.
-%which are used to
-%discriminate different types of volcanic activity.
-%
-%\end{itemize}
-\end{list}
-
-The rest of this paper is organized as follows. The next section
-provides background on the use of wireless sensors for volcano
-monitoring and outlines the underlying science goals. In 
-Section~\ref{sec-design} we describe the architecture of our 
-system and the field deployment at Reventador.
-Sections~\ref{sec-robustness}~through~\ref{sec-fidelity} present
-a detailed analysis of the network's performance along each of the
-evaluation metrics described above. Section~\ref{sec-related} 
-discusses related work and Section~\ref{sec-lessons} presents several
-lessons learned from the deployment. Section~\ref{sec-conclusions} 
-outlines future work and concludes.
-
+In contrast with existing volcanic data acquisition equipment, our nodes are
+smaller, lighter, and consume less power.  The resulting improved spatial
+distribution greatly facilitates scientific studies of wave propagation
+phenomena and volcanic source mechanisms.  Additionally, and extremely
+important for a successful collaboration, the volcanic data collection
+application includes challenging computer science problems.  Studying active
+volcanoes requires {\em high data rates}, demands {\em high data fidelity} and
+necessitates sparse arrays with {\em high spatial separation} between nodes.
+The intersection of these scientific requirements with the current
+capabilities of wireless sensor network nodes creates difficult computer
+science problems requiring research and novel engineering.  
