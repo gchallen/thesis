@@ -1,0 +1,88 @@
+\section{Introduction}
+
+Wireless sensor networks have the potential to greatly benefit studies
+of volcanic activity. Volcanologists currently use wired arrays of
+sensors, such as seismometers and acoustic microphones, to monitor
+volcanic eruptions. These sensor arrays are used to determine the source
+mechanism and location of an earthquake or explosion, study the interior
+structure of the volcano, and differentiate true eruptions from noise
+or other signals (e.g., mining activity) not of volcanological
+interest. A typical campaign-type study will involve placement of one or
+more stations on various sites around a volcano.  Each station typically
+consists of a few (less than five) wired sensors distributed over
+a relatively small area (less than 100~m$^2$), and records data locally
+to a hard drive or flash card.  The data must be manually retrieved
+from the station, which may be inconveniently located. Power
+consumption of these systems is very high, requiring large batteries
+and solar panels for long deployments.
+
+Embedded wireless sensor networks, consisting of small, low-power devices
+integrating a modest amount of CPU, memory, and wireless communication,
+could play an important role in volcanic monitoring.
+Wireless sensor nodes have lower power requirements, are easier to 
+deploy, and can support a larger number of sensors distributed over 
+a wider area than current wired arrays. Using long-distance wireless
+links, data can be monitored in real time, avoiding the need for
+manual data collection from remote stations. Such an approach is not without
+its challenges, however. Volcanic time-series data are often sampled
+continuously at rates of 40~Hz or more, far greater than the 
+low frequencies used in environmental monitoring
+studies~\cite{gdi-ewsn04}. Due to limited radio bandwidth, however,
+complete signals cannot be captured and transmitted from a large sensor
+array. For such a network to run for extended periods of time, careful power
+management techniques, such as triggering and in-network event detection, must be developed. 
+In addition, signals from multiple sensor 
+nodes must be accurately synchronized against a global time base.
+
+To demonstrate the use of wireless sensors for volcanic monitoring,
+we developed a wireless sensor network and deployed it on Volc\'{a}n
+Tungurahua, an active volcano in central Ecuador. This network was 
+based on the Mica2 sensor mote platform and consisted of three 
+infrasonic (low-frequency acoustic) 
+microphone nodes transmitting data to an aggregation
+node, which relayed the data over a 9~km wireless link
+to a laptop at the volcano observatory. A separate GPS
+receiver was used to establish a common time base for the infrasonic
+sensors. During this deployment, we recorded over 54~hours of
+infrasonic signals at a rate of 102~Hz per node, resulting in
+over 1.7~GB of uncompressed log data. Throughout the deployment the volcano
+produced several small or moderate explosions an hour, though the rate and
+energy of eruptions varied considerably.  
+
+This small-scale deployment provided a proof-of-concept as well as a
+wealth of real acoustic signals that we have used to develop a
+larger-scale prototype. In order to scale to a larger number of nodes,
+we have developed a distributed signal correlation scheme, in which
+individual infrasonic motes capture signals locally and communicate only
+to determine whether an ``interesting'' event has occurred. By only
+transmitting well-correlated signals to the base station, radio 
+bandwidth usage is greatly reduced.
+%For example, the distributed event detector consumes only XXX~mA on
+%average, while continuous sampling and transmission requires XXX~mA.
+
+This paper describes the design, implementation, and deployment of a
+wireless sensor network for volcanic monitoring. This paper makes the
+following contributions. First, this is the first application to our
+knowledge of mote-based sensor arrays to volcanic studies. Second, we 
+demonstrate that it is possible to capture infrasonic signals from 
+an erupting volcano using a wireless sensor network, and that the 
+captured data correlates well with a colocated, wired seismic 
+and acoustic array. Third, we develop a distributed, in-network event 
+detection and correlation algorithm the greatly reduces communication
+requirements for larger-scale sensor arrays. 
+
+The rest of this paper is organized as follows. In
+Section~\ref{sec-background} we present the scientific background
+for the use of infrasonic arrays to monitor volcanic activity.
+Section~\ref{sec-design} presents the design of our wireless sensor
+network for capturing continuous infrasonic signals, and 
+Section~\ref{sec-deploy} describes our experience with a real sensor
+network deployment at Volc\'{a}n Tungurahua. In Section~\ref{sec-distrib}
+we describe the distributed event correlation scheme, and
+we evaluate its 
+performance with respect to scalability, bandwidth, and power
+consumption in Section~\ref{sec-evaluation}. Finally, Section~\ref{sec-conclusions} presents future work 
+and concludes.
+
+
+
