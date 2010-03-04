@@ -1,0 +1,17 @@
+# This gnuplot script file was automatically generate by Gnuplot.java
+set title "Scheduled Block Yield\n(started on: 2005-08-01\\_00.00.00)"
+set xlabel "Time (days)"
+set ylabel "Yield (%)"
+set grid
+set size 0.7, 0.7
+set key top left 
+set xrange[0:20] 
+set xtics 0,1 
+set mxtics 4 
+set yrange[0:100]
+set terminal postscript eps enhanced color solid
+set output "schBlockYield.eps"
+
+plot "schBlockYield.dat" index 0 using 1:2 notitle  with impulse lt 1 lw 1
+
+# plot "schBlockYield.dat" index 0 using 1:2 title "no_params"  with impulse lt 1 lw 1

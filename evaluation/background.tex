@@ -1,0 +1,132 @@
+\section{Background}
+\label{sec-background}
+
+Scientists monitor volcanoes for two non-exclusive reasons: (1) to
+monitor hazards by assessing the level of volcanic unrest; 
+and (2) to understand physical processes occurring within the
+volcano, such as magma migration and eruption
+mechanisms~\cite{scarpa-96,mcnutt-96}. 
+%A wide range of instruments are
+%used in volcano studies. 
+The most common instrument used is the seismometer, which
+measures ground-propagating elastic radiation from both sources internal 
+to the volcano (e.g., fracture induced by pressurization) and on the 
+surface (e.g., expansion of gases during an eruption)~\cite{mcnutt-96}.  
+% MDW: This is ** employed ** not ** deployed ** on purpose.
+In addition, microphones are sometimes employed to record {\em
+infrasound}, low-frequency ($<$ 20~Hz) acoustic waves generated during
+explosive events. Infrasound is useful for differentiating
+shallow and surface seismicity and for quantifying eruptive styles and
+intensity~\cite{johnson-etal-04b}.
+
+\subsection{Existing volcano instrumentation}
+
+The type of instrumentation used to study volcanoes depends on the 
+the science goals of the deployment. We are focused on the use of
+wireless sensors for temporary field deployments involving
+dozens of sensor stations deployed around an
+expected earthquake source region, with inter-node spacing of
+hundreds of meters. A typical campaign-style deployment will last 
+weeks to months depending on the activity level of the volcano, 
+weather conditions, and science requirements.
+
+Geophysicists often use standalone dataloggers 
+(e.g., Reftek 130~\cite{reftek}) that record signals
+from seismometers and microphones to a flash drive.
+These data loggers are large and power-hungry,
+typically powered by car batteries charged by solar panels. 
+The sheer size and weight precludes deployments of 
+more than a small number of stations
+% MDW: We need to say how frequently data must be retrieved:
+in remote or hazardous areas. Additionally, data must be 
+retrieved manually from each station every few weeks,
+involving significant effort. Analog and digital radio telemetry 
+enables real-time transmission of data back to an observatory. 
+However, existing telemetry equipment is very bulky and its limited 
+radio bandwidth is a problem for collecting continuous data 
+from multiple channels.
+
+\subsection{Sensor network challenges}
+
+Wireless sensor networks have the potential to greatly enhance
+understanding of volcanic processes by permitting large deployments 
+of sensors in remote areas.
+Our group is one of the first to explore the use of wireless
+sensor networks for volcano monitoring. We have deployed
+two wireless arrays on volcanoes in Ecuador: at Volc\'{a}n Tungurahua 
+in July 2004~\cite{volcano-ewsn05}, and at 
+Reventador in August 2005~\cite{volcano-ieeeic06}. 
+The science requirements give rise to a 
+number of unique challenges for sensor networks, which we 
+outline below.
+
+{\bf High-resolution signal collection:}
+Data from seismometers and microphones must be recorded at 
+relatively high data rates with adequate per-sample resolution. 
+A sampling rate of 100~Hz and resolution of 24~bits is typical.
+This is in contrast
+to sensor networks targeting low-rate data collection,
+such as environmental monitoring~\cite{gdi-sensys04,berkeley-redwoods}.
+
+{\bf Triggered data acquisition:}
+Due to limited radio bandwidth (less than 100~Kbps when accounting 
+for MAC overhead), it is infeasible 
+to continuously transmit the full-resolution signal.
+Instead, we rely on triggered data collection that
+downloads data from each sensor following
+a significant earthquake or eruption. This requires sensor nodes
+to continuously sample data and detect events of interest. 
+Event reports from multiple nodes must be collated to accurately 
+detect {\em global} triggers across the network.
+
+{\bf Timing accuracy:} 
+To facilitate comparisons of signals across nodes, signals
+must be timestamped with an accuracy of one sample time 
+(i.e., 10~ms at 100~Hz). 
+Data loggers generally incorporate a GPS receiver and use low-drift 
+oscillators to maintain accurate timing. However, equipping each
+sensor node with a GPS receiver would greatly increase power
+consumption and cost. Instead, we rely on a network time 
+synchronization protocol~\cite{rbs,ftsp} and a {\em single} GPS
+receiver. However, correcting for errors in the time 
+synchronization protocol requires extensive post-processing 
+of the raw timestamps.
+
+%\subsection{Previous work}
+
+% Tungurahua and Reventador deployment
+%Our group is one of the first to explore the use of low-power 
+%wireless sensor networks for geophysical monitoring, particularly 
+%on active volcanoes. Although wireless telemetry is used on 
+%seismic arrays at dozens of volcanoes worldwide, such installations involve 
+%large, power-hungry equipment that is not well-suited for rapid, 
+%dense deployments. As a result, even many of the most most threatening 
+%and active volcanoes (e.g., Mount St. Helens~\cite{malone-81}) maintain 
+%networks of less than ten stations.
+%One of the primary limitations of volcano seismological studies is simply
+%the lack of spatial coverage on a particular volcano.  
+%This is true of
+%heavily-monitored volcanoes like Mt. St. Helens and Mt. Fuji as well as
+%on remote locations in Ecuador.
+
+%Our team has been collaborating for the last two years and has deployed
+%two wireless arrays on volcanoes in Ecuador. Our first deployment in
+%July 2004 at Volc\'{a}n Tungurahua demonstrated the proof-of-concept, 
+%involving three wireless sensor nodes sampling continuous infrasonic 
+%time series data~\cite{volcano-agu04,volcano-ewsn05}.  
+%The sensor array transmitted continuous, real-time infrasonic signals to
+%a base-station laptop via a radio modem 9~km from the deployment site.
+%The network operated for 54~hours and collected data on a dozen
+%eruptive events during this time. This deployment helped us to optimize
+%node placement, packaging, and radio communication in a challenging
+%environment. The second installation at Volc\'{a}n Reventador is the
+%subject of this paper and is described in the next section.
+
+%In this paper we focus on our second deployment in August 2005, 
+%in which we deployed a larger, more sophisticated network on the 
+%upper flanks of Volc\'{a}n Reventador. A previous magazine 
+%article~\cite{volcano-ieeeic06} detailed the network architecture
+%and an overview of the deployment itself. Briefly, the network 
+%consisted of 16~nodes, each with seismometers and microphones, 
+%distributed over a 3~km extent running radially from the vent. 
+

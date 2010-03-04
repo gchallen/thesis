@@ -1,0 +1,132 @@
+\section{Related Work}
+\label{sec-related}
+
+% 22 Apr 2006 : GWA : General idea is to split up work between scientific
+%               (GDI, Macroscope, etc) and other high data rate sensing
+%               applications that have been studied (NetSHM, North Sea, etc.)
+%               I'm going to try and get the highlights on the first pass and
+%               then we can add stuff later.
+
+While the number of sensor network deployments described in the
+literature has been increasing, little prior work has focused on
+evaluating sensor networks from a scientific perspective. 
+In addition, the high data rates and stringent timing accuracy
+requirements of volcano monitoring represent a departure from
+many of the previously-studied applications for sensor networks.
+
+{\bf Low-data-rate monitoring:}
+The first generation of sensor network deployments focused on 
+distributed monitoring of environmental conditions. Representative 
+projects include the Great Duck 
+Island~\cite{spm:04habitat,polastre-masters,mainwaring-habitat}, 
+Berkeley Redwood Forest~\cite{berkeley-redwoods}, and 
+James Reserve~\cite{cerpa-habitat} deployments. These systems are 
+characterized by low data rates (sampling intervals on the order of
+minutes) and very low-duty-cycle operation to conserve power.
+Research in this area has made valuable contributions in establishing
+sensor networks as a viable platform for scientific monitoring and
+developing essential components used in our work. 
+
+This previous work has not yet focused on the efficacy of a sensor
+network as a scientific instrument.  The best example is the Berkeley
+Redwood Forest deployment~\cite{berkeley-redwoods}, which involved
+33~nodes monitoring the microclimate of a redwood tree for 44~days.
+Their study focuses on novel ways of visualizing and presenting the
+data captured by the sensor network, as well as on the data yield of
+the system. The authors show that the microclimactic measurements are
+consistent with existing models; however, no ground truth of the data
+is established. This paper highlights many of the challenges involved
+in using wireless sensors to augment or replace existing scientific
+instrumentation.
+
+{\bf High-data-rate monitoring:} 
+A second class of sensor network applications involves relatively 
+high data rates and precise timing of the captured signals. The two
+dominant applications in this area are structural health monitoring
+and condition-based maintenance. In each case, arrays
+of sensors are used to capture vibration or accelerometer waveforms
+that must be appropriately timestamped for later analysis.
+
+NetSHM~\cite{netshm-ewsnsubmission,netshm-emnets05,wisan} is a 
+wireless sensor network for structural health monitoring, which
+involves studying the response of buildings, bridges, and other
+structures to localize structural damage, e.g., following an
+earthquake. This system shares many of the challenges of 
+geophysical monitoring; indeed, the data rates involved (500~Hz 
+per channel) are higher than are typically used in volcano
+studies. 
+
+% MDW: We can keep this since there is room
+NetSHM implements reliable data collection using both hop-by-hop caching
+and end-to-end retransmissions. Their work explores the use of
+local computations on sensors to reduce bandwidth requirements.
+Rather than a global time-synchronization protocol, the base station 
+timestamps each sample upon reception. The {\em residence time} of 
+each sample as it flows from sensor to base is calculated based on
+measurements at each transmission hop and used to deduce the 
+original sample time.
+
+Several factors distinguish our work. First, NetSHM is designed to collect
+signals following controlled excitations of a structure, which simplifies
+scheduling.  In our case, volcanic activity is bursty and highly variable,
+requiring more sophisticated approaches to event detection and data transfer.
+Second, NetSHM has been deployed in relatively dense networks, making data
+collection and time synchronization more robust.  Third, to date the NetSHM
+evaluations have focused more on network performance and less on the fidelity
+of the extracted data.  Other systems for wireless SHM include one developed
+by the Stanford Earthquake Engineering
+Center~\cite{wimms-lynch06,wimms-wang05} and earlier work by Berkeley on
+monitoring the Golden Gate Bridge~\cite{ggb-monitoring}.
+
+Condition-based maintenance is another emerging area for
+wireless sensor networks. The typical approach is to collect
+vibration waveforms from equipment (e.g., chillers, pumps, etc.) 
+and perform time- and frequency-domain analysis to determine when
+the equipment requires servicing. Intel Research has explored this
+area through two deployments at a fabrication plant and an oil tanker 
+in the North Sea~\cite{intel-northseasensys}. Although this application
+involves high sampling rates, it does not necessarily require time
+synchronization as signals from multiple sensors need not be correlated.
+The initial evaluation of these deployments only considers the
+network performance and does not address data fidelity issues.
+
+% 23 Apr 2006 : GWA : I think that we can cite to GGB in the intro but I
+%               can't find a good evaluation.
+%
+%Another, earlier project using sensor networks for SHM is the Golden Gate
+%Bridge project at the University of California, Berkeley~\cite{ggb-report}. This
+%work focused largely on developing an architecture for high data-rate sensing
+%and reliable data recovery and does not spend any time on data analysis.
+
+% 22 Apr 2006 : GWA : Stuff that didn't get mentioned that I found somewhere:
+%
+% 1) WiMMS :
+% http://eil.stanford.edu/publications/jerry_lynch/SPIE2002Paper.pdf
+% http://eil.stanford.edu/publications/jerry_lynch/3WCSCPaper.pdf
+% http://eil.stanford.edu/publications/jerry_lynch/USKoreaWSPaper2Sensor.pdf
+% http://eil.stanford.edu/publications/yang_wang/IWSHM2005_YangWang_final.pdf
+%
+% This is Jerry Lynch's group at Stanford and might be worth looking at. They
+% do some evaluation. Actually this seems well documented so I think that we
+% should look at it.
+%
+% 2) Group at Notre Dame :
+% http://www.nd.edu/~pantsakl/345-ISHMII05.pdf
+% http://www.nd.edu/~mhaenggi/pubs/struct06.pdf
+%
+% This looks like mainly an architecture.
+
+%\subsection{Habitat monitoring}
+
+% 22 Apr 2006 : GWA : I think that maybe this is enough, but maybe mention
+%               Zebranet?
+
+% 22 Apr 2006 : GWA : Stuff that didn't get mentioned that I found somewhere:
+%
+% 1) Group at University of Australia doing "reactive environmental
+% monitoring"
+% http://www.csse.uwa.edu.au/adhocnets/WSNgroup/soil-water-proj/final.issnip04.25oct.pdf
+%
+% 2) Estrin's Tier Stuff
+% http://lecs.cs.ucla.edu/Publications/papers/tier.pdf
+

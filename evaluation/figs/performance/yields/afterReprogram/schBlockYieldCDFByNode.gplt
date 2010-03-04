@@ -1,0 +1,43 @@
+# This gnuplot script file was automatically generate by Gnuplot.java
+set xlabel "Yield (%)"
+set ylabel "Prob[X <= x]"
+set grid
+set key bottom right 
+set yrange[0:1] 
+set xrange[0:160]
+set terminal postscript eps enhanced color solid "Helvetica" 18
+set output "schBlockYieldCDFByNode.eps"
+
+plot "schBlockYieldCDFByNode.dat" index 0 using 1:2 title "nodeID= 200"  with lines lt 1 lw 4, \
+     "schBlockYieldCDFByNode.dat" index 1 using 1:2 title "nodeID= 201"  with lines lt 2 lw 4, \
+     "schBlockYieldCDFByNode.dat" index 2 using 1:2 title "nodeID= 202"  with lines lt 3 lw 4, \
+     "schBlockYieldCDFByNode.dat" index 3 using 1:2 title "nodeID= 203"  with lines lt 4 lw 4, \
+     "schBlockYieldCDFByNode.dat" index 4 using 1:2 title "nodeID= 204"  with lines lt 5 lw 4, \
+     "schBlockYieldCDFByNode.dat" index 5 using 1:2 title "nodeID= 205"  with lines lt 6 lw 4, \
+     "schBlockYieldCDFByNode.dat" index 6 using 1:2 title "nodeID= 206"  with lines lt 7 lw 4, \
+     "schBlockYieldCDFByNode.dat" index 7 using 1:2 title "nodeID= 207"  with lines lt 8 lw 4, \
+     "schBlockYieldCDFByNode.dat" index 8 using 1:2 title "nodeID= 208"  with lines lt 9 lw 4, \
+     "schBlockYieldCDFByNode.dat" index 9 using 1:2 title "nodeID= 209"  with lines lt 10 lw 4, \
+     "schBlockYieldCDFByNode.dat" index 10 using 1:2 title "nodeID= 210"  with lines lt 11 lw 4, \
+     "schBlockYieldCDFByNode.dat" index 11 using 1:2 title "nodeID= 212"  with lines lt 12 lw 4, \
+     "schBlockYieldCDFByNode.dat" index 12 using 1:2 title "nodeID= 213"  with lines lt 13 lw 4, \
+     "schBlockYieldCDFByNode.dat" index 13 using 1:2 title "nodeID= 214"  with lines lt 14 lw 4, \
+     "schBlockYieldCDFByNode.dat" index 14 using 1:2 title "nodeID= 250"  with lines lt 15 lw 4, \
+     "schBlockYieldCDFByNode.dat" index 15 using 1:2 title "nodeID= 251"  with lines lt 16 lw 4
+
+# plot "schBlockYieldCDFByNode.dat" index 0 using 1:2 title "no_params"  with lines lt 1 lw 4, \
+#      "schBlockYieldCDFByNode.dat" index 1 using 1:2 title "no_params"  with lines lt 2 lw 4, \
+#      "schBlockYieldCDFByNode.dat" index 2 using 1:2 title "no_params"  with lines lt 3 lw 4, \
+#      "schBlockYieldCDFByNode.dat" index 3 using 1:2 title "no_params"  with lines lt 4 lw 4, \
+#      "schBlockYieldCDFByNode.dat" index 4 using 1:2 title "no_params"  with lines lt 5 lw 4, \
+#      "schBlockYieldCDFByNode.dat" index 5 using 1:2 title "no_params"  with lines lt 6 lw 4, \
+#      "schBlockYieldCDFByNode.dat" index 6 using 1:2 title "no_params"  with lines lt 7 lw 4, \
+#      "schBlockYieldCDFByNode.dat" index 7 using 1:2 title "no_params"  with lines lt 8 lw 4, \
+#      "schBlockYieldCDFByNode.dat" index 8 using 1:2 title "no_params"  with lines lt 9 lw 4, \
+#      "schBlockYieldCDFByNode.dat" index 9 using 1:2 title "no_params"  with lines lt 10 lw 4, \
+#      "schBlockYieldCDFByNode.dat" index 10 using 1:2 title "no_params"  with lines lt 11 lw 4, \
+#      "schBlockYieldCDFByNode.dat" index 11 using 1:2 title "no_params"  with lines lt 12 lw 4, \
+#      "schBlockYieldCDFByNode.dat" index 12 using 1:2 title "no_params"  with lines lt 13 lw 4, \
+#      "schBlockYieldCDFByNode.dat" index 13 using 1:2 title "no_params"  with lines lt 14 lw 4, \
+#      "schBlockYieldCDFByNode.dat" index 14 using 1:2 title "no_params"  with lines lt 15 lw 4, \
+#      "schBlockYieldCDFByNode.dat" index 15 using 1:2 title "no_params"  with lines lt 16 lw 4
