@@ -1,0 +1,178 @@
+\bibitem{cartel}
+Cartel.
+\newblock \url{http://cartel.csail.mit.edu/}.
+
+\bibitem{aki-richards-80}
+K.~Aki and R.~Richards.
+\newblock {\em Quantitative Seismology: Theory and Methods}.
+\newblock W.H. Freeman, San Francisco, 1980.
+
+\bibitem{girod-ipsn07}
+A.~M. Ali, T.~C. Collier, L.~Girod, K.~Yao, C.~E. Taylor, and D.~T. Blumstein.
+\newblock An empirical study of collaborative acoustic source localization.
+\newblock In {\em Proc. IPSN 2007}, Cambridge, MA, April 2007.
+
+\bibitem{wavescope}
+H.~Balakrishnan, S.~Madden, and K.~Amaratunga.
+\newblock Wavescope: An adaptive wireless sensor network system for high
+  data-rate applications.
+\newblock \url{http://wavescope.csail.mit.edu/}.
+
+\bibitem{netshm-spots06}
+K.~Chintalapudi, J.~Paek, O.~Gnawali, T.~Fu, K.~Dantu, J.~Caffrey, R.~Govindan,
+  and E.~Johnson.
+\newblock {Structural Damage Detection and Localization Using NetSHM}.
+\newblock In {\em Proc. Fifth International Conference on Information
+  Processing in Sensor Networks: Special track on Sensor Platform Tools and
+  Design Methods for Networked Embedded Systems (IPSN/SPOTS'06)}, April 2006.
+
+\bibitem{vango}
+B.~Greenstein, C.~Mar, A.~Pesterev, S.~Farshchi, E.~Kohler, J.~Judy, and
+  D.~Estrin.
+\newblock Capturing high-frequency phenomena using a bandwidth-limited sensor
+  network.
+\newblock In {\em Proc. Sensys 2006}, Boulder, CO, November 2006.
+
+\bibitem{vigilnet}
+T.~He, S.~Krishnamurthy, J.~A. Stankovic, T.~Abdelzaher, L.~Luo, R.~Stoleru,
+  T.~Yan, L.~Gu, G.~Zhou, J.~Hui, and B.~Krogh.
+\newblock Vigilnet: An integrated sensor network system for energy-efficient
+  surveillance.
+\newblock {\em ACM Transactions on Sensor Networks}, 2004.
+
+\bibitem{tinyos-asplos00}
+J.~Hill, R.~Szewczyk, A.~Woo, S.~Hollar, D.~E. Culler, and K.~S.~J. Pister.
+\newblock System architecture directions for networked sensors.
+\newblock In {\em Proc. the 9th International Conference on Architectural
+  Support for Programming Languages and Operating Systems}, pages 93--104,
+  Boston, MA, USA, Nov. 2000.
+
+\bibitem{deluge}
+J.~W. Hui and D.~Culler.
+\newblock The dynamic behavior of a data dissemination protocol for network
+  programming at scale.
+\newblock In {\em Proc. 2nd ACM Conference on Embedded Networked Sensor Systems
+  (SenSys'04)}, November 2004.
+
+\bibitem{ucla-seismic}
+A.~Husker, I.~Stubailo, M.~Lukac, V.~Naik, R.~Guy, P.~Davis, and D.~Estrin.
+\newblock Wilson: The wirelessly linked seismological network and its
+  application in the middle american subduction experiment (mase).
+\newblock {\em Seismological Research Letters}, May/June 2008.
+
+\bibitem{shimmer}
+{Intel Corporation}.
+\newblock {The SHIMMER Sensor Node Platform}.
+\newblock 2006.
+
+\bibitem{flush-sensys07}
+S.~Kim, R.~Fonseca, P.~Dutta, A.~Tavakoli, D.~Culler, P.~Levis, S.~Shenker, and
+  I.~Stoica.
+\newblock {Flush: A Reliable Bulk Transport Protocol for Multihop Wireless
+  Networks}.
+\newblock In {\em Proc. SenSys'07}, 2007.
+
+\bibitem{ggb-ipsn07}
+S.~Kim, S.~Pakzad, D.~Culler, J.~Demmel, G.~Fenves, S.~Glaser, and M.~Turon.
+\newblock Health monitoring of civil infrastructures using wireless sensor
+  networks.
+\newblock In {\em Proc. IPSN 2007}, Cambridge, MA, April 2007.
+
+\bibitem{intel-northseasensys}
+L.~Krishnamurthy, R.~Adler, P.~Buonadonna, J.~Chhabra, M.~Flanigan,
+  N.~Kushalnagar, L.~Nachman, and M.~Yarvis.
+\newblock Design and deployment of industrial sensor networks: experiences from
+  a semiconductor plant and the north sea.
+\newblock In {\em SenSys '05: Proceedings of the 3rd international conference
+  on Embedded networked sensor systems}, pages 64--75, New York, NY, USA, 2005.
+  ACM Press.
+
+\bibitem{lees-lindley-94}
+J.~Lees and G.~Lindley.
+\newblock {Three-dimensional attenuation tomography at Loma Prieta: Inverting
+  t* for Q}.
+\newblock {\em J. Geophys. Res.}, 99(B4):6843--6863, 1994.
+
+\bibitem{enviromic}
+L.~Luo, Q.~Cao, C.~Huang, T.~Abdelzaher, J.~A. Stankovic, and M.~Ward.
+\newblock Enviromic: Towards cooperative storage and retrieval in audio sensor
+  networks.
+\newblock In {\em Proc. 27th International Conference on Distributed Computing
+  Systems (ICDCS '07)}, June 2007.
+
+\bibitem{wimms-lynch06}
+J.~P. Lynch, Y.~Wang, K.-C. Lu, T.-C. Hou, and C.-H. Loh.
+\newblock Post-seismic damage assessment of steel structures instrumented with
+  self-interrogating wireless sensors.
+\newblock In {\em Proceedings of the 8th National Conference on Earthquake
+  Engineering}, 2006.
+
+\bibitem{flask-tr}
+G.~Mainland, M.~Welsh, and G.~Morrisett.
+\newblock Flask: A language for data-driven sensor network programs.
+\newblock Technical Report TR-13-06, Harvard University, May 2006.
+
+\bibitem{ftsp}
+M.~Maroti, B.~Kusy, G.~Simon, and A.~Ledeczi.
+\newblock The flooding time synchronization protocol.
+\newblock In {\em Second ACM Conference on Embedded Networked Sensor Systems},
+  November 2004.
+
+\bibitem{rsam}
+T.~Murray and E.~Endo.
+\newblock A real-time seismic-amplitude measurement system (rsam).
+\newblock In Ewart and Swanson, editors, {\em Monitoring Volcanoes: Techniques
+  and Strategies Used by the Staff of the Cascades Volcano Observatory,
+  1980-1990}, volume 1966, pages 5--10. USGS Bulletin, 1992.
+
+\bibitem{netshm-emnets05}
+J.~Paek, K.~Chintalapudi, J.~Caffrey, R.~Govindan, and S.~Masri.
+\newblock A wireless sensor network for structural health monitoring:
+  Performance and experience.
+\newblock In {\em Proc. The Second IEEE Workshop on Embedded Networked Sensors
+  (EmNetS-II)}, May 2005.
+
+\bibitem{rcrt-sensys07}
+J.~Paek and R.~Govindan.
+\newblock {RCRT: rate-controlled reliable transport for wireless sensor
+  networks}.
+\newblock In {\em SenSys '07: Proceedings of the 5th international conference
+  on Embedded networked sensor systems}, pages 305--319, 2007.
+
+\bibitem{cyclops}
+M.~Rahimi, R.~Baer, O.~I. Iroezi, J.~C. Garcia, J.~Warrior, D.~Estrin, and
+  M.~Srivastava.
+\newblock Cyclops: in situ image sensing and interpretation in wireless sensor
+  networks.
+\newblock In {\em SenSys '05: Proceedings of the 3rd international conference
+  on Embedded networked sensor systems}, pages 192--204, New York, NY, USA,
+  2005. ACM Press.
+
+\bibitem{shooter-localization}
+G.~Simon et~al.
+\newblock Sensor network-based countersniper system.
+\newblock In {\em Proc. ACM SenSys '04}, November 2004.
+
+\bibitem{volcano-ewsn05}
+G.~Werner-Allen, J.~Johnson, M.~Ruiz, J.~Lees, and M.~Welsh.
+\newblock Monitoring volcanic eruptions with a wireless sensor network.
+\newblock In {\em Proc. Second European Workshop on Wireless Sensor Networks
+  (EWSN'05)}, January 2005.
+
+\bibitem{volcano-osdi06}
+G.~Werner-Allen, K.~Lorincz, J.~Johnson, J.~Lees, and M.~Welsh.
+\newblock Fidelity and yield in a volcano monitoring sensor network.
+\newblock In {\em Proc. 7th USENIX Symposium on Operating Systems Design and
+  Implementation (OSDI 2006)}, Seattle, WA, November 2006.
+
+\bibitem{motelab}
+G.~Werner-Allen, P.~Swieskowski, and M.~Welsh.
+\newblock {MoteLab: A Wireless Sensor Network Testbed}.
+\newblock In {\em Proc. the Fourth International Conference on Information
+  Processing in Sensor Networks (IPSN'05)}, April 2005.
+
+\bibitem{zhang2007icedb}
+Y.~Zhang, B.~Hull, H.~Balakrishnan, and S.~Madden.
+\newblock {ICEDB: Intermittently-Connected Continuous Query Processing}.
+\newblock In {\em International Conference on Data Engineering (ICDE)},
+  Istanbul, Turkey, April 2007.

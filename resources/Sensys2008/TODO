@@ -1,0 +1,83 @@
+TODO for camera-ready
+
+------------------------------------------------------------------------
+As discussed 8/1/508
+
+(Geoff, please mark these when they have been done)
+
+- Graph showing motelab topology
+
+- Run larger motelab experiment (50 nodes+?) with Zipfian ADU
+  distribution to factor out the event source issue
+  - This would replace Figure 10
+  - Move this graph to beginning of testbed eval section
+
+- Run motelab experiment using correlated policy module, and come up
+  with graph showing ADUs downloaded for correlated vs. uncorrelated
+  policy in use.
+
+- Get rid of Figure 9
+
+- Regenerate data for Figure 6
+
+- Regenerate data for Figure 8
+
+- Edit the eval.tex text to go with the new figures - of course.
+
+- Deal with XXXnotes in eval.tex and throughout the paper.
+
+-----
+
+- Full editing pass.
+
+- Fix all widows.
+
+- Check figures are readable when printed in black and white.
+
+
+------------------------------------------------------------------------
+
+Big stuff:
+
+   Run simulations using simple linear topology and uniform utility
+   distribution in the network with three policies: cost-naive,
+   cost-total, and cost-bottleneck, and show how the distribution of
+   data collected in the network varies.
+
+   Calculate what the optimal utility extraction would be for the
+   "realistic" volcano runs in the paper now and show them on the
+   graph side-by-side.
+
+   Graph out the network spatially and show a little pie chart on
+   each node with three segments: idle, energy for data collection,
+   energy for routing. Do a skewed utility distribution where
+   utility attenuates with distance from some "source location".
+   Show that nodes near the source spend more energy collecting
+   local data, nodes along routing path use more energy routing,
+   nodes further away mostly idle. (Somewhat like SORA results.)
+
+Small stuff:
+
+   Cite Madden paper
+
+   Be sure to cite other related papers as necessary - wavescope? 
+
+   Make mention of robustness of base station (well known failover
+   techniques can be used)
+
+   Explain that system can scale to multiple sinks - would need a way
+   to coordinate download activity across multiple sinks?
+
+   Address reviewer #1 nitpicks (many of them)
+
+   Address reviewer #3 nitpicks (a couple)
+
+   Cite video-based adaptive streaming - mentioned by two reviewers.
+   Need good suggestion of which paper to cite.
+
+   Clarify: "Each ADU contains the complete routing path" (Reviewer 3)
+
+   Clarify the energy model vis-a-vis MAC behavior (Reviewer 3)
+
+   Acknowledge Jeff Johnson, Hugo, others at IGEPN. 
+

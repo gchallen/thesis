@@ -1,0 +1,113 @@
+\documentclass[lettersize]{sig-alternate-konrad}
+\usepackage{listings}
+\usepackage{times}  % Use Adobe Times font set
+%\usepackage{epsfig,twocolumn}
+\usepackage{url}
+\usepackage{textcomp}
+\usepackage{graphicx} 
+\usepackage{color}
+\usepackage{multirow}
+
+% This will generate links within the PDF as well as a set of bookmarks
+% \usepackage[colorlinks,pdfpagemode=None]{hyperref} 
+
+%% ----- Customizations -----
+\setlength{\abovecaptionskip}{-0.05in}
+\setlength{\belowcaptionskip}{-0.05in}
+
+\newcommand{\XXXnote}[1]{{\bf\color{red} XXX: #1}}
+%\newcommand{\XXXnote}[1]{}
+
+\pagestyle{empty}
+%\pagenumbering{arabic}
+
+\begin{document}
+
+%%%%%%%%%%%% THIS IS WHERE WE PUT IN THE TITLE AND AUTHORS %%%%%%%%%%%%
+
+\conferenceinfo{SenSys'08,} {November 5--7, 2008, Raleigh, North Carolina, USA.} 
+\CopyrightYear{2008}
+\crdata{978-1-59593-990-6/08/11}
+
+\title{{\ttlfnt Lance: Optimizing High-Resolution Signal Collection
+in Wireless Sensor Networks}}
+\numberofauthors{1}
+\author{\alignauthor Geoffrey Werner-Allen$^\dag$, Stephen
+Dawnson-Haggerty$^\star$ and Matt Welsh$^\dag$\\
+{\affaddr $^\dag$ School of Engineering and
+Applied Sciences, Harvard
+University, Cambridge, MA 02138} \\
+{\affaddr $^\star$ University of California, Berkeley, Berkeley, CA 94720} \\
+\email{werner@eecs.harvard.edu, stevedh@cs.berkeley.edu,
+mdw@eecs.harvard.edu}
+{\affaddr \texttt{http://fiji.eecs.harvard.edu/Lance}}}
+\maketitle
+
+\maketitle
+\thispagestyle{empty}
+
+%%%%%%%%%%%%%  ABSTRACT GOES HERE %%%%%%%%%%%%%%
+
+\subsection*{Abstract}
+An emerging class of sensor networks focuses on reliable 
+collection of high-resolution signals from across the network.
+In these applications, the system is capable of acquiring more 
+data than can be delivered to the base station, 
+due to severe limits on radio bandwidth and energy.
+Moreover, these systems are unable 
+to take advantage of conventional approaches to in-network data
+aggregation, given the high data rates and need for raw signals.
+These systems face an important challenge: how to
+maximize the overall value of the collected data, subject to resource constraints.
+
+In this paper, we describe {\em Lance}, a general approach to
+bandwidth and energy management for reliable data collection in wireless
+sensor networks. Lance couples the use of optimized, data-driven 
+reliable data collection with a model of energy cost for extracting 
+data from the network. Lance's design decouples resource allocation 
+mechanisms from application-specific policies, enabling flexible 
+customization of the system's optimization metrics.
+
+We describe the Lance architecture in detail, demonstrating its
+use through a range of target applications and resource management
+policies. We present an extensive study driven by both 
+real and synthetic data distributions, through simulations and runs
+on a large sensor testbed.  We show that Lance maximizes 
+the value of the collected data under a range of resource 
+constraints, achieving near-optimal allocation of radio bandwidth and
+energy. Finally, we present results from a real sensor network
+deployment at Tungurahua volcano, Ecuador, in which Lance was used to
+drive data collection for an eight-node network collecting seismic and
+acoustic signals from the active volcano.  
+
+%%%%%%%%%%%%%  BODY OF PAPER GOES HERE %%%%%%%%%%%%%%
+
+
+\category{C.2.4}{Distributed Systems}{}
+\category{C.3}{Special-Purpose and Application-Based
+Systems}{Real-time and embedded systems}
+\vspace{-0.1in}
+\terms{Design}
+\vspace{-0.1in}
+\keywords{Wireless Sensor Networks, Data Collection, Resource
+Management}
+
+\input{intro.tex}
+\input{background.tex}
+\input{architecture.tex}
+\input{policies.tex}
+\input{applications.tex}
+\input{implementation.tex}
+\input{evaluation.tex}
+\input{deployment.tex}
+\input{conclusions.tex}
+
+%%%%%%%%%%%%%  THIS IS WHERE THE BIBLIOGRAPHY GOES %%%%%%%%%
+
+%\def\baselinestretch{0.92}
+%\begin{footnotesize}
+%\setlength{\itemsep}{1in}
+\bibliographystyle{abbrv} \bibliography{sensys08}
+%\end{footnotesize}
+
+\end{document}
