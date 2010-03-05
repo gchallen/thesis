@@ -1,5 +1,26 @@
-\input{./casestudy/intro.tex}
-\input{./casestudy/description.tex}
-\input{./casestudy/monitoring.tex}
-\input{./casestudy/cs.tex}
-\input{./casestudy/conclusions.tex}
+\documentclass[12pt,oneside,final]{huthesis}
+\usepackage{url,graphicx,color,hyperref,multirow}
+
+% 11 Jan 2010 : GWA : Maximum table of contents depth.
+%               1 = section
+%               2 = subsection
+%               3 = subsubsection
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% 11 Jan 2010 : GWA : Spacing: \ssp for draft mode, \dsp for GSAS
+%               requirement.
+%\ssp
+\dsp
+
+% 11 Jan 2010 : GWA : Chapter content.
+
+\include{casestudy/casestudy-include}
+
+% 11 Jan 2010 : GWA : Bibliography.
+
+\ssp
+\bibliography{casestudy}
+
+\end{document}
