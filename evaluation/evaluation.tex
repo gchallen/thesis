@@ -1,13 +1,26 @@
+\documentclass[12pt,oneside,final]{huthesis}
+\usepackage{url,graphicx,color,hyperref,multirow}
+
+% 11 Jan 2010 : GWA : Maximum table of contents depth.
+%               1 = section
+%               2 = subsection
+%               3 = subsubsection
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% 11 Jan 2010 : GWA : Spacing: \ssp for draft mode, \dsp for GSAS
+%               requirement.
+%\ssp
+\dsp
+
 % 11 Jan 2010 : GWA : Chapter content.
 
-\input{./evaluation/intro.tex} 
-\input{./evaluation/background.tex}
-\input{./evaluation/design.tex}
-\input{./evaluation/robustness.tex}
-\input{./evaluation/eventdetection.tex}
-\input{./evaluation/performance.tex}
-\input{./evaluation/timing.tex}
-%\input{./evaluation/reftek-comparison.tex}
-\input{./evaluation/fidelity.tex}
-\input{./evaluation/related.tex}
-\input{./evaluation/lessons.tex}
+\include{evaluation/evaluation-include}
+
+% 11 Jan 2010 : GWA : Bibliography.
+
+\ssp
+\bibliography{evaluation}
+
+\end{document}
