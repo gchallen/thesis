@@ -1,4 +1,5 @@
-TARGETS = thesis
+SHELL := /bin/bash
+TARGET = thesis
 
 TEXFILES = $(wildcard introduction/*.tex) \
 					 $(wildcard background/*.tex) \
@@ -10,9 +11,9 @@ TEXFILES = $(wildcard introduction/*.tex) \
 					 $(wildcard lessons/*.tex) \
 					 $(wildcard conclusion/*.tex)
 					 
-PDFS = $(addsuffix .pdf,$(TARGETS))
+PDF = $(addsuffix .pdf,$(TARGET))
 
-all: $(PDFS) missing
+all: $(PDF) missing
 
 %.dvi: %.tex
 
@@ -51,29 +52,43 @@ missing:
 		fi
 
 clean:
-	@/bin/rm -f $(PDFS) *.dvi *.aux *.ps *~ *.log *.lot *.lof *.toc *.blg *.bbl url.sty *.out *.bak
+	@/bin/rm -f $(PDF) *.dvi *.aux *.ps *~ *.log *.lot *.lof *.toc *.blg *.bbl url.sty *.out *.bak
+
+pages:
+	@pdfinfo $(PDF) | grep "Pages" | awk '{print "$(PDF)", $$2;}'
 
 allmake:
-	@cd introduction && make
-	@cd background && make
-	@cd related && make
-	@cd casestudy && make
-	@cd evaluation && make
-	@cd lance && make
-	@cd idea && make
-	@cd lessons && make
-	@cd conclusion && make
+	@$(MAKE) -C introduction --no-print-directory
+	@$(MAKE) -C background --no-print-directory
+	@$(MAKE) -C related --no-print-directory
+	@$(MAKE) -C casestudy --no-print-directory
+	@$(MAKE) -C evaluation --no-print-directory
+	@$(MAKE) -C lance --no-print-directory
+	@$(MAKE) -C idea --no-print-directory
+	@$(MAKE) -C lessons --no-print-directory
+	@$(MAKE) -C conclusion --no-print-directory
 
-allclean:
-	@cd introduction && make clean
-	@cd background && make clean
-	@cd related && make clean
-	@cd casestudy && make clean
-	@cd evaluation && make clean
-	@cd lance && make clean
-	@cd idea && make clean
-	@cd lessons && make clean
-	@cd conclusion && make clean
+allclean: clean
+	@$(MAKE) -C introduction --no-print-directory clean
+	@$(MAKE) -C background --no-print-directory clean
+	@$(MAKE) -C related --no-print-directory clean
+	@$(MAKE) -C casestudy --no-print-directory clean
+	@$(MAKE) -C evaluation --no-print-directory clean
+	@$(MAKE) -C lance --no-print-directory clean
+	@$(MAKE) -C idea --no-print-directory clean
+	@$(MAKE) -C lessons --no-print-directory clean
+	@$(MAKE) -C conclusion --no-print-directory clean
+
+allpages: pages
+	@$(MAKE) -C introduction --no-print-directory pages
+	@$(MAKE) -C background --no-print-directory pages
+	@$(MAKE) -C related --no-print-directory pages
+	@$(MAKE) -C casestudy --no-print-directory pages
+	@$(MAKE) -C evaluation --no-print-directory pages
+	@$(MAKE) -C lance --no-print-directory pages
+	@$(MAKE) -C idea --no-print-directory pages
+	@$(MAKE) -C lessons --no-print-directory pages
+	@$(MAKE) -C conclusion --no-print-directory pages
 
 FORCE:
 

@@ -1,9 +1,10 @@
-TARGETS = casestudy
+SHELL := /bin/bash
+TARGET = casestudy
 
 TEXFILES = $(wildcard *.tex)
-PDFS = $(addsuffix .pdf,$(TARGETS))
+PDF = $(addsuffix .pdf,$(TARGET))
 
-all: $(PDFS) missing
+all: $(PDF) missing
 
 %.dvi: %.tex
 
@@ -41,8 +42,11 @@ missing:
 		echo $(MISSINGCITATIONS);\
 		fi
 
+pages:
+	@pdfinfo $(PDF) | grep "Pages" | awk '{print "$(PDF)", $$2;}'
+
 clean:
-	@/bin/rm -f $(PDFS) *.dvi *.aux *.ps *~ *.log *.lot *.lof *.toc *.blg *.bbl url.sty *.out *.bak
+	@/bin/rm -f $(PDF) *.dvi *.aux *.ps *~ *.log *.lot *.lof *.toc *.blg *.bbl url.sty *.out *.bak
 
 FORCE:
 
