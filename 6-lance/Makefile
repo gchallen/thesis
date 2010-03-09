@@ -4,11 +4,21 @@ TARGET = lance
 TEXFILES = $(wildcard *.tex)
 PDF = $(addsuffix .pdf,$(TARGET))
 
-all: $(PDF) missing
+all: ssp $(PDF) missing
+draft: all
+final: dsp $(PDF) missing embed
+
+ssp:
+	@echo "\\ssp" > .spacing
+	@echo "\\newcommand{\\XXXnote}[1]{\\textcolor{red}{\\bf XXX: #1}}" > .xxxnote
+
+dsp:
+	@echo "\\dsp" > .spacing
+	@echo "\\newcommand{\\XXXnote}[1]{}" > .xxxnote
 
 %.dvi: %.tex
 
-%.pdf: %.tex %.bib %.blg %.toc $(TEXFILES)
+%.pdf: %.tex %.bib %.blg %.toc $(TEXFILES) .spacing .xxxnote
 	pdflatex $*.tex
 	bibtex $*
 	pdflatex $*.tex
