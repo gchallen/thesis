@@ -1,22 +1,19 @@
 \documentclass[12pt,oneside,final]{huthesis}
 \usepackage{url,graphicx,color,hyperref,multirow}
 
-% 11 Jan 2010 : GWA : Maximum table of contents depth.
-%               1 = section
-%               2 = subsection
-%               3 = subsubsection
-\setcounter{tocdepth}{2}
+\input{.xxxnote}
 
 \begin{document}
 
 % 11 Jan 2010 : GWA : Spacing: \ssp for draft mode, \dsp for GSAS
 %               requirement.
-%\ssp
-\dsp
+
+\input{.spacing}
 
 % 11 Jan 2010 : GWA : Chapter content.
 
-\include{background/background-include}
+\setcounter{chapter}{1}
+\include{background-include}
 
 % 11 Jan 2010 : GWA : Bibliography.
 
