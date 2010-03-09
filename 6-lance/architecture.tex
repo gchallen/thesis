@@ -1,22 +1,22 @@
 \section{Lance System Architecture}
-\label{sec-architecture}
+\label{lance-sec-architecture}
 
 \begin{figure}[t]
+\label{lance-fig-architecture}
 \begin{center}
 \includegraphics[width=1.0\hsize]{./6-lance/figs/new-arch.pdf}
 \end{center}
-\caption{\small {\bf The Lance system architecture.} {\em The
-summarization portions are provided by the
-application; all other components are generic.}}
-\label{fig-architecture}
+\caption{\textbf{The Lance system architecture.}
+The summarization portions are provided by the application; all other
+components are generic.}
 \end{figure}
 
 This section describes the Lance architecture, introducing a
 formal problem definition, design principles, and major system components.
-Section~\ref{sec-implementation} covers implementation details omitted here.
+Section~\ref{lance-sec-implementation} covers implementation details omitted here.
 
 \subsection{Problem definition}
-\label{sec-problem-definition}
+\label{lance-sec-problem-definition}
 
 In Lance, the network consists of a set of sensor nodes that continuously
 sample and store sensor data into {\em application data units (ADUs)}, which
@@ -125,7 +125,7 @@ between these two conflicting goals.
 
 \subsection{System overview}
 
-Figure~\ref{fig-architecture} provides an overview of the Lance
+Figure~\ref{lance-fig-architecture} provides an overview of the Lance
 architecture. Sensor nodes sample sensor data, storing the
 data to local flash storage. Each application data unit (ADU)
 consists of
@@ -202,7 +202,7 @@ summarization function, indicating the detection of a marmot call or
 gunshot in the ADU.
 
 \subsection{Cost estimation}
-\label{sec-costassignment}
+\label{lance-sec-costassignment}
 
 Lance estimates the download energy cost
 vector $\bar{c}_i$ for each ADU sampled by the network. 
@@ -247,7 +247,7 @@ after the node reserves enough to ensure it can meet its target lifetime at
 the background level.
 
 \subsection{Lance optimizer}
-\label{sec-lanceoptimizer}
+\label{lance-sec-lanceoptimizer}
 
 The Lance optimizer is responsible for scheduling ADUs for download,
 based on knowledge of the set of ADUs currently stored by the

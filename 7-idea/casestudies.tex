@@ -1,16 +1,16 @@
 \section{Case Studies}
-\label{sec-casestudies}
+\label{idea-sec-casestudies}
 
 Throughout the rest of the paper we demonstrate the utility of the
 information IDEA provides using three examples, each showing how components
 that determine energy load distribution can tune their behavior using IDEA.
 We introduce each example here, describing their implementation and
-interaction with IDEA in detail. Section~\ref{sec-evaluation} presents
+interaction with IDEA in detail. Section~\ref{idea-sec-evaluation} presents
 results demonstrating the performance improvements that IDEA delivers for
 each application.
 
 \subsection{LPL Tuning}
-\label{subsec-lpltuning}
+\label{idea-subsec-lpltuning}
 
 Low-power listening is a technique that enables radio duty-cycling without
 requiring that nodes arrange fixed transmission schedules. It is well-suited
@@ -115,7 +115,7 @@ availability in its routing decisions.
 We integrate IDEA with CTP to create {\em ICTP}, an energy-aware
 load-balancing routing protocol that combines the use of ETX with IDEA's
 energy objective function.  As described in
-Section~\ref{subsec-energyobjectivefunctions}, we parameterize the tradeoff
+Section~\ref{idea-subsec-energyobjectivefunctions}, we parameterize the tradeoff
 between pure ETX and pure energy objective using the weighting factor
 $\alpha$.  When $\alpha = 1$ the minimum ETX path is always used and ICTP
 behaves identically to unmodified CTP. When $0 < \alpha < 1$, potential
@@ -155,7 +155,7 @@ Depending on the energy objective function chosen ICTP responds to variations
 in load and charging rates in different ways. For the following discussion we
 assume that the application uses the \textit{maximize first-node lifetime}
 objective function described in
-Section~\ref{subsec-energyobjectivefunctions}, and so is willing to trade off
+Section~\ref{idea-subsec-energyobjectivefunctions}, and so is willing to trade off
 reduced charging rates or lifetimes at nodes that are not the network's
 lifetime bottleneck in order to increase the lifetime of the node projected
 to die first. Routing trees by their very nature concentrate load near the

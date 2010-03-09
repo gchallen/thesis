@@ -15,20 +15,17 @@
 % instrumentation.
 
 Sensor networks are making inroads into a number of scientific explorations,
-including environmental
-monitoring~\cite{rope-emnets05,berkeley-redwoods}, habitat
-monitoring~\cite{cerpa-habitat,mainwaring-habitat,gdi-sensys04}, and
-structural monitoring~\cite{ggb-monitoring,netshm-emnets05,wisan}.  
-In each of these
-domains, the use of low-power wireless sensors offers the potential to 
-collect data at spatial and temporal scales that are 
-not feasible with existing instrumentation.
-Despite increased interest in this area, little has been done to
-evaluate the ability of sensor networks to provide meaningful
-data to domain scientists. A number of challenges confound such an effort,
-including node failure, message loss, sensor calibration, and inaccurate time
-synchronization. To successfully aid scientific studies, sensor networks
-must be held to the high standards of 
+including environmental monitoring~\cite{rope-emnets05,berkeley-redwoods},
+habitat monitoring~\cite{cerpa-habitat,mainwaring-habitat,gdi-sensys04}, and
+structural monitoring~\cite{ggb-monitoring,netshm-emnets05,wisan}.  In each
+of these domains, the use of low-power wireless sensors offers the potential
+to collect data at spatial and temporal scales that are not feasible with
+existing instrumentation.  Despite increased interest in this area, little
+has been done to evaluate the ability of sensor networks to provide
+meaningful data to domain scientists. A number of challenges confound such an
+effort, including node failure, message loss, sensor calibration, and
+inaccurate time synchronization. To successfully aid scientific studies,
+sensor networks must be held to the high standards of 
 %meeting or exceeding 
 current scientific instrumentation.
 %capabilities.
@@ -45,12 +42,11 @@ current scientific instrumentation.
 
 In this paper, we take a hard look at the performance of a wireless sensor
 network deployed on an active volcano. We evaluate its effectiveness as a
-scientific instrument using two metrics: {\em
-data fidelity} and {\em yield}. Data fidelity encompasses the quality and
-consistency of retrieved seismoacoustic signals, while data yield reflects
-the quantity of data delivered by the network. 
-%and latencies associated with data collection.
-%the network delivered.
+scientific instrument using two metrics: {\em data fidelity} and {\em yield}.
+Data fidelity encompasses the quality and consistency of retrieved
+seismoacoustic signals, while data yield reflects the quantity of data
+delivered by the network. 
+%and latencies associated with data collection.  the network delivered.
 
 % Monitoring volcanic eruptions raises new challenges for sensor
 % networking as the data fidelity requirements are very high.
@@ -65,21 +61,19 @@ the quantity of data delivered by the network.
 % signals across multiple nodes; e.g., determining the seismic
 % wave arrival.
 
-Typical volcano monitoring studies employ GPS-synchronized data
-loggers recording both seismic and acoustic signals. These provide 
-high data fidelity and yield but are bulky, power
-hungry, and difficult to deploy. Existing analog and digital
-telemetry is similarly cumbersome. 
-% MDW: The spin here is CRITICAL: we are not just replacing
-% dataloggers with motes.
-The use of wireless sensors could enable studies involving many 
-more sensors distributed over a larger area. However, the 
-science requirements pose a number of difficult challenges for sensor
-networks.  First, seismoacoustic monitoring requires high data rates, 
-with each node sampling multiple channels at 100~Hz. Second,
-signal analysis requires complete data, necessitating reliable 
-data collection. Third, volcano studies compare signals
-across multiple sensors, requiring that collected data be accurately 
+Typical volcano monitoring studies employ GPS-synchronized data loggers
+recording both seismic and acoustic signals. These provide high data fidelity
+and yield but are bulky, power hungry, and difficult to deploy. Existing
+analog and digital telemetry is similarly cumbersome. 
+% MDW: The spin here is CRITICAL: we are not just replacing dataloggers with
+% motes.
+The use of wireless sensors could enable studies involving many more sensors
+distributed over a larger area. However, the science requirements pose a
+number of difficult challenges for sensor networks.  First, seismoacoustic
+monitoring requires high data rates, with each node sampling multiple
+channels at 100~Hz. Second, signal analysis requires complete data,
+necessitating reliable data collection. Third, volcano studies compare
+signals across multiple sensors, requiring that collected data be accurately
 timestamped against a GPS-based global clock.
 % MDW: "meaningful global clock" is too vague.
 
@@ -90,14 +84,12 @@ timestamped against a GPS-based global clock.
 % such a stringent measure. XXX Check this claim against GDI stuff!!!
 
 % MDW: "core" makes it stronger. 
-The core contribution of this paper is an analysis of the efficacy 
-and accuracy of a volcano-monitoring sensor network as a scientific 
-instrument. This is the
-first paper to our knowledge to take a science-centric view of 
-a sensor network with such demanding data-quality requirements. 
-In this paper, we evaluate the data collected from 
-a 19-day field deployment of 16~wireless sensors on 
-Reventador volcano, Ecuador, along the following axes:
+The core contribution of this paper is an analysis of the efficacy and
+accuracy of a volcano-monitoring sensor network as a scientific instrument.
+This is the first paper to our knowledge to take a science-centric view of a
+sensor network with such demanding data-quality requirements.  In this paper,
+we evaluate the data collected from a 19-day field deployment of 16~wireless
+sensors on Reventador volcano, Ecuador, along the following axes:
 
 \begin{list}{$\bullet$}{\setlength{\topsep}{0.05in}
                         \setlength{\leftmargin}{0.15in}
@@ -110,11 +102,10 @@ Reventador volcano, Ecuador, along the following axes:
 %     outages due to power failures.
 
 \item 
-{\bf Robustness:} We find that the sensor nodes
-themselves were extremely reliable but that overall robustness 
-was limited by power outages at the base station and a single 
-three-day software failure. Discounting the power outages
-and this single failure, mean node uptime exceeded 96\%.
+{\bf Robustness:} We find that the sensor nodes themselves were extremely
+reliable but that overall robustness was limited by power outages at the base
+station and a single three-day software failure. Discounting the power
+outages and this single failure, mean node uptime exceeded 96\%.
 %
 %   - Event detection accuracy: Our network was designed to
 %     trigger data collection following earthquakes and eruptions
@@ -123,14 +114,12 @@ and this single failure, mean node uptime exceeded 96\%.
 %
 % MDW: "interesting seismoacoustic events" is jargon and too vague.
 \item 
-{\bf Event detection accuracy:} Our network was designed to 
-trigger data collection following volcanic events such as 
-earthquakes and eruptions. We measure the accuracy of our
-distributed event-detection algorithm, finding that the 
-algorithm has a zero false positive rate. However, the network
-failed to detect many seismic events due to a poor choice of 
-event-detection parameters and limitations of our data collection
-protocol.
+{\bf Event detection accuracy:} Our network was designed to trigger data
+collection following volcanic events such as earthquakes and eruptions. We
+measure the accuracy of our distributed event-detection algorithm, finding
+that the algorithm has a zero false positive rate. However, the network
+failed to detect many seismic events due to a poor choice of event-detection
+parameters and limitations of our data collection protocol.
 %Establishing detection 
 %accuracy is hindered by the lack of complete ground truth.
 %
@@ -140,11 +129,11 @@ protocol.
 %     both in terms of the yield as well as throughput and latency.
 %
 \item 
-{\bf Data transfer performance:} We evaluate the ability of our
-data collection protocol to transfer complete signals following an 
-event. We find a 90th percentile {\em event yield} (fraction of nodes for
-which all data for an event was collected) of 94\% and a latency 
-of 63~sec per radio hop for downloading 60~sec worth of data.
+{\bf Data transfer performance:} We evaluate the ability of our data
+collection protocol to transfer complete signals following an event. We find
+a 90th percentile {\em event yield} (fraction of nodes for which all data for
+an event was collected) of 94\% and a latency of 63~sec per radio hop for
+downloading 60~sec worth of data.
 
 %   - Timing accuracy: As mentioned above, time synchronization is
 %     essential. We evaluate both the raw performance of the
@@ -155,14 +144,13 @@ of 63~sec per radio hop for downloading 60~sec worth of data.
 %     and failures of the FTSP protocol.
 %
 \item 
-{\bf Timing accuracy:} Data collected by each node
-must be timestamped to within a single sample time (10~ms) to
-enable seismological analysis. We evaluate the
-stability of the underlying time synchronization protocol 
-(FTSP~\cite{ftsp}), and develop a novel approach to {\em time 
-rectification} that accurately timestamps each sample despite
-failures of the FTSP protocol. We show that this approach
-recovers timing with a 90th-percentile error of 6.8~msec in a 6-hop network.
+{\bf Timing accuracy:} Data collected by each node must be timestamped to
+within a single sample time (10~ms) to enable seismological analysis. We
+evaluate the stability of the underlying time synchronization protocol
+(FTSP~\cite{ftsp}), and develop a novel approach to {\em time rectification}
+that accurately timestamps each sample despite failures of the FTSP protocol.
+We show that this approach recovers timing with a 90th-percentile error of
+6.8~msec in a 6-hop network.
 %
 %   - Data fidelity: Finally, we take a seismological view of the
 %     captured data and present a head-to-head comparison of signals
@@ -174,13 +162,12 @@ recovers timing with a 90th-percentile error of 6.8~msec in a 6-hop network.
 %     vent.
 %
 \item 
-{\bf Data fidelity:} Finally, we take a seismological view of
-the captured data and present a head-to-head comparison of data 
-recorded by our sensor network against a colocated data logger.  
-We also evaluate the consistency of the recorded signals in terms 
-of seismic and acoustic wave arrival times across the network, 
-showing that the data is consistent with expected physical models 
-of the volcano's activity.
+{\bf Data fidelity:} Finally, we take a seismological view of the captured
+data and present a head-to-head comparison of data recorded by our sensor
+network against a colocated data logger.  We also evaluate the consistency of
+the recorded signals in terms of seismic and acoustic wave arrival times
+across the network, showing that the data is consistent with expected
+physical models of the volcano's activity.
 % MDW: I think the discrimination is irrelevent here.
 %which are used to
 %discriminate different types of volcanic activity.
@@ -188,15 +175,15 @@ of the volcano's activity.
 %\end{itemize}
 \end{list}
 
-The rest of this paper is organized as follows. The next section
-provides background on the use of wireless sensors for volcano
-monitoring and outlines the underlying science goals. In 
-Section~\ref{sec-design} we describe the architecture of our 
-system and the field deployment at Reventador.
-Sections~\ref{sec-robustness}~through~\ref{sec-fidelity} present
-a detailed analysis of the network's performance along each of the
-evaluation metrics described above. Section~\ref{sec-related} 
-discusses related work and Section~\ref{sec-lessons} presents several
-lessons learned from the deployment. Section~\ref{sec-conclusions} 
-outlines future work and concludes.
+The rest of this paper is organized as follows. The next section provides
+background on the use of wireless sensors for volcano monitoring and outlines
+the underlying science goals. In Section~\ref{evaluation-sec-design} we
+describe the architecture of our system and the field deployment at
+Reventador.
+Sections~\ref{evaluation-sec-robustness}~through~\ref{evaluation-sec-fidelity}
+present a detailed analysis of the network's performance along each of the
+evaluation metrics described above. Section~\ref{evaluation-sec-related}
+discusses related work and Section~\ref{evaluation-sec-lessons} presents
+several lessons learned from the deployment.
+Section~\ref{evaluation-sec-conclusions} outlines future work and concludes.
 

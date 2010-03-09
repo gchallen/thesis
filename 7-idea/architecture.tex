@@ -1,23 +1,23 @@
 \section{Architecture}
-\label{sec-architecture}
+\label{idea-sec-architecture}
 
 Here we present the IDEA architecture. Beginning with a formal problem
 definition, we present a brief overview, and then describe each major system
 component in detail.
 
 \begin{figure}[t]
+\label{idea-fig-arch}
 \begin{center}
 \includegraphics[width=\hsize]{./7-idea/figs/IDEAArchitecture.pdf}
 \end{center}
-\caption{\small{\textbf{Overview of IDEA architecture.}
+\caption{\textbf{Overview of IDEA architecture.}
 IDEA combines load and charge monitoring and modeling, energy state
 distribution and an application-provided energy objective function into a
 single service which can easily be integrated into application components.
-Client states are evaluated by the energy objective function and also assigned
-an application utility. These scores are combined by the optimizer to select
-the state best balancing the application's distributed energy goals against
-the state's intrinsic desirability.}}
-\label{fig-arch}
+Client states are evaluated by the energy objective function and also
+assigned an application utility. These scores are combined by the optimizer
+to select the state best balancing the application's distributed energy goals
+against the state's intrinsic desirability.}
 \end{figure}
 
 \subsection{Problem definition}
@@ -85,7 +85,7 @@ intrinsic utility. Setting $\alpha=1$ optimizes only for energy;
 $\alpha=0$ only for application-defined utility.
 
 \subsection{Energy objective functions}
-\label{subsec-energyobjectivefunctions}
+\label{idea-subsec-energyobjectivefunctions}
 
 Before describing the IDEA system itself, we first consider the space
 of energy optimization goals that the system can target.
@@ -181,10 +181,10 @@ important observation is that {\em most state changes only the impact energy
 consumption of a node's immediate neighbors}.  Hence, nodes can perform a
 local optimization using information gathered only from their neighbors.
 Although this approach does not guarantee that the state assignment will be
-globally optimal, we show in Section~\ref{sec-evaluation} that it
+globally optimal, we show in Section~\ref{idea-sec-evaluation} that it
 approximates the optimal solution with low overhead.
 
-Figure~\ref{fig-arch} provides an overview of the IDEA architecture.
+Figure~\ref{idea-fig-arch} provides an overview of the IDEA architecture.
 Each node {\em monitors} its own load rate, charging rate, and battery level.
 Monitoring output is passed to a {\em modeling component} that produces
 models of load and charging behavior.  Model parameters are distributed to
@@ -355,7 +355,7 @@ weighted combination of the objective function $O$ and the utility $u$.  {\tt
 chooseState()} returns the new state $s'$ selected by the optimizer.
 
 In many cases it is straightforward to interface IDEA to existing code. As we
-demonstrate in Section~\ref{sec-casestudies}, IDEA has been used to add
+demonstrate in Section~\ref{idea-sec-casestudies}, IDEA has been used to add
 energy awareness to the CTP~\cite{ctp-sensys09} routing protocol with minimal
 code changes.  Existing software components can be supported by wrapping them
 in code that estimates energy impact, enumerates states, and interfaces to

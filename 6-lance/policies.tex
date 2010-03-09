@@ -1,5 +1,5 @@
 \section{Policy Modules}
-\label{sec-policies}
+\label{lance-sec-policies}
 
 Policy modules provide an interface through 
 which applications can tune the operation of the Lance optimizer.
@@ -51,9 +51,10 @@ is relatively straightforward, and can be quickly reversed without
 risking sensor node failures. 
 
 \subsection{Example policy modules}
-\label{sec-example-policies}
+\label{lance-sec-example-policies}
 
 \begin{figure}[t]
+\label{lance-fig-policymodules}
 \begin{center}
 \begin{small}
 \begin{tabular}{|l|l|} \hline
@@ -70,18 +71,16 @@ risking sensor node failures.
 \end{tabular}
 \end{small}
 \end{center}
-\caption{\small {\bf Standard policy modules provided by Lance.}}
-\label{fig-policymodules}
-\vspace{-0.2in}
+\caption{\textbf{Standard policy modules provided by Lance.}}
 \end{figure}
 
-Policy modules can be used to encapsulate a wide range of 
-data collection goals, and make it easy to customize Lance's behavior
-for specific applications. We provide a standard toolkit of
-general-purpose policy modules, summarized in Figure~\ref{fig-policymodules}.
-Application developers are free to implement their own modules as well.
-By composing modules in a linear chain, it is easy to implement 
-various behaviors without requiring a general-purpose ``policy language.'' 
+Policy modules can be used to encapsulate a wide range of data collection
+goals, and make it easy to customize Lance's behavior for specific
+applications. We provide a standard toolkit of general-purpose policy
+modules, summarized in Figure~\ref{lance-fig-policymodules}.  Application
+developers are free to implement their own modules as well.  By composing
+modules in a linear chain, it is easy to implement various behaviors without
+requiring a general-purpose ``policy language.'' 
 
 {\bf Value thresholding:}
 {\tt filter} is perhaps the simplest example of a policy module that 

@@ -1,5 +1,5 @@
 \section{Time Rectification and Accuracy}
-\label{sec-timing}
+\label{evaluation-sec-timing}
 
 %  - FTSP stability: How often did FTSP go down and for how long? [GWA]
 %  - % of events with 'good' FTSP timing  [GWA]
@@ -15,54 +15,48 @@
 %\label{fig-}
 %\end{figure}
 
-When analyzing seismoacoustic data acquired at volcanoes, accurate 
-timing of recorded signals is paramount. Studying volcanic source processes
-necessitates precisely identifying the arrival time of P-~and S-waves 
-at each sensor. Also, correlating signals across the sensor
-array requires accurately timestamping each sample.  Ideally, timing should
-be accurate to within one sample interval, or 10~ms when sampling at 100~Hz.
-% MDW 26-Aug-06: I think it's OK to not repeat the power-hungry nature
-% of GPS receivers; we've said it a few times already.
-As described earlier, 
-%seismologists typically deploy a GPS receiver at each
-%station. Because GPS receivers are expensive and power hungry, 
-we opted to
-use a single GPS receiver and employ a multihop time-synchronization protocol
-to establish a global timebase. The protocol worked well
-in laboratory experiments. However, it experienced significant failures in
-the field, requiring extensive postprocessing of the data to recover accurate
-timing for each signal.
+When analyzing seismoacoustic data acquired at volcanoes, accurate timing of
+recorded signals is paramount. Studying volcanic source processes
+necessitates precisely identifying the arrival time of P-~and S-waves at each
+sensor. Also, correlating signals across the sensor array requires accurately
+timestamping each sample.  Ideally, timing should be accurate to within one
+sample interval, or 10~ms when sampling at 100~Hz.  As described earlier, 
+%seismologists typically deploy a GPS receiver at each station. Because GPS
+%receivers are expensive and power hungry, 
+we opted to use a single GPS receiver and employ a multihop
+time-synchronization protocol to establish a global timebase. The protocol
+worked well in laboratory experiments. However, it experienced significant
+failures in the field, requiring extensive postprocessing of the data to
+recover accurate timing for each signal.
 
 In this section, we provide an overview of the time synchronization errors
 observed in the field. We then present a novel {\em time rectification}
 technique that allows us to recover accurate timing despite protocol
 failures.  
-%Prior internet measurement work has examined similar techniques
-%for error detection and recovery and produced valuable insights and
-%  advice~\cite{paxson98calibrating,1028824}
-%However, the specific techniques do not map directly to our application for
-%several reasons. First, they focus more on error detection and do not
-%address rectification.  Second, the sensor network time synchronization
-%protocols we deployed are new and have goals distinct from common network
-%time-synchronization protocols. Additionally, most network measurements can
-%be performed using relative times only, whereas the scientific requirements
-%of our application required assigning an accurate absolute timestamp to
-%each collected sample.
-We evaluate our approach through
-lab experiments with a known, ground-truth timebase, and by comparing our
-signals with signals recorded by the colocated data loggers. This
-paper is the first to our knowledge to evaluate the stability of a multihop
-time synchronization protocol during a lengthy sensor network 
-field deployment. 
+%Prior internet measurement work has examined similar techniques for error
+%detection and recovery and produced valuable insights and
+%advice~\cite{paxson98calibrating,1028824} However, the specific techniques
+%do not map directly to our application for several reasons. First, they
+%focus more on error detection and do not address rectification.  Second, the
+%sensor network time synchronization protocols we deployed are new and have
+%goals distinct from common network time-synchronization protocols.
+%Additionally, most network measurements can be performed using relative
+%times only, whereas the scientific requirements of our application required
+%assigning an accurate absolute timestamp to each collected sample.
+We evaluate our approach through lab experiments with a known, ground-truth
+timebase, and by comparing our signals with signals recorded by the colocated
+data loggers. This paper is the first to our knowledge to evaluate the
+stability of a multihop time synchronization protocol during a lengthy sensor
+network field deployment. 
 
 \subsection{Time synchronization architecture}
 
 We chose to use the Flooding Time Synchronization Protocol
-(FTSP)~\cite{ftsp}, an existing protocol developed for
-wireless sensor nodes.  In the original FTSP work~\cite{ftsp}, timing errors
-of less than 67~$\mu$sec were reported for an 11-hop network of Mica2 nodes.
-We verified in our testbed that FTSP provided a 90th-percentile time
-error of under 2.1~ms in a 5-hop linear network of TMote Sky nodes.
+(FTSP)~\cite{ftsp}, an existing protocol developed for wireless sensor nodes.
+In the original FTSP work~\cite{ftsp}, timing errors of less than 67~$\mu$sec
+were reported for an 11-hop network of Mica2 nodes.  We verified in our
+testbed that FTSP provided a 90th-percentile time error of under 2.1~ms in a
+5-hop linear network of TMote Sky nodes.
 
 A single MicaZ sensor node was used as the root of the FTSP synchronization
 tree. It interfaced to a Garmin GPS receiver and received a 1~Hz interrupt
@@ -78,79 +72,76 @@ data from each node following an event, this local time can be used to
 recover the time for each sample in the block.
 
 Therefore, we have three relevant timebases: the {\em local time} at each
-node; the {\em global time} established by the FTSP protocol; and the
-{\em GPS time} recorded by the FTSP root. The information in the nodes'
-status messages can be used to map local time to global time, and the
-information in the GPS node's status messages can be used to map global time
-to GPS-based GMT.
+node; the {\em global time} established by the FTSP protocol; and the {\em
+GPS time} recorded by the FTSP root. The information in the nodes' status
+messages can be used to map local time to global time, and the information in
+the GPS node's status messages can be used to map global time to GPS-based
+GMT.
 
 \subsection{FTSP failures in the field}
-\label{timing-deploymentfailures}
+\label{evaluation-timing-deploymentfailures}
 
 In the absence of failures, this mapping would be a straightforward process.
 However, in the field, we noticed that nodes would occasionally lose
 synchronization with the rest of the network and report FTSP global times
 with significant errors, sometimes exceeding several hours. We suspect that
 the sparse deployment conditions at the volcano might have led to different
-behavior in the time synchronization protocol than in the lab. For
-example, occasional message loss or failure of a neighbor could cause the 
-node's global time to drift from the rest of the network.  
-However, in lab tests that constrained the network topology we 
-did not observe these instabilities.
+behavior in the time synchronization protocol than in the lab. For example,
+occasional message loss or failure of a neighbor could cause the node's
+global time to drift from the rest of the network.  However, in lab tests
+that constrained the network topology we did not observe these instabilities.
 
 \begin{figure}[t]
+\label{evaluation-fig-globaltimeproblem}
 \begin{center}
 \includegraphics[width=\hsize]{./5-evaluation/figs/timing/MDW/instability/FTSPINSTABILITY.pdf}
 \end{center} 
-
-\caption{{\small {\bf Example of FTSP instability observed during field
-deployment:} {\em The global time value reported by sensor nodes and the
-GPS node is plotted against the time that the base station received the
-corresponding status messages. All nodes are initially synchronized, but
-starting at 1230 GMT, nodes 212~and~250 report incorrect global times for the
-next 4.5~hours. When the nodes eventually resynchronize, the global
-timestamps of other nodes initially experience some instability.}}}
-\label{fig-globaltimeproblem}
+\caption{\textbf{Example of FTSP instability observed during field
+deployment.}
+The global time value reported by sensor nodes and the GPS node is plotted
+against the time that the base station received the corresponding status
+messages. All nodes are initially synchronized, but starting at 1230 GMT,
+nodes 212~and~250 report incorrect global times for the next 4.5~hours. When
+the nodes eventually resynchronize, the global timestamps of other nodes
+initially experience some instability.}
 \end{figure}
 
-Figure~\ref{fig-globaltimeproblem} shows an example of the FTSP instability
-observed in the field. The global time reported by two nodes
+Figure~\ref{evaluation-fig-globaltimeproblem} shows an example of the FTSP
+instability observed in the field. The global time reported by two nodes
 suddenly jumps off by several hours, and the nodes do not resynchronize until
 rebooted 4.5~hours later.  It turns out that two bugs conflated to cause this
 problem.  First, it was discovered that the TinyOS clock driver would
-occasionally return bogus local timestamps.  This bug was fixed in
-February 2006, several months after our deployment. 
-Second, FTSP does not check the
-validity of synchronization messages, so a node reading an incorrect 
-value for its local clock can corrupt the state of other nodes, 
-throwing off the global time calculation.  
-To our knowledge, few if any sensor network deployments have
-attempted to use network time synchronization protocols for extended periods.
-In addition, ours may have been the first deployment of FTSP on the TMote Sky
-platform where the clock driver bug manifested itself. 
+occasionally return bogus local timestamps.  This bug was fixed in February
+2006, several months after our deployment.  Second, FTSP does not check the
+validity of synchronization messages, so a node reading an incorrect value
+for its local clock can corrupt the state of other nodes, throwing off the
+global time calculation.  To our knowledge, few if any sensor network
+deployments have attempted to use network time synchronization protocols for
+extended periods.  In addition, ours may have been the first deployment of
+FTSP on the TMote Sky platform where the clock driver bug manifested itself. 
 
 \begin{figure}[t]
+\label{evaluation-fig-rectificationcartoon}
 \begin{center}
 \includegraphics[width=0.8\hsize]{./5-evaluation/figs/timing/RectificationCartoon/cartoon.pdf}
 \end{center}
-\caption{\small{\bf Time rectification process overview.}}
-\label{fig-rectificationcartoon}
+\caption{\textbf{Time rectification process overview.}}
 \end{figure}
 
 The failures of the time synchronization protocol make establishing the
 correct GPS-based timestamp for each data sample extremely challenging. Our
 {\em time rectification} approach filters and remaps recorded timestamps to
 accurately recover timing despite these failures.  The time rectification
-process is illustrated in Figure~\ref{fig-rectificationcartoon}. The first
-step is to {\em filter} the global timestamps recorded by each node,
-discarding bogus data. Second, we build a model mapping the local time on
-each node to FTSP-based global time.  Third, we use the GPS timestamp
+process is illustrated in Figure~\ref{evaluation-fig-rectificationcartoon}.
+The first step is to {\em filter} the global timestamps recorded by each
+node, discarding bogus data. Second, we build a model mapping the local time
+on each node to FTSP-based global time.  Third, we use the GPS timestamp
 information to build a second model mapping FTSP time to GMT. Finally, both
 models are applied to the timestamps recorded in each data block producing a
 GMT time for each sample.
 
 \subsection{Timestamp filtering}
-\label{subsection-filtering}
+\label{evaluation-subsection-filtering}
 
 We begin by filtering out status messages appearing to contain incorrect
 global timestamps. To do this, we correlate global timestamps from each node
@@ -159,27 +150,25 @@ some threshold.  For this, we use the base station laptop's local time, which
 is {\em only} used for filtering FTSP timestamps, not for establishing the
 correct timing. The filtering process in is many ways similar to prior
 work~\cite{paxson98calibrating,1028824} on detecting adjustments in
-network-synchronized clocks. % when analyzing network packet traces.
+network-synchronized clocks.
 
-We use the following abbreviations: {\em LT} is the local
-time of a node; {\em GT} is the FTSP global time; {\em BT} is the base
-station's local time; and {\em GMT} is the true GMT from the GPS signal.
-Each GPS status message logged by the base station consists of the 
-triple {\em (GT, GMT, BT)}. 
-We use linear regression on this data to produce a reference
-timebase mapping {\em BT} to {\em GT}.\footnote{We assume that the global
-time reported by the GPS node is always correct; indeed, the definition of
-``global time'' is the FTSP time reported by the GPS node. We verified that
-the FTSP instability affecting the sensor nodes did not occur on the GPS
-node, most likely because the MicaZ uses a different processor that is
-unaffected by the clock driver bug.} For each node status message logged by
-the laptop {\em (LT, GT, BT)}, we map {\em BT} to the expected
-$\mathit{GT}_{\mathit{ref}}$ using the reference timebase. If $ \mid
-\mathit{GT}_{\mathit{ref}} - \mathit{GT} \mid > \delta$, we discard the
-status message from further consideration.  We use a threshold of $\delta =
-1$~sec.  Although radio message propagation and delays on the base station
-can affect the {\em BT} for each status message, a small rejection
-threshold $\delta$ makes it unlikely that any truly incorrect FTSP
+We use the following abbreviations: {\em LT} is the local time of a node;
+{\em GT} is the FTSP global time; {\em BT} is the base station's local time;
+and {\em GMT} is the true GMT from the GPS signal.  Each GPS status message
+logged by the base station consists of the triple {\em (GT, GMT, BT)}.  We
+use linear regression on this data to produce a reference timebase mapping
+{\em BT} to {\em GT}.\footnote{We assume that the global time reported by the
+GPS node is always correct; indeed, the definition of ``global time'' is the
+FTSP time reported by the GPS node. We verified that the FTSP instability
+affecting the sensor nodes did not occur on the GPS node, most likely because
+the MicaZ uses a different processor that is unaffected by the clock driver
+bug.} For each node status message logged by the laptop {\em (LT, GT, BT)},
+we map {\em BT} to the expected $\mathit{GT}_{\mathit{ref}}$ using the
+reference timebase. If $ \mid \mathit{GT}_{\mathit{ref}} - \mathit{GT} \mid >
+\delta$, we discard the status message from further consideration.  We use a
+threshold of $\delta = 1$~sec.  Although radio message propagation and delays
+on the base station can affect the {\em BT} for each status message, a small
+rejection threshold $\delta$ makes it unlikely that any truly incorrect FTSP
 timestamps pass the filter. Indeed, of the 7.8\% of timestamps filtered out,
 the median {\em GT} error was 8.1~hours.
 
@@ -199,26 +188,25 @@ the median {\em GT} error was 8.1~hours.
 %\end{figure}
 
 \subsection{Timestamp rectification}
-\label{section-timerectification}
+\label{evaluation-section-timerectification}
 
 \begin{figure}[t]
+\label{evaluation-fig-rectificationprocess}
 \begin{center}
 \includegraphics[width=\hsize]{./5-evaluation/figs/timing/MDW/rectification/rectify.pdf}
 \end{center}
-\caption{\small{\bf Time rectification example.}
-{\em  The raw (LT, GT) pairs collected from the node show that
-it experiences a period of FTSP instability.  The time rectification process
-removes the errant timestamps creating an accurate mapping between LT
-and GT created using a linear regression on the remaining
-timestamps.}}
-\label{fig-rectificationprocess}
+\caption{\textbf{Time rectification example.}
+The raw (LT, GT) pairs collected from the node show that it experiences a
+period of FTSP instability.  The time rectification process removes the
+errant timestamps creating an accurate mapping between LT and GT created
+using a linear regression on the remaining timestamps.}
 \end{figure}
 
 The goal of {\em time rectification} is to assign a GMT timestamp to each
 sample in the recorded data. In order to do so, we build two models: one
 mapping a node's local time to global time, and another mapping global time
 to GMT. 
-%
+
 %\begin{figure}[t]
 %\begin{center}
 %\includegraphics[width=\hsize]{./5-evaluation/figs/timing/FTSPRuns/FTSPDOWN-RUNS-CDF.pdf}
@@ -230,19 +218,16 @@ to GMT.
 %rectification process.}}
 %\label{fig-ftspdown-runs-cdf}
 %\end{figure}
-%
-From those 
-%the {\em (LT, GT)} information in the 
-status messages that pass the
-filter, we build a piecewise linear model mapping {\em LT} to {\em
-GT} using a series of linear regressions. 
-Models are constructed for each node separately, since local
-times vary significantly between nodes.  Each regression spans up to
-5~minutes of data and we initiate a new regression if the gap between
-subsequent {\em (LT, GT)} pairs exceeds 5~minutes.  Each interval must
-contain at least two valid status messages to construct the model.  We take
-the {\em LT} value stored in each data block and use this model to recover
-the corresponding {\em GT} value.
+
+From those status messages that pass the filter, we build a piecewise linear
+model mapping {\em LT} to {\em GT} using a series of linear regressions.
+Models are constructed for each node separately, since local times vary
+significantly between nodes.  Each regression spans up to 5~minutes of data
+and we initiate a new regression if the gap between subsequent {\em (LT, GT)}
+pairs exceeds 5~minutes.  Each interval must contain at least two valid
+status messages to construct the model.  We take the {\em LT} value stored in
+each data block and use this model to recover the corresponding {\em GT}
+value.
 
 The next step is to map global time to GMT. Each of the GPS node's status
 messages contain a {\em (GT, GMT)} pair. As above, we build a piecewise
@@ -254,36 +239,35 @@ assumptions about sampling rate, which varies slightly from node to node due
 to clock drift.
 
 \subsection{Evaluation}
-\label{timing-postdeployment}
+\label{evaluation-timing-postdeployment}
 
-Evaluating this time rectification process has proved
-difficult, primarily because we have no ground truth for the timing
-of the signals recorded in the field. However, by reproducing the deployment
-conditions in the lab, we have been able to measure the accuracy of the
-recovered timing in a controlled setting. In addition, as described earlier,
-two GPS-synchronized data loggers were colocated with our sensor network,
-providing us the opportunity to directly compare our time-rectified signals
-with those recorded by conventional instrumentation.
+Evaluating this time rectification process has proved difficult, primarily
+because we have no ground truth for the timing of the signals recorded in the
+field. However, by reproducing the deployment conditions in the lab, we have
+been able to measure the accuracy of the recovered timing in a controlled
+setting. In addition, as described earlier, two GPS-synchronized data loggers
+were colocated with our sensor network, providing us the opportunity to
+directly compare our time-rectified signals with those recorded by
+conventional instrumentation.
 
-Our first validation took place in the lab. Feeding the
-output of a signal generator to both a miniature version of our sensor
-network and to a Reftek~130 data logger allowed us to directly compare the data
-between both systems.  The miniature network consisted of a single
-sensor node, routing gateway, and GPS receiver node. The same software was
-used as in the field deployment. The Reftek~130 logs data
-to a flash memory card and timestamps each sample using its own GPS receiver.
+Our first validation took place in the lab. Feeding the output of a signal
+generator to both a miniature version of our sensor network and to a
+Reftek~130 data logger allowed us to directly compare the data between both
+systems.  The miniature network consisted of a single sensor node, routing
+gateway, and GPS receiver node. The same software was used as in the field
+deployment. The Reftek~130 logs data to a flash memory card and timestamps
+each sample using its own GPS receiver.
 %The Reftek~130 is commonly used in volcano field studies and its timing
 %accuracy has been extensively validated.
 
-The results showed a consistent 15~ms offset between the time-rectified 
-signals recorded by the sensor node and the Reftek data logger.  
-We discovered that this offset was due to delays introduced by 
-the digital filtering performed by the
-ADC on our sensor board (see Section~\ref{sec-hardware}). Adjusting for this
-delay resulted in an indiscernible offset between the sensor node and 
-Reftek signals. While this experiment does not reproduce the full 
-complexity of our deployed network, it does serve as a baseline for 
-validation.
+The results showed a consistent 15~ms offset between the time-rectified
+signals recorded by the sensor node and the Reftek data logger.  We
+discovered that this offset was due to delays introduced by the digital
+filtering performed by the ADC on our sensor board (see
+Section~\ref{evaluation-sec-hardware}). Adjusting for this delay resulted in
+an indiscernible offset between the sensor node and Reftek signals. While
+this experiment does not reproduce the full complexity of our deployed
+network, it does serve as a baseline for validation.
 
 In the second lab experiment, we set up a network of 7~sensor nodes in a
 6-hop linear topology. The topology is enforced by software, but all nodes
@@ -301,6 +285,7 @@ The experiment ran for 34~hours, during which time FTSP experienced
 instabilities similar to those seen during our deployment.
 
 \begin{figure}[t]
+\label{evaluation-fig-time-rect-lab}
 \begin{tabular}{|lll|} \hline
                   & {\bf Raw error} & {\bf Rectified error} \\ \hline
 {\bf  1 hop}, 50th percentile & 1.52 ms & 1.42 ms \\ 
@@ -308,21 +293,19 @@ instabilities similar to those seen during our deployment.
 {\bf 6 hops}, 50th percentile & 2.63 ms & 2.18 ms \\ 
 {\bf 6 hops}, 90th percentile & 13.5 ms & 6.8 ms \\ \hline 
 \end{tabular} \\
-\vspace{2ex}
-\caption{\small {\bf Timestamp errors in a 6-hop lab testbed:}
-{\em This table shows the 50th and 90th-percentile timing errors
-on both the raw FTSP timestamps, and rectified timestamps.}}
-\label{fig-time-rect-lab}
+\caption{\textbf{Timestamp errors in a 6-hop lab testbed.}
+This table shows the 50th and 90th-percentile timing errors on both the raw
+FTSP timestamps, and rectified timestamps.}
 \end{figure}
 
 This allows us to compare the {\em true} global time of each beacon message
 transmission and the {\em apparent} global time on each receiving node, both
 before and after subjecting the data to our time rectification process.  We
 call the difference between the true and apparent times the {\em timestamp
-error}. Figure~\ref{fig-time-rect-lab} shows the results for nodes one and
-six hops away from the FTSP root.  After rectification, 99.9\% of the errors
-for the one-hop node and 93.1\% of the errors for the six-hop node fall
-within our 10~ms error envelope.
+error}. Figure~\ref{evaluation-fig-time-rect-lab} shows the results for nodes
+one and six hops away from the FTSP root.  After rectification, 99.9\% of the
+errors for the one-hop node and 93.1\% of the errors for the six-hop node
+fall within our 10~ms error envelope.
 
 \clearpage
 

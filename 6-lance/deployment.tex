@@ -1,7 +1,7 @@
 \pagebreak
 \section{Field Deployment at\\Tungurahua Volcano}
-\label{sec-deploy}
-\label{sec-deployment}
+\label{lance-sec-deploy}
+\label{lance-sec-deployment}
 
 To evaluate the performance of Lance in a real field setting, 
 we undertook a one week deployment of eight~sensor nodes at
@@ -18,12 +18,11 @@ Our primary goal was to validate Lance's operation in a field campaign,
 as well as to identify challenges that only arise in real deployments.
 
 \begin{figure}[t]
+\label{lance-fig-deploy-map}
 \begin{center}
 \includegraphics[width=1.0\hsize]{./6-lance/figs/deploy/deployment-map.pdf}
 \end{center}
-\caption{\small {\bf Location of the Tungurahua sensor network
-deployment.}}
-\label{fig-deploy-map}
+\caption{\textbf{Location of the Tungurahua sensor network deployment.}}
 \end{figure}
 
 The hardware design was based on one used in a previous volcano sensor
@@ -32,7 +31,7 @@ Each sensor node consisted of a TMote~Sky module
 coupled with a custom 24-bit multichannel~ADC board. The network measured
 seismic signals using 4.5~Hz geophones and infrasonic signals with small
 electret microphones attached to each node.  Data was sampled at 100~Hz
-per channel. As shown in Figure~\ref{fig-deploy-map}, seven of the nodes 
+per channel. As shown in Figure~\ref{lance-fig-deploy-map}, seven of the nodes 
 were deployed in a three-armed ``star'' topology radiating away from 
 a central hub node, with two nodes per arm. 
 The eighth node was colocated with the hub and 
@@ -61,8 +60,8 @@ several different policy modules during the field deployment.
 % Data here comes from running "DownloadStats.py" on all of the
 % data/generated/gps-DownloadManager-08-0[2345]*
 \begin{figure}[t]
+\label{lance-fig-deploy-throughput}
 \begin{center}
-\begin{small}
 \begin{tabular}{|l|l|l|} \hline 
 {\bf Node}	& {\bf ADUs downloaded} & {\bf Mean throughput} \\ \hline
 100 & 311 & 651.0 B/sec \\
@@ -74,10 +73,8 @@ several different policy modules during the field deployment.
 106 & 20 & 253.4 B/sec \\ \hline
 {\em Total} & 1232 & 431.5 B/sec \\ \hline
 \end{tabular}
-\end{small}
 \end{center}
-\caption{\small {\bf Download performance during the deployment.}}
-\label{fig-deploy-throughput}
+\caption{\textbf{Download performance during the deployment.}}
 \end{figure}
 
 The sensor network was operational for a total of 71~hours, out of
@@ -93,24 +90,23 @@ representing an aggregate of 688~MB of sampled data. Lance therefore
 downloaded approximately 11\% of the data produced by the network.
 % Performance: What was the overall fetch throughput? Distribution of 
 % fetch times?
-Figure~\ref{fig-deploy-throughput} summarizes the number of ADUs
+Figure~\ref{lance-fig-deploy-throughput} summarizes the number of ADUs
 downloaded and the mean throughput for each node. 
 
 % Overheads
 
 \begin{figure}[t]
+\label{lance-fig-packetgraph}
 \begin{center}
 \includegraphics[width=0.9\hsize]{./6-lance/figs/deploy/packetgraph/packetgraph.pdf}
 \end{center}
-\caption{\small {\bf Breakdown of radio traffic by packet type.}
-{\em This figure shows the total number of bytes received at the base 
-station, averaged over 15~sec intervals. Periodic node status messages
-and storage summaries comprise a small fraction of the overall
-bandwidth.}}
-\label{fig-packetgraph}
+\caption{\textbf{Breakdown of radio traffic by packet type.}
+This figure shows the total number of bytes received at the base station,
+averaged over 15~sec intervals. Periodic node status messages and storage
+summaries comprise a small fraction of the overall bandwidth.}
 \end{figure}
 
-Figure~\ref{fig-packetgraph} shows a breakdown of the packets received
+Figure~\ref{lance-fig-packetgraph} shows a breakdown of the packets received
 at the base station for a representative time period.
 Fetch download packets consumed the majority of
 the bandwidth, followed by the continuous sampling packets.
@@ -135,16 +131,15 @@ traffic.
 \subsection{RSAM-based summarization}
 
 \begin{figure}[t]
+\label{lance-fig-rsam-dc-bias}
 \begin{center}
 \includegraphics[width=1.0\hsize]{./6-lance/figs/deploy/downloads-pre-median-filter5.pdf}
 \end{center}
-\caption{\small {\bf Effect of DC bias on RSAM summarization
-function.} {\em Each point represents the ADU value received at
-the base station, and the triangles indicate those ADUs that were
-downloaded by Lance. Since nodes' RSAM values are
-offset significantly from each other, Lance prefers
-downloading from the node with the largest positive bias.}}
-\label{fig-rsam-dc-bias}
+\caption{\textbf{Effect of DC bias on RSAM summarization function.}
+Each point represents the ADU value received at the base station, and the
+triangles indicate those ADUs that were downloaded by Lance. Since nodes'
+RSAM values are offset significantly from each other, Lance prefers
+downloading from the node with the largest positive bias.}
 \end{figure}
 
 The system as initially deployed computed the RSAM~\cite{rsam} as the
@@ -154,7 +149,7 @@ the overall level of seismic activity. We experienced two problems as
 soon as the system was fielded. First, the RSAM calculation was
 sensitive to DC~bias in the seismometer signal, causing Lance to 
 generally prefer downloading ADUs from one or two nodes (those with
-the largest positive bias). Figure~\ref{fig-rsam-dc-bias} shows this
+the largest positive bias). Figure~\ref{lance-fig-rsam-dc-bias} shows this
 effect, with Lance only downloading ADUs from node~103.
 
 This problem was easily corrected, without any node software changes,
@@ -184,7 +179,7 @@ the optimal system would have downloaded, with complete knowledge of all ADUs
 but limited to the same time duration the original network was operating.  We
 assume the download throughput for a given node is always the mean throughput
 for that node observed during the deployment
-  (Figure~\ref{fig-deploy-throughput}). This calculation ignores energy
+  (Figure~\ref{lance-fig-deploy-throughput}). This calculation ignores energy
   constraints because the deployed system did not consider energy costs.
 
 % Optimal: 392 downloads, utility 10678
@@ -229,7 +224,7 @@ algorithm.
 
 % -----
 \subsection{EWMA-based summarization function}
-\label{sec-ewma-deployment}
+\label{lance-sec-ewma-deployment}
 
 Given the low level of volcanic activity, after the first 25~hours of
 the deployment we chose to reprogram the network to use a different
@@ -284,22 +279,22 @@ showing a clear earthquake signal, corresponding to only 9~separate
 seismic events.\footnote{One seismologist remarked that we 
 ``fixed the volcano'' by placing our sensors on it.}
 Note that we did {\em not} configure Lance to explicitly download 
-correlated earthquakes as described in Section~\ref{sec-applications},
+correlated earthquakes as described in Section~\ref{lance-sec-applications},
 so we would not expect a high degree of coverage for the same event
 across multiple nodes.
 
 \begin{figure}[t]
+\label{lance-fig-downloads-cont}
 \begin{center}
 \includegraphics[width=1.0\hsize]{./6-lance/figs/deploy/deploydownloads/everything.pdf}
 \end{center}
-\caption{\small {\bf Lance download behavior overlayed with average
-ADU value.} {\em The top plot shows the continuous seismic signal
-collected by a single node. The lower plot shows the average value
-of ADUs and the number of ADUs downloaded for each window.}}
-\label{fig-downloads-cont}
+\caption{\textbf{Lance download behavior overlayed with average ADU value.}
+The top plot shows the continuous seismic signal collected by a single node.
+The lower plot shows the average value of ADUs and the number of ADUs
+downloaded for each window.}
 \end{figure}
 
-Figure~\ref{fig-downloads-cont} shows the behavior of Lance during a
+Figure~\ref{lance-fig-downloads-cont} shows the behavior of Lance during a
 representative 83-minute period. In the figure, we have broken time
 into windows of one-half an ADU duration (55~sec in this case), and
 computed the mean ADU value as well as the number of downloaded

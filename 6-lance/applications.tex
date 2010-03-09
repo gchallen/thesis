@@ -1,6 +1,6 @@
 \section{Application case studies}
-\label{sec-applications}
-\label{sec-casestudy}
+\label{lance-sec-applications}
+\label{lance-sec-casestudy}
 
 In this section, we present several case studies of how Lance can
 benefit different application domains. We describe our use of Lance in
@@ -79,7 +79,7 @@ The node-level event detector was replaced by an ADU summarization function,
 as described below. The base station code for responding to
 correlated events was replaced with Lance's optimizer and
 policy modules. Our deployment of the completed system at Tungurahua
-volcano in August 2007 is discussed in Section~\ref{sec-deployment}.
+volcano in August 2007 is discussed in Section~\ref{lance-sec-deployment}.
 
 %\begin{figure*}[t]
 %\begin{center}
@@ -97,7 +97,7 @@ volcano in August 2007 is discussed in Section~\ref{sec-deployment}.
 %\caption{\small{\bf Comparing Two Node Utility Calculators:} 
 %Shown in relation to the 6~hour data trace, subplot (a), are the output of
 %the two candidate node utility calculators described in
-%Section~\ref{sec-casestudy-nuc}, with dotted lines identifying the 50
+%Section~\ref{lance-sec-casestudy-nuc}, with dotted lines identifying the 50
 %highest-utility data units computed by each detector. Subplot (b) shows the
 %EWMA detector, which is good at detecting event onsets; (c) shows the RSAM
 %detector, which offers a better indication of the overall strength of
@@ -105,11 +105,11 @@ volcano in August 2007 is discussed in Section~\ref{sec-deployment}.
 %occur during long-period events, such as volcanic tremor. Since the stated
 %goal of the volcano monitoring application was to extract short-period events
 %we chose the EWMA detector for the majority of our evaluation.}
-%\label{fig-nucplot}
+%\label{lance-fig-nucplot}
 %\end{figure*}
 
 \subsubsection{Summarization functions}
-\label{sec-casestudy-nuc}
+\label{lance-sec-casestudy-nuc}
 
 The original system was intended to detect correlated seismic
 events from across the network and download data from all nodes,
@@ -127,7 +127,7 @@ two averages'' as the node-level summarization function.  Rather than
 performing thresholding at the node level, we report the maximum ratio over
 the ADU as its value, allowing Lance to prioritize different events. The base
 station's policy modules are configured as shown in
-Section~\ref{sec-example-policies}, using a chain of {\tt filter}, {\tt
+Section~\ref{lance-sec-example-policies}, using a chain of {\tt filter}, {\tt
 correlated}, and {\tt spacespread} to implement the equivalent of the event
 triggering policy used in the original system. Note that the Lance version of
 the system differs from the original in that download management is
@@ -164,7 +164,7 @@ infrasound.
 % MDW: I think you do NOT want to even talk about the "37 events
 % identified by a seismologist" since it is not relevant here, and
 % makes it sound like RSAM is the "wrong"  utility metric. 
-%Figure~\ref{fig-nucplot} shows each candidate utility calculated over 
+%Figure~\ref{lance-fig-nucplot} shows each candidate utility calculated over 
 %the 6~hour
 %time period used for our analyses. Each graph also identifies, for each
 %candidate detector, the top 37-events, as determined by the assigned utility
