@@ -2,16 +2,16 @@ SHELL := /bin/bash
 TARGET = thesis
 
 TEXFILES = $(wildcard *.tex) \
-					 $(wildcard frontmatter/*.tex) \
-					 $(wildcard introduction/*.tex) \
-					 $(wildcard background/*.tex) \
-					 $(wildcard related/*.tex) \
-					 $(wildcard casestudy/*.tex) \
-					 $(wildcard evaluation/*.tex) \
-					 $(wildcard lance/*.tex) \
-					 $(wildcard idea/*.tex) \
-					 $(wildcard lessons/*.tex) \
-					 $(wildcard conclusion/*.tex)
+					 $(wildcard 0-frontmatter/*.tex) \
+					 $(wildcard 1-introduction/*.tex) \
+					 $(wildcard 2-background/*.tex) \
+					 $(wildcard 3-related/*.tex) \
+					 $(wildcard 4-casestudy/*.tex) \
+					 $(wildcard 5-evaluation/*.tex) \
+					 $(wildcard 6-lance/*.tex) \
+					 $(wildcard 7-idea/*.tex) \
+					 $(wildcard 8-lessons/*.tex) \
+					 $(wildcard 9-conclusion/*.tex)
 					 
 PDF = $(addsuffix .pdf,$(TARGET))
 
@@ -90,37 +90,37 @@ pages: $(PDF)
 	@pdfinfo $(PDF) 2>/dev/null | grep "Pages" | awk '{print "$(PDF)", $$2;}'
 
 allmake:
-	@$(MAKE) -C introduction --no-print-directory
-	@$(MAKE) -C background --no-print-directory
-	@$(MAKE) -C related --no-print-directory
-	@$(MAKE) -C casestudy --no-print-directory
-	@$(MAKE) -C evaluation --no-print-directory
-	@$(MAKE) -C lance --no-print-directory
-	@$(MAKE) -C idea --no-print-directory
-	@$(MAKE) -C lessons --no-print-directory
-	@$(MAKE) -C conclusion --no-print-directory
+	@$(MAKE) -C 1-introduction --no-print-directory
+	@$(MAKE) -C 2-background --no-print-directory
+	@$(MAKE) -C 3-related --no-print-directory
+	@$(MAKE) -C 4-casestudy --no-print-directory
+	@$(MAKE) -C 5-evaluation --no-print-directory
+	@$(MAKE) -C 6-lance --no-print-directory
+	@$(MAKE) -C 7-idea --no-print-directory
+	@$(MAKE) -C 8-lessons --no-print-directory
+	@$(MAKE) -C 9-conclusion --no-print-directory
 
 allclean: clean
-	@$(MAKE) -C introduction --no-print-directory clean
-	@$(MAKE) -C background --no-print-directory clean
-	@$(MAKE) -C related --no-print-directory clean
-	@$(MAKE) -C casestudy --no-print-directory clean
-	@$(MAKE) -C evaluation --no-print-directory clean
-	@$(MAKE) -C lance --no-print-directory clean
-	@$(MAKE) -C idea --no-print-directory clean
-	@$(MAKE) -C lessons --no-print-directory clean
-	@$(MAKE) -C conclusion --no-print-directory clean
+	@$(MAKE) -C 1-introduction --no-print-directory clean
+	@$(MAKE) -C 2-background --no-print-directory clean
+	@$(MAKE) -C 3-related --no-print-directory clean
+	@$(MAKE) -C 4-casestudy --no-print-directory clean
+	@$(MAKE) -C 5-evaluation --no-print-directory clean
+	@$(MAKE) -C 6-lance --no-print-directory clean
+	@$(MAKE) -C 7-idea --no-print-directory clean
+	@$(MAKE) -C 8-lessons --no-print-directory clean
+	@$(MAKE) -C 9-conclusion --no-print-directory clean
 
 allpages: pages
-	@$(MAKE) -C introduction --no-print-directory pages
-	@$(MAKE) -C background --no-print-directory pages
-	@$(MAKE) -C related --no-print-directory pages
-	@$(MAKE) -C casestudy --no-print-directory pages
-	@$(MAKE) -C evaluation --no-print-directory pages
-	@$(MAKE) -C lance --no-print-directory pages
-	@$(MAKE) -C idea --no-print-directory pages
-	@$(MAKE) -C lessons --no-print-directory pages
-	@$(MAKE) -C conclusion --no-print-directory pages
+	@$(MAKE) -C 1-introduction --no-print-directory pages
+	@$(MAKE) -C 2-background --no-print-directory pages
+	@$(MAKE) -C 3-related --no-print-directory pages
+	@$(MAKE) -C 4-casestudy --no-print-directory pages
+	@$(MAKE) -C 5-evaluation --no-print-directory pages
+	@$(MAKE) -C 6-lance --no-print-directory pages
+	@$(MAKE) -C 7-idea --no-print-directory pages
+	@$(MAKE) -C 8-lessons --no-print-directory pages
+	@$(MAKE) -C 9-conclusion --no-print-directory pages
 
 FORCE:
 
