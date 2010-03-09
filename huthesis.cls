@@ -312,6 +312,7 @@
 % The year and month the completed thesis is submitted...
 \def\degreeyear#1{\gdef\@degreeyear{#1}}
 \def\degreemonth#1{\gdef\@degreemonth{#1}}
+\def\nonewlinetitle#1{\gdef\@nonewlinetitle{#1}}
 
 % The full (unabbreviated) name of the degree
 \def\degree#1{\gdef\@degree{#1}}
@@ -416,8 +417,8 @@
 	\vspace*{-.8in}
 	\noindent Thesis advisor \hfill Author \\
 	\noindent {\bf \@advisor} \hfill {\bf \@author} \\[.4in]
-\centerline{\begin{centering}\large\bf{\@title}\end{centering}}\\[.4in]
-  % attempt to
+\centerline{\begin{centering}{\large\bf{\@nonewlinetitle}}\end{centering}}\\[.4in]
+% attempt to
 % handle multiple-line title correctly; doesn't since part after \\ is not
 % centered!   AHB 7/7/07
 % Corrected by Ryan Moore 4/25/08
