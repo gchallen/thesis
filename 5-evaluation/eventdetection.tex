@@ -12,34 +12,31 @@ scientifically interesting events.
 
 \subsection{Event triggers per node}
 
-%  - Overall statistics: [MDW]
-%    - Number events detected vs. node
 \begin{figure}[t]
+\label{evaluation-fig-eventspernode}
 \begin{center}
 \includegraphics[width=\hsize]{./5-evaluation/figs/eventdetection/eruptionTriggers/eruptCount.pdf}
 \end{center}
-\caption{\small{\bf Event triggers per node.}
-{\em This figure shows the total number of event triggers reported by each
-node. It demonstrates a wide variation in trigger rates that cannot be
-attributed only to varying node uptimes. For example, node~204 had the lowest
-uptime but the largest number of event triggers.}}
-\label{fig-eventspernode}
+\caption{\textbf{Event triggers per node.}
+This figure shows the total number of event triggers reported by each node.
+It demonstrates a wide variation in trigger rates that cannot be attributed
+only to varying node uptimes. For example, node~204 had the lowest uptime but
+the largest number of event triggers.}
 \end{figure}
 
-%    - Number events detected vs. time
 \begin{figure}[t]
 \begin{center}
 \includegraphics[width=\hsize]{./5-evaluation/figs/eventdetection/eruptionTriggers/eruptCountVsTime.pdf}
 \end{center}
-\caption{\small{\bf Event triggers over time.}
-{\em The upper graph shows the total number of individual node triggers per
-hour. The lower graph shows the corresponding number of global
-triggers. Reventador's varying seismic activity generated between 0~to~5
-global triggers per hour.}}
+\caption{\textbf{Event triggers over time.}
+The upper graph shows the total number of individual node triggers per hour.
+The lower graph shows the corresponding number of global triggers.
+Reventador's varying seismic activity generated between 0~to~5 global
+triggers per hour.}
 \label{fig-eventspertime}
 \end{figure}
 
-Figure~\ref{fig-eventspernode} shows the total number of events reported by
+Figure~\ref{evaluation-fig-eventspernode} shows the total number of events reported by
 each node during the deployment. It shows a wide variation in the event
 trigger rate, from 70~triggers for node~213 to 1830~triggers for node~204.
 Variation in the trigger rate can be attributed to many factors, including the
@@ -51,7 +48,7 @@ all had high trigger counts despite being significantly farther away.
 
 \subsection{Event triggers over time}
 
-Figure~\ref{fig-eventspertime} shows both the number of individual node and
+Figure~\ref{evaluation-fig-eventspertime} shows both the number of individual node and
 global event triggers over each hour. We observe
 that the volcano's activity varied greatly, generating trigger counts ranging
 between~2~and~405 events per hour when the network was online.  This activity
