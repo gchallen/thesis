@@ -42,8 +42,8 @@ missing:
 		echo $(MISSINGCITATIONS);\
 		fi
 
-pages:
-	@pdfinfo $(PDF) | grep "Pages" | awk '{print "$(PDF)", $$2;}'
+pages: $(PDF)
+	@pdfinfo $(PDF) 2>/dev/null | grep "Pages" | awk '{print "$(PDF)", $$2;}'
 
 clean:
 	@/bin/rm -f $(PDF) *.dvi *.aux *.ps *~ *.log *.lot *.lof *.toc *.blg *.bbl url.sty *.out *.bak
