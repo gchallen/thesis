@@ -9,12 +9,12 @@ draft: all
 final: dsp $(PDF) missing embed
 
 ssp:
-	echo "\\ssp" > .spacing
-	echo "\\newcommand{\\XXXnote}[1]{\\textcolor{red}{\\bf XXX: #1}}" > .xxxnote
+	@echo "\\ssp" > .spacing
+	@echo "\\newcommand{\\XXXnote}[1]{\\textcolor{red}{\\bf XXX: #1}}" > .xxxnote
 
 dsp:
-	echo "\\dsp" > .spacing
-	echo "\\newcommand{\\XXXnote}[1]{}" > .xxxnote
+	@echo "\\dsp" > .spacing
+	@echo "\\newcommand{\\XXXnote}[1]{}" > .xxxnote
 
 %.dvi: %.tex
 
