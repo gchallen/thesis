@@ -1,7 +1,9 @@
 SHELL := /bin/bash
 TARGET = thesis
 
-TEXFILES = $(wildcard introduction/*.tex) \
+TEXFILES = $(wildcard *.tex) \
+					 $(wildcard frontmatter/*.tex) \
+					 $(wildcard introduction/*.tex) \
 					 $(wildcard background/*.tex) \
 					 $(wildcard related/*.tex) \
 					 $(wildcard casestudy/*.tex) \
