@@ -4,17 +4,37 @@ TARGET = lance
 TEXFILES = $(wildcard *.tex)
 PDF = $(addsuffix .pdf,$(TARGET))
 
-all: ssp $(PDF) missing
-draft: all
-final: dsp $(PDF) missing embed
+draft: ssp $(PDF) missing
+final: dsp $(PDF) missing
+all: draft
 
 ssp:
-	@echo "\\ssp" > .spacing
-	@echo "\\newcommand{\\XXXnote}[1]{\\textcolor{red}{\\bf XXX: #1}}" > .xxxnote
+	@echo "\\ssp" > .spacing-new
+	@if [ -n "`diff -N 2>/dev/null .spacing .spacing-new`" ]; then\
+		mv .spacing-new .spacing; \
+		else\
+		rm -f .spacing-new; \
+		fi
+	@echo "\\newcommand{\\XXXnote}[1]{\\textcolor{red}{\\bf XXX: #1}}" > .xxxnote-new
+	@if [ -n "`diff -N 2>/dev/null .xxxnote .xxxnote-new`" ]; then\
+		mv .xxxnote-new .xxxnote; \
+		else\
+		rm -f .xxxnote-new; \
+		fi
 
 dsp:
-	@echo "\\dsp" > .spacing
-	@echo "\\newcommand{\\XXXnote}[1]{}" > .xxxnote
+	@echo "\\dsp" > .spacing-new
+	@if [ -n "`diff -N 2>/dev/null .spacing .spacing-new`" ]; then\
+		mv .spacing-new .spacing; \
+		else\
+		rm -f .spacing-new; \
+		fi
+	@echo "\\newcommand{\\XXXnote}[1]{}" > .xxxnote-new
+	@if [ -n "`diff -N 2>/dev/null .xxxnote .xxxnote-new`" ]; then\
+		mv .xxxnote-new .xxxnote; \
+		else\
+		rm -f .xxxnote-new; \
+		fi
 
 %.dvi: %.tex
 
