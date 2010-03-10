@@ -89,14 +89,14 @@ missing-fail: missing
 	@if [ "$(MISSINGREFERENCES)" != "" ]; then false; fi
 	@if [ "$(MISSINGCITATIONS)" != "" ]; then false; fi
 
+clean:
+	@/bin/rm -f $(PDF) *.dvi *.aux *.ps *~ *.log *.lot *.lof *.toc *.blg *.bbl url.sty *.out *.bak
+
 install: ssp noxxxnote missing-fail embed
-	scp $(PDF) werner@minitrue.eecs.harvard.edu:/home/werner/public_html/private/thesis/chapters/$(PDF)
+	scp $(PDF) werner@minitrue.eecs.harvard.edu:/home/werner/public_html/private/thesis/chapters/5-$(PDF)
 
 pages: $(PDF)
 	@pdfinfo $(PDF) 2>/dev/null | grep "Pages" | awk '{print "$(PDF)", $$2;}'
-
-clean:
-	@/bin/rm -f $(PDF) *.dvi *.aux *.ps *~ *.log *.lot *.lof *.toc *.blg *.bbl url.sty *.out *.bak
 
 FORCE:
 
