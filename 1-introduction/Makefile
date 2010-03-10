@@ -42,14 +42,19 @@ dsp:
 
 %.pdf: %.tex %.bib %.blg %.toc $(TEXFILES) .spacing .xxxnote
 	pdflatex $*.tex
+ifeq ($(DOBIBTEX), Yes)
 	bibtex $*
+endif
 	pdflatex $*.tex
 	pdflatex $*.tex
 
 %.blg: %.bib 
+	@true
+ifeq ($(DOBIBTEX), Yes)
 	pdflatex $*.tex
 	bibtex $*
 	pdflatex $*.tex
+endif
 
 %.toc: %.tex
 	pdflatex $*.tex

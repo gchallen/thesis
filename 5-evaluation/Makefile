@@ -4,6 +4,8 @@ TARGET = evaluation
 TEXFILES = $(wildcard *.tex)
 PDF = $(addsuffix .pdf,$(TARGET))
 
+DOBIBTEX = $(shell if [ -n "`grep '\\cite' *.tex 2>/dev/null`" ] ; then echo "Yes"; else echo "No"; fi)
+
 draft: ssp $(PDF) missing
 final: dsp $(PDF) missing
 all: draft
@@ -40,14 +42,19 @@ dsp:
 
 %.pdf: %.tex %.bib %.blg %.toc $(TEXFILES) .spacing .xxxnote
 	pdflatex $*.tex
+ifeq ($(DOBIBTEX), Yes)
 	bibtex $*
 	pdflatex $*.tex
 	pdflatex $*.tex
+endif
 
 %.blg: %.bib 
+	@true
+ifeq ($(DOBIBTEX), Yes)
 	pdflatex $*.tex
 	bibtex $*
 	pdflatex $*.tex
+endif
 
 %.toc: %.tex
 	pdflatex $*.tex
