@@ -1,52 +1,23 @@
-% 11 Jan 2010 : GWA : Title page.
+\documentclass[12pt,oneside,final]{huthesis}
+\usepackage{url,graphicx,color,hyperref,multirow}
 
-\title{Architectural Considerations\\for Data-Rich Sensor Networks}
-\nonewlinetitle{Architectural Considerations for Data-Rich Sensor Networks}
-\author{Geoffrey Werner Challen}
-\degreemonth{May}
-\degreeyear{2010}
-\degree{Doctor of Philosophy}
-\field{Computer Science}
-\department{Engineering and Applied Sciences}
-\advisor{Matt Welsh}
+\input{.xxxnote}
 
-\maketitle
-%\copyrightpage
+\begin{document}
 
-% 11 Jan 2010 : GWA : Abstract is limited to 1.5 doubled-spaced pages or 350
-%               words.
+% 11 Jan 2010 : GWA : Spacing: \ssp for draft mode, \dsp for GSAS
+%               requirement.
 
-\begin{abstract}
-\input{./0-frontmatter/abstract}
-\end{abstract}
-
-\newpage
-
-% 11 Jan 2010 : GWA : Table of contents.
-
-\addcontentsline{toc}{section}{Table of Contents}
-\tableofcontents
-
-% 11 Jan 2010 : GWA : Optional according to Harvard 2000 thesis guide:
-\ssp
-\listoffigures
 \input{.spacing}
 
-% 11 Jan 2010 : GWA : Acknowledgments.
+% 11 Jan 2010 : GWA : Chapter content.
 
-\begin{acknowledgments}
-\input{./0-frontmatter/acknowledgments}
-\end{acknowledgments}
+\setcounter{chapter}{0}
+\include{introduction-include}
 
-% 11 Jan 2010 : GWA : Dedication.
+% 11 Jan 2010 : GWA : Bibliography.
 
-\dedication
+\ssp
+\bibliography{introduction}
 
-\begin{quote} \hsp \em \raggedleft
-For Suzanna.
-\end{quote}
-
-% 11 Jan 2010 : GWA : Clear and on to introduction.
-
-\newpage
-\startarabicpagination
+\end{document}
