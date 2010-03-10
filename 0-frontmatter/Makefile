@@ -17,6 +17,8 @@ ssp:
 		else\
 		rm -f .spacing-new; \
 		fi
+
+xxxnote:
 	@echo "\\newcommand{\\XXXnote}[1]{\\textcolor{red}{\\bf XXX: #1}}" > .xxxnote-new
 	@if [ -n "`diff -N 2>/dev/null .xxxnote .xxxnote-new`" ]; then\
 		mv .xxxnote-new .xxxnote; \
@@ -31,6 +33,8 @@ dsp:
 		else\
 		rm -f .spacing-new; \
 		fi
+
+noxxxnote:
 	@echo "\\newcommand{\\XXXnote}[1]{}" > .xxxnote-new
 	@if [ -n "`diff -N 2>/dev/null .xxxnote .xxxnote-new`" ]; then\
 		mv .xxxnote-new .xxxnote; \

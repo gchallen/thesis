@@ -26,6 +26,7 @@ ssp:
 		else\
 		rm -f .spacing-new; \
 		fi
+
 xxxnote:
 	@echo "\\newcommand{\\XXXnote}[1]{\\textcolor{red}{\\bf XXX: #1}}" > .xxxnote-new
 	@if [ -n "`diff -N 2>/dev/null .xxxnote .xxxnote-new`" ]; then\
@@ -33,6 +34,7 @@ xxxnote:
 		else\
 		rm -f .xxxnote-new; \
 		fi
+
 dsp:
 	@echo "\\dsp" > .spacing-new
 	@if [ -n "`diff -N 2>/dev/null .spacing .spacing-new`" ]; then\
@@ -40,6 +42,7 @@ dsp:
 		else\
 		rm -f .spacing-new; \
 		fi
+
 noxxxnote:
 	@echo "\\newcommand{\\XXXnote}[1]{}" > .xxxnote-new
 	@if [ -n "`diff -N 2>/dev/null .xxxnote .xxxnote-new`" ]; then\
@@ -94,12 +97,13 @@ clean:
 	@/bin/rm -f $(PDF) *.dvi *.aux *.ps *~ *.log *.lot *.lof *.toc *.blg *.bbl url.sty *.out *.bak
 
 install: ssp noxxxnote missing-fail embed
-	scp $(TARGET)-embed.pdf werner@minitrue.eecs.harvard.edu:/home/werner/public_html/private/thesis/$(PDF)
+	scp $(PDF) werner@minitrue.eecs.harvard.edu:/home/werner/public_html/private/thesis/$(PDF)
 
 pages: $(PDF)
 	@pdfinfo $(PDF) 2>/dev/null | grep "Pages" | awk '{print "$(PDF)", $$2;}'
 
 allmake:
+	@$(MAKE) -C 0-frontmatter --no-print-directory
 	@$(MAKE) -C 1-introduction --no-print-directory
 	@$(MAKE) -C 2-background --no-print-directory
 	@$(MAKE) -C 3-related --no-print-directory
@@ -111,6 +115,7 @@ allmake:
 	@$(MAKE) -C 9-conclusion --no-print-directory
 
 allclean: clean
+	@$(MAKE) -C 0-frontmatter --no-print-directory clean
 	@$(MAKE) -C 1-introduction --no-print-directory clean
 	@$(MAKE) -C 2-background --no-print-directory clean
 	@$(MAKE) -C 3-related --no-print-directory clean
@@ -122,6 +127,7 @@ allclean: clean
 	@$(MAKE) -C 9-conclusion --no-print-directory clean
 
 allpages: pages
+	@$(MAKE) -C 0-frontmatter --no-print-directory pages
 	@$(MAKE) -C 1-introduction --no-print-directory pages
 	@$(MAKE) -C 2-background --no-print-directory pages
 	@$(MAKE) -C 3-related --no-print-directory pages
@@ -131,6 +137,18 @@ allpages: pages
 	@$(MAKE) -C 7-idea --no-print-directory pages
 	@$(MAKE) -C 8-lessons --no-print-directory pages
 	@$(MAKE) -C 9-conclusion --no-print-directory pages
+
+allinstall: install
+	@$(MAKE) -C 0-frontmatter --no-print-directory install
+	@$(MAKE) -C 1-introduction --no-print-directory install
+	@$(MAKE) -C 2-background --no-print-directory install
+	@$(MAKE) -C 3-related --no-print-directory install
+	@$(MAKE) -C 4-casestudy --no-print-directory install
+	@$(MAKE) -C 5-evaluation --no-print-directory install
+	@$(MAKE) -C 6-lance --no-print-directory install
+	@$(MAKE) -C 7-idea --no-print-directory install
+	@$(MAKE) -C 8-lessons --no-print-directory install
+	@$(MAKE) -C 9-conclusion --no-print-directory install
 
 FORCE:
 
