@@ -4,6 +4,8 @@ TARGET = introduction
 TEXFILES = $(wildcard *.tex)
 PDF = $(addsuffix .pdf,$(TARGET))
 
+DOBIBTEX = $(shell if [ -n "`grep '\\cite' *.tex 2>/dev/null`" ] ; then echo "Yes"; else echo "No"; fi)
+
 draft: ssp $(PDF) missing
 final: dsp $(PDF) missing
 all: draft
