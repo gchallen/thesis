@@ -3,12 +3,12 @@
 
 Beginning in 2004, computer scientists from Harvard University joined forces
 with seismologists from the University of New Hampshire, the University of
-North Carolina, and Instituto Geof\'{i}sico, Escuela Polit\'{e}cnica Nacional,
-Ecuador, to begin a collaboration aimed at using sensor networks to further the
-study of active volcanoes. As of early 2009 our collaboration has spanned
-three successful deployments, multiple scientific publications and generated a
-large number of interesting ideas to explore.  We have been fortunate to be a
-part of this long-running partnership.
+North Carolina, and Instituto Geof\'{i}sico, Escuela Polit\'{e}cnica
+Nacional, Ecuador, to begin a collaboration aimed at using sensor networks to
+further the study of active volcanoes. As of early 2009 our collaboration has
+spanned three successful deployments, multiple scientific publications and
+generated a large number of interesting ideas to explore.  We have been
+fortunate to be a part of this long-running partnership.
 
 From a simple starting point --- a handful of nodes streaming continuous data
 from a single sensor per node --- we have developed a sophisticated
@@ -16,8 +16,8 @@ resource-aware architecture carefully balancing the value of the data to the
 application against the network-wide cost of extraction. These design changes
 were motivated by the science goals, responsive to changing hardware
 platforms, and driven by experience gained deploying prior iterations.
-Because each of the three deployments is already well-documented, one of
-our goals is to illuminate the design process by linking successive artifacts
+Because each of the three deployments is already well-documented, one of our
+goals is to illuminate the design process by linking successive artifacts
 together while maintaining the thread of data quality as an application
 driver.
 
@@ -32,21 +32,21 @@ promised by augmenting existing seismological instrumentation with wireless
 sensor network hardware is new, but the existence of data processing
 techniques means that the requirements are already firmly in place.
 
-Designing wireless sensor network applications in this space has required work
-to meet some of the data quality requirements while finding ways of creatively
-relaxing others.  Specifically, we have found it necessary to deliver
-high-resolution data meeting strict timing requirements, but found flexibility
-in terms of providing a complete data set from every node covering all moments
-of time.
+Designing wireless sensor network applications in this space has required
+work to meet some of the data quality requirements while finding ways of
+creatively relaxing others.  Specifically, we have found it necessary to
+deliver high-resolution data meeting strict timing requirements, but found
+flexibility in terms of providing a complete data set from every node
+covering all moments of time.
 
 \section{Overview of Seismoacoustic Monitoring}
 
 Volcanic monitoring has a wide range of goals, related to both scientific
-studies and hazard monitoring. Figure~\ref{introduction-fig-cartoon} displays an overview
-of several instruments that might be used, the signals that they collect and
-example configurations used during deployments. The type and configuration of
-the instrumentation depends on the goals of a particular study.
-Traditionally, dispersed networks of seismographs, which record
+studies and hazard monitoring. Figure~\ref{introduction-fig-cartoon} displays
+an overview of several instruments that might be used, the signals that they
+collect and example configurations used during deployments. The type and
+configuration of the instrumentation depends on the goals of a particular
+study.  Traditionally, dispersed networks of seismographs, which record
 ground-propagating elastic energy, are utilized to locate, determine the size
 of, and assess focal mechanisms (source motions) of earthquakes occurring
 within a volcanic edifice~\cite{Chouet03}.  At least four
@@ -74,11 +74,11 @@ back-azimuth calculations, and enhanced signal-to-noise recovery.
 \section{Opportunities for Wireless Sensor Networks}
 
 \begin{figure}[t] 
-\label{introduction-fig-cartoon} 
 \begin{center} 
 \includegraphics[width=0.9\hsize,clip=true,bb=20 470 540 770]{./resources/EWSN2005/figures/Cartoon2.pdf}
 \end{center} 
 \caption{\textbf{Sensor arrays for volcanic monitoring.}}
+\label{introduction-fig-cartoon} 
 \end{figure}
 
 Networks of spatially-distributed sensors are commonly used to monitor
@@ -128,42 +128,52 @@ retasking not possible with untelemetered systems.
 
 \section{Overview of Three Deployments}
 
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=0.8\hsize]{./5-evaluation/figs/pics/reventador-map.pdf}\\
+\end{center}
+\caption{\textbf{2005 deployment location.} The figure shows the location of
+our second volcano deployment in 2005: 16 nodes deployed on Reventador
+Volcano.}
+\label{introduction-fig-deployment-map-2005}
+\end{figure}
+
 In total, we have performed three deployments of iterations of our system at
-active volcanoes in Ecuador. Figure~\ref{introduction-fig-deployment-maps} shows the
-location and layout of the second and third deployment. All three are
-summarized below:
+active volcanoes in Ecuador. Figs.~\ref{introduction-fig-deployment-map-2005}
+and \ref{introduction-fig-deployment-map-2007} show the location and layout
+of the second and third deployment. All three are summarized below:
+
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=0.8\hsize]{./6-lance/figs/deploy/deployment-map.pdf}\\
+\end{center}
+\caption{\textbf{2007 deployment location.} The figure shows the locations of
+our third volcano deployment in 2007: eight nodes deployed on Tungurahua
+Volcano.}
+\label{introduction-fig-deployment-map-2007}
+\end{figure}
+
 \begin{enumerate}
-\item \textbf{July, 2004, Volc\'{a}n Tungurahua:} We deployed three infrasonic
+
+\item \textbf{July, 2004, Tungurahua Volcano:} We deployed three infrasonic
 monitoring nodes continuously transmitting at 102~Hz to a central aggregator
 node, which relayed the data over a wireless link to the observatory
 approximately 9~km away.  Our network was active from July 20--22, 2004, and
 collected over 54~hours of infrasonic signals.
-\item \textbf{August, 2005, Volc\'{a}n Reventador:} This deployment featured a
-larger, more capable network consisting of sixteen nodes fitted with
-seismoacoustic sensors deployed in a 3~km linear array.  Collected data was
-routed over a multi-hop network and over a long-distance radio link to a
-logging laptop located at the observatory 9~km away from deployment site.
-Over three weeks the network captured 230 volcanic events.
-\item \textbf{July, 2007, Volc\'{a}n Tungurahua:} We returned to Tungurahua
-Volcano in 2007 and deployed eight sensor nodes in order to test Lance, a
-framework for optimizing high-resolution signal collection. The network was operational for a total
-of 71~hours, during which time we downloaded 77~MB of raw data.
+
+\item \textbf{August, 2005, Reventador Volcano:} This deployment featured a larger,
+more capable network consisting of sixteen nodes fitted with seismoacoustic
+sensors deployed in a 3~km linear array.  Collected data was routed over a
+multi-hop network and over a long-distance radio link to a logging laptop
+located at the observatory 9~km away from deployment site.  Over three weeks
+the network captured 230 volcanic events.
+
+\item \textbf{July, 2007, Tungurahua Volcano:} We returned to Tungurahua Volcano in
+2007 and deployed eight sensor nodes in order to test Lance, a framework for
+optimizing high-resolution signal collection. The network was operational for
+a total of 71~hours, during which time we downloaded 77~MB of raw data.
+
 \end{enumerate}
-
-\begin{figure}[]
-\label{introduction-fig-deployment-maps}
-\begin{center}
-\includegraphics[width=1.0\hsize]{./5-evaluation/figs/pics/reventador-map.pdf}\\
-\textbf{(a)}\\
-\includegraphics[width=1.0\hsize]{./6-lance/figs/deploy/deployment-map.pdf}\\
-\textbf{(b)}
-\end{center}
-\caption{\textbf{Deployment locations.} Figures \textbf{a} and \textbf{b}
-show the locations of our second and third volcano deployments, in 2005 and
-2007. Figure \textbf{a} shows 17 nodes deployed on Reventador Volcano;
-\textbf{b} shows eight nodes deployed on Tungurahua Volcano.}
-\end{figure}
-
 
 \section{Dissertation Roadmap}
 

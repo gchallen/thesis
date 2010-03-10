@@ -3,6 +3,7 @@ TARGET = introduction
 
 TEXFILES = $(wildcard *.tex)
 PDF = $(addsuffix .pdf,$(TARGET))
+PS = $(addsuffix .ps,$(TARGET))
 
 DOBIBTEX = $(shell if [ -n "`grep '\\cite' *.tex 2>/dev/null`" ] ; then echo "Yes"; else echo "No"; fi)
 
@@ -51,6 +52,7 @@ ifeq ($(DOBIBTEX), Yes)
 endif
 	pdflatex $*.tex
 	pdflatex $*.tex
+	pdflatex $*.tex
 
 %.blg: %.bib 
 	@true
@@ -97,6 +99,12 @@ install: ssp noxxxnote missing-fail embed
 
 pages: $(PDF)
 	@pdfinfo $(PDF) 2>/dev/null | grep "Pages" | awk '{print "$(PDF)", $$2;}'
+
+$(PS): $(PDF)
+	acroread -toPostScript $(PDF)
+
+print: $(PS)
+	lpr -P gnx -o PageSize=Letter -o Duplex=DuplexNoTumble $(PS)
 
 FORCE:
 
