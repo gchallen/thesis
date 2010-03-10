@@ -94,7 +94,7 @@ missing-fail: missing
 	@if [ "$(MISSINGCITATIONS)" != "" ]; then false; fi
 
 clean:
-	@/bin/rm -f $(PDF) *.dvi *.aux *.ps *~ *.log *.lot *.lof *.toc *.blg *.bbl url.sty *.out *.bak
+	@/bin/rm -f $(PDF) *.dvi *.aux *.ps *~ *.log *.lot *.lof *.toc *.blg *.bbl url.sty *.out *.bak .embed.pdf
 
 install: ssp noxxxnote missing-fail embed
 	scp $(PDF) werner@minitrue.eecs.harvard.edu:/home/werner/public_html/private/thesis/$(PDF)

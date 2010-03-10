@@ -6,8 +6,8 @@ PDF = $(addsuffix .pdf,$(TARGET))
 
 DOBIBTEX = $(shell if [ -n "`grep '\\cite' *.tex 2>/dev/null`" ] ; then echo "Yes"; else echo "No"; fi)
 
-draft: ssp $(PDF) missing
-final: dsp $(PDF) missing
+draft: ssp xxxnote $(PDF) missing
+final: dsp noxxxnote $(PDF) missing
 all: draft
 
 ssp:
@@ -89,14 +89,14 @@ missing-fail: missing
 	@if [ "$(MISSINGREFERENCES)" != "" ]; then false; fi
 	@if [ "$(MISSINGCITATIONS)" != "" ]; then false; fi
 
+clean:
+	@/bin/rm -f $(PDF) *.dvi *.aux *.ps *~ *.log *.lot *.lof *.toc *.blg *.bbl url.sty *.out *.bak .embed.pdf
+
 install: ssp noxxxnote missing-fail embed
 	scp $(PDF) werner@minitrue.eecs.harvard.edu:/home/werner/public_html/private/thesis/chapters/0-$(PDF)
 
 pages: $(PDF)
 	@pdfinfo $(PDF) 2>/dev/null | grep "Pages" | awk '{print "$(PDF)", $$2;}'
-
-clean:
-	@/bin/rm -f $(PDF) *.dvi *.aux *.ps *~ *.log *.lot *.lof *.toc *.blg *.bbl url.sty *.out *.bak .embed.pdf
 
 FORCE:
 
