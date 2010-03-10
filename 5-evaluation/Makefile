@@ -17,6 +17,8 @@ ssp:
 		else\
 		rm -f .spacing-new; \
 		fi
+
+xxxnote:
 	@echo "\\newcommand{\\XXXnote}[1]{\\textcolor{red}{\\bf XXX: #1}}" > .xxxnote-new
 	@if [ -n "`diff -N 2>/dev/null .xxxnote .xxxnote-new`" ]; then\
 		mv .xxxnote-new .xxxnote; \
@@ -31,6 +33,8 @@ dsp:
 		else\
 		rm -f .spacing-new; \
 		fi
+
+noxxxnote:
 	@echo "\\newcommand{\\XXXnote}[1]{}" > .xxxnote-new
 	@if [ -n "`diff -N 2>/dev/null .xxxnote .xxxnote-new`" ]; then\
 		mv .xxxnote-new .xxxnote; \
@@ -59,9 +63,11 @@ endif
 %.toc: %.tex
 	pdflatex $*.tex
 
-embed: $(PDF)
-	gs -dSAFER -dNOPLATFONTS -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sPAPERSIZE=letter -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dCompatibilityLevel=1.4 -dMaxSubsetPct=100 -dSubsetFonts=true -dEmbedAllFonts=true -sOutputFile=$(TARGET)-embed.pdf -f $(PDF)
-	mv $(TARGET)-embed.pdf $(PDF)
+.embed.pdf : $(PDF)
+	gs -dSAFER -dNOPLATFONTS -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sPAPERSIZE=letter -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dCompatibilityLevel=1.4 -dMaxSubsetPct=100 -dSubsetFonts=true -dEmbedAllFonts=true -sOutputFile=.embed.pdf -f $(PDF)
+	@cp .embed.pdf $(PDF)
+
+embed: .embed.pdf
 
 MISSINGREFERENCES = $(strip $(shell grep Ref *.log | awk '{print substr($$4, 2, length($$4) - 2)}'))
 MISSINGCITATIONS = $(strip $(shell grep Cit *.log | awk '{print substr($$4, 2, length($$4) - 2)}'))
@@ -78,6 +84,13 @@ missing:
 		echo "-------------------------------------------------------------";\
 		echo $(MISSINGCITATIONS);\
 		fi
+
+missing-fail: missing
+	@if [ "$(MISSINGREFERENCES)" != "" ]; then false; fi
+	@if [ "$(MISSINGCITATIONS)" != "" ]; then false; fi
+
+install: ssp noxxxnote missing-fail embed
+	scp $(PDF) werner@minitrue.eecs.harvard.edu:/home/werner/public_html/private/thesis/chapters/$(PDF)
 
 pages: $(PDF)
 	@pdfinfo $(PDF) 2>/dev/null | grep "Pages" | awk '{print "$(PDF)", $$2;}'
