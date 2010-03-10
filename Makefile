@@ -65,7 +65,7 @@ dsp:
 
 embed: $(PDF)
 	gs -dSAFER -dNOPLATFONTS -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sPAPERSIZE=letter -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dCompatibilityLevel=1.4 -dMaxSubsetPct=100 -dSubsetFonts=true -dEmbedAllFonts=true -sOutputFile=$(TARGET)-embed.pdf -f $(PDF)
-	mv $(TARGET)-embed.pdf $(PDF)
+	@mv $(TARGET)-embed.pdf $(PDF)
 
 MISSINGREFERENCES = $(strip $(shell grep Ref *.log | awk '{print substr($$4, 2, length($$4) - 2)}'))
 MISSINGCITATIONS = $(strip $(shell grep Cit *.log | awk '{print substr($$4, 2, length($$4) - 2)}'))
@@ -83,8 +83,15 @@ missing:
 		echo $(MISSINGCITATIONS);\
 		fi
 
+missing-fail: missing
+	@if [ "$(MISSINGREFERENCES)" != "" ]; then false; fi
+	@if [ "$(MISSINGCITATIONS)" != "" ]; then false; fi
+
 clean:
 	@/bin/rm -f $(PDF) *.dvi *.aux *.ps *~ *.log *.lot *.lof *.toc *.blg *.bbl url.sty *.out *.bak
+
+install: final missing-fail embed
+	scp $(PDF) werner@minitrue.eecs.harvard.edu:/home/werner/public_html/private/thesis/$(PDF)
 
 pages: $(PDF)
 	@pdfinfo $(PDF) 2>/dev/null | grep "Pages" | awk '{print "$(PDF)", $$2;}'
