@@ -184,22 +184,18 @@ corresponding event detection.}
 %% yield by itself. We have already shown the node uptimes in another figure.}
 
 Figure~\ref{evaluation-fig-nodeYield} shows the node yield for each of the
-nodes.
-%% For comparison, it also shows the total number of times a node was
-%% available and successfully downloaded for the entire deployment.  
-We can see how the factors mentioned above affected performance.  First, the
-nodes with the highest yield (above 80\%) tend to be within two hops from the
-root (see Figure~\ref{evaluation-fig-schematic}).  However, despite being
-within two or three hops, node~209 had a fairly low yield.  This is explained
-by the fact that node~209 had a poor link to its closest parent, node~200.
-In fact, although most nodes had a stable parent throughout the deployment,
-node~209 used node~200 as its parent only 33\% of the time and nodes
-206~and~207 the remaining 66\% of the time.  Node~213 also switched parents
-between nodes 204~and~208, but unlike node~209 it was always three hops away.
-Node~214 was the farthest node in terms of hopcount and as a result had one
-of the lowest yields.  The larger amount of data was also a factor for the
-four-channel nodes, 250~and~251. In addition, node~251 was five radio hops
-from the gateway.
+nodes.  We can see how the factors mentioned above affected performance.
+First, the nodes with the highest yield (above 80\%) tend to be within two
+hops from the root. However, despite being within two or three hops, node~209
+had a fairly low yield.  This is explained by the fact that node~209 had a
+poor link to its closest parent, node~200.  In fact, although most nodes had
+a stable parent throughout the deployment, node~209 used node~200 as its
+parent only 33\% of the time and nodes 206~and~207 the remaining 66\% of the
+time.  Node~213 also switched parents between nodes 204~and~208, but unlike
+node~209 it was always three hops away.  Node~214 was the farthest node in
+terms of hopcount and as a result had one of the lowest yields.  The larger
+amount of data was also a factor for the four-channel nodes, 250~and~251. In
+addition, node~251 was five radio hops from the gateway.
 
 
 % -------- Original text ---------------------------------------------

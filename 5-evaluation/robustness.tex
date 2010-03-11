@@ -141,9 +141,8 @@ status messages from it during a 10-minute window) that it is still active
 and routing packets for its children in the tree, even as its own status
 messages are being lost. An alternate explanation is that a node could select
 an alternate parent in the routing topology when its parent fails. However,
-our analysis of the routing topology (Figure~\ref{evaluation-fig-schematic})
-does not support this view, since nodes rarely use more than one parent. For
-example, node~214 {\em always} routes data through node~251. The
-volcano-induced failure of node~204 near the end of the deployment is the
-only notable failure of a single node.
+our analysis of the routing topology does not support this view, since nodes
+rarely use more than one parent. For example, node~214 \textit{always} routes
+data through node~251. The volcano-induced failure of node~204 near the end
+of the deployment is the only notable failure of a single node.
 

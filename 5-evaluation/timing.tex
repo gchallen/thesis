@@ -253,21 +253,19 @@ conventional instrumentation.
 Our first validation took place in the lab. Feeding the output of a signal
 generator to both a miniature version of our sensor network and to a
 Reftek~130 data logger allowed us to directly compare the data between both
-systems.  The miniature network consisted of a single sensor node, routing
+systems. The miniature network consisted of a single sensor node, routing
 gateway, and GPS receiver node. The same software was used as in the field
 deployment. The Reftek~130 logs data to a flash memory card and timestamps
-each sample using its own GPS receiver.
-%The Reftek~130 is commonly used in volcano field studies and its timing
-%accuracy has been extensively validated.
+each sample using its own GPS receiver. The Reftek~130 is commonly used in
+volcano field studies and its timing accuracy has been extensively validated.
 
 The results showed a consistent 15~ms offset between the time-rectified
 signals recorded by the sensor node and the Reftek data logger.  We
 discovered that this offset was due to delays introduced by the digital
-filtering performed by the ADC on our sensor board (see
-Section~\ref{evaluation-sec-hardware}). Adjusting for this delay resulted in
-an indiscernible offset between the sensor node and Reftek signals. While
-this experiment does not reproduce the full complexity of our deployed
-network, it does serve as a baseline for validation.
+filtering performed by the ADC on our sensor board. Adjusting for this delay
+resulted in an indiscernible offset between the sensor node and Reftek
+signals. While this experiment does not reproduce the full complexity of our
+deployed network, it does serve as a baseline for validation.
 
 In the second lab experiment, we set up a network of 7~sensor nodes in a
 6-hop linear topology. The topology is enforced by software, but all nodes
