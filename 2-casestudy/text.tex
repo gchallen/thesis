@@ -1,6 +1,59 @@
 \chapter{Case Study: Volcano Monitoring}
 \label{chapter-background}
 
+\XXXnote{GWA: Pulled from OSDI'06 background.}
+
+Scientists monitor volcanoes for two non-exclusive reasons: (1) to monitor
+hazards by assessing the level of volcanic unrest; and (2) to understand
+physical processes occurring within the volcano, such as magma migration and
+eruption mechanisms~\cite{scarpa-96,mcnutt-96}.  The most common instrument
+used is the seismometer, which measures ground-propagating elastic radiation
+from both sources internal to the volcano (e.g., fracture induced by
+pressurization) and on the surface (e.g., expansion of gases during an
+eruption)~\cite{mcnutt-96}.  In addition, microphones are sometimes employed
+to record {\em infrasound}, low-frequency ($<$ 20~Hz) acoustic waves
+generated during explosive events.  Infrasound is useful for differentiating
+shallow and surface seismicity and for quantifying eruptive styles and
+intensity~\cite{johnson-etal-04b}.
+
+\subsection{Existing volcano instrumentation}
+
+The type of instrumentation used to study volcanoes depends on the the
+science goals of the deployment. We are focused on the use of wireless
+sensors for temporary field deployments involving dozens of sensor stations
+deployed around an expected earthquake source region, with inter-node spacing
+of hundreds of meters. A typical campaign-style deployment will last weeks to
+months depending on the activity level of the volcano, weather conditions,
+and science requirements.
+
+Geophysicists often use standalone dataloggers (e.g., Reftek
+130~\cite{reftek}) that record signals from seismometers and microphones to a
+flash drive.  These data loggers are large and power-hungry, typically
+powered by car batteries charged by solar panels.  The sheer size and weight
+precludes deployments of more than a small number of stations in remote or
+hazardous areas. Additionally, data must be retrieved manually from each
+station every few weeks, involving significant effort. Analog and digital
+radio telemetry enables real-time transmission of data back to an
+observatory.  However, existing telemetry equipment is very bulky and its
+limited radio bandwidth is a problem for collecting continuous data from
+multiple channels.
+
+\XXXnote{GWA: Text pulled from OSDI'06 introduction.}
+
+Typical volcano monitoring studies employ GPS-synchronized data loggers
+recording both seismic and acoustic signals. These provide high data fidelity
+and yield but are bulky, power hungry, and difficult to deploy. Existing
+analog and digital telemetry is similarly cumbersome.  The use of wireless
+sensors could enable studies involving many more sensors distributed over a
+larger area. However, the science requirements pose a number of difficult
+challenges for sensor networks.  First, seismoacoustic monitoring requires
+high data rates, with each node sampling multiple channels at 100~Hz. Second,
+signal analysis requires complete data, necessitating reliable data
+collection. Third, volcano studies compare signals across multiple sensors,
+requiring that collected data be accurately timestamped against a GPS-based
+global clock.
+
+
 \XXXnote{GWA: TODO: Need to rewrite this.}
 
 Beginning in 2004, computer scientists from Harvard University joined forces
@@ -127,4 +180,107 @@ media, a station may record several days or weeks' worth of data before it
 must be serviced. Deploying a wireless sensor network with telemetry to the
 base station allows real time data collection, network monitoring and
 retasking not possible with untelemetered systems.
+
+\XXXnote{GWA: TODO: Need to better integrate this text.}
+
+\section{Sensor Networks for Volcanic Monitoring}
+
+Wireless sensor networks capable of assisting the study of volcanoes are exciting the
+geophysics community.  The increased scale promised by lighter,
+faster-to-deploy equipment will allow them to address scientific questions
+beyond the practical reach of current equipment.  Today's
+typical volcanic data collection station consists of a group of bulky,
+heavy, power-hungry components, difficult to move and requiring car batteries
+for power.  Remote deployments often require vehicle or helicopter assist to
+install equipment and perform maintenance.  Local storage is also a
+limiting factor.  Stations typically log data to a local Compact Flash card
+which must be periodically retrieved, requiring researchers to regularly
+return to each station.
+
+These limitations make it difficult to deploy large networks of existing
+equipment. Yet these large-scale experiments hold out the possibility of
+achieving important insights into the inner workings of volcanoes.  For
+example, volcanic tomography~\cite{lees-tomography} is the study of a
+volcano's interior structure.  Collecting and analyzing signals from 
+multiple stations can produce precise mappings of the internal structure of
+the volcanic edifice.  In general the precision and accuracy of these
+mappings increases as stations are added to the data collection network.
+Studies such as these may help resolve debates over the physical processes at
+work within the volcano's interior.
+
+\subsection{Scientific Requirements}
+
+The geophysics community has well-established tools and techniques used to
+process the signals extracted by volcanic data collection networks.  These
+analytical methods require that our wireless sensor network provide data of
+extremely high fidelity.  A single missed or corrupted sample can invalidate
+an entire record. Small differences in sampling rates between two nodes can
+frustrate analysis.  Samples must be accurately time-stamped to allow
+comparisons between nodes and between networks.
+
+An important feature of volcanic signals is that much of the data analysis
+focuses on discrete events, such as eruptions, earthquakes, or tremor
+activity.  Although volcanoes differ significantly in the nature of their
+activity, during our deployment many of the interesting signals at
+Reventador spanned less than 60~sec and occurred at the rate of several dozen
+per day. This allowed us to design the network to capture
+time-limited events, rather than continuous signals. 
+
+This is not to say that recording individual events is adequate to answer all
+of the scientific questions volcanologists pose.  Indeed, understanding
+long-term trends requires complete waveforms spanning long time intervals.
+However, the low radio bandwidth of typical wireless sensor nodes makes them
+inappropriate for these types of studies and for this reason we have focused
+on triggered event collection.
+
+
+Volcanic studies also require large inter-node separations to obtain
+widely-separated views of the seismic and infrasonic signals as they
+propagate.  Array configurations used often consist of one or more, possibly
+intersecting, lines of sensors. The resulting topologies raise new challenges
+for sensor network design, as much previous work has focused on dense
+networks where each node has a large number of neighbors.  Linear
+configurations also affect achievable network bandwidth, which degrades as
+data must be transmitted over multiple hops.  Node failure poses a serious
+problem in sparse networks because a single node failure can obscure a
+large portion of the network.
+
+\subsection{Challenges for Sensor Networks}
+
+Wireless sensor networks have the potential to greatly enhance understanding
+of volcanic processes by permitting large deployments of sensors in remote
+areas.  Our group is one of the first to explore the use of wireless sensor
+networks for volcano monitoring. We have deployed two wireless arrays on
+volcanoes in Ecuador: at Volc\'{a}n Tungurahua in July
+2004~\cite{volcano-ewsn05}, and at Reventador in August
+2005~\cite{volcano-ieeeic06}.  The science requirements give rise to a number
+of unique challenges for sensor networks, which we outline below.
+
+{\bf High-resolution signal collection:}
+Data from seismometers and microphones must be recorded at relatively high
+data rates with adequate per-sample resolution.  A sampling rate of 100~Hz
+and resolution of 24~bits is typical.  This is in contrast to sensor networks
+targeting low-rate data collection, such as environmental
+monitoring~\cite{gdi-sensys04,berkeley-redwoods}.
+
+{\bf Triggered data acquisition:}
+Due to limited radio bandwidth (less than 100~Kbps when accounting for MAC
+overhead), it is infeasible to continuously transmit the full-resolution
+signal.  Instead, we rely on triggered data collection that downloads data
+from each sensor following a significant earthquake or eruption. This
+requires sensor nodes to continuously sample data and detect events of
+interest.  Event reports from multiple nodes must be collated to accurately
+detect {\em global} triggers across the network.
+
+{\bf Timing accuracy:} 
+To facilitate comparisons of signals across nodes, signals must be
+timestamped with an accuracy of one sample time (i.e., 10~ms at 100~Hz).
+Data loggers generally incorporate a GPS receiver and use low-drift
+oscillators to maintain accurate timing. However, equipping each sensor node
+with a GPS receiver would greatly increase power consumption and cost.
+Instead, we rely on a network time synchronization protocol~\cite{rbs,ftsp}
+and a {\em single} GPS receiver. However, correcting for errors in the time
+synchronization protocol requires extensive post-processing of the raw
+timestamps.
+
 
