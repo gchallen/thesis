@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-TARGET = introduction
+TARGET = 1-introduction
 
 TEXFILES = $(wildcard *.tex)
 PDF = $(addsuffix .pdf,$(TARGET))
