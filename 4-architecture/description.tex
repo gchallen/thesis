@@ -1,3 +1,52 @@
+\section{Overview of Three Deployments}
+
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=0.8\hsize]{./5-evaluation/figs/pics/reventador-map.pdf}\\
+\end{center}
+\caption{\textbf{2005 deployment location.} The figure shows the location of
+our second volcano deployment in 2005: 16 nodes deployed on Reventador
+Volcano.}
+\label{introduction-fig-deployment-map-2005}
+\end{figure}
+
+In total, we have performed three deployments of iterations of our system at
+active volcanoes in Ecuador. Figs.~\ref{introduction-fig-deployment-map-2005}
+and \ref{introduction-fig-deployment-map-2007} show the location and layout
+of the second and third deployment. All three are summarized below:
+
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=0.8\hsize]{./6-lance/figs/deploy/deployment-map.pdf}\\
+\end{center}
+\caption{\textbf{2007 deployment location.} The figure shows the locations of
+our third volcano deployment in 2007: eight nodes deployed on Tungurahua
+Volcano.}
+\label{introduction-fig-deployment-map-2007}
+\end{figure}
+
+\begin{enumerate}
+
+\item \textbf{July, 2004, Tungurahua Volcano:} We deployed three infrasonic
+monitoring nodes continuously transmitting at 102~Hz to a central aggregator
+node, which relayed the data over a wireless link to the observatory
+approximately 9~km away.  Our network was active from July 20--22, 2004, and
+collected over 54~hours of infrasonic signals.
+
+\item \textbf{August, 2005, Reventador Volcano:} This deployment featured a larger,
+more capable network consisting of sixteen nodes fitted with seismoacoustic
+sensors deployed in a 3~km linear array.  Collected data was routed over a
+multi-hop network and over a long-distance radio link to a logging laptop
+located at the observatory 9~km away from deployment site.  Over three weeks
+the network captured 230 volcanic events.
+
+\item \textbf{July, 2007, Tungurahua Volcano:} We returned to Tungurahua Volcano in
+2007 and deployed eight sensor nodes in order to test Lance, a framework for
+optimizing high-resolution signal collection. The network was operational for
+a total of 71~hours, during which time we downloaded 77~MB of raw data.
+
+\end{enumerate}
+
 \section{Deploying on Volc\'{a}n Reventador}
 
 Volc\'{a}n Reventador is located in northern Ecuador, a three hour drive from
@@ -77,9 +126,9 @@ performed while visiting nodes for other reasons.
 \subsection{Sensor Network Device Enclosures and Physical Setup}
 
 \begin{figure}[t]
-\label{architecture-fig-picture}
+\label{casestudy-fig-picture}
 \begin{center}
-\includegraphics[width=0.7\hsize]{./4-architecture/figs/schematic}
+\includegraphics[width=0.7\hsize]{./4-casestudy/figs/schematic}
 \end{center}
 \caption{\textbf{Schematic representation of our sensor network
 architecture.}}
@@ -92,17 +141,17 @@ and antennae to be attached without opening the case and disturbing the
 equipment inside.  When working in wet and gritty conditions these became a
 tremendous asset.
 
-%\begin{figure}[t]
-%\begin{center}
-%\includegraphics[width=0.7\hsize]{./4-architecture/figs/Station}
-%\end{center}
-%\caption{\textbf{One of our two-component stations.  The blue Pelican
-%Case contains the wireless sensor network node and hardware interface board.
-%The external antenna is mounted on the PVC pole to reduce ground effects.
-%A microphone is taped to the PVC pole and a single seismometer is buried
-%nearby.}}
-%\label{fig-station}
-%\end{figure}
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=0.7\hsize]{./4-casestudy/figs/Station}
+\end{center}
+\caption{\textbf{One of our two-component stations.  The blue Pelican
+Case contains the wireless sensor network node and hardware interface board.
+The external antenna is mounted on the PVC pole to reduce ground effects.
+A microphone is taped to the PVC pole and a single seismometer is buried
+nearby.}}
+\label{fig-station}
+\end{figure}
 
 Installing a station involved covering the Pelican case with rocks to anchor
 it and shield the contents from direct sunlight.  Cables were run from the
@@ -144,7 +193,7 @@ to provide a global timebase.
 \begin{figure}[t]
 \label{includegraphics-fig-plot}
 \begin{center}
-\includegraphics[width=0.7\hsize]{./4-architecture/figs/TEST}
+\includegraphics[width=0.7\hsize]{./4-casestudy/figs/TEST}
 \end{center}
 \caption{\textbf{Example of an event captured by our network.}  Only
 seismic signals are shown.  The event shown was a Volcano Tectonic (VT) event
@@ -154,7 +203,7 @@ rounds of post-processing including mapping to GMT time.}
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=0.7\hsize]{./4-architecture/figs/Node-212-5}
+\includegraphics[width=0.7\hsize]{./4-casestudy/figs/Node-212-5}
 \end{center}
 \caption{\textbf{One of our two-component stations.} The blue Pelican
 Case contains the wireless sensor network node and hardware interface board.
