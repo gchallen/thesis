@@ -5,7 +5,7 @@ TEXFILES = $(wildcard *.tex)
 PDF = $(addsuffix .pdf,$(TARGET))
 PS = $(addsuffix .ps,$(TARGET))
 
-DOBIBTEX = $(shell if [ -n "`grep '\\cite' *.tex 2>/dev/null`" ] ; then echo "Yes"; else echo "No"; fi)
+DOBIBTEX = $(shell if [ -n "`grep '\\cite' $(TEXFILES) 2>/dev/null`" ] ; then echo "Yes"; else echo "No"; fi)
 
 draft: ssp xxxnote $(PDF) missing
 final: dsp noxxxnote $(PDF) missing
