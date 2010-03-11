@@ -10,39 +10,44 @@ by the network.
 
 The core contribution of this chapter is an analysis of the efficacy and
 accuracy of a volcano-monitoring sensor network as a scientific instrument.
-In this chapter, we evaluate the data collected from a 19-day field
-deployment of 16~wireless sensors on Reventador volcano, Ecuador, along the
-following axes:
+In the rest of this chapter, we evaluate the data collected from a 19-day
+field deployment (described in the previous chapter) along the following
+axes:
 
 \begin{itemize}
 
-\item \textbf{Robustness:} We find that the sensor nodes themselves were
-extremely reliable but that overall robustness was limited by power outages
-at the base station and a single three-day software failure. Discounting the
-power outages and this single failure, mean node uptime exceeded 96\%.
+\item \textbf{Network robustness:} In Section~\ref{evaluation-sec-robustness}
+we find that the sensor nodes themselves were extremely reliable but that
+overall robustness was limited by power outages at the base station and a
+single three-day software failure. Discounting the power outages and this
+single failure, mean node uptime exceeded 96\%.
 
 \item \textbf{Event detection accuracy:} Our network was designed to trigger
 data collection following volcanic events such as earthquakes and eruptions.
-We measure the accuracy of our distributed event-detection algorithm, finding
-that the algorithm has a zero false positive rate. However, the network
-failed to detect many seismic events due to a poor choice of event-detection
-parameters and limitations of our data collection protocol.
+In Section~\ref{evaluation-sec-eventdetection} we measure the accuracy of our
+distributed event-detection algorithm, finding that the algorithm has a zero
+false positive rate. However, the network failed to detect many seismic
+events due to a poor choice of event-detection parameters and limitations of
+our data collection protocol.
 
-\item \textbf{Data transfer performance:} We evaluate the ability of our data
+\item \textbf{Data collection performance:}
+Section~\ref{evaluation-sec-performance} evaluates the ability of our data
 collection protocol to transfer complete signals following an event. We find
 a 90th percentile \textit{event yield} (fraction of nodes for which all data
-for an event was collected) of 94\% and a latency of 63~sec per radio hop for
-downloading 60~sec worth of data.
+for an event was collected) of 94\% and a latency of 63~s per radio hop for
+downloading 60~s worth of data.
 
-\item \textbf{Timing accuracy:} Data collected by each node must be
-timestamped to within a single sample time (10~ms) to enable seismological
-analysis. We evaluate the stability of the underlying time synchronization
-protocol (FTSP~\cite{ftsp}), and develop a novel approach to \textit{time
-rectification} that accurately timestamps each sample despite failures of the
-FTSP protocol. We show that this approach recovers timing with a
-90th-percentile error of 6.8~msec in a 6-hop network.
+\item \textbf{Timing rectification and accuracy:} Data collected by each node
+must be timestamped to within a single sample time (10~ms) to enable
+seismological analysis. Section~\ref{evaluation-sec-timing} evaluates the
+stability of the underlying time synchronization protocol (FTSP~\cite{ftsp}),
+and presents a novel approach to \textit{time rectification} that accurately
+timestamps each sample despite failures of the FTSP protocol. We show that
+this approach recovers timing with a 90th-percentile error of 6.8~ms in a
+6-hop network.
 
-\item \textbf{Data fidelity:} Finally, we take a seismological view of the
+\item \textbf{Data fidelity:} Finally, in
+Section~\ref{evaluation-sec-fidelity} we take a seismological view of the
 captured data and present a head-to-head comparison of data recorded by our
 sensor network against a colocated data logger. We also evaluate the
 consistency of the recorded signals in terms of seismic and acoustic wave
@@ -51,11 +56,7 @@ expected physical models of the volcano's activity.
 
 \end{itemize}
 
-\XXXnote{GWA: TODO: Rewrite this.}
-
-The rest of this chapter is organized as follows.
-Sections~\ref{evaluation-sec-robustness} through
-\ref{evaluation-sec-fidelity} present a detailed analysis of the network's
-performance along each of the evaluation metrics described above.
+After examining our network's performance along each of the preceding axes,
 Section~\ref{evaluation-sec-lessons} presents several lessons learned from
-the deployment.
+the deployment and motivates the development of the two architectural
+solutions that emerged from our volcano deployments: Lance and IDEA.
