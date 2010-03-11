@@ -1,19 +1,19 @@
 \section{Time Rectification and Accuracy}
 \label{evaluation-sec-timing}
 
-%  - FTSP stability: How often did FTSP go down and for how long? [GWA]
-%  - % of events with 'good' FTSP timing  [GWA]
-%  - Accuracy of time rectification on Teloslab [GWA]
-%    - Vary time rectification parameters
-
-%\begin{figure}[t]
-%\begin{center}
-%\includegraphics[width=\hsize]{./5-evaluation/figs/timing/}
-%\end{center}
-%\caption{\small{\bf Title}
-%{\em Description}}
-%\label{fig-}
-%\end{figure}
+\begin{figure}[t!]
+\begin{center}
+\includegraphics[width=\hsize]{./5-evaluation/figs/timing/MDW/instability/FTSPINSTABILITY.pdf}
+\end{center} 
+\caption{\textbf{Example of observed FTSP instability.}
+The global time value reported by sensor nodes and the GPS node is plotted
+against the time that the base station received the corresponding status
+messages. All nodes are initially synchronized, but starting at 1230 GMT,
+nodes 212~and~250 report incorrect global times for the next 4.5~hours. When
+the nodes eventually resynchronize, the global timestamps of other nodes
+initially experience some instability.}
+\label{evaluation-fig-globaltimeproblem}
+\end{figure}
 
 When analyzing seismoacoustic data acquired at volcanoes, accurate timing of
 recorded signals is paramount. Studying volcanic source processes
@@ -90,21 +90,6 @@ behavior in the time synchronization protocol than in the lab. For example,
 occasional message loss or failure of a neighbor could cause the node's
 global time to drift from the rest of the network.  However, in lab tests
 that constrained the network topology we did not observe these instabilities.
-
-\begin{figure}[t]
-\label{evaluation-fig-globaltimeproblem}
-\begin{center}
-\includegraphics[width=\hsize]{./5-evaluation/figs/timing/MDW/instability/FTSPINSTABILITY.pdf}
-\end{center} 
-\caption{\textbf{Example of FTSP instability observed during field
-deployment.}
-The global time value reported by sensor nodes and the GPS node is plotted
-against the time that the base station received the corresponding status
-messages. All nodes are initially synchronized, but starting at 1230 GMT,
-nodes 212~and~250 report incorrect global times for the next 4.5~hours. When
-the nodes eventually resynchronize, the global timestamps of other nodes
-initially experience some instability.}
-\end{figure}
 
 Figure~\ref{evaluation-fig-globaltimeproblem} shows an example of the FTSP
 instability observed in the field. The global time reported by two nodes
