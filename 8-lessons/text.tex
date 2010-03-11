@@ -1,6 +1,64 @@
 \chapter{Lessons Learned and Future Work}
 \label{chap-lessons}
 
+\XXXnote{GWA: From the OSDI'06 paper.}
+
+Sensor network deployments, particularly in remote areas, involve significant
+cost in terms of time and equipment. Failures of hardware and software can
+have a negative impact on the uptake of this technology by domain science
+experts. Our experiences at Reventador have yielded a number of valuable
+lessons for future sensor network deployments. 
+
+\begin{itemize}
+
+\item \textbf{Ground truth and self-validation mechanisms are critical:} We did
+not initially consider colocating several of our wireless sensors with
+existing data loggers in order to establish ground truth. This would have
+clearly aided our analysis, though we were fortunate to locate one of our
+sensors near (but not immediately adjacent to) the RVEN station.  In
+addition, self-validation mechanisms are needed to provide detailed
+information on the health and accuracy of the data recorded by the network.
+The periodic ``heartbeat'' messages that we built into our system proved
+essential to remotely tracking system operation.
+
+\item \textbf{Coping with infrastructure and protocol failures:} As discussed
+previously, the sensor nodes themselves were the most reliable components of
+the system. Even without classifying the 3-day network outage as an
+infrastructure failure, this downtime was far exceeded by outages caused by
+power failures at the base station.  We did not devote enough attention to
+assuring the reliability of the base station and radio modem infrastructure,
+assuming it would be a trivial matter of plugging into wall power. This
+single point of failure was more fragile than expected.
+
+Additionally, several pieces deployed software, including Deluge and FTSP,
+exhibited failures in the field than we not had expected given our laboratory
+experiments.  These failures both speak for and show the limitations of
+careful, pre-deployment testing.  We were fortunate to be able to correct
+protocol errors in the field and during post-processing, but the risk of
+uncorrectable problems will lead us towards more rigorous testing and
+analysis in the future.
+
+\item \textbf{Building confidence inside cross-domain scientific
+collaborations:} It is important when working with domain scientists to
+understand their expectations and plan carefully to meet them. There is a
+clear tension between the desire of CS researchers to develop more
+interesting and sophisticated systems, and the needs of domain science, which
+relies upon thoroughly validated instrumentation. Pushing more complexity
+into the sensor network can improve lifetime and performance, but the
+resulting system must be carefully validated before deployment to ensure that
+the resulting data is scientifically accurate.
+
+Good communication between CS and domain scientists is also critical.  During
+the deployment, the seismologists were eager to see the collected signals,
+which were initially in an unprocessed format with timing errors as described
+earlier. From the CS perspective, the early data provided evidence of
+successful data collection, but from the geophysics perspective it
+highlighted failures in the time synchronization protocol. It took a great
+deal of effort after the deployment to build confidence in the validity of
+our data.
+
+\end{itemize}
+
 \section{Future Work}
 
 \XXXnote{GWA: From the Lance Sensys'08 paper.}
