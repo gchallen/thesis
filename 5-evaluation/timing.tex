@@ -268,17 +268,19 @@ The experiment ran for 34~hours, during which time FTSP experienced
 instabilities similar to those seen during our deployment.
 
 \begin{figure}[t]
-\label{evaluation-fig-time-rect-lab}
+\begin{center}
 \begin{tabular}{|lll|} \hline
                   & {\bf Raw error} & {\bf Rectified error} \\ \hline
 {\bf  1 hop}, 50th percentile & 1.52 ms & 1.42 ms \\ 
 {\bf 1 hop}, 90th percentile & 9.86 ms & 6.77 ms \\ \hline 
 {\bf 6 hops}, 50th percentile & 2.63 ms & 2.18 ms \\ 
 {\bf 6 hops}, 90th percentile & 13.5 ms & 6.8 ms \\ \hline 
-\end{tabular} \\
+\end{tabular}
+\end{center}
 \caption{\textbf{Timestamp errors in a 6-hop lab testbed.}
 This table shows the 50th and 90th-percentile timing errors on both the raw
 FTSP timestamps, and rectified timestamps.}
+\label{evaluation-fig-time-rect-lab}
 \end{figure}
 
 This allows us to compare the {\em true} global time of each beacon message
@@ -289,8 +291,6 @@ error}. Figure~\ref{evaluation-fig-time-rect-lab} shows the results for nodes
 one and six hops away from the FTSP root.  After rectification, 99.9\% of the
 errors for the one-hop node and 93.1\% of the errors for the six-hop node
 fall within our 10~ms error envelope.
-
-\clearpage
 
 %\begin{figure}[t]
 %\begin{center}
