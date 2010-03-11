@@ -175,7 +175,7 @@ to GMT.
 
 From those status messages that pass the filter, we build a piecewise linear
 model mapping \textit{LT} to \textit{GT} using a series of linear
-regressions.  Models are constructed for each node separately, since local
+regressions. Models are constructed for each node separately, since local
 times vary significantly between nodes. Each regression spans up to 5~minutes
 of data and we initiate a new regression if the gap between subsequent
 \textit{(LT, GT)} pairs exceeds 5~minutes. Each interval must contain at
@@ -238,12 +238,11 @@ instabilities similar to those seen during our deployment.
 
 \begin{figure}[t]
 \begin{center}
-\begin{tabular}{|lll|} \hline
-                  & {\bf Raw error} & {\bf Rectified error} \\ \hline
-{\bf  1 hop}, 50th percentile & 1.52 ms & 1.42 ms \\ 
-{\bf 1 hop}, 90th percentile & 9.86 ms & 6.77 ms \\ \hline 
-{\bf 6 hops}, 50th percentile & 2.63 ms & 2.18 ms \\ 
-{\bf 6 hops}, 90th percentile & 13.5 ms & 6.8 ms \\ \hline 
+\begin{tabular}{|lll|} \hline & \textbf{Raw error} & \textbf{Rectified error} \\ \hline
+\textbf{1 hop}, 50th percentile & 1.52 ms & 1.42 ms \\ 
+\textbf{1 hop}, 90th percentile & 9.86 ms & 6.77 ms \\ \hline 
+\textbf{6 hops}, 50th percentile & 2.63 ms & 2.18 ms \\ 
+\textbf{6 hops}, 90th percentile & 13.5 ms & 6.8 ms \\ \hline 
 \end{tabular}
 \end{center}
 \caption{\textbf{Timestamp errors in a 6-hop lab testbed.}
@@ -260,3 +259,61 @@ process. We call the difference between the true and apparent times the
 results for nodes one and six hops away from the FTSP root. After
 rectification, 99.9\% of the errors for the one-hop node and 93.1\% of the
 errors for the six-hop node fall within our 10~ms error envelope.
+
+\subsection{Comparison with Broadband Station}
+\label{evaluation-sec-datagroundtruthing}
+
+\begin{figure}[t]
+\label{evaluation-fig-rvenv213}
+\begin{center}
+\includegraphics[width=\hsize]{./5-evaluation/figs/timing/RV213/2005-08-15_09.11.28/213VREFTEK-NEGATIVE29MS-OFFSET.pdf}
+\end{center}
+\caption{\textbf{Comparison of RVEN and Node~213 signals.} 
+This figure shows two seismic waves recorded by sensor node 213 and a
+broadband seismometer located 56~m away. After time rectification, a 29~ms
+time shift produces an excellent match.}
+\end{figure}
+
+\begin{figure}[t]
+\label{evaluation-fig-rvenv213all}
+\begin{center}
+\includegraphics[width=\hsize]{./5-evaluation/figs/timing/RV213/Table/213-GOODDIFFS2.pdf}
+\end{center}
+\caption{\textbf{Lag times between Node~213 and RVEN.}
+The best lag time between the two stations is shown for 28 events. Most time
+shifts fall into the +/-~47~ms window that we would expect given the distance
+between the two stations and up to 10~ms of timing error.}
+\end{figure}
+
+
+Although time rectification works well in the laboratory, it is also
+necessary to evaluate its accuracy on the data collected during the field
+deployment. For this purpose, we made use of one of the broadband seismometer
+stations colocated with our sensor network. The RVEN (for ``Reventador
+vent'') station was located 56~m from sensor Node~213. Given their
+proximity, we would expect the seismic waveforms captured by both RVEN and
+Node~213 to be well correlated. Some time shift between the two signals
+would be expected: a seismic wave passing each station could be as slow as
+1.5~km/sec, so the time lag between the signals could be as high as 37~ms.
+However, due to differences in the seismometers and the placement and ground
+coupling of the sensors, we would not expect perfectly correlated signals in
+every case.
+
+We identified 28~events recorded by both RVEN and Node~213. The data for
+Node~213 was time rectified as described earlier, and the RVEN data was
+timestamped by the Reftek's internal GPS receiver. We applied a bandpass
+filter of 6--8~Hz to each signal to reduce sensor-specific artifacts. The
+cross-correlation between the signals produces a set of of \textit{lag times}
+indicating possible time shifts between the two signals. Due to the periodic
+nature of the signals, this results in several lag times at multiples of the
+dominant signal period. For each lag time, we visually inspected how well the
+time-shifted signals overlapped and picked the best match by hand.
+
+Figure~\ref{evaluation-fig-rvenv213} shows an example of this process that
+demonstrates excellent correlation between the RVEN and Node~213 signals with
+a 29~ms time shift. Figure~\ref{evaluation-fig-rvenv213all} shows a
+scatterplot of the best lag times for all~28~events. Of these, only 5~events
+fall outside of a $+/-$~47~ms window defined by the distance between the
+stations ($+/-$~37~ms) and our acceptable sampling error (10~ms). We have
+high confidence that our time rectification process was able to recover
+accurate timing despite failures of the FTSP protocol.
