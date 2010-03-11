@@ -102,5 +102,8 @@ pages: $(PDF)
 print: $(PS)
 	lpr -P gnx -o PageSize=Letter -o Duplex=DuplexNoTumble $(PS)
 
+open: $(PDF)
+	@acroread -openInNewInstance $(PDF) &
+
 FORCE:
 

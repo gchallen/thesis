@@ -267,8 +267,8 @@ was used to monitor and control the network.  Finally, to establish a global
 timebase, we used a single Crossbow MicaZ~\cite{xbow} mote interfaced to a
 GPS receiver (Garmin OEM~18~LVC).  The GPS receiver provided a 1~Hz pulse
 that is accurate to GPS time within 1~$\mu$s, and acted as the root of the
-network time synchronization protocol as described in
-Section~\ref{evaluation-sec-timing}.
+network time synchronization protocol.
+%as described in Section~\ref{evaluation-sec-timing}.
 
 \subsection{Network topology and status monitoring}
 
@@ -310,9 +310,10 @@ as 256-byte {\em blocks} in the flash.
 Each block 
 %is tagged with its ID 
 is tagged with the {\em local timestamp} corresponding to the first sample in
-the block.  This timestamp is later mapped onto a global time reference as
-described in Section~\ref{evaluation-sec-timing}. The 1~Mbyte flash is
-treated as a circular buffer storing approximately 20~min of data. 
+the block.  This timestamp is later mapped onto a global time reference.
+%as described in Section~\ref{evaluation-sec-timing}.
+The 1~Mbyte flash is treated as a circular buffer storing approximately
+20~min of data. 
 
 In addition, nodes run an {\em event detection algorithm} that computes two
 exponentially-weighted moving averages (EWMA) over the input signal with
@@ -389,8 +390,9 @@ line-of-sight radio communication between adjacent sensor nodes.  Two
 standalone seismic stations, consisting of a broadband sensor, a Reftek 130
 data logger with 1~GByte flash memory cards, and a GPS receiver for
 timestamping, were colocated with sensor nodes. The data from these stations
-is essential to our network validation, described in
-Sections~\ref{evaluation-sec-eventdetection}~and~\ref{evaluation-sec-timing}.
+is essential to our network validation.
+%described in
+%Sections~\ref{evaluation-sec-eventdetection}~and~\ref{evaluation-sec-timing}.
 The base station was located at a small hotel 4.6~km from the deployment
 site.  The sensors were deployed for a total of 19~days, during which time
 the network recorded data from 229~earthquakes, eruptions, and tremor events,
