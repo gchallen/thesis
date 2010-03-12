@@ -1,3 +1,3 @@
-TARGET = 9-conclusion
+TARGET = 7-conclusion
 INSTALLDIR = "chapters"
 include ../Makerules
