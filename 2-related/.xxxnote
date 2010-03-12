@@ -1,0 +1,1 @@
+\newcommand{\XXXnote}[1]{\textcolor{red}{\bf XXX: #1}}
