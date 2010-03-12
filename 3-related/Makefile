@@ -1,3 +1,3 @@
-TARGET = 3-related
+TARGET = 2-related
 INSTALLDIR = "chapters"
 include ../Makerules
