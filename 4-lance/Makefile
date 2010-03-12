@@ -1,3 +1,3 @@
-TARGET = 6-lance
+TARGET = 4-lance
 INSTALLDIR = "chapters"
 include ../Makerules
