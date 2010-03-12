@@ -1,3 +1,3 @@
-TARGET = 7-idea
+TARGET = 5-idea
 INSTALLDIR = "chapters"
 include ../Makerules
