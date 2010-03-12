@@ -1,3 +1,3 @@
-TARGET = 5-evaluation
+TARGET = 3-evaluation
 INSTALLDIR = "chapters"
 include ../Makerules
