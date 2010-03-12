@@ -1,3 +1,3 @@
-TARGET = 8-lessons
+TARGET = 6-lessons
 INSTALLDIR = "chapters"
 include ../Makerules
