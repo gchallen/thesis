@@ -1,1 +1,0 @@
-../huthesis.cls
