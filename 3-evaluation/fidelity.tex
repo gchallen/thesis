@@ -21,35 +21,38 @@ the volcano, simplifying the wave velocity calculation.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\hsize]{./3-evaluation/figs/fidelity/acousticSeismicSketches.pdf}
+\includegraphics[width=\hsize]{./3-evaluation/figs/acousticsketch.pdf}
 \end{center}
-\caption{\textbf{Computing acoustic wave velocity.}
-The velocity of the acoustic wave is calculated based on the distance of each
-station from the vent, $d_i$, and the arrival time of the wave at each
-station, $t_i$.}
-\label{evaluation-fig-acousticSketch}
+
+\caption{\textbf{Computing acoustic wave velocity.} The velocity of the
+acoustic wave is calculated based on the distance of each station from the
+vent, $d_i$, and the arrival time of the wave at each station, $t_i$.}
+
+\label{evaluation-fig-acousticsketch}
 \end{figure}
 
 We identified four events in our data set with a clear infrasonic component.
 For each event, we hand-picked the arrival time of the wave at each node
-using the time-rectified signal. Figure~\ref{evaluation-fig-acousticArrival}
+using the time-rectified signal. Figure~\ref{evaluation-fig-acousticarrival}
 plots the wave arrival time versus the distance of each node from the vent.
-As shown in Figure~\ref{evaluation-fig-acousticSketch}, the velocity of the
+As shown in Figure~\ref{evaluation-fig-acousticsketch}, the velocity of the
 wave can be calculated by performing a linear regression on this dataset.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\hsize]{./3-evaluation/figs/fidelity/acousticArrival/acoustic.pdf}
+\includegraphics[width=\hsize]{./3-evaluation/figs/acousticarrival.pdf}
 \end{center}
-\caption{\textbf{Acoustic wave arrival times and velocity.}
-This figure shows the acoustic wave arrival time vs. distance from the vent
-for 4~separate events. Also shown is the resulting acoustic wave velocity and
-the $R^2$ coefficient of determination.}
-\label{evaluation-fig-acousticArrival}
+
+\caption{\textbf{Acoustic wave arrival times and velocity.} This figure shows
+the acoustic wave arrival time vs. distance from the vent for 4~separate
+events. Also shown is the resulting acoustic wave velocity and the $R^2$
+coefficient of determination.}
+
+\label{evaluation-fig-acousticarrival}
 \end{figure}
 
 The result of this calculation is also shown in
-Figure~\ref{evaluation-fig-acousticArrival}. The velocity of sound in air is
+Figure~\ref{evaluation-fig-acousticarrival}. The velocity of sound in air is
 temperature-dependent; for temperatures between 10--20 $^{\circ}$C the
 velocity range is 337--343~m/s. The calculated wave velocities are mostly in
 this range, with a mean of 339.5~m/s. The coefficients of determination $R^2$
@@ -71,14 +74,16 @@ expected volcanic activity.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=0.8\hsize]{./3-evaluation/figs/fidelity/seismicArrival/arrivalTimesPlotScatteredNode.pdf}
+\includegraphics[width=0.8\hsize]{./3-evaluation/figs/arrivaltimes.pdf}
 \end{center}
-\caption{\textbf{Time of arrival of each node over multiple events.}
-This graph shows the spread of arrival times for each node. The arrival time
-and distance is relative to Node~207. The arrival time for each node is
-fairly consistent over multiple events, with the exception of Node~214.  The
-shaded area indicates a move-out velocity of less than 1,500 $m/s$.}
-\label{evaluation-fig-seismicArrivalScatteredNode}
+
+\caption{\textbf{Time of arrival of each node over multiple events.} This
+graph shows the spread of arrival times for each node. The arrival time and
+distance is relative to Node~207. The arrival time for each node is fairly
+consistent over multiple events, with the exception of Node~214.  The shaded
+area indicates a move-out velocity of less than 1,500 $m/s$.}
+
+\label{evaluation-fig-arrivaltimes}
 \end{figure}
 
 The most natural measure of data consistency is whether the time of the
@@ -88,50 +93,52 @@ believed to propagate at Reventador, which we estimate as 1500~m/s. We took
 15~seismic events with clear P-wave arrivals and used an automatic
 algorithm~\cite{pwave-picking} to determine the wave arrival time. Unlike
 acoustic waves, determining seismic wave arrival times is notoriously
-difficult. The seismograms in Figures~\ref{evaluation-fig-jjExplosion} and
-Figure~\ref{evaluation-fig-jjTectonic} should give the reader some
+difficult. The seismograms in Figures~\ref{evaluation-fig-explosionfit} and
+Figure~\ref{evaluation-fig-tectonicfit} should give the reader some
 appreciation for this.
 
 \begin{figure}[t!]
 \begin{center}
-\includegraphics[width=0.8\hsize]{./3-evaluation/figs/fidelity/seismicArrival/johnson/2005-08-16_09-45-14.pdf}
+\includegraphics[width=0.8\hsize]{./3-evaluation/figs/explosionfit.pdf}
 \end{center}
-\caption{\textbf{Explosion earthquake event.}
-P-wave arrivals have been identified manually and a second-order polynomial
-(solid line) is fit to the arrivals. The arrival time move-outs are
-consistent with a shallow near-vent source.}
-\label{evaluation-fig-jjExplosion}
+
+\caption{\textbf{Explosion earthquake event.} P-wave arrivals have been
+identified manually and a second-order polynomial (solid line) is fit to the
+arrivals. The arrival time move-outs are consistent with a shallow near-vent
+source.}
+
+\label{evaluation-fig-explosionfit}
 \end{figure}
 
-Figure~\ref{evaluation-fig-seismicArrivalScatteredNode} shows a scatterplot
-of the arrival times with respect to Node~207, which was chosen as an
-arbitrary reference point since data for this node appeared in all 15~events.
-The $y$-axis represents the distance of each node from Node~207. Depending on
-the seismic source location, we expect waves to arrive both before and after
-Node~207. However, the slowest wave speed (1500~m/s) dictates the maximum
-difference in the wave arrival between each station. Note that there is no
-lower bound on arrival times, since a wave emanating from a deep source could
-arrive at all stations nearly simultaneously. The shaded area in
-Figure~\ref{evaluation-fig-seismicArrivalScatteredNode} covers the
-``exclusion envelope'' of arrival times at each station. As the figure shows,
-only 2~out of~124 arrivals fall outside of this envelope.
+Figure~\ref{evaluation-fig-arrivaltimes} shows a scatterplot of the arrival
+times with respect to Node~207, which was chosen as an arbitrary reference
+point since data for this node appeared in all 15~events.  The $y$-axis
+represents the distance of each node from Node~207. Depending on the seismic
+source location, we expect waves to arrive both before and after Node~207.
+However, the slowest wave speed (1500~m/s) dictates the maximum difference in
+the wave arrival between each station. Note that there is no lower bound on
+arrival times, since a wave emanating from a deep source could arrive at all
+stations nearly simultaneously. The shaded area in
+Figure~\ref{evaluation-fig-arrivaltimes} covers the ``exclusion envelope'' of
+arrival times at each station. As the figure shows, only 2~out of~124
+arrivals fall outside of this envelope.
 
 Finally, we take a closer look at two seismic events recorded by our array.
-Figures~\ref{evaluation-fig-jjExplosion} and \ref{evaluation-fig-jjTectonic}
+Figures~\ref{evaluation-fig-explosionfit} and \ref{evaluation-fig-tectonicfit}
 show seismograms from each of the sensor nodes after time rectification. The
 $y$-axis corresponds to the distance of each node from the vent. For each
 event, the P-wave arrivals have been determined by hand and a second-order
 polynomial has been fit to the arrival times at each node for clarity.
 
 These two events show a very different pattern of wave arrival times.
-Figure~\ref{evaluation-fig-jjExplosion} shows the seismic wave arriving first
+Figure~\ref{evaluation-fig-explosionfit} shows the seismic wave arriving first
 at stations near the vent (nodes~204 and 213). This is consistent with a
 shallow near-vent source corresponding to an explosion. This is confirmed by
 the corresponding acoustic data (shown in
-Figure~\ref{evaluation-fig-acousticArrival}) attributed to explosive
+Figure~\ref{evaluation-fig-acousticarrival}) attributed to explosive
 expansion of gas. 
 
-In contrast, Figure~\ref{evaluation-fig-jjTectonic} shows an event with the
+In contrast, Figure~\ref{evaluation-fig-tectonicfit} shows an event with the
 earliest arrivals in the middle of the sensor array and the endpoints
 relatively delayed; many such events were recorded by our network. This
 distribution implies a deeper source. At the same time, seismic velocity in
@@ -144,11 +151,13 @@ seismological analysis.
 
 \begin{figure}[t!]
 \begin{center}
-\includegraphics[width=0.8\hsize]{./3-evaluation/figs/fidelity/seismicArrival/johnson/2005-08-15_16-04-37.pdf}
+\includegraphics[width=0.8\hsize]{./3-evaluation/figs/tectonicfit.pdf}
 \end{center}
-\caption{\textbf{Tectonic earthquake event at 08/15/2005 16:04:37 GMT.}
-In this event, seismic waves are first recorded near the middle of the sensor
+
+\caption{\textbf{Tectonic earthquake event at 08/15/2005 16:04:37 GMT.} In
+this event, seismic waves are first recorded near the middle of the sensor
 array. This is due either to a source closer to the center of the array,
 variations in velocity structure, or most likely both.}
-\label{evaluation-fig-jjTectonic}
+
+\label{evaluation-fig-tectonicfit}
 \end{figure}

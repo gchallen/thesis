@@ -19,20 +19,22 @@ event.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\hsize]{./3-evaluation/figs/performance/yields/comparison/availableEventNodeYieldCDF.pdf}
+\includegraphics[width=\hsize]{./3-evaluation/figs/eventyield.pdf}
 \end{center}
-\caption{\textbf{Event yield.}
-This graph shows a CDF of the event yield for each of the 229~events recorded
-during the entire deployment. Event yield is the fraction of active nodes
-from which a complete 60~s signal was downloaded following an event.}
-\label{evaluation-fig-compBlockYieldCDF}
+
+\caption{\textbf{Event yield.} This graph shows a CDF of the event yield for
+each of the 229~events recorded during the entire deployment. Event yield is
+the fraction of active nodes from which a complete 60~s signal was downloaded
+following an event.}
+
+\label{evaluation-fig-eventyield}
 \end{figure}
 
-Figure~\ref{evaluation-fig-compBlockYieldCDF} shows a CDF of the event yield
-for all 229~events recorded during the deployment. As the figure shows, the
-median event yield was 68.5\% and the 90th percentile was 94\%. The yield can
-be affected by several factors. First, the protocol will abort a transfer
-from a node after re-requesting the same block more than 20~times, or if the
+Figure~\ref{evaluation-fig-eventyield} shows a CDF of the event yield for all
+229~events recorded during the deployment. As the figure shows, the median
+event yield was 68.5\% and the 90th percentile was 94\%. The yield can be
+affected by several factors. First, the protocol will abort a transfer from a
+node after re-requesting the same block more than 20~times, or if the
 transfer from a single node exceeds 10~minutes. Second, because sampling is
 disabled while performing a data transfer, if two back-to-back events occur a
 node may not end up storing data for the second event.
@@ -52,17 +54,18 @@ before it could be downloaded.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\hsize]{./3-evaluation/figs/performance/yields/nodeYield/nodeYieldOnly.pdf}
+\includegraphics[width=\hsize]{./3-evaluation/figs/nodeyield.pdf}
 \end{center}
-\caption{\textbf{Node yield.}
-This graph shows the node yield for each of the 16 nodes over the entire
-deployment, defined as the probability that an event was successfully
-downloaded from a node, as long as that node is active during the
-corresponding event detection.}
-\label{evaluation-fig-nodeYield}
+
+\caption{\textbf{Node yield.} This graph shows the node yield for each of the
+16 nodes over the entire deployment, defined as the probability that an event
+was successfully downloaded from a node, as long as that node is active
+during the corresponding event detection.}
+
+\label{evaluation-fig-nodeyield}
 \end{figure}
 
-Figure~\ref{evaluation-fig-nodeYield} shows the node yield for each of the
+Figure~\ref{evaluation-fig-nodeyield} shows the node yield for each of the
 nodes. We can see how the factors mentioned above affected performance.
 First, the nodes with the highest yield (above 80\%) tend to be within two
 hops from the root. However, despite being within two or three hops, Node~209
@@ -86,22 +89,24 @@ events.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\hsize]{./3-evaluation/figs/performance/CDFByHops/CDFBYHOPS.pdf}
+\includegraphics[width=\hsize]{./3-evaluation/figs/fetchlatency.pdf}
 \end{center}
-\caption{\textbf{Distribution of Fetch latency for two nodes.}
-The latency for a Fetch download depends on the depth of the node in the
-routing tree, which affects both command propagation latency and reliability
-of the routing path. Node~200 is located 1~hop from the sink and Node~214 is
-located 6~hops away.}
-\label{evaluation-fig-fetchlatency-byhops}
+
+\caption{\textbf{Distribution of Fetch latency for two nodes.} The latency
+for a Fetch download depends on the depth of the node in the routing tree,
+which affects both command propagation latency and reliability of the routing
+path. Node~200 is located 1~hop from the sink and Node~214 is located 6~hops
+away.}
+
+\label{evaluation-fig-fetchlatency}
 \end{figure}
 
 The median latency for Fetch operations (downloading 60~s worth of data from
 a single node) was 186~s and the 90th percentile was 444~s. Unsurprisingly,
 latency varies with the depth of the node in the routing tree.
-Figure~\ref{evaluation-fig-fetchlatency-byhops} compares Fetch latency for
-Nodes~200 and 214, located 1~and~6 hops away from the sink, respectively.
-Node~200 had a median Fetch latency of 94~s, while Node~214 had a median
-latency of 409~s, about 63~s per hop. This is due to both increased delay for
-propagating Fetch command messages, as well as increasing packet loss and
-retransmission overheads as the data flows over multiple hops to the base.
+Figure~\ref{evaluation-fig-fetchlatency} compares Fetch latency for Nodes~200
+and 214, located 1~and~6 hops away from the sink, respectively. Node~200 had
+a median Fetch latency of 94~s, while Node~214 had a median latency of 409~s,
+about 63~s per hop. This is due to both increased delay for propagating Fetch
+command messages, as well as increasing packet loss and retransmission
+overheads as the data flows over multiple hops to the base.

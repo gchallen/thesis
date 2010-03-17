@@ -13,12 +13,13 @@ protocol caused a three-day outage of the entire network.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\hsize]{./3-evaluation/figs/robustness/nodesalive/nodesalive.pdf}
+\includegraphics[width=\hsize]{./3-evaluation/figs/nodesalive.pdf}
 \end{center}
-\caption{\textbf{Nodes reporting over time.}
-This figure shows the number of nodes reporting over each 10~min window
-during the 19-day deployment period.  The annotations (1) through (6) are
-described in the text.}
+
+\caption{\textbf{Nodes reporting over time.} This figure shows the number of
+nodes reporting over each 10~min window during the 19-day deployment period.
+The annotations (1) through (6) are described in the text.}
+
 \label{evaluation-fig-nodesalive}
 \end{figure}
 
@@ -31,7 +32,7 @@ events that occurred during the deployment:
 \begin{itemize}
 
 \item \textbf{(1)} The network was installed in two phases of 8~nodes each,
-the first on August~1 and the second on August~3.  At label (1) the entire
+the first on August~1 and the second on August~3. At label (1) the entire
 16~node network is operational. However, initial software misconfiguration
 required rebooting several nodes during a third visit to the deployment site
 on August~5. The network then ran with 16~nodes active for a little more than
@@ -72,14 +73,15 @@ importance of remote telemetry for acquiring data at hazardous volcanoes.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\hsize]{./3-evaluation/figs/robustness/nodesalive/node-uptime2.pdf}
+\includegraphics[width=\hsize]{./3-evaluation/figs/nodeuptime.pdf}
 \end{center}
-\caption{\textbf{Individual node uptimes.}
-This figure shows the percentage of time that each node reported status
-messages during the 19-day deployment. Shown separately are the apparent node
-uptimes caused by the whole-network outage and base station outages. While
-the former was true sensor node failure, the latter did not seem to affect
-the sensor nodes themselves.}
+
+\caption{\textbf{Individual node uptimes.} This figure shows the percentage
+of time that each node reported status messages during the 19-day deployment.
+Shown separately are the apparent node uptimes caused by the whole-network
+outage and base station outages. While the former was true sensor node
+failure, the latter did not seem to affect the sensor nodes themselves.}
+
 \label{evaluation-fig-nodeuptime}
 \end{figure}
 
@@ -100,7 +102,7 @@ information, causing nodes to reboot continuously at short intervals. We did
 not see this behavior in the lab before deployment, although we had not
 rigorously tested this portion of the code. In retrospect, it was optimistic
 of us to rely on a complex network reboot protocol that had not been
-field-tested.  Deluge was removed from the binary used during the network
+field-tested. Deluge was removed from the binary used during the network
 reprogram following the failure; it was replaced with a simpler mechanism to
 reboot individual nodes using a radio command.
 
