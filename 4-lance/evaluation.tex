@@ -54,7 +54,7 @@ energy constrained regions for an optimal system. The right axis shows the
 percent of energy consumed by the most highly-drained node, and the left axis
 shows the amount of time spent downloading.}
 
-\label{lance-figs-crossover}
+\label{lance-fig-crossover}
 \end{figure}
 
 As stated in Section~\ref{lance-sec-problem-definition}, the high-level goal
@@ -159,26 +159,28 @@ the optimal solution.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=1.0\hsize]{./4-lance/figs/gwa/zipfian/POLICIES.pdf}
+\includegraphics[width=1.0\hsize]{./4-lance/figs/used/zipfian.pdf}
 \end{center}
 
 \caption{\textbf{Scoring function performance on Zipfian distribution.} The
 \textit{cost-bottleneck} scoring function outperforms the other two across a
 range of lifetime targets.}
 
-\label{lance-sec-eval-zipfian}
+\label{lance-fig-zipfian}
 \end{figure}
 
 \begin{figure}[t]
-\label{lance-sec-eval-figspeeds}
 \begin{center}
-\includegraphics[width=1.0\hsize]{./4-lance/figs/gwa/speeds/POLICIES.pdf}
+\includegraphics[width=1.0\hsize]{./4-lance/figs/used/speeds.pdf gwa/speeds/POLICIES.pdf}
 \end{center}
-\caption{\textbf{Effect of varying download bandwidth.}
-Lance maintains a high degree of optimality as the per-node download
-bandwidth is varied. Here results are shown for the three synthetic
-distributions across a 25~node tree topology and the \textit{cost-bottleneck}
-scoring function. Note that the $y$-axis starts at 90\%.}
+
+\caption{\textbf{Effect of varying download bandwidth.} Lance maintains a
+high degree of optimality as the per-node download bandwidth is varied. Here
+results are shown for the three synthetic distributions across a 25~node tree
+topology and the \textit{cost-bottleneck} scoring function. Note that the
+$y$-axis starts at 90\%.}
+
+\label{lance-fig-speeds}
 \end{figure}
 
 
@@ -188,14 +190,14 @@ topology. The table shows that the \textit{cost-bottleneck} scoring function
 outperforms the other two in most cases, with optimality values between
 87.1\% and 96.9\%. The one exception is the 4-month Zipfian data set, where
 \textit{cost-total} slightly outperforms \textit{cost-bottleneck}.
-Figure~\ref{lance-sec-eval-zipfian} shows the effect of varying the network's
+Figure~\ref{lance-fig-zipfian} shows the effect of varying the network's
 target lifetime, using the 25-node tree topology and a Zipfian data value
 distribution. As the figure shows, the \textit{cost-bottleneck} scoring
 function maintains a high degree of optimality as the network bandwidth
 changes.
 
 To illustrate the effect of varying lifetime targets in more detail,
-Figure~\ref{lance-figs-crossover} shows how the optimal solution transitions
+Figure~\ref{lance-fig-crossover} shows how the optimal solution transitions
 between bandwidth-dominant and energy-dominant constraints as the target
 lifetime increases. At low lifetime targets, the system is bandwidth
 constrained and cannot download data fast enough to exhaust the nodes'
