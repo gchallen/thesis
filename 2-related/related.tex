@@ -1,6 +1,18 @@
 \section{Related Work}
 \label{chapter-relatedwork}
 
+\XXXnote{GWA: Pulled from Sensys'08 introduction. Perhaps some useful
+references.}
+
+Many sensor network applications involve the acquisition
+of high-resolution signals using low-power wireless sensor nodes. Examples
+include monitoring acoustic, seismic, and vibration waveforms in
+bridges~\cite{ggb-ipsn07}, industrial equipment~\cite{intel-northseasensys}, 
+volcanoes~\cite{volcano-osdi06}, and animal
+habitats~\cite{girod-ipsn07,enviromic}.  These systems all attempt to acquire
+high data-rate (100~Hz or higher), high-fidelity data across the network,
+subject to severe constraints on radio bandwidth and energy usage.
+
 \XXXnote{GWA: Pulled from OSDI'06 related work.}
 
 While the number of sensor network deployments described in the literature
@@ -118,4 +130,102 @@ address data fidelity issues.
 %
 % 2) Estrin's Tier Stuff
 % http://lecs.cs.ucla.edu/Publications/papers/tier.pdf
+
+\XXXnote{GWA: Ripped from Sensys'08 background and motivation section.}
+
+\section{Background and Motivation}
+\label{lance-sec-motivation}
+
+% Mention general structure: Local storage of signals coupled with 
+% a reliable bulk-transfer protocol
+
+Wireless sensor networks are becoming more common for applications
+that focus on reliable collection of raw signals at relatively high sampling
+rates, as opposed to in-network aggregation of low-data-rate samples.
+These applications generally make use of extensive offline analysis 
+to study the collected data, and it is often infeasible
+or impossible to perform this computation within the network itself.
+Even in cases where it is possible to shift computation to the network, a
+system designer may wish to extract raw data occasionally for calibration
+or testing.  Examples of such applications include structural health
+monitoring~\cite{netshm-spots06,ggb-ipsn07,wimms-lynch06}, acoustic
+sensing~\cite{vango,vigilnet,girod-ipsn07,enviromic}, distributed camera
+networks~\cite{cyclops}, and geophysical monitoring~\cite{volcano-osdi06}.
+
+These systems typically record data to flash at each sensor node 
+and make use of a reliable bulk-transfer protocol to collect data at 
+a base station. Given that the network is capable of sampling data at
+a higher rate than it can be downloaded, it is not possible to 
+collect the complete signal from all nodes. 
+The system is therefore forced to make
+a decision about what data to collect and what to throw away. In most
+cases this decision is application-specific: for example, a
+volcanologist may be chiefly interested in a specific type of seismic
+tremor, and a biologist may be looking for acoustic signatures of a 
+specific species of marmot~\cite{girod-ipsn07}. The implication is that
+the system must be able to determine the intrinsic {\em value} of
+a given signal to determine whether resources should be devoted to 
+storing and downloading that signal.
+
+Previous approaches have involved simple mechanisms tailored for 
+specific applications. For example, in the
+NetSHM~\cite{netshm-spots06,netshm-emnets05} structural monitoring 
+system, data collection is 
+triggered manually following an excitation of the structure.
+Sentri~\cite{ggb-ipsn07} has been used for vibration monitoring at
+the Golden Gate Bridge; it is unclear from the paper how sampling and
+communication are triggered, but reported experimental results
+suggest manual operation. The Reventador volcano monitoring 
+system~\cite{volcano-osdi06} used a simple triggering algorithm to detect 
+seismic events and initiate reliable transfer to the base station. 
+The Intel Predictive Maintenance
+system~\cite{intel-northseasensys} performs high-data-rate sampling
+staggered over infrequent, periodic collection periods to extend
+system lifetime. 
+All of these systems involve a tight binding of the {\em mechanisms} 
+used to manage storage and bandwidth with their respective 
+application-specific {\em policies}.
+
+The typical approach to download management is a FIFO model where downloads
+occur in a round-robin fashion across the network once a trigger occurs. In
+general, new data may be sampled and stored to flash while a download is
+taking place.  Therefore, the trigger frequency, download cycle duration and
+the number of nodes in the network all effect the amount of data captured by
+such an approach.  For example, the Flush~\cite{flush-sensys07} protocol
+achieves only 8~Kbps for a reliable transfer over multiple hops; the
+Fetch~\cite{volcano-osdi06} and Straw~\cite{ggb-ipsn07} protocols fare
+somewhat worse. The RCRT protocol~\cite{rcrt-sensys07} is designed for a case
+where all nodes are transmitting simultaneously to the sink, although this
+approach severely limits the obtained per-node throughput. As a result, when
+incoming data rates exceed download capacity, FIFO download management can
+produce excessive delays between data acquisition and retrieval.
+
+Lance assumes that sensor nodes contain adequate flash storage to buffer
+signals prior to download.  While the popular TMote~Sky platform supports a
+relatively small 1~MB flash, more recent sensor designs~\cite{shimmer} have
+several GB~of flash, and we expect this trend to continue. Rather than
+focusing on per-node storage, our primary concern is with limitations on
+bandwidth and energy.
+
+Our goal is to develop a general-purpose approach to bandwidth and energy
+management that complements a reliable data-collection protocol. Such a
+system should have several key properties.  First, it should be {\em
+customizable}, allowing different applications to specify their own policies
+for storage management and bandwidth prioritization. Second, the system
+should target a range of optimization goals. Examples include maximizing
+overall data priority, bounding energy consumption, maximizing temporal or
+spatial coverage of the collected data, or achieving fairness across sensor
+nodes. Third, the system should be decoupled from a specific routing
+protocol, reliable collection protocol, or sensor node platform, making it
+possible to leverage the system in different settings. 
+
+%As a concrete example, consider a network sampling triaxial accelerometer 
+%data at 1~kHz at 16~bits/sample. To download 60~sec of
+%this signal at 500~bytes/sec would require 
+%(1000 * 3 * 2 * 60)/500 = 720~sec {\em per node}.
+%Even assuming transfers from all nodes can be performed in parallel at
+%this rate, during this time over 4~MBytes of new data would 
+%be sampled, and with a 1~MByte flash we have no choice but to discard 
+%most of the data. The fundamental limitation of the FIFO approach is that 
+%it makes no attempt to prioritize which data is stored or downloaded. 
 
