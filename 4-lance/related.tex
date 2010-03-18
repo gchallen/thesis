@@ -1,0 +1,28 @@
+\section{Related Work}
+
+Several systems are related to Lance but differ substantially in their goals
+and assumptions. EnviroMic~\cite{enviromic} is a system designed to support
+distributed acoustic recording by leveraging the collective storage resources
+of multiple sensor nodes. EnviroMic focuses on storage management and load
+balancing, and assumes that data will be manually retrieved from sensor nodes
+following the deployment. Unlike Lance, EnviroMic is not intended for
+applications with real-time data needs.
+
+ICEDB~\cite{zhang2007icedb} supplies a delay-tolerant and priority-driven
+query processor for the CarTel~\cite{cartel} system. While ICEDB considers
+bandwidth limitations, it does not consider energy as a constraint. ICEDB
+provides SQL extensions allowing queries to assign both inter- and
+intra-stream priorities, which are used by the query processor to manage
+bandwidth and storage resources. ICEDB also uses a similar node-level
+summarization technique to that used by Lance. 
+
+VanGo~\cite{vango} provides an architecture for collecting and processing
+high-resolution sensor data on resource-constrained nodes. VanGo focuses on a
+programming model based on a linear filter chain and implementing efficient
+signal-processing operations with limited computational power.
+WaveScope~\cite{wavescope} and Flask~\cite{flask-tr} are languages for stream
+processing applications. These systems are largely complementary to Lance,
+and could be used to process signal data prior to collection, although our
+focus is on collecting \textit{raw} sensor data from large networks. These
+systems do not attempt to optimize data collection under varying energy and
+bandwidth constraints. 
