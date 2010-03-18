@@ -2,107 +2,109 @@
 \label{lance-sec-evaluation}
 
 \begin{figure}[t]
-\label{lance-sec-eval-figlinear}
 \begin{center}
-\includegraphics[width=1.0\hsize]{./4-lance/figs/gwa/linear/BOTH.pdf}
+\includegraphics[width=1.0\hsize]{./4-lance/figs/used/linear.pdf}
 \end{center}
+
 \caption{\textbf{Per-node distribution of ADU value and energy usage for the
-linear simulation experiment.} 
-The top graph shows the amount of data value downloaded from each node, while
-the bottom graph breaks down the amount of energy used by each node into the
-downloading, routing and overhearing components. Node~1 is closest to the
-base station.}
+linear simulation experiment.} The top graph shows the amount of data value
+downloaded from each node, while the bottom graph breaks down the amount of
+energy used by each node into the downloading, routing and overhearing
+components. Node~1 is closest to the base station.}
+
+\label{lance-fig-linear}
 \end{figure}
 
 \begin{figure}[t]
-\label{lance-sec-eval-figerror}
 \begin{center}
-\includegraphics[width=1.0\hsize]{./4-lance/figs/gwa/error/ERROR.pdf}
+\includegraphics[width=1.0\hsize]{./4-lance/figs/used/error.pdf}
 \end{center}
-\caption{\textbf{Effect of cost vector error on optimality.} 
-The optimization process is guided by the cost vectors, but predicting the
-energy cost of operations before they are performed can be difficult.  Here
-we show the impact of introducing a degree of error into the cost vectors
-used by the optimizer.  As can be seen, we can tolerate a relatively high
-degree of error, as long as the shape of the cost vector does not change.}
+
+\caption{\textbf{Effect of cost vector error on optimality.} The optimization
+process is guided by the cost vectors, but predicting the energy cost of
+operations before they are performed can be difficult. Here we show the
+impact of introducing a degree of error into the cost vectors used by the
+optimizer. As can be seen, we can tolerate a relatively high degree of error,
+as long as the shape of the cost vector does not change.}
+
+\label{lance-fig-error}
 \end{figure}
 
 This section presents a careful evaluation of Lance conducted along several
-lines.  Using a high-level system simulator and synthetic data sets, we
+lines. Using a high-level system simulator and synthetic data sets, we
 evaluate the three scoring functions described in
-Section~\ref{lance-sec-lanceoptimizer}. We motivate our use of the
-\emph{cost-bottleneck} scoring function and demonstrate that it performs
-better than simpler alternatives.  Next, we look at the impact of varying
+Section~\ref{lance-subsec-optimizer}. We motivate our use of the
+\textit{cost-bottleneck} scoring function and demonstrate that it performs
+better than simpler alternatives. Next, we look at the impact of varying
 parameters such as download bandwidth and network lifetime, as well as the
-impact of errors in the cost vectors.  We also present results from
+impact of errors in the cost vectors. We also present results from
 experiments run on a 50-node sensor network testbed using realistic data
 sets.
 
-\subsection{Metrics and methodology}
+\subsection{Metrics and Methodology}
 
 \begin{figure}[t]
-\label{lance-sec-eval-crossover}
 \begin{center}
-\includegraphics[width=1.0\hsize]{./4-lance/figs/gwa/crossover/BANDWIDTHVENERGY.pdf}
+\includegraphics[width=1.0\hsize]{./4-lance/figs/used/crossover.pdf}
 \end{center}
+
 \caption{\textbf{Crossover between bandwidth and energy constraint dominance
-as lifetime is varied.} 
-This graph shows the transition between bandwidth and energy constrained
-regions for an optimal system.  The right axis shows the percent of energy
-consumed by the most highly-drained node, and the left axis shows the amount
-of time spent downloading.}
+as lifetime is varied.} This graph shows the transition between bandwidth and
+energy constrained regions for an optimal system. The right axis shows the
+percent of energy consumed by the most highly-drained node, and the left axis
+shows the amount of time spent downloading.}
+
+\label{lance-figs-crossover}
 \end{figure}
 
 As stated in Section~\ref{lance-sec-problem-definition}, the high-level goal
 of Lance is to download a set of ADUs maximizing the total value subject to
-energy and bandwidth constraints. The {\em optimal} solution is defined as
+energy and bandwidth constraints. The \textit{optimal} solution is defined as
 the solution to the multidimensional knapsack problem, which yields a set of
-downloaded ADUs $\mathcal{O} = \{a_1, a_2, ...  a_n\}$ that maximize data
+downloaded ADUs $\mathcal{O} = \{a_1, a_2, ... a_n\}$ that maximize data
 value subject to bandwidth and energy constraints. The total data value of
 the optimal solution $\hat{v}(\mathcal{O}) = \sum_{a_i \in \mathcal{O}} v_i$.
-Recall that computing the optimal solution requires {\em a priori} knowledge
-of all of the ADU values sampled by the network over time.  We define {\em
-optimality} as the fraction of the data value downloaded by Lance compared to
-the optimal solution. That is, given a set of downloaded ADUs $\mathcal{L}$
-with total data value $v(\mathcal{L})$, we define optimality as
+Recall that computing the optimal solution requires \textit{a priori}
+knowledge of all of the ADU values sampled by the network over time. We
+define {\em optimality} as the fraction of the data value downloaded by Lance
+compared to the optimal solution. That is, given a set of downloaded ADUs
+$\mathcal{L}$ with total data value $v(\mathcal{L})$, we define optimality as
 $v(\mathcal{L}) / \hat{v}(\mathcal{O})$.
 
 We begin by presenting results based on a realistic system simulator that
 allows us to quickly vary parameters such as ADU data value distribution,
 network topologies, download speeds, energy costs, and target lifetimes. We
 also present results from Lance running on MoteLab~\cite{motelab}, a sensor
-network testbed deployed over 3~floors of the Harvard EECS building.  Our
+network testbed deployed over 3~floors of the Harvard EECS building. Our
 simulation experiments use a 10-node linear topology as well as a 25-node
 realistic tree topology shown in Figure~\ref{lance-sec-eval-topologies}(a).
 Both topologies use per-node ADU download speeds based on empirical
-measurements taken using the testbed.  In our experiments, the ADU size is
-36~KB and each node samples one ADU every 60~seconds (or 600~bytes/s of
-data).
+measurements taken using the testbed. In our experiments, the ADU size is
+36~KB and each node samples one ADU every 60~s (or 600~Bps of data).
 
 We draw ADU values from several distributions in an attempt to understand
-Lance's behavior as the properties of the sampled data change.  Three value
+Lance's behavior as the properties of the sampled data change. Three value
 distributions are used: uniform random, exponentially distributed, and Zipf
-with exponent $\alpha = 1$.  We also make use of an ADU value distribution
+with exponent $\alpha = 1$. We also make use of an ADU value distribution
 based on a 6~hour seismic signal collected at Reventador Volcano, Ecuador in
 2005~\cite{volcano-osdi06}.
 
-The energy costs for various operations are modeled as follows.  The
+The energy costs for various operations are modeled as follows. The
 background current drain of each node is set to 2~mA, based on empirical
 measurements of a TMote~Sky sensor node performing high-data-rate sampling
-and storing to flash.  We also measured the current consumption to download
-an ADU from a sensor node, and derived the energy costs for downloading ($E_d
-= 17.6$~mA/s), routing ($E_r = 16.9$~mA/s), and overhearing ($E_o = 2$~mA/s).
+and storing to flash. We also measured the current consumption to download an
+ADU from a sensor node, and derived the energy costs for downloading ($E_d =
+17.6$~mA/s), routing ($E_r = 16.9$~mA/s), and overhearing ($E_o = 2$~mA/s).
 Our experiments assume that each node can only overhear its parent in the
 routing tree; developing more detailed overhearing models is the subject of
-future work.  Computing the components of the cost vector for a particular
-ADU is done by multiplying the current consumption by the ADU download time
-for each node either downloading, routing, or overhearing the transmission.
+future work. Computing the components of the cost vector for a particular ADU
+is done by multiplying the current consumption by the ADU download time for
+each node either downloading, routing, or overhearing the transmission.
 
-\subsection{Effectiveness of scoring functions}
+\subsection{Effectiveness of Scoring Functions}
 \label{lance-sec-eval-heuristics}
 
 \begin{figure}[t]
-\begin{small}
 \begin{center}
 \begin{tabular}{|l|l|ccc|}
 \hline
@@ -121,47 +123,50 @@ Distribution & Lifetime & Only & Total & Bottleneck \\ \hline
 & 18 months & 53.1\% & 86.9\% & \textbf{93.8\%} \\ \hline
 \end{tabular}
 \end{center}
-\end{small}
-\caption{\textbf{Optimality of different scoring functions.} 
-This table summarizes simulation results evaluating the three different
-scoring functions.  Results are shown for several different lifetime targets
-and value distributions.  {\em cost-bottleneck} out-performs the others in
-almost all cases.}
+
+\caption{\textbf{Optimality of different scoring functions.} This table
+summarizes simulation results evaluating the three different scoring
+functions. Results are shown for several different lifetime targets and value
+distributions. \textit{cost-bottleneck} out-performs the others in almost all
+cases.}
+
 \label{lance-sec-eval-table}
 \end{figure}
 
 We begin by evaluating the three scoring functions described
-Section~\ref{lance-sec-lanceoptimizer}.  We want to see which is the most
-able to approximate the optimal solution across a range of target lifetimes
-and ADU distributions. As discussed earlier we expected the \emph{value-only}
+Section~\ref{lance-subsec-optimizer}. We want to see which is the most able
+to approximate the optimal solution across a range of target lifetimes and
+ADU distributions. As discussed earlier we expected the \textit{value-only}
 scoring function, without considering the energy or bandwidth overhead of
 downloading each ADU, to consume more energy downloading high-valued ADUs
 when it could have increased the total data value by downloading several
-slightly less-highly valued ADUs with lower costs.  The \emph{cost-total}
+slightly less-highly valued ADUs with lower costs. The \textit{cost-total}
 scoring function incorporates a notion of cost, but will tend to favor nodes
 closer to the base station at the expense of high-valued ADUs that are more
-routing hops away. The \emph{cost-bottleneck} scoring function should strike
-a balance between the two, since it considers only the most significant
-component of the cost vector when ranking ADUs.
+routing hops away. The \textit{cost-bottleneck} scoring function should
+strike a balance between the two, since it considers only the most
+significant component of the cost vector when ranking ADUs.
 
-Figure~\ref{lance-sec-eval-figlinear} shows simulation results using the
-10-node linear topology with exponentially-distributed ADU values, and a
-target lifetime of 3~months.  Nodes are numbered in increasing distance from
-the base station.  The graph confirms the intuition behind the scoring
-function behavior.  \emph{value-only} downloads roughly equal value from each
-node, but fails to match the optimal performance. \emph{cost-total} downloads
-more data from nodes near the sink.  \emph{cost-bottleneck} comes close to
+Figure~\ref{lance-fig-linear} shows simulation results using the 10-node
+linear topology with exponentially-distributed ADU values, and a target
+lifetime of 3~months. Nodes are numbered in increasing distance from the base
+station. The graph confirms the intuition behind the scoring function
+behavior. \textit{value-only} downloads roughly equal value from each node,
+but fails to match the optimal performance. \textit{cost-total} downloads
+more data from nodes near the sink. \textit{cost-bottleneck} comes close to
 matching the optimal solution, retrieving over 99\% of the value retrieved by
 the optimal solution.
 
 \begin{figure}[t]
-\label{lance-sec-eval-zipfian}
 \begin{center}
 \includegraphics[width=1.0\hsize]{./4-lance/figs/gwa/zipfian/POLICIES.pdf}
 \end{center}
-\caption{\textbf{Scoring function performance on Zipfian distribution.}
-The {\em cost-bottleneck} scoring function outperforms the other two across a
+
+\caption{\textbf{Scoring function performance on Zipfian distribution.} The
+\textit{cost-bottleneck} scoring function outperforms the other two across a
 range of lifetime targets.}
+
+\label{lance-sec-eval-zipfian}
 \end{figure}
 
 \begin{figure}[t]
@@ -171,38 +176,38 @@ range of lifetime targets.}
 \end{center}
 \caption{\textbf{Effect of varying download bandwidth.}
 Lance maintains a high degree of optimality as the per-node download
-bandwidth is varied.  Here results are shown for the three synthetic
-distributions across a 25~node tree topology and the \emph{cost-bottleneck}
-scoring function.  Note that the $y$-axis starts at 90\%.}
+bandwidth is varied. Here results are shown for the three synthetic
+distributions across a 25~node tree topology and the \textit{cost-bottleneck}
+scoring function. Note that the $y$-axis starts at 90\%.}
 \end{figure}
 
 
 Table~\ref{lance-sec-eval-table} summarizes simulation results from a variety
 of different lifetimes and value distributions, run on the 25-node tree
-topology. The table shows that the {\em cost-bottleneck} scoring function
+topology. The table shows that the \textit{cost-bottleneck} scoring function
 outperforms the other two in most cases, with optimality values between
-87.1\% and 96.9\%.  The one exception is the 4-month Zipfian data set, where
-\emph{cost-total} slightly outperforms \emph{cost-bottleneck}.
+87.1\% and 96.9\%. The one exception is the 4-month Zipfian data set, where
+\textit{cost-total} slightly outperforms \textit{cost-bottleneck}.
 Figure~\ref{lance-sec-eval-zipfian} shows the effect of varying the network's
 target lifetime, using the 25-node tree topology and a Zipfian data value
-distribution.  As the figure shows, the \emph{cost-bottleneck} scoring
+distribution. As the figure shows, the \textit{cost-bottleneck} scoring
 function maintains a high degree of optimality as the network bandwidth
 changes.
 
 To illustrate the effect of varying lifetime targets in more detail,
-Figure~\ref{lance-sec-eval-crossover} shows how the optimal solution
-transitions between bandwidth-dominant and energy-dominant constraints as the
-target lifetime increases. At low lifetime targets, the system is bandwidth
+Figure~\ref{lance-figs-crossover} shows how the optimal solution transitions
+between bandwidth-dominant and energy-dominant constraints as the target
+lifetime increases. At low lifetime targets, the system is bandwidth
 constrained and cannot download data fast enough to exhaust the nodes'
-batteries.  At high lifetime targets, the system is energy constrained and
-cannot download continuously without exhausting the nodes' batteries.  
+batteries. At high lifetime targets, the system is energy constrained and
+cannot download continuously without exhausting the nodes' batteries.
 
-\subsection{Bandwidth adaptation} 
+\subsection{Bandwidth adaptation}
 \label{lance-sec-eval-params}
 
 Next, we evaluate the impact of varying the download bandwidth in
 Figure~\ref{lance-sec-eval-figspeeds}, using the 25-node tree topology and
-the \emph{cost-bottleneck} scoring function. We vary the per-node download
+the \textit{cost-bottleneck} scoring function. We vary the per-node download
 bandwidth from 128~to~2048~bytes/s and peg the target lifetime at 8~months.
 As the figure shows, Lance performs very well across the range of bandwidths,
 with optimality greater than 97\% in all cases.
@@ -211,10 +216,10 @@ with optimality greater than 97\% in all cases.
 
 Our last simulation study evaluates the effect of introducing errors into
 estimated download cost. This experiment uses the 25-node topology,
-\emph{cost-bottleneck} scoring function, and an exponential data
-distribution.  As described in Section~\ref{lance-sec-costassignment}, estimating
-the cost of performing different operations {\em a priori} can be difficult.
-As shown in Figure~\ref{lance-sec-eval-figerror}, even a 40\% error in each
+\textit{cost-bottleneck} scoring function, and an exponential data
+distribution. As described in Section~\ref{lance-sec-costassignment}, estimating
+the cost of performing different operations \textit{a priori} can be difficult.
+As shown in Figure~\ref{lance-fig-error}, even a 40\% error in each
 component of the cost vector $\bar{c}_i$ for a given ADU only degrades
 optimality by approximately 15\%. We conclude that accurate estimations
 of download costs are not strictly necessary to achieve good performance.
@@ -234,7 +239,7 @@ of download costs are not strictly necessary to achieve good performance.
 (b)\\
 \end{tabular}
 \end{center}
-\caption{\textbf{Topologies for testbed experiments.} 
+\caption{\textbf{Topologies for testbed experiments.}
 This graph shows the 25 (a) and 50 (b) node topologies used for our testbed
 experiments.}
 \end{figure}
@@ -260,19 +265,19 @@ protocol, and ADU summary traffic generated by the nodes. For these
 experiments, we injected artificial ADU values directly into each node rather
 than relying on the nodes sampling real sensor data; this approach allows us
 to perform repeatable experiments that explore a wider range of ADU value
-distributions.  We use the \emph{cost-bottleneck} scoring function. 
+distributions. We use the \textit{cost-bottleneck} scoring function.
 
 Figure~\ref{lance-sec-eval-figvolcano} shows the results of a 50-node testbed
 experiment using a Zipfian data distribution and a target lifetime of
-6~months.  The upper portion of the figure shows the amount of data value
+6~months. The upper portion of the figure shows the amount of data value
 obtained by Lance from each node, compared to the optimal solution (which was
 computed offline). Nodes are sorted by decreasing optimal value. As the
 figure shows, Lance achieves very close to the optimal solution, with an
-optimality of 98\% overall.  In some cases, Lance incorrectly downloads more
+optimality of 98\% overall. In some cases, Lance incorrectly downloads more
 data from some nodes and less data from others; this is due to the inherent
-limitations of an online solution that cannot foresee future ADU values.  The
+limitations of an online solution that cannot foresee future ADU values. The
 lower portion of the figure shows the energy breakdown for each node with
-downloading, forwarding, and overhearing costs shown.  Some nodes consume
+downloading, forwarding, and overhearing costs shown. Some nodes consume
 more than others because of their location in the routing tree. For example,
 node~103 in uses a great deal of energy for routing packets as it is one hop
 from the base station, although no ADUs are ever downloaded from that node.
@@ -282,7 +287,7 @@ from the base station, although no ADUs are ever downloaded from that node.
 \begin{center}
 \includegraphics[width=1.0\hsize]{./4-lance/figs/gwa/policy/FILL.pdf}
 \end{center}
-\caption{\textbf{Usage of policy modules to affect download distribution.} 
+\caption{\textbf{Usage of policy modules to affect download distribution.}
 Here we illustrate the use of policy modules in the context of the
 volcano-monitoring application. The graph compares the download behavior of
 the system with and without the policy module chain described in
@@ -293,7 +298,7 @@ The top graph shows the ADU values over time, with the threshold for the
 \texttt{filter} component of the policy module chain indicated.}
 \end{figure}
 
-Finally, we demonstrate the use of Lance's policy modules.  For this
+Finally, we demonstrate the use of Lance's policy modules. For this
 experiment, we use a distribution of ADU data values based on a 6-hour
 seismic trace collected at Reventador Volcano, Ecuador in
 2005~\cite{volcano-osdi06}. The raw seismic data is divided into ADUs of 36
@@ -311,7 +316,7 @@ Figure~\ref{lance-sec-eval-figpolicyfill} shows the result of this experiment
 running on the MoteLab testbed. The upper portion of the figure shows the ADU
 values over time; the middle portion, the set of ADUs downloaded by the
 system with no policy modules in use; and the lower portion, the ADUs
-downloaded with the policy module chain in use.  As the figure shows, the
+downloaded with the policy module chain in use. As the figure shows, the
 policy modules cause the network to prefer correlated seismic events and
 download an ADU from all nodes in the network when such an event is detected.
 Gaps in the set of ADUs downloaded are due to download timeouts. In one case,
@@ -324,12 +329,12 @@ programming the sensor nodes themselves.
 %\begin{center}
 %\includegraphics[width=1.0\hsize]{./4-lance/figs/gwa/marm/CDF.pdf}
 %\end{center}
-%\caption{\small {\bf Usage of policy modules to affect download
-%distribution.} 
-%{\em Here we illustrate the use of policy modules in the context of
+%\caption{\small \textbf{Usage of policy modules to affect download
+%distribution.}
+%\textit{Here we illustrate the use of policy modules in the context of
 %the habitat-monitoring application. This CDF shows the distribution of the
 %number of ADUs overlapping in time downloaded by our system. As can be seen,
-%introducing the {\tt correlated} policy module causes Lance to download
+%introducing the \texttt{correlated} policy module causes Lance to download
 %larger numbers of ADUs per time interval corresponding to interesting events.}}
 %\label{lance-sec-eval-figmarmot}
 %\end{figure}
@@ -339,8 +344,8 @@ programming the sensor nodes themselves.
 %\begin{center}
 %\includegraphics[width=1.0\hsize]{./4-lance/figs/gwa/motelab/TOPOLOGY.pdf}
 %\end{center}
-%\caption{\small {\bf Topology of nodes used for the testbed experiment.} 
-%{\em Sensor nodes are shaded according to the total energy consumption,
+%\caption{\small \textbf{Topology of nodes used for the testbed experiment.}
+%\textit{Sensor nodes are shaded according to the total energy consumption,
 %and the size of each node represents total value of the ADUs downloaded
 %from the node.}}
 %\label{lance-sec-eval-figtopology}
