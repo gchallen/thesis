@@ -1,12 +1,33 @@
-\section{Introduction}
-\label{idea-sec-introduction}
+\chapter{Addressing Energy Distribution with IDEA}
+\label{chapter-idea}
 
-Energy-harvesting sensor networks experience variations in load and charging
-rates that threaten high-fidelity operation. Changing application demands can
-produce variations in load rates, while energy-harvesting properties can
-produce variations in charging rates. Energy mismanagement
-can lead to reduced fidelity, when nodes' batteries empty, or wasted energy,
-when nodes harvest energy they cannot store.
+Building on the core ideas developed by Lance, IDEA (Integrated Distributed
+Energy Awareness) takes two new directions.  First, we try and build a true
+system service that multiple components can leverage, rather than focusing on
+a single energy-intensive component (bulk data transfer) as was done in
+Lance.  Existing sensor network platforms provide little support for
+collaborative energy management. Approaches such
+TinyOS~\cite{tinyos-asplos00}, Pixie~\cite{pixie-sensys08},
+Eon~\cite{eon-sensys07} and Levels~\cite{levels-sensys07} facilitate local
+control only, failing when greedy node energy minimization fails to produce
+the best outcome.  Network-wide solutions such as
+Lance~\cite{lance-sensys08}, Mercury~\cite{parkinsons-embs07}, and
+EnviroMic~\cite{enviromic} either require centralized control or are tailored
+to the needs of a specific application domain. In sensor networks the
+majority of energy consumption is consumed by multi-node collaboration. We
+argue that due to the distributed nature of energy consumption and
+availability, improving performance requires consideration of both
+\textit{where} energy is and \textit{how much} is being used.
+
+Second, we attempt to address the core challenge of unequal energy
+distribution within the sensor network itself, particularly as it effects the
+overall data quality delivered by the macroscope.  Energy-harvesting sensor
+networks experience variations in load and charging rates that threaten
+high-fidelity operation. Changing application demands can produce variations
+in load rates, while energy-harvesting properties can produce variations in
+charging rates. Energy mismanagement can lead to reduced fidelity, when
+nodes' batteries empty, or wasted energy, when nodes harvest energy they
+cannot store.
 
 Energy harvesting capabilities such as solar charging further complicate the
 distributed energy management task. The energy collected at each node may
@@ -28,20 +49,6 @@ tuning can increase the fidelity provided to the application at a fixed
 battery size, or allow battery sizes to be reduced while maintaining the
 required fidelity level.
 
-Existing sensor network platforms provide little support for collaborative
-energy management. Approaches such TinyOS~\cite{tinyos-asplos00},
-Pixie~\cite{pixie-sensys08}, Eon~\cite{eon-sensys07} and
-Levels~\cite{levels-sensys07} facilitate local control only, failing when
-greedy node energy minimization fails to produce the best outcome.
-Network-wide solutions such as Lance~\cite{lance-sensys08},
-Mercury~\cite{parkinsons-embs07}, and EnviroMic~\cite{enviromic} either
-require centralized control or are tailored to the needs of a specific
-application domain. In sensor networks the majority of energy consumption is
-consumed by multi-node collaboration. We argue that due to the distributed
-nature of energy consumption and availability, improving performance
-requires consideration of both \textit{where} energy is and \textit{how much}
-is being used.
-
 Matching load to availability across the network requires \emph{integrating}
 with application components producing energy load, \emph{distributing}
 load and availability information to facilitate node decision making, and
@@ -58,15 +65,28 @@ specific application goals. By tracking availability and informing the energy
 decision-making process, IDEA simplifies the construction of energy-aware
 components.
 
-Our paper makes the following contributions. First, we describe IDEA, a new
-service uniting energy monitoring, load modeling and distributed state
-sharing into a single service facilitating distributed decision making.
-Second, we present three case studies illustrating how to use IDEA, including
-a component that tunes MAC parameters, an existing routing protocol modified
-to choose energy-aware routes, and a application using IDEA to determine how
-to localize acoustic events.  Third, using simulation and testbed results we
-compare the performance of IDEA with approaches that do not consider energy
-distribution, showing that IDEA enables improvements in lifetime of up to
-35\%.
+The rest of this chapter is structured as follows:
 
-\XXXnote{GWA: TODO: Rewrite organizational paragraph.}
+\begin{enumerate}
+
+\item Section~\ref{idea-sec-motivation} motivates the IDEA approach a simple
+example.
+
+\item In Section~\ref{idea-sec-architecture}, we describe IDEA, a new service
+uniting energy monitoring, load modeling and distributed state sharing into a
+single service facilitating distributed decision making.
+
+\item We present three case studies illustrating how to use IDEA in
+Section~\ref{idea-sec-casestudies}, including a component that tunes MAC
+parameters, an existing routing protocol modified to choose energy-aware
+routes, and a application using IDEA to determine how
+to localize acoustic events.
+
+\item Using simulation and testbed results, in
+Section~\ref{idea-sec-evaluation} we compare the performance of IDEA with
+approaches that do not consider energy distribution, showing that IDEA
+enables improvements in lifetime of up to 35\%.
+
+\item Finally, we review related work in Section~\ref{idea-sec-related}.
+
+\end{enumerate}
