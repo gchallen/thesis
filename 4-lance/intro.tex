@@ -4,26 +4,26 @@
 One of the core challenges emerging from our 2005 deployment at Reventador
 was the inability of the network to reliably collect all sampled data. Given
 the relatively modest size of our deployed network (16~nodes), we anticipated
-this problem worsesing and impeding future efforts to deploy large scientific
-macroscopes at scale.
+this problem impeding future efforts to deploy large scientific macroscopes
+at scale.
 
 Given that bandwidth and energy constraints prevented us from acquiring
 continuous signals from all nodes, our 2005 volcano monitoring system strove
 to identify and acquire the most ``interesting'' signals --- such as
 earthquakes and explosions --- and thereby avoid wasting resources on
 ``uninteresting'' signals. In many cases, including our own application,
-these kind of resource-management decisions are made on an \textit{ad hoc} basis
-or embedded in application-specific logic, often resulting in suboptimal
-solutions that can consume excessive bandwidth or lose data. We believed
-that an architectural solution to coordinated resource management that
-optimizes the application-specific value of the data acquired could both
+these kind of resource-management decisions are made on an \textit{ad hoc}
+basis or embedded in application-specific logic, often resulting in
+suboptimal solutions that consume excessive bandwidth or lose data. We
+believed that an architectural solution to coordinated resource management
+that optimizes the application-specific value of the data acquired could both
 improve the performance of our volcano-monitoring macroscope while also
 benefiting other high data-rate applications.
 
 Optimizing reliable data acquisition requires a coordinated approach to
 managing both limited energy capacity and severely constrained radio
 bandwidth. Depending on the sampling rate and resolution, downloading signals
-may take longer than real time; while low-power sensor node radios obtain
+may take longer than real time: while low-power sensor node radios obtain
 single-hop throughput of about 100~kBps, the the best reliable protocols
 achieve less than 8~kBps for a single transfer over multiple
 hops~\cite{flush-sensys07}. Likewise, to achieve long lifetimes in the field,
@@ -41,9 +41,9 @@ schedule} based on these values, and uses a reliable transfer protocol to
 download ADUs according to this schedule.
 
 Energy usage and battery lifetime are major concerns for long-term sensor
-network deployments. Lance incorporates a \textit{cost estimator} that predicts
-the energy cost for reliably downloading each ADU from the network. We
-describe a novel energy cost estimation algorithm that uses information on
+network deployments. Lance incorporates a \textit{cost estimator} that
+predicts the energy cost for reliably downloading each ADU from the network.
+We describe a novel energy cost estimation algorithm that uses information on
 the network topology to determine the energy cost at the sensor node hosting
 the ADU as well as intermediate nodes impacted by the multihop transfer
 protocol. Information from the cost estimator is used to adjust the download
@@ -53,9 +53,9 @@ energy schedule.
 
 Lance incorporates a general framework for managing bandwidth and energy that
 decouples the mechanism for prioritizing resource allocation from the
-application-specific policies used to assign ADU values. This is
-accomplished through user-supplied \textit{policy modules} that permit a range
-of sophisticated prioritization policies to be tailored for specific
+application-specific policies used to assign ADU values. This is accomplished
+through user-supplied \textit{policy modules} that permit a range of
+sophisticated prioritization policies to be tailored for specific
 applications. Policy modules allow Lance to target a broad range of
 optimization metrics, including node-local and network-wide value
 maximization, lifetime targeting, and acquiring temporally- or
@@ -63,22 +63,36 @@ spatially-correlated data from across the network. Policy modules allow the
 network's behavior to be significantly altered at the base station, without
 reprogramming the sensor nodes themselves.
 
-This chapter is structured as follows. Section~\ref{lance-sec-architecture}
-presents the Lance architecture in detail, which is the first system to
-provide a value-driven bandwidth and energy management framework for
-high-data-rate sensor networks. In Section~\ref{lance-sec-policies} we
-describe Lance's policy modules, which offer a clean separation of policy and
-mechanism that allows the system to be tailored to a broad range of
-applications. Section~\ref{lance-sec-adaptation} discusses the process of
+This chapter is structured as follows:
+
+\begin{enumerate}
+
+\item Section~\ref{lance-sec-architecture} presents the Lance architecture in
+detail, which is the first system to provide a value-driven bandwidth and
+energy management framework for high-data-rate sensor networks.
+
+\item In Section~\ref{lance-sec-policies} we describe Lance's policy modules,
+which offer a clean separation of policy and mechanism that allows the system
+to be tailored to a broad range of applications.
+
+\item Section~\ref{lance-sec-adaptation} discusses the process of
 adapting our volcano-monitoring system to the Lance architecture and also
 point out other applications that are a good fit for this approach.
 Throughout the rest of the chapter we focus on the volcano-monitoring example
-in detail.  Section~\ref{lance-sec-evaluation} shows through detailed
-simulation measurements that Lance achieves \textit{near optimal} efficiency
-(greater than 96\% in most cases) under a range of data distributions and
-resource limitations. In Section~\ref{lance-sec-deployment} we present
-results from an eight-node field deployment of Lance at Tungurahua volcano,
-Ecuador, demonstrating the system's performance in a real field setting and
-the flexibility of policy modules for altering the network's operation
-following deployment. Finally, Section~\ref{lance-sec-related} discusses
-relevant related work.
+in detail.
+
+\item Section~\ref{lance-sec-evaluation} shows through detailed simulation
+measurements that Lance achieves \textit{near optimal} efficiency (greater
+than 96\% in most cases) under a range of data distributions and resource
+limitations.
+
+\item In Section~\ref{lance-sec-deployment} we present results from an
+eight-node field deployment of Lance at Tungurahua volcano, Ecuador,
+demonstrating the system's performance in a real field setting and the
+flexibility of policy modules for altering the network's operation following
+deployment.
+
+\item Finally, Section~\ref{lance-sec-related} discusses relevant related
+work.
+
+\end{enumerate}

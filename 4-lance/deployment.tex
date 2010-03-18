@@ -1,5 +1,4 @@
 \section{Field Deployment at Tungurahua Volcano}
-\label{lance-sec-deploy}
 \label{lance-sec-deployment}
 
 To evaluate the performance of Lance in a real field setting, 
@@ -268,19 +267,16 @@ downloaded 518~ADUs with a value of 539115, for an optimality of 93.3\%.
 % window. Look at the data we actually downloaded from the network
 % and see how much overlap there is. 
 
-As a final evaluation metric, we wish to consider how well Lance,
-configured in this manner, was able to download seismic signals
-representing earthquakes. Given the low level of volcanic activity, 
-it turns out that most of the ADUs downloaded by Lance contain no 
-discernible seismic signal. In fact, upon manual inspection of the
-518~ADUs downloaded during this period, we identified only 20~ADUs
-showing a clear earthquake signal, corresponding to only 9~separate
-seismic events.\footnote{One seismologist remarked that we 
-``fixed the volcano'' by placing our sensors on it.}
-Note that we did {\em not} configure Lance to explicitly download 
-correlated earthquakes as described in Section~\ref{lance-sec-applications},
-so we would not expect a high degree of coverage for the same event
-across multiple nodes.
+As a final evaluation metric, we wish to consider how well Lance, configured
+in this manner, was able to download seismic signals representing
+earthquakes. Given the low level of volcanic activity, it turns out that most
+of the ADUs downloaded by Lance contain no discernible seismic signal. In
+fact, upon manual inspection of the 518~ADUs downloaded during this period,
+we identified only 20~ADUs showing a clear earthquake signal, corresponding
+to only 9~separate seismic events. Note that we did {\em not} configure Lance
+to explicitly download correlated earthquakes as described in
+Section~\ref{lance-sec-adaptation} so we would not expect a high degree of
+coverage for the same event across multiple nodes.
 
 \begin{figure}[t]
 \label{lance-fig-downloads-cont}
