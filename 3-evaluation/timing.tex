@@ -194,9 +194,9 @@ corresponding \textit{GT} value.
 The next step is to map global time to GMT. Each of the GPS node's status
 messages contain a \textit{(GT, GMT)} pair. As above, we build a piecewise
 linear model mapping \textit{GT} to \textit{GMT}, and apply this model to the
-{\em GT} values for each data block. Finally, we assign a GMT value to each
-sample contained in the block, using linear interpolation between the GMT
-values assigned to the first sample in each block. This process makes no
+\textit{GT} values for each data block. Finally, we assign a GMT value to
+each sample contained in the block, using linear interpolation between the
+GMT values assigned to the first sample in each block. This process makes no
 assumptions about sampling rate, which varies slightly from node to node due
 to clock drift.
 
