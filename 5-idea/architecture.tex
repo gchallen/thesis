@@ -13,7 +13,7 @@ component in detail.
 \caption{\textbf{Overview of IDEA architecture.} IDEA combines load and
 charge monitoring and modeling, energy state distribution and an
 application-provided energy objective function into a single service which
-can easily be integrated into application components.  Client states are
+can easily be integrated into application components. Client states are
 evaluated by the energy objective function and also assigned an application
 utility. These scores are combined by the optimizer to select the state best
 balancing the application's distributed energy goals against the state's
@@ -66,11 +66,11 @@ node $i$ by $C_i$.
 
 Formally, we can define the problem that IDEA is addressing as follows. At a
 given time, define the global state of all nodes in the network as $S = \{
-s_1, s_2, \ldots, s_k \}$.  The combined energy load at node $i$ induced by
+s_1, s_2, \ldots, s_k \}$. The combined energy load at node $i$ induced by
 this selection of states is \[ L_i(S) = \sum_{j=1}^k L_i^j(s_j) \] Based on
 the current battery levels $B_i$ and charging rates $C_i$, we can define an
 \textit{energy objective function} $O(\bar{L}(S), \bar{B}, \bar{C})$ that
-represents the global energy impact of the state assignment $S$.  Likewise,
+represents the global energy impact of the state assignment $S$. Likewise,
 each state assignment $S$ has an associated application-defined
 \textit{utility} $u(S)$ that represents the intrinsic desirability of the
 state --- for example, minimizing path length in a routing protocol.
@@ -140,7 +140,7 @@ Thus far, we have defined the goal of the system as achieving a
 Performing such a global optimization would be possible through a central
 node (such as the base station) collecting load and charge rates from every
 node and computing the optimal assignment centrally, then informing all nodes
-of their states.  However, in large networks, this approach would induce
+of their states. However, in large networks, this approach would induce
 large communication overheads, reducing energy efficiency. Central control
 also precludes nodes from making rapid local changes to states, for example,
 to select a new parent in a routing tree if the current parent goes offline.
@@ -155,8 +155,8 @@ globally optimal, we show in Section~\ref{idea-sec-evaluation} that it
 approximates the optimal solution with low overhead.
 
 Figure~\ref{idea-fig-architecture} provides an overview of the IDEA
-architecture.  Each node \textit{monitors} its own load rate, charging rate,
-and battery level.  Monitoring output is passed to a \textit{modeling
+architecture. Each node \textit{monitors} its own load rate, charging rate,
+and battery level. Monitoring output is passed to a \textit{modeling
 component} that produces models of load and charging behavior. Model
 parameters are distributed to other nodes via a \textit{state sharing}
 component, which maintains a state table allowing energy information to be
@@ -178,7 +178,7 @@ detail.
 IDEA relies on the ability to measure and model load and charging rates at
 each sensor node. This can be performed using either hardware support, as in
 systems like Quanto~\cite{quanto-osdi08}, or using software monitoring, as in
-Pixie~\cite{pixie-sensys08}.  Modularizing these components allows IDEA to
+Pixie~\cite{pixie-sensys08}. Modularizing these components allows IDEA to
 easily support multiple node platforms and a variety of energy-harvesting
 hardware.
 
@@ -226,7 +226,7 @@ recharge and rejoin the network once it has charged its battery past a
 certain threshold.
 
 Maintaining the accuracy of load and charging models on external nodes
-requires periodically distributing updated model parameters.  IDEA modeling
+requires periodically distributing updated model parameters. IDEA modeling
 components monitor the accuracy of the model they have previously
 distributed. Using our simple linear model as an example, if $l_n^{t_0}$ is
 the model parameter distributed for node $n$ at time $t_0$, then at time
@@ -247,7 +247,7 @@ Abstract Regions~\cite{regions-nsdi04} and Hoods~\cite{hoods-mobisys}.
 
 The distribution service maintains a local state table allowing estimated
 energy information for other nodes --- including their battery levels $B_i$,
-load rate $L_i$ and charge rate $C_i$ --- to be queried.  Estimates are
+load rate $L_i$ and charge rate $C_i$ --- to be queried. Estimates are
 produced by evaluating the load and charging models as described previously.
 Note that these values can be queried more frequently than the underlying
 model parameters are updated. The use of models allows IDEA to significantly
@@ -276,7 +276,7 @@ using, to allow a route through the network to be reconstructed. Nodes tuning
 their own MAC parameters may need to distribute the parameters they are using
 so that other nodes can communicate with them. Implementing
 component-specific state sharing can be error-prone and produces additional
-energy consumption.  Instead, we have extended our state-sharing service to
+energy consumption. Instead, we have extended our state-sharing service to
 allow client code to piggyback small amounts of application-specific state on
 the distribution service. To simplify the implementation of the state-sharing
 service we limit the amount of space available to client applications to
@@ -292,7 +292,7 @@ Normally components may reexamine state periodically to ensure that they
 respond to changes in network dynamics. IDEA also provides event triggers
 that indicate when nearby energy conditions have changed significantly, since
 these may also be opportunities for clients to reevaluate their local state
-selection.  \texttt{chooseState()} takes three arguments: \begin{itemize}
+selection. \texttt{chooseState()} takes three arguments: \begin{itemize}
 \item A list of possible local states $s^n = \left\{ s^n_1, s^n_2, \ldots,
 s^n_k\right\}$ that the client component on node $n$ can enter; \item For
 each state $s^n_i$, the intrinsic utility $u(s^n_i)$ of that state,
