@@ -49,19 +49,19 @@ tuning can increase the fidelity provided to the application at a fixed
 battery size, or allow battery sizes to be reduced while maintaining the
 required fidelity level.
 
-Matching load to availability across the network requires \emph{integrating}
-with application components producing energy load, \emph{distributing}
-load and availability information to facilitate node decision making, and
-\emph{awareness} of the connection between load, availability, and
-application-level fidelity. We propose Integrated Distributed Energy
-Awareness (IDEA), a sensor network service addressing these goals. IDEA
-monitors and models the load and charge rates on each node.  To allow nodes
-to reason about their impact on others, each node distributes its model
-parameters, updating them as necessary to ensure continued accuracy.  IDEA
-clients are responsible for estimating their own distributed energy
-impact. When changing state, IDEA helps them evaluate each
-proposed option using an energy objective function tailored to meet
-specific application goals. By tracking availability and informing the energy
+Matching load to availability across the network requires
+\textit{integrating} with application components producing energy load,
+\textit{distributing} load and availability information to facilitate node
+decision making, and \textit{awareness} of the connection between load,
+availability, and application-level fidelity. We propose Integrated
+Distributed Energy Awareness (IDEA), a sensor network service addressing
+these goals. IDEA monitors and models the load and charge rates on each node.
+To allow nodes to reason about their impact on others, each node distributes
+its model parameters, updating them as necessary to ensure continued
+accuracy.  IDEA clients are responsible for estimating their own distributed
+energy impact.  When changing state, IDEA helps them evaluate each proposed
+option using an energy objective function tailored to meet specific
+application goals. By tracking availability and informing the energy
 decision-making process, IDEA simplifies the construction of energy-aware
 components.
 
@@ -79,8 +79,8 @@ single service facilitating distributed decision making.
 \item We present three case studies illustrating how to use IDEA in
 Section~\ref{idea-sec-casestudies}, including a component that tunes MAC
 parameters, an existing routing protocol modified to choose energy-aware
-routes, and a application using IDEA to determine how
-to localize acoustic events.
+routes, and a application using IDEA to determine how to localize acoustic
+events.
 
 \item Using simulation and testbed results, in
 Section~\ref{idea-sec-evaluation} we compare the performance of IDEA with
