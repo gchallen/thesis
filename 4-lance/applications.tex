@@ -54,8 +54,8 @@ performing thresholding at the node level, we report the maximum ratio over
 the ADU as its value, allowing Lance to prioritize different events. The base
 station's policy modules are configured as shown in
 Section~\ref{lance-sec-example-policies}, using a chain of \texttt{filter},
-{\tt correlated}, and \texttt{spacespread} to implement the equivalent of the
-event triggering policy used in the original system. Note that the Lance
+\texttt{correlated}, and \texttt{spacespread} to implement the equivalent of
+the event triggering policy used in the original system. Note that the Lance
 version of the system differs from the original in that download management
 is value-driven rather than FIFO. Also, Lance can download ADUs from
 different events out of order, avoiding the nonpreemptive download problems
@@ -96,7 +96,7 @@ signals to download. Three examples follow.
 
 \item \textbf{Structural monitoring:} Structural monitoring systems collect
 vibration waveforms from a building, bridge, or other structure in order to
-study structural properties and seismic response.  In previous
+study structural properties and seismic response. In previous
 systems~\cite{netshm-emnets05,ggb-ipsn07}, data collection has been triggered
 manually or on a simple periodic schedule. Instead, Lance can be used to
 prioritize signals following an earthquake or forced excitation of the
@@ -110,7 +110,7 @@ is still functioning properly.
 
 \textbf{Animal habitat monitoring:} Habitat monitoring applications that
 deploy high-bandwidth sensors, such as microphones or cameras, are good
-candidates for prioritized data extraction.  An example application may
+candidates for prioritized data extraction. An example application may
 attempt to download interesting audio signals facilitating offline species
 classification or localization~\cite{girod-ipsn07}. The summarization
 function could involve either a triggered event detector, an audio waveform
@@ -122,7 +122,7 @@ coverage by prioritizing data collection from nodes nearby the source of the
 signal. Another could reject noise by deprioritizing signals detected by only
 one node. For example, if fewer than three nodes report an audio event, it is
 impossible to perform acoustic localization and Lance need not waste
-bandwidth on the signal.  Policy modules can take other metrics into account
+bandwidth on the signal. Policy modules can take other metrics into account
 as well, such as the SNR of the recorded signal or the time of day (e.g.,
 reducing confidence in camera images taken at night).
 
@@ -142,7 +142,7 @@ the patient's location.
 Use of low-power wireless sensors keeps the size and weight of each device
 down: for example, the wearable sensor node described
 in~\cite{parkinsons-embs07} measures $44 \times 20 \times 13$~mm and weighs
-just 10~g.  While the sensor network is not spatially distributed, and all
+just 10~g. While the sensor network is not spatially distributed, and all
 nodes are within a single radio hop of each other, the data rates greatly
 exceed the radio channel bandwidth: a single node will consume more than a
 quarter of the best-case radio capacity, assuming no protocol overhead or

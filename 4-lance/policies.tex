@@ -133,7 +133,7 @@ used to select for ADUs that appear to represent a correlated event observed
 across the entire sensor network. \texttt{correlated} counts the number of
 ADUs within a time window $W(t,\delta)$ with a nonzero ADU value. If at least
 $k$ ADUs meet this criterion, we assume that there is a correlated stimulus,
-and the values for all ADUs in the set are passed through.  Otherwise, we
+and the values for all ADUs in the set are passed through. Otherwise, we
 filter out the ADUs in the window by setting $v'_i = 0$ for each ADU in $W$.
 
 As an example of composing policy modules to implement an interesting
@@ -143,7 +143,7 @@ behavior, consider the chain \[
 fewer than $k$ ADUs above the threshold, and assigns the max value across the
 set to all ADUs. This can be useful in systems that wish to perform
 collection of time-correlated data, but avoid spurious high-value data from
-just a few nodes.  This policy is similar to the volcanic earthquake detector
+just a few nodes. This policy is similar to the volcanic earthquake detector
 reported in~\cite{volcano-osdi06}, expressed as a simple policy module chain.
 
 
