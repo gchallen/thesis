@@ -1,11 +1,11 @@
 \section{Evaluation}
 \label{idea-sec-evaluation}
 
-To evaluate IDEA, we build and test the two energy-aware components and
-one energy-aware application described in Section~\ref{idea-sec-casestudies}. For
+To evaluate IDEA, we build and test the two energy-aware components and one
+energy-aware application described in Section~\ref{idea-sec-casestudies}. For
 the LPL tuning and routing components, we compare the performance of our
-IDEA-based implementations to approaches that are not energy-aware.
-For the third application, we use IDEA to implement several energy objective
+IDEA-based implementations to approaches that are not energy-aware. For the
+third application, we use IDEA to implement several energy objective
 functions and compare their performance against each other and against a
 heuristic that does not consider energy availability.
 
@@ -16,14 +16,14 @@ Throughout the evaluation we present results run in several different
 environments. We have implemented IDEA for TinyOS in order to run experiments
 on MoteLab~\cite{motelab}, our 180~node wireless sensor network testbed
 located across three floors of an office building. We also present results
-obtained using TOSSIM~\cite{tossim}, the TinyOS simulator.  TOSSIM
+obtained using TOSSIM~\cite{tossim}, the TinyOS simulator. TOSSIM
 incorporates a closest-fit pattern matching noise model to accurately capture
 complex link dynamics~\cite{cpm-ipsn07}. TOSSIM allows us to run longer
 experiments incorporating various solar charging models. To improve the
 realism of TOSSIM we began with a modified version developed for the Koala
 project~\cite{koala-ipsn08} and performed further modifications to correctly
 simulate the operation of LPL. We use information collected on MoteLab to
-build a realistic TOSSIM radio model for our simulations.  Finally, for the
+build a realistic TOSSIM radio model for our simulations. Finally, for the
 third application we built a Python simulator to allow rapid prototyping of
 various energy objective functions.
 
@@ -66,17 +66,16 @@ and cost of the hardware package.
 
 Experiments for the LPL tuning and energy-aware routing cases use the
 first-node death energy objective function described in
-Section~\ref{idea-subsec-energyobjectivefunctions}, and therefor we evaluate the
-network lifetime as the time at which the first node runs out of energy. Our
-distributed localization application illustrates the process of designing an
-effective energy objective function when the overall goal of the system is
+Section~\ref{idea-subsec-energyobjectivefunctions}, and therefor we evaluate
+the network lifetime as the time at which the first node runs out of energy.
+Our distributed localization application illustrates the process of designing
+an effective energy objective function when the overall goal of the system is
 known.
 
-\subsection{LPL parameter tuning}
+\subsection{LPL Parameter Tuning}
 \label{idea-subsec-lplparametertuning}
 
 \begin{figure}[t]
-\label{idea-table-lplvoptimalmotelab}
 \begin{center}
 \begin{tabular}{|l|ccc|}
 \hline
@@ -86,37 +85,40 @@ Uniform & 4.6 & 5.6 & 22\\
 Random & 2.8 & 3.0 & 7 \\ \hline
 \end{tabular}
 \end{center}
-\caption{\textbf{LPL tuning performance on MoteLab.}
-The table shows results for MoteLab experiments comparing the performance of
-the IDEA-driven LPL tuning component against the best static parameter
-solution. IDEA shows gains for both the case where all nodes start with the
-same battery level and randomly initialized battery states.}
+
+\caption{\textbf{LPL tuning performance on MoteLab.} The table shows results
+for MoteLab experiments comparing the performance of the IDEA-driven LPL
+tuning component against the best static parameter solution. IDEA shows gains
+for both the case where all nodes start with the same battery level and
+randomly initialized battery states.}
+
+\label{idea-table-lplvoptimalmotelab}
 \end{figure}
 
 We begin by evaluating the IDEA-driven LPL parameter tuning component
 described in Section~\ref{idea-subsec-lpltuning}.
-Figure~\ref{idea-table-lplvoptimalmotelab} summarizes the results of experiments
-conducted on a 20~node subset of the MoteLab sensor network testbed. We
-configure the nodes into a collection tree with each node sending messages to
-the sink once every 2 minutes. As a point of comparison we ran experiments
-using static intervals assigned a priori, with all nodes using the same LPL
-interval.  We compared the results from all six intervals and picked the one
-that performed the best. Note that this experimentation itself is a form of
-tuning and would be difficult to do beforehand. We ran one hour testbed
-experiments and used each node's rate of energy consumption to compute a
-projected lifetime.
+Figure~\ref{idea-table-lplvoptimalmotelab} summarizes the results of
+experiments conducted on a 20~node subset of the MoteLab sensor network
+testbed. We configure the nodes into a collection tree with each node sending
+messages to the sink once every 2 minutes. As a point of comparison we ran
+experiments using static intervals assigned a priori, with all nodes using
+the same LPL interval. We compared the results from all six intervals and
+picked the one that performed the best. Note that this experimentation itself
+is a form of tuning and would be difficult to do beforehand. We ran one hour
+testbed experiments and used each node's rate of energy consumption to
+compute a projected lifetime.
 
 The table shows that the tuned LPL intervals produce improvements in
 projected lifetimes when compared with the best static interval under both
-non-charging scenarios discussed in Section~\ref{idea-subsec-experimentalsetup}.
-We observe an improvement of 22\% for the case where nodes start with the
-same initial charge and 7\% when random initial battery levels are used. This
-is despite the fact that the LPL tuning component produces significant
-overhead propagating new state early in the experiment as nodes are moving
-from their initial states into their IDEA-tuned intervals.
+non-charging scenarios discussed in
+Section~\ref{idea-subsec-experimentalsetup}.  We observe an improvement of
+22\% for the case where nodes start with the same initial charge and 7\% when
+random initial battery levels are used. This is despite the fact that the LPL
+tuning component produces significant overhead propagating new state early in
+the experiment as nodes are moving from their initial states into their
+IDEA-tuned intervals.
 
 \begin{figure}[t]
-\label{idea-table-lplvoptimaltossim}
 \begin{center}
 \begin{tabular}{|l|cccc|}
 \hline
@@ -129,15 +131,18 @@ Randomly & \multirow{2}{*}{13.8} & \multirow{2}{*}{18.6} & \multirow{2}{*}{20.4}
 Attenuated & & & & \\ \hline
 \end{tabular}
 \end{center}
-\caption{\textbf{LPL tuning performance with solar charging.}
-This table displays results for TOSSIM experiments comparing IDEA-based LPL
-parameter tuning with the best static interval and an overhead-free version
-of IDEA. IDEA shows gains over the non-tuned approaches across a range of
-different solar charging profiles.}
+
+\caption{\textbf{LPL tuning performance with solar charging.} This table
+displays results for TOSSIM experiments comparing IDEA-based LPL parameter
+tuning with the best static interval and an overhead-free version of IDEA.
+IDEA shows gains over the non-tuned approaches across a range of different
+solar charging profiles.}
+
+\label{idea-table-lplvoptimaltossim}
 \end{figure}
 
 Figure~\ref{idea-table-lplvoptimaltossim} summarizes results from experiments
-performed on TOSSIM that include solar charging inputs discussed above.  IDEA
+performed on TOSSIM that include solar charging inputs discussed above. IDEA
 provides 5\% and 10\% performance improvements for cases in which all nodes
 see the same input charging profile and a 35\% improvement in the case where
 charging inputs are randomly attenuated. We believe that this is due to the
@@ -164,7 +169,7 @@ performance.
 \caption{\textbf{LPL interval comparison with optimal.}
 To assess the degree to which the IDEA-driven approach finds a near optimal
 global state we plot difference (in ms) between the intervals chosen by the
-IDEA-tuned and offline optimal systems.  The plot demonstrates that IDEA sets
+IDEA-tuned and offline optimal systems. The plot demonstrates that IDEA sets
 the LPL intervals of nodes similarly to the optimal solution and helps
 explain its performance.}
 \end{figure}
@@ -207,7 +212,7 @@ energy ratio to increase. The lifetime curve shows a sweet spot at an update
 rate of 15 minutes. At the left end of the curve with a rapid update rate the
 overheads associated with state sharing reduce the systems lifetime, and at
 the right end of the curve the system is slow to find the optimal state and
-the lifetime again suffers.  Across the entire range, however, the achieved
+the lifetime again suffers. Across the entire range, however, the achieved
 network lifetime remains above 74\% of the optimal offline solution.
 
 %\begin{figure}[t]
@@ -269,7 +274,7 @@ Figure~\ref{idea-fig-ictpqualitative} shows a qualitative demonstration of the
 differences between energy-aware and non-energy-aware routing trees. This
 TOSSIM simulation ran with all odd numbered nodes charging rapidly and all
 even numbered nodes not charging (with the exception of the sink, Node 118,
-which we assume is powered).  While this is an unrealistic charging pattern,
+which we assume is powered). While this is an unrealistic charging pattern,
 it produces a clear difference in the routing protocol behavior.
 Figure~\ref{idea-fig-ictpqualitative}(a) shows that unmodified CTP is unaware of
 these charging differences and puts several even nodes, such as Node 92, into
@@ -340,7 +345,7 @@ to the communication range, each set to 20~m, and randomize the reliable
 transfer protocol bandwidth across each link to between 768 and
 1280~bytes/sec, a feasible range based on results from data transfer
 protocols such as Flush~\cite{flush-sensys07} and
-Fetch~\cite{volcano-osdi06}.  Events are simulated using a uniform random
+Fetch~\cite{volcano-osdi06}. Events are simulated using a uniform random
 distribution so that events have equal probability of occurring anywhere in
 the sensor field.
 
@@ -393,7 +398,7 @@ objective functions perform more poorly.}
 We began by experimenting with the \texttt{Closest}, \texttt{MaxEnergy} and
 \texttt{TotalEnergy} approaches. As Figure~\ref{idea-fig-ideavsheuristics} shows,
 the \texttt{TotalEnergy} heuristic outperformed the two IDEA-based
-approaches.  However, when examining the energy density plot shown in
+approaches. However, when examining the energy density plot shown in
 Figure~\ref{idea-fig-localizationdensityvtime} for the \texttt{Closest} heuristic
 we could see that it led to concentrations of available energy on nodes at
 dense locations on the irregular grid. This is despite the uniform
@@ -404,7 +409,7 @@ of producing extremely good load distribution, the \texttt{WeightedEnergy}
 approach described above. Figure~\ref{idea-fig-ideavsheuristics} shows that it
 outperforms \texttt{Closest}, increasing the network's lifetime by 15\%,
 while Figure~\ref{idea-fig-localizationdensityvtime} illustrates how it utilizes
-all the nodes' available energy.  Our experience with the localization
+all the nodes' available energy. Our experience with the localization
 application illustrates the role of the proper energy objective function in
 enabling good application performance, and points to the increases in
 system lifetime possible through better energy distribution. 
