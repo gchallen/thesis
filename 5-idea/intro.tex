@@ -2,15 +2,15 @@
 \label{chapter-idea}
 
 Building on the core ideas developed by Lance, IDEA (Integrated Distributed
-Energy Awareness) takes two new directions.  First, we try and build a true
+Energy Awareness) takes two new directions. First, we try and build a true
 system service that multiple components can leverage, rather than focusing on
 a single energy-intensive component (bulk data transfer) as was done in
-Lance.  Existing sensor network platforms provide little support for
+Lance. Existing sensor network platforms provide little support for
 collaborative energy management. Approaches such
 TinyOS~\cite{tinyos-asplos00}, Pixie~\cite{pixie-sensys08},
 Eon~\cite{eon-sensys07} and Levels~\cite{levels-sensys07} facilitate local
 control only, failing when greedy node energy minimization fails to produce
-the best outcome.  Network-wide solutions such as
+the best outcome. Network-wide solutions such as
 Lance~\cite{lance-sensys08}, Mercury~\cite{parkinsons-embs07}, and
 EnviroMic~\cite{enviromic} either require centralized control or are tailored
 to the needs of a specific application domain. In sensor networks the
@@ -21,7 +21,7 @@ availability, improving performance requires consideration of both
 
 Second, we attempt to address the core challenge of unequal energy
 distribution within the sensor network itself, particularly as it effects the
-overall data quality delivered by the macroscope.  Energy-harvesting sensor
+overall data quality delivered by the macroscope. Energy-harvesting sensor
 networks experience variations in load and charging rates that threaten
 high-fidelity operation. Changing application demands can produce variations
 in load rates, while energy-harvesting properties can produce variations in
@@ -39,12 +39,12 @@ overnight operation itself requires adjusting the network's load profile to
 match the distribution of energy stored during daytime.
 
 Fortunately, dense networks provide redundancy that can be used to control
-the distribution of energy usage.  Multiple possible routing paths may
+the distribution of energy usage. Multiple possible routing paths may
 connect a node to the sink. Tuning MAC parameters allows nodes to shift
 communication load to their neighbors. Sensor inputs from multiple nodes may
 be redundant, allowing some to be disabled or operated at reduced fidelity.
 The existence of these choices implies that it is possible to tune the energy
-load of the network to better match energy availability.  Effective load
+load of the network to better match energy availability. Effective load
 tuning can increase the fidelity provided to the application at a fixed
 battery size, or allow battery sizes to be reduced while maintaining the
 required fidelity level.
@@ -58,8 +58,8 @@ Distributed Energy Awareness (IDEA), a sensor network service addressing
 these goals. IDEA monitors and models the load and charge rates on each node.
 To allow nodes to reason about their impact on others, each node distributes
 its model parameters, updating them as necessary to ensure continued
-accuracy.  IDEA clients are responsible for estimating their own distributed
-energy impact.  When changing state, IDEA helps them evaluate each proposed
+accuracy. IDEA clients are responsible for estimating their own distributed
+energy impact. When changing state, IDEA helps them evaluate each proposed
 option using an energy objective function tailored to meet specific
 application goals. By tracking availability and informing the energy
 decision-making process, IDEA simplifies the construction of energy-aware
