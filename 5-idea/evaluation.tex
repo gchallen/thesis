@@ -154,24 +154,27 @@ charge modeling and more efficient state sharing will continue to improve
 performance.
 
 \begin{figure}[t]
-\label{idea-fig-lpltopology}
 \begin{center}
-\includegraphics[width=\hsize]{./5-idea/figs/lpltune_topology.pdf}
+\includegraphics[width=\hsize]{./5-idea/figs/used/lpltopology.pdf}
 \end{center}
+
 \caption{\textbf{Topology used for LPL tuning experiments.}}
+
+\label{idea-fig-lpltopology}
 \end{figure}
 
 \begin{figure}[t]
-\label{idea-fig-intervalvoptimal}
 \begin{center}
-\includegraphics[width=\hsize]{./5-idea/figs/graph_lpl_interval_comparison.pdf}
+\includegraphics[width=\hsize]{./5-idea/figs/used/intervalvoptimal.pdf}
 \end{center}
-\caption{\textbf{LPL interval comparison with optimal.}
-To assess the degree to which the IDEA-driven approach finds a near optimal
-global state we plot difference (in ms) between the intervals chosen by the
-IDEA-tuned and offline optimal systems. The plot demonstrates that IDEA sets
-the LPL intervals of nodes similarly to the optimal solution and helps
-explain its performance.}
+
+\caption{\textbf{LPL interval comparison with optimal.} To assess the degree
+to which the IDEA-driven approach finds a near optimal global state we plot
+difference (in ms) between the intervals chosen by the IDEA-tuned and offline
+optimal systems. The plot demonstrates that IDEA sets the LPL intervals of
+nodes similarly to the optimal solution and helps explain its performance.}
+
+\label{idea-fig-intervalvoptimal}
 \end{figure}
 
 In the non-charging case we can produce an offline-optimal estimate of the
@@ -181,22 +184,23 @@ solution as a qualitative point of comparison in
 Figure~\ref{idea-fig-intervalvoptimal}, which shows the differences between
 intervals picked by the IDEA-driven and optimal solutions for a non-charging
 TOSSIM experiment using a 20~node tree, shown in
-Figure~\ref{idea-fig-lpltopology}. Most nodes are leaf nodes and correctly choose
-the maximum interval possible, and IDEA chooses near-optimal intervals for
-Node 21, the energy bottleneck (within 1\% of optimal), and Node 118, the
+Figure~\ref{idea-fig-lpltopology}. Most nodes are leaf nodes and correctly
+choose the maximum interval possible, and IDEA chooses near-optimal intervals
+for Node 21, the energy bottleneck (within 1\% of optimal), and Node 118, the
 sink (within 15\% of optimal).
 
 \begin{figure}[t]
-\label{idea-fig-lploverhead}
 \begin{center}
-\includegraphics[width=\hsize]{./5-idea/figs/graph_update_rate_overhead.pdf}
+\includegraphics[width=\hsize]{./5-idea/figs/used/lploverhead.pdf}
 \end{center}
-\caption{\textbf{Optimality vs. overhead.}
-IDEA consumes energy in order to propagate load and charge information. For
-the LPL-tuning component the rate of energy overhead is related to the rate
-at which we retune the local LPL interval. This plot shows both the IDEA
-overhead and the degree of optimality achieved as the tuning rate is
-varied.}
+
+\caption{\textbf{Optimality vs. overhead.} IDEA consumes energy in order to
+propagate load and charge information. For the LPL-tuning component the rate
+of energy overhead is related to the rate at which we retune the local LPL
+interval. This plot shows both the IDEA overhead and the degree of optimality
+achieved as the tuning rate is varied.}
+
+\label{idea-fig-lploverhead}
 \end{figure}
 
 We also use the optimal results to examine the impact of the overhead of the
@@ -215,54 +219,23 @@ the right end of the curve the system is slow to find the optimal state and
 the lifetime again suffers. Across the entire range, however, the achieved
 network lifetime remains above 74\% of the optimal offline solution.
 
-%\begin{figure}[t]
-%\begin{center}
-%\includegraphics[width=\hsize]{./5-idea/figs/Placeholder.pdf}
-%\end{center}
-%\caption{\small{\textbf{Testbed comparison with optimal and static intervals.}
-%\XXXnote{GWA: A lot of this text should be moved to the discussion and out of
-%the caption.}
-%Comparing the performance of the IDEA-driven LPL tuning component against
-%both an offline-optimal solution and a static parameter solution shows how
-%IDEA improves on the static solution, achieving a \XXXnote{FIXME}\% increase
-%in lifetime and achieving \XXXnote{FIXME}\% of the lifetime of the offline optimal,
-%overhead free solution. \XXXnote{GWA: Need to expand caption if we run
-%experiments with overhead-free state sharing.}}}
-%\label{idea-fig-lplvoptimalmotelab}
-%\end{figure}
-
-%\begin{figure}[t]
-%\begin{center}
-%\includegraphics[width=\hsize]{./5-idea/figs/Placeholder.pdf}
-%\end{center}
-%\caption{\small{\textbf{TOSSIM comparison with optimal and static intervals
-%including charging inputs.}
-%\XXXnote{GWA: A lot of this text should be moved to the discussion and out of
-%the caption.}
-%Similar to Figure~\ref{idea-fig-lplvoptimalmotelab}, this figure shows results for
-%another set of experiments comparing IDEA-based LPL parameter tuning with a
-%piecewise-optimal offline solution and the best static interval. IDEA shows
-%similar gains over non-tuned approaches across a range of different solar
-%charging profiles.}}
-%\label{idea-fig-lplvoptimaltossim}
-%\end{figure}
-
-
-\subsection{ICTP: Energy aware routing}
+\subsection{ICTP: Energy-Aware Routing}
 
 \begin{figure}[t]
-\label{idea-fig-ictpqualitative}
 \begin{center}
 \textbf{(a)}\\
-\includegraphics[width=\hsize]{./5-idea/figs/STOCK.pdf}\\
+\includegraphics[width=\hsize]{./5-idea/figs/used/ctp.pdf}\\
 \textbf{(b)}\\
-\includegraphics[width=\hsize]{./5-idea/figs/ICTP.pdf}\\
+\includegraphics[width=\hsize]{./5-idea/figs/used/ictp.pdf}\\
 \end{center}
-\caption{\textbf{Qualitative comparison of stock CTP and ICTP.}
-For this experiment odd-numbered nodes (shaded) were set to charging rapidly,
-while even-numbered nodes were not charging. Unmodified CTP builds the tree
-shown in (a), which routes many packets through the even nodes. ICTP builds
-the tree shown in (b), which moves all even nodes to leaf roles.}
+
+\caption{\textbf{Qualitative comparison of stock CTP and ICTP.} For this
+experiment odd-numbered nodes (shaded) were set to charging rapidly, while
+even-numbered nodes were not charging. Unmodified CTP builds the tree shown
+in (a), which routes many packets through the even nodes. ICTP builds the
+tree shown in (b), which moves all even nodes to leaf roles.}
+
+\label{idea-fig-ictpqualitative}
 \end{figure}
 
 Using IDEA we were able to integrate energy awareness into CTP, the routing
@@ -270,25 +243,25 @@ protocol included as part of TinyOS. For these experiments each node in a
 20~node network is sending packets to the sink at the rate of 6 packets per
 second. Static LPL intervals of 0.5 second were used. 
 
-Figure~\ref{idea-fig-ictpqualitative} shows a qualitative demonstration of the
-differences between energy-aware and non-energy-aware routing trees. This
+Figure~\ref{idea-fig-ictpqualitative} shows a qualitative demonstration of
+the differences between energy-aware and non-energy-aware routing trees. This
 TOSSIM simulation ran with all odd numbered nodes charging rapidly and all
 even numbered nodes not charging (with the exception of the sink, Node 118,
 which we assume is powered). While this is an unrealistic charging pattern,
 it produces a clear difference in the routing protocol behavior.
-Figure~\ref{idea-fig-ictpqualitative}(a) shows that unmodified CTP is unaware of
-these charging differences and puts several even nodes, such as Node 92, into
-positions in the routing tree where they are routing for multiple nodes. The
-total number of nodes upstream from even numbered nodes in the stock CTP case
-is 14. In contrast, ICTP realizes that the odd-numbered nodes have energy to
-spare and the even-numbered nodes are lacking, and moves all even nodes into
-leaf roles. No even node in Figure~\ref{idea-fig-ictpqualitative} is routing data
-for any of its neighbors.
+Figure~\ref{idea-fig-ictpqualitative}(a) shows that unmodified CTP is unaware
+of these charging differences and puts several even nodes, such as Node 92,
+into positions in the routing tree where they are routing for multiple nodes.
+The total number of nodes upstream from even numbered nodes in the stock CTP
+case is 14. In contrast, ICTP realizes that the odd-numbered nodes have
+energy to spare and the even-numbered nodes are lacking, and moves all even
+nodes into leaf roles. No even node in Figure~\ref{idea-fig-ictpqualitative}
+is routing data for any of its neighbors.
 
 Using a setup similar to that described in
-Section~\ref{idea-subsec-lplparametertuning}, we compared the performance of ICTP
-to unmodified CTP using 24-hour TOSSIM simulations and the three different
-solar charging scenarios previously described. As
+Section~\ref{idea-subsec-lplparametertuning}, we compared the performance of
+ICTP to unmodified CTP using 24-hour TOSSIM simulations and the three
+different solar charging scenarios previously described. As
 Table~\ref{idea-table-lplvoptimaltossim} shows, ICTP shows improvements in
 lifetime over stock CTP of between 11 and 27\%. The different routing trees
 formed by ICTP did not effect the packet delivery rates appreciably with the
@@ -296,7 +269,6 @@ largest change in packet delivery rate with respect to stock CTP being 2.8\%
 (97.8\% for CTP vs. 95.0\% for ICTP).
 
 \begin{figure}[t]
-\label{idea-table-ictpvoptimaltossim}
 \begin{center}
 \begin{tabular}{|l|ccc|}
 \hline
@@ -307,12 +279,15 @@ Small Panel & 10.5 & 13.3 & 27\% \\
 Random Attenuation & 10.5 & 12.2 & 16\% \\ \hline
 \end{tabular}
 \end{center}
-\caption{\textbf{ICTP performance with solar charging.}
-The table summarizes the improvements in performance obtained by replacing
-CTP with ICTP. Three different solar charging profiles are used corresponding
-to a large panel that completely charges all batteries during the day, a
-small panel that does not completely charge all batteries during the day, and
-a randomly attenuated charging profile that varies node-to-node.}
+
+\caption{\textbf{ICTP performance with solar charging.} The table summarizes
+the improvements in performance obtained by replacing CTP with ICTP. Three
+different solar charging profiles are used corresponding to a large panel
+that completely charges all batteries during the day, a small panel that does
+not completely charge all batteries during the day, and a randomly attenuated
+charging profile that varies node-to-node.}
+
+\label{idea-table-ictpvoptimaltossim}
 \end{figure}
 
 \subsection{Distributed Localization}
@@ -327,30 +302,32 @@ the subsequent data transfer, are modeled in the simulator based on empirical
 measurements taken on our MoteLab testbed.
 
 \begin{figure}[t]
-\label{idea-fig-localizationdensityvtime}
 \begin{center}
-\includegraphics[width=\hsize]{./5-idea/figs/graph_density_vs_time0406_2151.pdf}
+\includegraphics[width=\hsize]{./5-idea/figs/used/localizationdensityvtime.pdf}
 \end{center}
-\caption{\textbf{Energy density over time.}
-Energy densities for the \texttt{Closest} heuristic and IDEA using the
-\texttt{WeightedEnergy} objective function are shown at four points in time.
-The event distribution is uniform. IDEA enables better load distribution,
-which leads to a longer application lifetime.}
+
+\caption{\textbf{Energy density over time.} Energy densities for the
+\texttt{Closest} heuristic and IDEA using the \texttt{WeightedEnergy}
+objective function are shown at four points in time.  The event distribution
+is uniform. IDEA enables better load distribution, which leads to a longer
+application lifetime.}
+
+\label{idea-fig-localizationdensityvtime}
 \end{figure}
 
 For these experiments we arranged 100 nodes into a 100~m by 100~m area,
 resulting in the placements shown in
-Figure~\ref{idea-fig-localizationdensityvtime}. We simulate a sensing range equal
-to the communication range, each set to 20~m, and randomize the reliable
-transfer protocol bandwidth across each link to between 768 and
+Figure~\ref{idea-fig-localizationdensityvtime}. We simulate a sensing range
+equal to the communication range, each set to 20~m, and randomize the
+reliable transfer protocol bandwidth across each link to between 768 and
 1280~bytes/sec, a feasible range based on results from data transfer
 protocols such as Flush~\cite{flush-sensys07} and
 Fetch~\cite{volcano-osdi06}. Events are simulated using a uniform random
 distribution so that events have equal probability of occurring anywhere in
 the sensor field.
 
-To evaluate network performance, we define {\em capability} of the network as
-the percent of the last 100 operations that succeeded, where success is
+To evaluate network performance, we define \textit{capability} of the network
+as the percent of the last 100 operations that succeeded, where success is
 defined as localizing the event. We assume that the application requires that
 the network be able to localize 90\% of events that occur, and design our
 energy objective functions with this in mind. We quote the system lifetime as
@@ -360,32 +337,38 @@ capability drops below 90\%.
 We experimented with several approaches to choosing a localization plan, one
 that does not use IDEA and three that do using different energy objective
 functions:
+
 \begin{enumerate}
-\item \textbf{\texttt{Closest}:} produces a localization plan with the
-node closest to the event source as the aggregator and the next three closest
+
+\item \textbf{\texttt{Closest}:} produces a localization plan with the node
+closest to the event source as the aggregator and the next three closest
 nodes as signal providers. We assume a real solution would use an imperfect
 estimate of proximity such as total signal energy or signal-to-noise ratio,
 but for the simulations we use the known simulated event location to choose
 the closest nodes. \texttt{Closest} does not require energy state information
 and so could be implemented without IDEA. It is implemented as an example of
 a plausible non-energy-aware solution.
+
 \item \textbf{\texttt{MaxEnergy}:} chooses the node with the most energy
 (that heard the event) as aggregator and the next three highest-energy nodes
 as signal providers.
+
 \item \textbf{\texttt{TotalEnergy}:} chooses the localization plan that
 consumes the lowest amount of total energy summed across all nodes in the
 network.
+
 \item \textbf{\texttt{WeightedEnergy}:} weights the total energy consumption
 using a similarity metric derived from the cosine similarity index to measure
 the degree to which the energy vector for the localization plan is a good
 ``fit'' given the current energy availability.
+
 \end{enumerate}
 
 \begin{figure}[t]
-\label{idea-fig-ideavsheuristics}
 \begin{center}
-\includegraphics[width=\hsize]{./5-idea/figs/graph_capability_vs_time1210_2100.pdf}
+\includegraphics[width=\hsize]{./5-idea/figs/used/ideavheuristics.pdf}
 \end{center}
+
 \caption{\textbf{Performance of IDEA objective functions and heuristic.}
 Simulation results are shown for the localization application. The graph
 compares the \texttt{Closest} heuristic, implemented without using IDEA,
@@ -393,24 +376,25 @@ against three different IDEA objective functions: \texttt{MaxEnergy},
 \texttt{TotalEnergy} and \texttt{WeightedEnergy}. The \texttt{WeightedEnergy}
 approach using IDEA outperforms the non-energy-aware approach while the other
 objective functions perform more poorly.}
+
+\label{idea-fig-ideavheuristics}
 \end{figure}
 
 We began by experimenting with the \texttt{Closest}, \texttt{MaxEnergy} and
-\texttt{TotalEnergy} approaches. As Figure~\ref{idea-fig-ideavsheuristics} shows,
-the \texttt{TotalEnergy} heuristic outperformed the two IDEA-based
+\texttt{TotalEnergy} approaches. As Figure~\ref{idea-fig-ideavheuristics}
+shows, the \texttt{TotalEnergy} heuristic outperformed the two IDEA-based
 approaches. However, when examining the energy density plot shown in
-Figure~\ref{idea-fig-localizationdensityvtime} for the \texttt{Closest} heuristic
-we could see that it led to concentrations of available energy on nodes at
-dense locations on the irregular grid. This is despite the uniform
+Figure~\ref{idea-fig-localizationdensityvtime} for the \texttt{Closest}
+heuristic we could see that it led to concentrations of available energy on
+nodes at dense locations on the irregular grid. This is despite the uniform
 distribution of acoustic event sources, which one might expect to produce
 good energy load distribution without the need for tuning. After exploring
 several additional approaches we found an energy objective function capable
 of producing extremely good load distribution, the \texttt{WeightedEnergy}
-approach described above. Figure~\ref{idea-fig-ideavsheuristics} shows that it
+approach described above. Figure~\ref{idea-fig-ideavheuristics} shows that it
 outperforms \texttt{Closest}, increasing the network's lifetime by 15\%,
-while Figure~\ref{idea-fig-localizationdensityvtime} illustrates how it utilizes
-all the nodes' available energy. Our experience with the localization
-application illustrates the role of the proper energy objective function in
-enabling good application performance, and points to the increases in
-system lifetime possible through better energy distribution. 
-
+while Figure~\ref{idea-fig-localizationdensityvtime} illustrates how it
+utilizes all the nodes' available energy. Our experience with the
+localization application illustrates the role of the proper energy objective
+function in enabling good application performance, and points to the
+increases in system lifetime possible through better energy distribution. 

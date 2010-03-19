@@ -8,12 +8,6 @@ individual nodes without considering energy distribution. Many of these
 efforts are specific to a particular application or component and do not
 provide a service like IDEA that can be used by a variety of applications. 
 
-%Note also that we do not claim that our LPL tuning component is
-%the best approach to MAC parameter tuning, or that ICTP is the best
-%energy-aware routing protocol, but instead have evaluated these applications
-%to illustrate that modifying components to be aware of distributed energy
-%usage can improve their performance.
-
 A number of existing systems such as Odyssey~\cite{odyssey-osr99},
 PowerScope~\cite{powerscope-wmcsa99} and more recently
 Cinder~\cite{cinder-mobiheld09}, have addressed measuring or adapting to
@@ -30,9 +24,9 @@ Quanto~\cite{quanto-osdi08} provides a framework for tracking and
 understanding energy consumption in embedded sensor systems. The existence of
 systems like Quanto was a primary motivation for IDEA, since the visibility
 distributed resource tracking provides creates an opportunity to adapt to
-changes in availability across the network.  Currently IDEA requires that
+changes in availability across the network. Currently IDEA requires that
 components model their own energy consumption, which may be difficult for
-components with complex behavior.  We are exploring integrating Quanto into
+components with complex behavior. We are exploring integrating Quanto into
 IDEA to provide more precise tracking of energy at runtime, which could
 eliminate the need for component-specific modeling and ease the process of
 integrating applications with IDEA.
@@ -55,8 +49,8 @@ LEACH~\cite{leach} and other similar approaches attempt to distributed energy
 in an entirely decentralized way, using local heuristics to do so.
 
 EnviroMic~\cite{enviromic} is a distributed acoustic storage system for
-sensor networks.  When EnviroMic nodes hear an acoustic event, a leader is
-elected to assign recording tasks to nodes in the group.  As storage space is
+sensor networks. When EnviroMic nodes hear an acoustic event, a leader is
+elected to assign recording tasks to nodes in the group. As storage space is
 limited, EnviroMic attempts to push data to quiet sections of the network
 with unused storage, balancing storage consumption across the network. Both
 of these tasks involve choosing from a set of nodes that can perform the same
@@ -67,13 +61,12 @@ The IDEA architecture emerged from our own prior work on energy management
 for wireless sensor networks, including Lance~\cite{lance-sensys08},
 Pixie~\cite{pixie-sensys08}, and Peloton~\cite{peloton-hotos09}. Lance
 focused specifically on the problem of bulk data-transfer using resource
-vectors and centralized control. By balancing the value and distributed
-cost of retrieving sampled signals we enable near-optimal performance.
-Pixie proposed an operating system and programming framework for sensor
-network nodes that promotes resources to a first-class primitive, using
-tickets to manage resource consumption and brokers to enable specialized
-management policies. Pixie does not consider the energy impact of a node on
-other nodes.
+vectors and centralized control. By balancing the value and distributed cost
+of retrieving sampled signals we enable near-optimal performance.  Pixie
+proposed an operating system and programming framework for sensor network
+nodes that promotes resources to a first-class primitive, using tickets to
+manage resource consumption and brokers to enable specialized management
+policies. Pixie does not consider the energy impact of a node on other nodes.
 
 Peloton proposed an architecture for distributed resource management in
 sensor networks combining state sharing, vector tickets to represent
