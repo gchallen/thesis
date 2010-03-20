@@ -1,23 +1,50 @@
 \chapter{Introduction: The Macroscope} 
 \label{chap-introduction}
 
-\XXXnote{GWA: Text pulled from OSDI'06 introduction.}
+In his book \textit{The Macroscope}, French futurist Joel de Rosnay
+envisioned a new scientific instrument: the \textit{macroscope}. As a
+large-scale analog to the microscope, the macroscope would be able to provide
+insights into large systems that are difficult to study at scale: entire
+cities, ecosystems, or planetary-scale systems.
+
+This dissertation presents the design of a scientific macroscope using
+wireless sensor networks as an enabling technology, as well as two
+architectural solutions designed to improve the sensor macroscope's
+performance. Sensor network nodes have many limitations, and using them to
+construct a scientific instrument presents multiple challenges. In this
+dissertation, we first validate that data collected by wireless sensor nodes
+can meet the needs of a demanding, high data-rate scientific application:
+volcano monitoring. We then describe new sensor network architectures that
+improve the data quality provided to the application by the sensor
+macroscope. Together these techniques begin the process of realizing de
+Rosnay's vision using embedded sensing.
+
+\section{Architectural Challenges for Scientific Sensor Networks}
 
 Sensor networks are making inroads into a number of scientific explorations,
 including environmental monitoring~\cite{rope-emnets05,berkeley-redwoods},
 habitat monitoring~\cite{cerpa-habitat,mainwaring-habitat,gdi-sensys04}, and
-structural monitoring~\cite{ggb-monitoring,netshm-emnets05,wisan}.  In each
-of these domains, the use of low-power wireless sensors offers the potential
-to collect data at spatial and temporal scales that are not feasible with
-existing instrumentation.  Despite increased interest in this area, little
-has been done to evaluate the ability of sensor networks to provide
-meaningful data to domain scientists. A number of challenges confound such an
-effort, including node failure, message loss, sensor calibration, and
-inaccurate time synchronization. To successfully aid scientific studies,
-sensor networks must be held to the high standards of current scientific
-instrumentation.
+structural monitoring~\cite{ggb-monitoring,netshm-emnets05,wisan}. In each of
+these domains, the use of low-power wireless sensors offers the potential to
+collect data at spatial and temporal scales that are not feasible with
+existing instrumentation. A number of challenges confound such an effort,
+including node failure, message loss, sensor calibration, and inaccurate time
+synchronization. To successfully aid scientific studies, sensor networks must
+be held to the high standards of current scientific instrumentation.
 
-\section{Overview of Three Deployments}
+
+\section{Dissertation Summary and Contributions}
+
+This dissertation makes the following contributions:
+
+\begin{itemize}
+
+\item \textbf{Design of a volcano-monitoring sensor network.}
+We have built and fielded the first sensor network designed to study active
+volcanos. After an initial pilot deployment, a system was designed giving
+careful consideration to the scientific requirements.
+
+\item \textbf{Iterative deployment on active Ecuadorean volcanos.}
 
 In total, we have performed three deployments of iterations of our system at
 active volcanoes in Ecuador. All three are summarized below:
@@ -44,14 +71,88 @@ a total of 71~hours, during which time we downloaded 77~MB of raw data.
 
 \end{enumerate}
 
+\item \textbf{Detailed evaluation of a scientific macroscope.} Following our
+2005 deployment we took a hard look at the performance of our system from the
+perspective of our seismology collaborators. Rather than dwelling on metrics
+of interest to computer scientists, we attempted to address the core aspects
+of the system that would help drive scientific adoption. We identified two
+core concerns: data \textit{fidelity}, encompassing the quality and accuracy
+of the collected data; and \textit{yield}, measuring the amount of data that
+the system could successfully retrieve.
 
-\section{Background: Wireless Sensor Networks}
+We conducted a rigorous examination of our 2005 deployment along these lines.
+A unique challenge arose when attempting to assign timing information to our
+data to allow it to be used for scientific analysis, and this led to the
+development of a novel time rectification approach. This new technique was
+able to correct timing protocol failures during our field deployment and
+allow us to accurately assign timestamps to almost all of the data our
+network collected.
 
-\section{Architectural Challenges for Scientific Sensor Networks}
+\item \textbf{Architecture optimizing data quality.} Given limited batteries
+and low-bandwidth links, sensor networks must carefully manage resource
+usage, particulary with an eye to how these decisions impact the quality of
+the data provided to the application. Many sensor networks attempt to balance
+the cost and utility of actions taken by the network, but do so in ad-hoc
+ways embedded in application-specific logic.
 
-\section{Dissertation Summary and Contributions}
+Lance provide an architecural solution to the problem of optimizing reliable
+data collection for high data-rate sensor network applications. Lance is
+based on two observations that emerged during the evaluation of our 2005
+volcano deployment. First, given the low-bandwidth of sensor network radios,
+even with a moderately-sized network it was not possible to reliable extract
+all the data the nodes were collecting. Given the inevitability of data loss,
+Lance attempts to ensure that the subset of data that was downloaded provides
+the highest value to the application.
+
+Second, given the high power consumption of sensor network radios, the energy
+consumption associated with reliable data collection was the dominant source
+of discretionary energy usage in our deployed network. Thus, attempting to
+ensure that all nodes met a target lifetime required consideration of the
+distributed energy impact of multihop reliable data transfer. Lance attempts
+to balance the cost of downloading data against the value of that data to the
+application. We were able to develop a simple heuristic for selecting which
+data to download that delivers near-optimal performance under a range of
+constraints and network properties.
+
+\item \textbf{Service for collaborative distributed energy management.} While
+Lance demonstrated the improvements in performance achievable by adjusting
+network behavior to meet energy availability, it was limited in several
+respects. First, Lance relies on a centralized controller. Since the overhead
+of centralized control scales badly as the network size grows, this limits
+the applicability of this approach. Second, Lance's only way of effecting
+energy usage is in the choice of what data to retrieve from the network. This
+is appropriate for high data-rate networks where data download is the primary
+source of energy consumption, but not for networks where this is not the
+case.
+
+IDEA (Integrated Distributed Energy Awareness) is a sensor network service
+designed to provide the benefits of energy awareness to all sensor network
+components in a distributed fashion. IDEA distributes information about each
+node's energy load and charging rates and provides intelligence that assists
+components in adjusting their own state in ways beneficial to the target
+application.
+
+\end{itemize}
 
 \section{Dissertation Roadmap}
 
-The remainder of this dissertation is organized as follows.
+The remainder of this dissertation is organized as follows. The next chapter
+introduces sensor networks for volcano monitoring, a high data-rate
+application that we have studied in detail and which has motivated the
+architectural contributions outlined in this dissertation; it also presents
+related efforts aimed at building scientific sensor macroscopes using sensor
+network technology.
+
+Chapter~\ref{chapter-evaluation} presents the design and a detailed
+evaluation of a sensor network system built to study active volcanos.
+Chapters~\ref{chapter-lance} and \ref{chapter-idea} presents Lance and IDEA,
+two architectural approaches tackling problems emerging from our field
+deployments. Lance is designed to optimize the output data quality of the
+macroscope given constraint on bandwidth and energy, while IDEA aims to
+improve the performance of the macroscope by enabling collaborative
+management of distributed energy resources within the instrument.
+
+Finally, Chapter~\ref{chapter-lessons} presents lessons learned in the course
+of building these systems and presents opportunities for future work, and
+Chapter~\ref{chapter-conclusion} concludes.
 
