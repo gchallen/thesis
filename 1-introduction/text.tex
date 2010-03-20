@@ -1,4 +1,4 @@
-\chapter{Introduction: The Macroscope} 
+\chapter{Introduction}
 \label{chap-introduction}
 
 In his book \textit{The Macroscope}, French futurist Joel de Rosnay
@@ -19,19 +19,55 @@ improve the data quality provided to the application by the sensor
 macroscope. Together these techniques begin the process of realizing de
 Rosnay's vision using embedded sensing.
 
-\section{Architectural Challenges for Scientific Sensor Networks}
+\section{Scientific Sensor Networks}
 
-Sensor networks are making inroads into a number of scientific explorations,
-including environmental monitoring~\cite{rope-emnets05,berkeley-redwoods},
-habitat monitoring~\cite{cerpa-habitat,mainwaring-habitat,gdi-sensys04}, and
-structural monitoring~\cite{ggb-monitoring,netshm-emnets05,wisan}. In each of
-these domains, the use of low-power wireless sensors offers the potential to
-collect data at spatial and temporal scales that are not feasible with
-existing instrumentation. A number of challenges confound such an effort,
-including node failure, message loss, sensor calibration, and inaccurate time
-synchronization. To successfully aid scientific studies, sensor networks must
-be held to the high standards of current scientific instrumentation.
+\XXXnote{GWA: Need to fill this in.}
 
+\section{Architectural Challenges}
+
+Wireless sensor networks consist of nodes integrating modest amounts of
+computation, storage, and communication capabilities. The use of low-power
+microprocessors, radios, and MEMS sensors enables embedded sensing on power
+budgets not feasible a decade ago.
+
+Early sensor network researchers saw the potential for these new devices to
+aid in scientific studies. One of the first published deployments of embedded
+sensing technology was on Great Duck Island in Maine, where a network of 32
+sensor nodes was used to study the nesting behavior of a colony of
+Seabirds~\cite{gdi-sensys04}. Another early experiment used similar nodes to
+study the microclimate of a single Redwood tree~\cite{berkeley-redwoods}.
+
+In contrast to these early efforts, our group has focused on \textit{high
+data-rate} scientific applications. Compared with low data-rate monitoring,
+these produce a distinct set of research challenges.
+
+High data-rates stress the ability of the system to provide high
+fidelity data. Sampling at high rates introduces additional load on each
+node, which can interfere with its participation in routing, time
+synchronization, or data transfer protocols. Frequently, timing accuracy
+requirements scale with the sampling rate, so that data sampled at high rates
+must be assigned precise timestamps to facilitate comparisons between
+multiple stations.
+
+In addition, high sampling rates challenge the ability of the system to
+achieve low-power operation. Sampling, storing, and transmitting large
+amounts of data prevents nodes from entering into low-power states and can
+consume a great deal of their stored energy. Once data rates and network
+sizes pass a certain point, all data cannot be collected in real time,
+meaning that the system must choose what data to discard and what to
+retrieve. When energy-harvesting technologies are deployed, variances in
+energy availability across the network can challenge the ability of the
+entire system to achieve good performance.
+
+When tackling these challenges, our approach has been inspired by our vision
+of a set of sensor nodes functioning \textit{as a single instrument}. We have
+tried to design architectures that abandon a node-level view in favor of this
+network-level perspective. This challenges the way that many sensor network
+protocols are designed, since they assume that greedy local decision making
+will produce node behaviors that are beneficial for the entire system.
+Instead, the two architectures described in this dissertation attempt to
+connect local node behaviors with the resulting value of the entire
+instrument to the intended scientific application.
 
 \section{Dissertation Summary and Contributions}
 
