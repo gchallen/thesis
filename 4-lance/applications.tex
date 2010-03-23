@@ -84,6 +84,9 @@ events would prefer to download only seismic events with a corresponding
 infrasonic component, since non-explosive earthquakes should not generate any
 infrasound.
 
+\XXXnote{GWA: Keeping this here for now. Could be removed to save space,
+since we have the Mercury section there at the end now.}
+
 \subsection{Other Application Domains}
 
 We believe that Lance can be used to benefit many applications that make use
@@ -125,44 +128,5 @@ impossible to perform acoustic localization and Lance need not waste
 bandwidth on the signal. Policy modules can take other metrics into account
 as well, such as the SNR of the recorded signal or the time of day (e.g.,
 reducing confidence in camera images taken at night).
-
-\XXXnote{GWA: Move discussion of Mercury to later in the chapter.}
-
-\item \textbf{Medical monitoring:} Another application domain that we are
-exploring is motion analysis of patients with movement disorders, such as
-Parkinson's Disease~\cite{parkinsons-embs07}. In this context, up to ten
-sensor nodes equipped with triaxial accelerometers and gyroscopes are placed
-on the patient's limb segments (two each on the arms and legs plus one each
-on the torso and waist), collecting high-resolution data at rates up to
-100~Hz or more. The goal is to capture data from the body sensor network
-during periods of dyskinesia (abnormal movements) or bradykinesia (slowness
-of movement) associated with the disease. The base station will typically be
-a laptop located in the home, and as such will experience a wide variation in
-bandwidth to the body sensor network (including disconnections), depending on
-the patient's location.
-
-Use of low-power wireless sensors keeps the size and weight of each device
-down: for example, the wearable sensor node described
-in~\cite{parkinsons-embs07} measures $44 \times 20 \times 13$~mm and weighs
-just 10~g. While the sensor network is not spatially distributed, and all
-nodes are within a single radio hop of each other, the data rates greatly
-exceed the radio channel bandwidth: a single node will consume more than a
-quarter of the best-case radio capacity, assuming no protocol overhead or
-retransmissions.
-
-Following our deployment at Tungurahua Volcano in 2008 we adapted the Lance
-system to support this medical monitoring application, resulting in a system
-called Mercury~\cite{mercury-sensys09}. Mercury makes use of Lance to drive
-the energy and bandwidth management. Each sensor node computes a series of
-high-level \textit{features} from the raw sensor data, such as peak
-amplitude, maximum entropy, and RMS. The node prioritization function assigns
-higher priority to features appearing to represent abnormal movement. The raw
-signal is also stored as separate ADUs with lower priority than the features,
-allowing Lance to restrict downloads of the raw data to periods with a strong
-radio link to the sensors. During periods of disconnection, nodes will buffer
-ADUs for later transmission; the wearable sensors we are using support a
-large (up to 2~GByte) flash memory for this purpose. Policy modules at the
-base station estimate the available bandwidth to the body sensors, based on
-radio link quality, and prioritize downloads accordingly.
 
 \end{enumerate}
