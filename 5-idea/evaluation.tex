@@ -3,11 +3,11 @@
 
 To evaluate IDEA, we build and test the two energy-aware components and one
 energy-aware application described in Section~\ref{idea-sec-casestudies}. For
-the LPL tuning and routing components, we compare the performance of our
-IDEA-based implementations to approaches that are not energy-aware. For the
-third application, we use IDEA to implement several energy objective
-functions and compare their performance against each other and against a
-heuristic that does not consider energy availability.
+the routing component, we compare the performance of our IDEA-based
+implementations an approach that is not energy-aware. For the application
+example, we use IDEA to implement several energy objective functions and
+compare their performance against each other and against a heuristic that
+does not consider energy availability.
 
 \subsection{Experimental Setup}
 \label{idea-subsec-experimentalsetup}
@@ -64,160 +64,13 @@ performance, and the improvements in energy efficiency possible using IDEA
 will allow smaller batteries or solar panels to be used, reducing the size
 and cost of the hardware package.
 
-Experiments for the LPL tuning and energy-aware routing cases use the
-first-node death energy objective function described in
+Experiments for the energy-aware routing case use the first-node death energy
+objective function described in
 Section~\ref{idea-subsec-energyobjectivefunctions}, and therefor we evaluate
 the network lifetime as the time at which the first node runs out of energy.
 Our distributed localization application illustrates the process of designing
 an effective energy objective function when the overall goal of the system is
 known.
-
-\subsection{LPL Parameter Tuning}
-\label{idea-subsec-lplparametertuning}
-
-\begin{figure}[t]
-\begin{center}
-\begin{tabular}{|l|ccc|}
-\hline
-\textbf{Initial Battery} & \multicolumn{2}{c}{\textbf{Lifetime (hours)}} & \textbf{Increase} \\
-\textbf{Levels} & \textbf{Static} & \textbf{Tuned} & \textbf{(\%)} \\ \hline
-Uniform & 4.6 & 5.6 & 22\\
-Random & 2.8 & 3.0 & 7 \\ \hline
-\end{tabular}
-\end{center}
-
-\caption{\textbf{LPL tuning performance on MoteLab.} The table shows results
-for MoteLab experiments comparing the performance of the IDEA-driven LPL
-tuning component against the best static parameter solution. IDEA shows gains
-for both the case where all nodes start with the same battery level and
-randomly initialized battery states.}
-
-\label{idea-table-lplvoptimalmotelab}
-\end{figure}
-
-We begin by evaluating the IDEA-driven LPL parameter tuning component
-described in Section~\ref{idea-subsec-lpltuning}.
-Figure~\ref{idea-table-lplvoptimalmotelab} summarizes the results of
-experiments conducted on a 20~node subset of the MoteLab sensor network
-testbed. We configure the nodes into a collection tree with each node sending
-messages to the sink once every 2 minutes. As a point of comparison we ran
-experiments using static intervals assigned a priori, with all nodes using
-the same LPL interval. We compared the results from all six intervals and
-picked the one that performed the best. Note that this experimentation itself
-is a form of tuning and would be difficult to do beforehand. We ran one hour
-testbed experiments and used each node's rate of energy consumption to
-compute a projected lifetime.
-
-The table shows that the tuned LPL intervals produce improvements in
-projected lifetimes when compared with the best static interval under both
-non-charging scenarios discussed in
-Section~\ref{idea-subsec-experimentalsetup}. We observe an improvement of
-22\% for the case where nodes start with the same initial charge and 7\% when
-random initial battery levels are used. This is despite the fact that the LPL
-tuning component produces significant overhead propagating new state early in
-the experiment as nodes are moving from their initial states into their
-IDEA-tuned intervals.
-
-\begin{figure}[t]
-\begin{center}
-\begin{tabular}{|l|cccc|}
-\hline
-\textbf{Solar Charging} & \multicolumn{3}{c}{\textbf{Lifetime (hours)}} &
-\textbf{Increase} \\
-\textbf{Pattern} & \textbf{Static} & \textbf{Tuned} & \textbf{No Overhead} & \textbf{(\%)} \\ \hline
-Large Panel & 22.7 & 23.8 & 24.0 & 5\% \\
-Small Panel & 16.8 & 18.9 & 21.2 & 13\% \\
-Randomly & \multirow{2}{*}{13.8} & \multirow{2}{*}{18.6} & \multirow{2}{*}{20.4} & \multirow{2}{*}{35\%} \\
-Attenuated & & & & \\ \hline
-\end{tabular}
-\end{center}
-
-\caption{\textbf{LPL tuning performance with solar charging.} This table
-displays results for TOSSIM experiments comparing IDEA-based LPL parameter
-tuning with the best static interval and an overhead-free version of IDEA.
-IDEA shows gains over the non-tuned approaches across a range of different
-solar charging profiles.}
-
-\label{idea-table-lplvoptimaltossim}
-\end{figure}
-
-Figure~\ref{idea-table-lplvoptimaltossim} summarizes results from experiments
-performed on TOSSIM that include solar charging inputs discussed above. IDEA
-provides 5\% and 10\% performance improvements for cases in which all nodes
-see the same input charging profile and a 35\% improvement in the case where
-charging inputs are randomly attenuated. We believe that this is due to the
-increased difference in battery levels due to the random attenuation, which
-creates more diversity in the amount of available charge. The table also
-shows numbers that indicate the best that IDEA can do when its overhead is
-artificially eliminated, showing that future work on improving the load and
-charge modeling and more efficient state sharing will continue to improve
-performance.
-
-\begin{figure}[t]
-\begin{center}
-\includegraphics[width=\hsize]{./5-idea/figs/lpltopology.pdf}
-\end{center}
-
-\caption{\textbf{Topology used for LPL tuning experiments.}}
-
-\label{idea-fig-lpltopology}
-\end{figure}
-
-\begin{figure}[t]
-\begin{center}
-\includegraphics[width=\hsize]{./5-idea/figs/intervalvoptimal.pdf}
-\end{center}
-
-\caption{\textbf{LPL interval comparison with optimal.} To assess the degree
-to which the IDEA-driven approach finds a near optimal global state we plot
-difference (in ms) between the intervals chosen by the IDEA-tuned and offline
-optimal systems. The plot demonstrates that IDEA sets the LPL intervals of
-nodes similarly to the optimal solution and helps explain its performance.}
-
-\label{idea-fig-intervalvoptimal}
-\end{figure}
-
-In the non-charging case we can produce an offline-optimal estimate of the
-possible performance by treating the problem as a multi-dimensional,
-multiple-choice knapsack problem and computing a solution. We use the optimal
-solution as a qualitative point of comparison in
-Figure~\ref{idea-fig-intervalvoptimal}, which shows the differences between
-intervals picked by the IDEA-driven and optimal solutions for a non-charging
-TOSSIM experiment using a 20~node tree, shown in
-Figure~\ref{idea-fig-lpltopology}. Most nodes are leaf nodes and correctly
-choose the maximum interval possible, and IDEA chooses near-optimal intervals
-for Node 21, the energy bottleneck (within 1\% of optimal), and Node 118, the
-sink (within 15\% of optimal).
-
-\begin{figure}[t]
-\begin{center}
-\includegraphics[width=\hsize]{./5-idea/figs/lploverhead.pdf}
-\end{center}
-
-\caption{\textbf{Optimality vs. overhead.} IDEA consumes energy in order to
-propagate load and charge information. For the LPL-tuning component the rate
-of energy overhead is related to the rate at which we retune the local LPL
-interval. This plot shows both the IDEA overhead and the degree of optimality
-achieved as the tuning rate is varied.}
-
-\label{idea-fig-lploverhead}
-\end{figure}
-
-We also use the optimal results to examine the impact of the overhead of the
-IDEA LPL-tuning component as we vary the rate at which it selects new
-intervals. The update rate determines the number of broadcast messages
-generated by nodes as they change their intervals.
-Figure~\ref{idea-fig-lploverhead} shows the variation in lifetime, plotted as
-percent of the optimal solution, and the energy ratio calculated as the
-number of useful joules divided by the number of joules consumed by IDEA in
-the form of state sharing. As we decrease the update rate the tuning
-component changes state less frequently and consumes less power, causing the
-energy ratio to increase. The lifetime curve shows a sweet spot at an update
-rate of 15 minutes. At the left end of the curve with a rapid update rate the
-overheads associated with state sharing reduce the systems lifetime, and at
-the right end of the curve the system is slow to find the optimal state and
-the lifetime again suffers. Across the entire range, however, the achieved
-network lifetime remains above 74\% of the optimal offline solution.
 
 \subsection{ICTP: Energy-Aware Routing}
 

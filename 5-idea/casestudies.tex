@@ -2,103 +2,12 @@
 \label{idea-sec-casestudies}
 
 Throughout the rest of the chapter we demonstrate the utility of the
-information IDEA provides using three examples, each showing how components
+information IDEA provides using two examples, each showing how components
 that determine energy load distribution can tune their behavior using IDEA.
 We introduce each example here, describing their implementation and
 interaction with IDEA in detail. Section~\ref{idea-sec-evaluation} presents
 results demonstrating the performance improvements that IDEA delivers for
 each application.
-
-\subsection{LPL Tuning}
-\label{idea-subsec-lpltuning}
-
-Low-power listening is a technique that enables radio duty-cycling without
-requiring that nodes arrange fixed transmission schedules. It is well-suited
-for environments where network topologies and traffic patterns are highly
-variable, since these variations challenge duty-cycling techniques that
-assume a priori knowledge of traffic patterns.
-
-When using LPL, nodes poll the radio channel at a fixed rate, listening for
-packets addressed to them. The radio is shut off when not polling or sending
-packets. To send a packet to another node the sender must know that node's
-polling interval, and repeatedly sends the packet with reduced MAC backoffs
-until either the packet is acknowledged, ending the packet train and
-indicating a successful transmission, or the length of the packet train
-reaches the length of the receiver polling interval, at which point the
-transmission fails.
-
-The choice of LPL polling rate at a given node affects the continuous energy
-drain required to periodically poll the channel as well as the cost to other
-nodes to communicate with the given node. Assuming we model the radio as
-drawing $I_{listen}$ and $I_{transmit}$ mA of current in listen and transmit
-modes, respectively, then, given an interval between radio checks of $\gamma$
-sec, the current draw required to poll the channel is $\frac{1}{\gamma} \cdot
-t_{check} \cdot I_{listen}$, where $t_{check}$ is the time the radio must
-remain on to detect channel activity. The cost to transmit a packet to a node
-using an LPL interval of $\gamma$ is, on average, $\frac{\gamma}{2} \cdot
-I_{transmit}$. We can observe then that increasing $\gamma$ or polling the
-channel less frequently \textit{reduces} the current draw on the receiving
-node while \textit{increasing} the communication cost on sending nodes.
-
-On the CC2420 the receive and sends costs $I_{listen}$ and $I_{trasmit}$ are
-similar, and the radio can rapidly leave and return to a low-power state so
-$t_{check}$ is short, on the order of 10 ms, allowing the continuous receive
-cost to be minimized. As a point of comparison, using a $0.5$ second check
-interval produces a current draw of 0.37 mA while requiring 4.35 mAs to send
-a single packet. Put another way, sending a single packet requires as much
-energy as polling the channel for over 11 seconds.
-
-Adjusting LPL intervals offers a way of changing the energy consumption for
-communication between two nodes, and an opportunity for IDEA to tune the
-intervals to match the availability of energy within the network. To develop
-intuition about the tuning process, we consider a simple example where Node 1
-is transmitting packets to Node 2. If Node 1 has a lot of energy while Node 2
-has little, then Node 2 should poll the channel slowly and let Node 1 pay the
-high per-packet penalty. On the other hand, if Node 2 has a lot of energy
-while Node 1 has little, then Node 2 should poll the channel rapidly,
-increasing its own energy consumption but reducing the per-packet cost to
-Node 1.
-
-IDEA allows us to build a component to tune the LPL parameters on each node
-adaptively. Our local state space $s_n = \left\{s_n^5, s_n^6, \ldots,
-s_n^{10} \right\}$ where $s_n^j$ corresponds to polling at intervals of $2^j$
-on node $n$. For each state $s^j_n$, we construct the projected energy load
-vector $\bar{L}(s^j_n)$ out of two components: one measuring the receive cost
-to node $n$, the other measuring the transmission cost to other nodes to send
-to node $n$. The receive cost on node $n$, $\bar{r}_n$, has only a single
-component for node $n$, $r_n^n(s_n^j) = \frac{1024}{2^j} \cdot 0.010
-\textrm{sec} \cdot 19.7$ mA, where $0.010$ sec is the check interval and
-$19.7$ mA is the radio receive current. The transmission cost to nodes
-sending to node $n$, $\bar{t}_n$, has components of the form $t^i_n(s_n^j) =
-\frac{1}{2} \cdot \frac{2^j}{1024} \textrm{sec} \cdot \delta(i,n) \cdot 17.4$
-mA, where $\delta(i,n)$ is the rate at which node $i$ is sending packets to
-node $n$ and $17.4$ mA is the radio transmission current. We construct the
-total energy load vector $\bar{L}_n(s^j_n)$ as the component-wise sum of
-$\bar{r}_n$ and $\bar{t}_n$, and pass this information to IDEA to evaluate
-each state.
-
-When the LPL tuning component switches states, it must propagate this
-information to nearby nodes that might be sending it data. We use the ability
-of IDEA to propagate component state to disseminate this information. The
-tuning component intercepts outgoing transmissions, queries IDEA for the
-correct LPL interval to use for the given destination, and sets the packet's
-LPL interval accordingly.
-
-Changing the LPL interval also effects the total throughput possible over the
-link, which provides the component-specific measure of desirability, although
-the relationship is complicated by the ability of LPL to bunch transmissions
-to amortize the cost of awakening the receiver. For our evaluation we chose
-to set the tradeoff factor $\alpha=1$ and optimize only for energy, since the
-throughput of the link was not a limiting factor at the data rates we tested.
-
-Finally, low-power probing (LPP) approaches available in
-Contiki~\cite{contiki} and made possible by BackCast~\cite{backcast-hotnets}
-improve on the LPL approach by using receiver-initiated probing to eliminate
-the high channel contention caused by LPL's packet trains. However, they
-produce similar energy consumption patterns to LPL and could be tuned in the
-same way. We have focused on tuning LPL parameters due to LPL's availability
-in the standard TinyOS distribution, but are exploring LPP-based approaches
-as future work.
 
 \subsection{Energy-Aware Routing}
 
