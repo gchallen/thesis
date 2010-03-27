@@ -100,13 +100,43 @@ deployment.
 
 \begin{itemize}
 
-\item \textbf{Balance centralization and decentralization.}
+\item \textbf{Balance centralization and decentralization.} Many sensor
+network architectures have discarded centralized approaches as inimical to
+the goal of scaling to hundreds of nodes. Lance takes a different approach,
+and attempts to balance the advantages of centralization --- such as
+increased visibility and the ability to implement network-wide optimizations
+--- against the overhead of transmitting data to a single location. Lance
+derives the utility of sampled data using a two step process: node-level
+summarization, which reduces the amount of data that must be transmitted to
+the sink, and the final application utility determination and policy module
+operation which occurs at the base station.
 
-\item \textbf{Energy is the most important resource.}
+\item \textbf{Energy is the most important resource.} Both Lance and IDEA
+are driven by the need to manage energy consumption. Energy --- above
+bandwidth, storage, or computation --- is the defining resource in wireless
+sensor networks. While Lance was designed to manage both bandwidth and
+energy, in most cases the energy consumption of each wireless link supercedes
+the bandwidth limitations in terms of controlling link usage.
 
-\item \textbf{Treat the entire network as a single instrument.}
+IDEA maintains this focus while attempting to provide a general-purpose
+framework for allowing energy usage to drive decision making. Many existing
+sensor network protocols embed energy awareness into protocol-specific code,
+resulting in approaches that may conflict with each other or fail to react
+well when differences in load and charging rates arise. The development of
+IDEA observed the need to manage energy as a network resource, and we believe
+that it will aid in the development of new, energy-aware components.
 
-\item \textbf{Connect node-level behavior with application-level fidelity.}
+\item \textbf{Treat the entire network as a single instrument.} Particularly
+when supporting scientific study, it is important to consider a sensor
+network as a set of devices cooperating to support a single application. Both
+Lance and IDEA willingly trade off the performance or availability of certain
+nodes in exchange for more data or better performance from others. IDEA
+attempts to move the network toward globally-optimal states using node-local
+decisions. It remains as future work to study in detail how effective this
+approach is when compared with ones possessing a consistent global view of
+the entire network, but treating the entire network as a single instrument
+drives architectures that connect local node behavior with the performance of
+the entire system as seen by the application.
 
 \end{itemize}
 
@@ -172,3 +202,15 @@ about the deployment environment can be harvested continuously to increase
 the reality of the simulated outcomes. When trying to adjust network
 behavior, the impact of various decisions could be evaluated quickly in
 simulation incorporating the effect of node failures.
+
+Finally, further study is required to determine how close our locally-driven
+state search can get to the global network-wide optimal. This is particularly
+important when determing the proper distance to distribute energy state
+information. Distributing state across the entire network would, in
+principle, allow a globally-optimal state to be determined. However, this
+would be costly, with the energy overhead likely outweighing improvements in
+energy consumption achievable through protocol tuning. At the other extreme,
+only sharing state locally can prevent nodes from understanding the complete
+impact of their energy-management decisions, but has considerably lower
+overhead. Understanding how to choose the right midpoint between these
+extremes will further improve the network's performance.
