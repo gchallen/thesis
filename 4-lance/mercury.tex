@@ -1,8 +1,5 @@
 \section{Using Lance for Mercury}
 
-\XXXnote{GWA: TODO: Rewrite this including more about what we accomplished
-with Mercury.}
-
 Another application domain that we are exploring is motion analysis of
 patients with movement disorders, such as Parkinson's
 Disease~\cite{parkinsons-embs07}. In this context, up to ten sensor nodes
@@ -40,3 +37,30 @@ large (up to 2~GByte) flash memory for this purpose. Policy modules at the
 base station estimate the available bandwidth to the body sensors, based on
 radio link quality, and prioritize downloads accordingly.
 
+Adapting Lance to the Mercury application resulted in several changes to the
+architecture. For the volcano application, the node summaries which are sent
+to the base station are not considered valuable in and of themselves. They
+are only used to see the application-specific value assignment process. In
+Mercury, the nodes are computing sets of features which both have clinical
+value in and of themselves and are used to assign a value to the underlying
+raw data. In fact, the first goal of the Mercury application is to download
+sets of features from each node spanning all time intervals. Any spare energy
+left over after this primary goal is accomplished can be used to download the
+raw samples themselves.
+
+Another change was to the policy module architecture itself. When developing
+the Mercury application we found that the linear structure of the Lance
+policy module chain made certain tasks difficult. In addition, the only
+modification that the original policy modules were able to make was to the
+assigned value, which made coordinating between policy modules at different
+levels of the stack difficult.
+
+In response to these challenges we loosened several of the restrictions on
+Lance policy modules. First, rather than being assembled in a linear chain,
+we provide several different hooks where policy module processing can be
+triggered. This helps separate policy modules that can be composed with ones
+that may need to run either first or last to operate properly. Second, we now
+allow policy modules to annotate the ADU data structures with additional
+metadata as they are passed along. This allows communication between policy
+modules, and permits certain complex policy modules to be split into several
+simpler pieces.
