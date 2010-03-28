@@ -1,7 +1,11 @@
 \chapter{Case Study and Related Work}
 \label{chapter-background}
 
-\XXXnote{GWA: Write lead in here.}
+This chapter first presents a case study describing an application that we
+have studied in detail: volcano monitoring. We have built several generations
+of sensor networks designed to study eruptive activity at volcanos and
+deployed them in Ecuador. The second portion of this chapter reviews other
+efforts to build the scientific macroscope using sensor network technology.
 
 \section{Case Study: Volcano Monitoring}
 
@@ -9,7 +13,7 @@ Beginning in 2004, computer scientists from Harvard University joined forces
 with seismologists from the University of New Hampshire, the University of
 North Carolina, and Instituto Geof\'{i}sico, Escuela Polit\'{e}cnica
 Nacional, Ecuador, to begin a collaboration aimed at using sensor networks to
-further the study of active volcanoes.  From a simple starting point --- a
+further the study of active volcanoes. From a simple starting point --- a
 handful of nodes streaming continuous data from a single sensor per node ---
 we have developed a sophisticated resource-aware architecture carefully
 balancing the value of the data to the application against the network-wide
@@ -81,7 +85,7 @@ An important feature of volcanic signals is that much of the data analysis
 focuses on discrete events, such as eruptions, earthquakes, or tremor
 activity. Although volcanoes differ significantly in the nature of their
 activity, during our deployment many of the interesting signals at Reventador
-spanned less than 60~sec and occurred at the rate of several dozen per day.
+spanned less than 60~s and occurred at the rate of several dozen per day.
 This allowed us to design the network to capture time-limited events, rather
 than continuous signals. 
 
@@ -95,7 +99,7 @@ on triggered event collection.
 \subsection{Existing Volcano Instrumentation}
 
 The type of instrumentation used to study volcanoes depends on the the
-science goals of the deployment.  Geophysicists often use standalone
+science goals of the deployment. Geophysicists often use standalone
 dataloggers (e.g., Reftek 130~\cite{reftek}) that record signals from
 seismometers and microphones to a flash drive. These data loggers are large
 and power-hungry, typically powered by car batteries charged by solar panels.
@@ -153,8 +157,6 @@ support seismic applications like tomography.
 
 \subsection{Challenges for Sensor Networks}
 
-\XXXnote{GWA: Not sure this is really needed.}
-
 Wireless sensor networks have the potential to greatly enhance understanding
 of volcanic processes by permitting large deployments of sensors in remote
 areas. The science requirements give rise to a number of unique challenges
@@ -162,14 +164,14 @@ for sensor networks, which we outline below.
 
 \begin{itemize}
 
-\item \textbf{High-resolution signal collection:} Data from seismometers and
+\item \textbf{High-resolution signal collection.} Data from seismometers and
 microphones must be recorded at relatively high data rates with adequate
 per-sample resolution. A sampling rate of 100~Hz and resolution of 24~bits is
 typical. This is in contrast to sensor networks targeting low-rate data
 collection, such as environmental
 monitoring~\cite{gdi-sensys04,berkeley-redwoods}.
 
-\item \textbf{Triggered data acquisition:} Due to limited radio bandwidth
+\item \textbf{Triggered data acquisition.} Due to limited radio bandwidth
 (less than 100~Kbps when accounting for MAC overhead), it is infeasible to
 continuously transmit the full-resolution signal. Instead, we rely on
 triggered data collection that downloads data from each sensor following a
@@ -178,12 +180,12 @@ continuously sample data and detect events of interest. Event reports from
 multiple nodes must be collated to accurately detect \textit{global} triggers
 across the network.
 
-\item \textbf{Timing accuracy:} To facilitate comparisons of signals across
+\item \textbf{Timing accuracy.} To facilitate comparisons of signals across
 nodes, signals must be timestamped with an accuracy of one sample time (i.e.,
-10~ms at 100~Hz).  Data loggers generally incorporate a GPS receiver and use
+10~ms at 100~Hz). Data loggers generally incorporate a GPS receiver and use
 low-drift oscillators to maintain accurate timing. However, equipping each
 sensor node with a GPS receiver would greatly increase power consumption and
-cost.  Instead, we rely on a network time synchronization
+cost. Instead, we rely on a network time synchronization
 protocol~\cite{rbs,ftsp} and a \textit{single} GPS receiver. However,
 correcting for errors in the time synchronization protocol requires extensive
 post-processing of the raw timestamps.
