@@ -417,12 +417,13 @@
 	\vspace*{-.8in}
 	\noindent Thesis advisor \hfill Author \\
 	\noindent {\bf \@advisor} \hfill {\bf \@author} \\[.4in]
-\centerline{\begin{centering}{\large\bf{\@nonewlinetitle}}\end{centering}}\\[.4in]
-% attempt to
-% handle multiple-line title correctly; doesn't since part after \\ is not
-% centered!   AHB 7/7/07
-% Corrected by Ryan Moore 4/25/08
-  \centerline{\bf {\LARGE Abstract}}
+  \vspace*{-0.2in}
+  \begin{center}
+    {\large\bf{\@title}}\\
+    \vspace*{0.4in}
+    {\LARGE\bf{Abstract}}
+    \vspace*{0.2in}
+  \end{center}
 }
 {}
  
