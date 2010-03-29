@@ -1,23 +1,34 @@
 \chapter{Introduction}
 \label{chap-introduction}
 
-In his book \textit{The Macroscope}, French futurist Joel de Rosnay
-envisioned a new scientific instrument: the \textit{macroscope}. As a
+Wireless sensor networks composed of tens or hundreds of low-power,
+resource-constrained devices, can aid scientific exploration by providing
+high-fidelity data at scales more difficult to achieve with traditional
+instrumentation. In his book \textit{The Macroscope}, French futurist Joel de
+Rosnay envisioned a new scientific instrument: the \textit{macroscope}. As a
 large-scale analog to the microscope, the macroscope would be able to provide
 insights into large systems that are difficult to study at scale: entire
 cities, ecosystems, or planetary-scale systems.
 
+Realizing the scientific macroscope using sensor network technology requires
+confronting several core challenges. Data collected by the system must be
+able to match the fidelity of signals collected from higher-power
+instruments. When resource limitations limit the amount of data that can be
+collected, the system should focus its limited energy or bandwidth on the
+highest value signals. The network should continuously adapt to the resource
+limitations inherent to sensor network technology and gracefully adjust as
+energy and bandwidth availability fluctuate.
+
 This dissertation presents the design of a scientific macroscope using
 wireless sensor networks as an enabling technology, as well as two
 architectural solutions designed to improve the sensor macroscope's
-performance. Sensor network nodes have many limitations, and using them to
-construct a scientific instrument presents multiple challenges. In this
-dissertation, we first validate that data collected by wireless sensor nodes
-can meet the needs of a demanding, high data-rate scientific application:
-volcano monitoring. We then describe new sensor network architectures that
-improve the data quality provided to the application by the sensor
-macroscope. Together these techniques begin the process of realizing de
-Rosnay's vision using embedded sensing.
+performance by managing distributed network resources. In this dissertation,
+we first validate that data collected by wireless sensor nodes can meet the
+needs of a demanding, high data-rate scientific application: volcano
+monitoring. We then describe new sensor network architectures that improve
+the data quality provided to the application by the sensor macroscope.
+Together these techniques begin the process of realizing de Rosnay's vision
+using embedded sensing.
 
 \section{Scientific Sensor Networks}
 
@@ -35,29 +46,52 @@ aid in scientific studies. One of the first published deployments of embedded
 sensing technology was on Great Duck Island in Maine, where a network of 32
 sensor nodes was used to study the nesting behavior of a colony of
 Seabirds~\cite{gdi-sensys04}. Another early experiment used similar nodes to
-study the microclimate of a single Redwood tree~\cite{berkeley-redwoods}.
-
-In contrast to these early efforts, our group has focused on \textit{high
+study the microclimate of a single Redwood tree~\cite{berkeley-redwoods}.  In
+contrast to these early efforts, our group has focused on \textit{high
 data-rate} scientific applications. Compared with low data-rate monitoring,
 these produce a distinct set of research challenges.
 
-High data-rates stress the ability of the system to provide high
-fidelity data. Sampling at high rates introduces additional load on each
-node, which can interfere with its participation in routing, time
-synchronization, or data transfer protocols. Frequently, timing accuracy
-requirements scale with the sampling rate, so that data sampled at high rates
-must be assigned precise timestamps to facilitate comparisons between
-multiple stations.
+\begin{enumerate}
 
-In addition, high sampling rates challenge the ability of the system to
-achieve low-power operation. Sampling, storing, and transmitting large
-amounts of data prevents nodes from entering into low-power states and can
-consume a great deal of their stored energy. Once data rates and network
-sizes pass a certain point, all data cannot be collected in real time,
-meaning that the system must choose what data to discard and what to
-retrieve. When energy-harvesting technologies are deployed, variances in
-energy availability across the network can challenge the ability of the
-entire system to achieve good performance.
+\item \textbf{Data fidelity.} High data-rates stress the ability of the
+system to provide high fidelity data. Sampling at high rates introduces
+additional load on each node, which can interfere with its participation in
+routing, time synchronization, or data transfer protocols. Frequently, timing
+accuracy requirements scale with the sampling rate, so that data sampled at
+high rates must be assigned precise timestamps to facilitate comparisons
+between multiple stations.
+
+\textit{Problem Statement:}
+
+\item \textbf{Optimizing overall data quality.} In addition, high sampling
+rates challenge the ability of the system to achieve low-power operation.
+Sampling, storing, and transmitting large amounts of data prevents nodes from
+entering into low-power states and can consume a great deal of their stored
+energy.  Once data rates and network sizes pass a certain point, all data
+cannot be collected in real time, meaning that the system must choose what
+data to discard and what to retrieve. Depending on the phenomena being
+monitored, some data is likely to be interesting and some less interesting. A
+habitat monitoring application may want to focus on collecting vocalizations
+from a certain kind of animal. Differences in sensor quality may also lead to
+data value disparities, when poorly-located or poorly-functioning sensors
+sample data that is of poor quality and of little value to the application.
+
+\textit{Problem Statement:}
+
+\item \textbf{Network-wide energy disparities.} When energy-harvesting
+technologies are deployed, variances in energy availability across the
+network can challenge the ability of the entire system to achieve good
+performance. Many sensor network protocols may concentrate energy usage on a
+small set of nodes, leading to poor network performance if and when those
+nodes batteries are exhausted. Enabling good performance of the network as a
+whole requires adapting to variance in resource availability as it happens,
+and adjusting network behavior in ways that allow nodes with large amounts of
+energy to take on new roles and nodes with low batteries to reduce their
+responsibilities.
+
+\textit{Problem Statement:}
+
+\end{enumerate}
 
 When tackling these challenges, our approach has been inspired by our vision
 of a set of sensor nodes functioning \textit{as a single instrument}. We have
@@ -75,15 +109,12 @@ This dissertation makes the following contributions:
 
 \begin{itemize}
 
-\item \textbf{Design of a volcano-monitoring sensor network.}
-We have built and fielded the first sensor network designed to study active
-volcanos. After an initial pilot deployment, a system was designed giving
-careful consideration to the scientific requirements.
-
-\item \textbf{Iterative deployment on active Ecuadorean volcanos.}
-
-In total, we have performed three deployments of iterations of our system at
-active volcanoes in Ecuador. All three are summarized below:
+\item \textbf{Detailed evaluation of a scientific macroscope.} We have built
+and fielded the first sensor network designed to study active volcanos. After
+an initial pilot deployment, a system was designed giving careful
+consideration to the scientific requirements. In total, we have performed
+three deployments of iterations of our system at active volcanoes in Ecuador.
+All three are summarized below:
 
 \begin{enumerate}
 
@@ -107,14 +138,15 @@ a total of 71~hours, during which time we downloaded 77~MB of raw data.
 
 \end{enumerate}
 
-\item \textbf{Detailed evaluation of a scientific macroscope.} Following our
-2005 deployment we took a hard look at the performance of our system from the
-perspective of our seismology collaborators. Rather than dwelling on metrics
-of interest to computer scientists, we attempted to address the core aspects
-of the system that would help drive scientific adoption. We identified two
-core concerns: data \textit{fidelity}, encompassing the quality and accuracy
-of the collected data; and \textit{yield}, measuring the amount of data that
-the system could successfully retrieve.
+
+Following our 2005 deployment we took a hard look at the performance of our
+system from the perspective of our seismology collaborators. Rather than
+dwelling on metrics of interest to computer scientists, we attempted to
+address the core aspects of the system that would help drive scientific
+adoption. We identified two core concerns: data \textit{fidelity},
+encompassing the quality and accuracy of the collected data; and
+\textit{yield}, measuring the amount of data that the system could
+successfully retrieve.
 
 We conducted a rigorous examination of our 2005 deployment along these lines.
 A unique challenge arose when attempting to assign timing information to our
