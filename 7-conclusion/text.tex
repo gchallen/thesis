@@ -1,4 +1,41 @@
 \chapter{Conclusion}
 \label{chapter-conclusion}
 
-\XXXnote{GWA: TODO: Write me.}
+While the last century was marked by a new understanding of our world at
+microscopic scales, the next will be driven by holistic understanding of
+large-scale systems. Wireless sensor networks composed of tens or hundreds
+of low-power, resource-constrained devices, can aid scientific exploration by
+providing high-fidelity data at scales more difficult to achieve with
+traditional instrumentation. This dissertation has helped demonstrate the
+promise of this new technology to enable the macroscope and macroscopic
+science.
+
+We began by describing how we tackled a single, high data-rate scientific
+application: volcano monitoring. Through a series of field deployments
+working closely with seismologists, we acquired the domain knowledge
+necessary to build a system meeting their needs. After a month-long
+deployment at Reventador volcano in 2005, we performed a careful and detailed
+analysis of our system's performance. Our study showed that wireless sensor
+network technology was able to meet their data fidelity needs and pioneered a
+new post-hoc time rectification protocol designed to deal with protocol
+failures we observed in the field.
+
+After validating the core capability of our system to deliver data to the
+scientists' specification, we addressed energy and bandwidth limitations with
+a system called Lance. Lance optimizes reliable signal extraction by
+considering both the energy cost and the value of the data to the
+application, using a novel online heuristic to approach the performance of an
+offline-optimal solution.
+
+Next we addressed the problem of unequal energy distribution using a system
+called IDEA. IDEA disseminates information about each nodes current battery
+and load rates and uses this to enable energy-aware operation. System
+components can use the IDEA service to determine how their own local state
+impacts the operation of the network as a whole, and use this feedback to
+pick states that help improve application performance.
+
+Both of these architectural solutions are steps forward for scientific sensor
+networks, but more work is needed to fully enable the distributed sensor
+macroscope. We hope that these efforts will help lead the way towards a full
+realization of de Rosnay's vision, and a better understanding of the world
+around us.
