@@ -26,7 +26,7 @@ topologies used to test the Flush data-collection
 protocol~\cite{flush-sensys07}. The deployment at the Golden Gate Bridge also
 gave rise to a system called the Structural Health Monitoring Toolkit
 (Sentri). This interfaces between the outside world and the sensor network by
-trasmitting commands to nodes as necessary.
+transmitting commands to nodes as necessary.
 
 NetSHM~\cite{netshm-ewsnsubmission,netshm-emnets05,wisan} is a wireless
 sensor network for structural health monitoring, which involves studying the
@@ -45,7 +45,7 @@ to deduce the original sample time.
 
 Several factors distinguish our work on volcano science from structural
 monitoring applications. First, structural monitoring networks typically
-either collecte data following controlled excitations of a structure, or at
+either collect data following controlled excitations of a structure, or at
 periodic intervals, which simplifies transmission scheduling. In our case,
 volcanic activity is bursty and highly variable, requiring more sophisticated
 approaches to event detection and data transfer. While the Golden Gate Bridge
@@ -77,12 +77,12 @@ features an ARM processor, which puts it at a different point on the
 power-performance curve from typical sensor network nodes and makes it more
 suitable for the high-speed processing necessary to capture acoustic signals.
 
-The software environment for the ENSBox was orignally provided by
+The software environment for the ENSBox was originally provided by
 EmStar~\cite{emstar}, which targets Linux-based platforms. More recently, the
 ENSBox has been used as the basis of the VoxNet platform, an environment
 designed for acoustic signal collection and processing.
 VoxNet~\cite{voxnet-ipsn08} is comprised of three pieces:
-Wavescope~\cite{wavescope}, a programming environment targetting
+Wavescope~\cite{wavescope}, a programming environment targeting
 heterogeneous sensor networks. Wavescope programs are written in
 WaveScript~\cite{wavescript-techreport08}, a stream-processing language.
 Users compose a set of filters and other stream operators into a ``script''
@@ -99,7 +99,23 @@ Acoustic monitoring has scientific applications to other species as well, as
 a variety of animals and birds produce scientifically-interesting
 vocalizations.
 
-\XXXnote{TODO: Cane toad monitoring.}
+Another application of high data-rate sensing to habitat monitoring is the
+cane toad monitoring project run by a team at Portland State University,
+CSIRO, and the University of New South Wales. The cane toad is an invasive
+species in Australia, and their spread is being monitored due to concerns
+about their impact on the country's native fauna. The goals of the project
+are to design a system permitting \textit{in situ} classification of various
+frog species based on their vocalizations.
+
+After completing a pilot study, two additional iterations advanced the design
+of the system. In the first, a hybrid network was developed, mating low-power
+sensor nodes and middle-tier devices with more advanced processing and
+storage capabilities. Data reduction is performed on the sensor nodes in
+order to limit the amount of information that must be sent to the high-power
+devices, thus prolonging the lifetime of the embedded
+nodes~\cite{canetoad-tosn}. The second iteration explores compressive
+sampling techniques and also deploys a classification algorithm that can be
+run directly on the resource-constrained sensor nodes.
 
 \subsection{Scientific Sensing}
 
@@ -117,18 +133,35 @@ work.
 This previous work has not yet focused on the efficacy of a sensor network as
 a scientific instrument. The best example is the Berkeley Redwood Forest
 deployment~\cite{berkeley-redwoods}, which involved 33~nodes monitoring the
-microclimate of a redwood tree for 44~days. Their study focuses on novel
-ways of visualizing and presenting the data captured by the sensor network,
-as well as on the data yield of the system. The authors show that the
-microclimactic measurements are consistent with existing models; however, no
-ground truth of the data is established. This paper highlights many of the
-challenges involved in using wireless sensors to augment or replace existing
-scientific instrumentation.
+microclimate of a redwood tree for 44~days. Their study focuses on novel ways
+of visualizing and presenting the data captured by the sensor network, as
+well as on the data yield of the system. The authors show that the
+microclimactic measurements are consistent with existing models, but not
+ground truth of the data is established. This paper does highlight many of
+the challenges involved in using wireless sensors to augment or replace
+existing scientific instrumentation.
 
-\XXXnote{TODO: Vigilance (soil monitoring).}
+A group at UCLA has built a system for soil monitoring and deployed it in the
+AMARSS transect in the James Reserve, a biological field station operated by
+the University of California. The goal was to augment a set of wired data
+loggers with wireless sensor technology, similar in spirit to what we have
+attempted with our volcano monitoring system. Since 2005 the deployed system
+has collected over 26~million measurements, which are retrieved periodically
+by a technician visiting the deployment site. The goal is to study the carbon
+cycle and estimate the flux of carbon dioxide from the soil.
 
-\XXXnote{TODO: Turtle monitoring.}
+The largest challenge that faced these researchers was coping with missing
+data, and to address it they built a system called Suelo~\cite{suelo-sensys09}.
+Suelo is intended to aid human researchers in monitoring and assisting the
+health of the deployment, sense the soil-monitoring sensors used are quite
+fragile. Suelo monitors the readings capture by the network and tries to
+distinguish between ``interesting'' and ``faulty'' data, and to initiate human
+intervention when sensors require replacements or recalibration.
 
-\XXXnote{TODO: Glacier sensing.}
-
-\XXXnote{TODO: James reserve.}
+Computer scientists at UMass Amherst have been deploying GPS-enabled sensors
+to study the movement of a threatened species of turtle. This work led to
+Eon, a language and runtime system designed to enable energy-aware
+programming. Eon claims to be the first energy-aware programming language and
+tries to make resource usage explicit to programmers by allowing them to
+annotate their code with energy states. At runtime, Eon will adapt the
+behavior of the node based on resource availability.
