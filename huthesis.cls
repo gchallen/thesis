@@ -415,8 +415,8 @@
 	\@mkboth{\abstractname}{\abstractname}
   \addcontentsline{toc}{section}{Abstract}
 	\vspace*{-.8in}
-	\noindent Thesis advisor \hfill Author \\
-	\noindent {\bf \@advisor} \hfill {\bf \@author} \\[.4in]
+	\noindent {\small Dissertation Advisor: Professor \@advisor} \hfill {\small
+  \@author} \\[.4in]
   \vspace*{-0.2in}
   \begin{center}
     {\large\bf{\@title}}\\
