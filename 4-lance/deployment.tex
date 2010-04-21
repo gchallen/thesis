@@ -153,13 +153,11 @@ from the network using our online heuristic algorithm.
 \label{lance-sec-ewma-deployment}
 
 Given the low level of volcanic activity, after the first 25~hours of the
-deployment we chose to reprogram the network to use a different summarization
-function that is designed to pick out small earthquakes from background
-noise. This function computes the maximum ratio of two EWMA filters over the
-seismic signal; it is similar to that described in~\cite{volcano-osdi06}. Due
-to code size limitations on the motes, it was necessary to manually reprogram
-each node with the new summarization function, which took two teams about
-4~hours.
+deployment we chose to reprogram the network to use the EWMA summarization
+function (described in Chapter~\ref{lance-subsec-volcano}) which is designed
+to pick out small earthquakes from background noise. Due to code size
+limitations on the motes, it was necessary to manually reprogram each node
+with the new summarization function, which took two teams about 4~hours.
 
 This summarization function reports a high value for an ADU that appears to
 contain an earthquake or other seismic event. However, there is no guarantee
