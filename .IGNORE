@@ -1,0 +1,11 @@
+*.aux
+*.lof
+*.log
+*.out
+*.pdf
+*.bbl
+*.ps
+.xxxnote
+.spacing
+.embed.pdf
+
