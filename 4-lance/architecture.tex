@@ -21,13 +21,28 @@ definition, design principles, and major system components.
 In Lance, the network consists of a set of sensor nodes that continuously
 sample and store sensor data into \textit{application data units (ADUs)},
 which are the unit of data storage and retrieval. Each unique ADU $a_i$
-consists of a tuple $\{ i, n_i, t_i, d_i, v_i, \bar{c}_i \}$, where $i$ is a
-unique ADU identifier, $n_i$ is the node storing the ADU, $t_i$ is a
-timestamp, and $d_i$ is the raw sensor data. We assume that ADUs are of
-uniform size and that nodes have sufficient flash storage to buffer collected
-signals, so an ADU is only evicted from a node's flash once it has been
-downloaded. We define the \textit{universe} $U$ as the set of all ADUs
-sampled by the network over time. 
+consists of a tuple $\{ i, n_i, t_i, d_i, v_i, \bar{c}_i \}$, where:
+
+\begin{itemize}
+
+\item $i$ is a unique ADU identifier,
+
+\item $n_i$ is the node storing the ADU,
+
+\item $t_i$ is a timestamp,
+
+\item $d_i$ is the raw sensor data,
+
+\item $v_i$ is a utility value assigned to this ADU, and
+
+\item $\bar{c}_i$ is a the cost vector associated with this ADU.
+
+\end{itemize}
+
+We assume that ADUs are of uniform size and that nodes have sufficient flash
+storage to buffer collected signals, so an ADU is only evicted from a node's
+flash once it has been downloaded. We define the \textit{universe} $U$ as the
+set of all ADUs sampled by the network over time. 
 
 Every ADU is assigned an application-specific \textit{value} $v_i$ that
 represents the application's intrinsic ``utility'' for the data contained
