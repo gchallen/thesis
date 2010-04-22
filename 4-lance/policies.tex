@@ -47,10 +47,9 @@ failures.
 
 \subsection{Example policy modules}
 
-\begin{figure}[t]
+\begin{table}[t]
 \label{lance-fig-policymodules}
 \begin{center}
-\begin{small}
 \begin{tabular}{|l|l|} \hline
 \textit{Policy module} & \textit{Description} \\ \hline
 \texttt{filter} & Set ADUs below threshold to zero value \\
@@ -61,15 +60,15 @@ failures.
 \texttt{smooth} & Apply low-pass filter to remove noise \\
 \texttt{debias} & Median filter DC debiasing \\
 \texttt{correlated} & Boost values for correlated events \\
-\texttt{costfilter} & Filter ADUs above cost threshold \\ \hline
+\texttt{costfilter} & Filter ADUs above cost threshold \\
+\texttt{valuefilter} & Filter ADUs below value threshold \\ \hline
 \end{tabular}
-\end{small}
 \end{center}
 
 \caption{\textbf{Standard policy modules provided by Lance.}}
 
 \label{lance-sec-example-policies}
-\end{figure}
+\end{table}
 
 Policy modules can be used to encapsulate a wide range of data collection
 goals, and make it easy to customize Lance's behavior for specific
@@ -146,7 +145,6 @@ collection of time-correlated data, but avoid spurious high-value data from
 just a few nodes. This policy is similar to the volcanic earthquake detector
 reported in~\cite{volcano-osdi06}, expressed as a simple policy module chain.
 
-
 \item \textbf{Cost-based filtering:} Lance's optimizer considers both the
 cost of ADUs as well as their application-assigned values when making
 download scheduling decisions. The cost vector $\bar{c}_i$ is also available
@@ -159,5 +157,24 @@ avoids expending an arbitrary amount of energy to download a given ADU
 (regardless of its data value). Policy modules give applications a great deal
 of control over energy usage to complement Lance's own energy scheduling
 policy.
+
+\item \textbf{Value-based filtering:} Lance's policy modules can store and
+utilize history when modifying ADU values. This can be useful when \textit{a
+priori} information about the expected ADU value distribution is known. For
+the volcano monitoring example, traces of activity at the volcano of interest
+may be available before deployment. These may be used to produce a
+distribution of ADU values based on the activity levels seen during that time
+period. Lance can use this distribution to decide how interesting a
+particular ADU is in the context of a longer period of activity.
+
+This can be particularly helpful as a way of bootstrapping the system.
+Without seeding it in this way, if Lance begins running while the volcano is
+quiet it will greedily begin downloading the highest-value ADUs available
+despite the fact that these do not in fact contain interesting data, wasting
+energy that could be saved and used later. Instead, it could use the
+\textit{valuefilter} policy module with a filter threshold chosen based on
+the expected ADU distribution, perhaps chosen to ADUs with values in the top
+percentile. The filter threshold can also be adjusted online based on the
+vaue distribution as ADUs are sampled.
 
 \end{itemize}
