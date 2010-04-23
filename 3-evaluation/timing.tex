@@ -20,15 +20,27 @@ instability.}
 When analyzing seismoacoustic data acquired at volcanoes, accurate timing of
 recorded signals is paramount. Studying volcanic source processes
 necessitates precisely identifying the arrival time of P-~and S-waves at each
-sensor. Also, correlating signals across the sensor array requires accurately
-timestamping each sample. Ideally, timing should be accurate to within one
-sample interval, or 10~ms when sampling at 100~Hz. As described earlier,
-seismologists typically deploy a GPS receiver at each station. Because GPS
-receivers are expensive and power hungry, we opted to use a single GPS
-receiver and employ a multihop time-synchronization protocol to establish a
-global timebase. The protocol worked well in laboratory experiments. However,
-it experienced significant failures in the field, requiring extensive
-postprocessing of the data to recover accurate timing for each signal.
+sensor, and correlating signals across the sensor array requires accurately
+timestamping each sample.
+
+Ideally, timing should be accurate to within one sample interval, or 10~ms
+when sampling at 100~Hz. This requirement is an outgrowth of the prevalent
+use of continuous wired data loggers within the seismological community,
+which provide highly-accurate timestamps. Since these devices provide such
+high-fidelity data, scientists within this community have not had to grapple
+with the impacts of larger timing errors or sample reordering. It would be
+interesting to discover how these kinds of errors would impact the end-to-end
+process of seismological data analysis, but for the purposes of developing
+trust in our initial collaboration we chose to try and match the capabilities
+of existing instrumentation.
+
+As described earlier, seismologists typically deploy a GPS receiver at each
+station. Because GPS receivers are expensive and power hungry, we opted to
+use a single GPS receiver and employ a multihop time-synchronization protocol
+to establish a global timebase. The protocol worked well in laboratory
+experiments. However, it experienced significant failures in the field,
+requiring extensive postprocessing of the data to recover accurate timing for
+each signal.
 
 Prior internet measurement work has examined similar techniques for error
 detection and recovery and produced valuable insights and

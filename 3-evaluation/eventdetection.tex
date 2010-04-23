@@ -72,7 +72,7 @@ positive rate. Given the high degree of coherence required by the global
 event detector (requiring 30\% of the active nodes to trigger within a short
 time window), we would be surprised if the sensor network recorded any false
 events. Indeed, all of the signals we did capture appear to be based on true
-volcanic activity, indicating a zero false positive rate.
+volcanic activity, bounding the false positive rate below 0.8\%.
 
 We intended to apply our event detection algorithm to the signals collected
 by the two broadband seismic stations to establish the algorithm's accuracy.
@@ -123,6 +123,18 @@ In the end, we believe that our low detection rate is the result of the
 parameters used in the EWMA-based event detection algorithm. These parameters
 were chosen prior to the deployment, based on our experience with detecting
 infrasonic events at a different volcano~\cite{volcano-ewsn05}. We did not
-experiment with modifying them in the field. Indeed, using our algorithm with
-these same parameters on the broadband data for August~15 detects only
-101~events, a fraction of the events chosen manually by an expert. 
+experiment with modifying them in the field, as it was difficult for us to
+immediately assess the scientific significance of the data our system was
+collecting. Indeed, using our algorithm with these same parameters on the
+broadband data for August~15 detects only 101~events, a fraction of the
+events chosen manually by an expert. 
+
+Given that our event detection algorithm functioned as a binary classifier,
+the choice of EWMA parameters should have been performed more carefully. This
+is because, if the detector parameters cause it to only detect a few events,
+interesting events are likely to be missed, and if the detector parameters
+cause it to detect many events, the system may not be able to download all of
+them and lacks a way of distinguishing between more and less interesting
+signals. This weakness was rectified by the Lance archictecture described in
+the next Chapter, which discards the binary classification in favor of a
+value-driven prioritization of all sampled signals.
