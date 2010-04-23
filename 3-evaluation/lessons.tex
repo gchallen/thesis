@@ -1,0 +1,133 @@
+\section{Deployment Lessons Learned}
+\label{evaluation-sec-lessons}
+
+Sensor network deployments, particularly in remote areas, involve significant
+cost in terms of time and equipment. Failures of hardware and software can
+have a negative impact on the uptake of this technology by domain science
+experts. Our experiences at Reventador volcano produced a set of valuable
+lessons for future sensor network deployments. Several important lessons led
+directly to Lance (Chapter~\ref{chapter-lance}) and IDEA
+(Chapter~\ref{chapter-idea}), new architectural approaches described in later
+chapters.
+
+\begin{itemize}
+
+\item \textbf{Working with developmental code:} The software failures that we
+observed during our deployment (FTSP, Deluge) are common to code contributed
+by research projects. Frequently it takes a great deal of time between when
+the code is made publicly available and all of the errors and problems are
+removed.
+
+In the case of FTSP, we tried to do the right thing by careful
+experimentation before we deployed our system, but were still surprised by
+its poor performance in the field. In the case of Deluge, we were guilty of
+incorporating it into the system extremely late, and did not have time to
+test it as rigorously as other components. In addition, our lack of
+experience with the Deluge code meant that, when it failed, we had no choice
+but to remove it and try to reproduce some of the important functionality it
+was providing elsewhere.
+
+\item \textbf{Ground truth and self-validation mechanisms:}
+During our deployment, we did not initially consider colocating several
+of our wireless sensors with existing data loggers in order to establish
+ground truth. This would have clearly aided our analysis, though we were
+fortunate to locate one of our sensors near (but not immediately adjacent to)
+the RVEN station. In addition, self-validation mechanisms are needed to
+provide detailed information on the health and accuracy of the data recorded
+by the network. The periodic ``heartbeat'' messages that we built into our
+system proved essential to remotely tracking system operation.
+
+More generally, it is critical to design the evaluation process well before
+the system being studied is designed and deployed. Deployments are expensive
+and deployment time is valuable, and if the system is not properly
+instrumented it can be difficult to assess its performance after the
+deployment has ended.
+
+\item \textbf{Coping with infrastructure and protocol failures:} As discussed
+previously, we were surprised to find that the sensor nodes themselves were
+the most reliable components of the system. Even without classifying the
+3-day network outage as an infrastructure failure, this downtime was far
+exceeded by outages caused by power failures at the base station. We did not
+devote enough attention to assuring the reliability of the base station and
+radio modem infrastructure, assuming it would be a trivial matter of plugging
+into wall power. This single point of failure was more fragile than expected.
+
+Additionally, several pieces deployed software, including Deluge and FTSP,
+exhibited failures in the field than we not had expected given our laboratory
+experiments. These failures both speak for and show the limitations of
+careful, pre-deployment testing. While we were fortunate to be able to
+correct protocol errors in the field and during post-processing, the risk of
+uncorrectable problems argues for more rigorous testing and analysis. At the
+same time, the unpredictability of field deployments places demands on the
+flexibility and adaptability of the researchers involved.
+
+\item \textbf{Building confidence inside cross-domain scientific
+collaborations:} It is important when working with domain scientists to
+understand their expectations and plan carefully to meet them. There can be
+tensions between the desire of computer science researchers to develop more
+interesting, sophisticated and complex systems, and the needs of domain
+science, which relies upon thoroughly validated instrumentation. Developing
+new instrumentation means a nontrivial probability of failure, which can be
+frustrating to scientists used to working with reliable equipment. Pushing
+more complexity into the sensor network can improve lifetime and performance,
+but the resulting system must be carefully validated before deployment to
+ensure that the resulting data is scientifically accurate.
+
+Effective collaboration involves both meeting and managing scientific
+expectations. Particularly when using low-power devices, it can be difficult
+to duplicate the properties of existing high-power instrumentation.  In our
+case, we were unable to provide continuous signals for analysis.
+Understanding the scientists' goals makes it more likely that you can
+convince them that your system can meet them, despite the fact that it is
+probably providing different information with different properties than they
+are used to. Simply duplicating existing instrumentation is not a path to the
+macroscope. Scientists also have to devise new techniques for harnessing
+low-power, unreliable, embedded devices fitted with low-resolution sensors.
+
+Good communication between computer and domain scientists is also critical.
+During our deployment, the seismologists were eager to see the collected
+signals, which were initially in an unprocessed format with timing errors as
+described earlier. From the CS perspective, the early data provided evidence
+of successful data collection, but from the geophysics perspective it
+highlighted failures in the time synchronization protocol. It took a great
+deal of effort after the deployment to build confidence in the validity of
+our data.
+
+\item \textbf{Incorporating flexibility for experimentation and system
+adaptation:} Designing a system that is flexible and provides a great deal of
+diagnostic output can be a great way to facilitate deployment
+experimentation. It also has the side benefit of making it more likely that
+researchers can work around unforseen failures.
+
+Our system included two features that improved flexibility and visibility and
+that we found very helpful. First was the command-and-control interface
+discussed earlier. We used the ability to reboot nodes remotely to help work
+around the FTSP failures, and the ability to change node state could have
+helped if other protocols had not worked as expected. For example, had the
+routing protocol failed or produced poor performance we could have chosen
+each nodes parent manually. Second, the periodic status messages provided
+critical information about the functioning of the system. Despite the rapid
+rate at which they were being sent (every 10~s), their overhead did not have
+an appreciable effect on the system's performance, and the ability to quickly
+view the effects of changes to the network was extremely helpful when
+debugging.
+
+Given more time it would have been interesting to experiment with other
+system components. We could have varied the metrics used by the routing tree,
+compared various event detection algorithms, or tweaked parameters used by
+the bulk data-transfer protocol.
+
+\end{itemize}
+
+Many features of Lance, described in the next chapter, emerged directly out
+of some of the challenges we encountered at Reventador. Lance replaces the
+binary event detector with a value-based ordering of all signals. This
+reduces the dependence of the performance of the overall system on event
+detection parameters and thresholds, and allows us to adapt to changing
+volcanic behavior. Data collection, which was shown to be a significant
+bottleneck in terms of bandwidth and energy consumption, is also considered
+directly when examining signals to download. Finally, our negative experience
+with Deluge caused us to avoid relying on adaptations that required
+reprogramming nodes, leading to the policy-module framework included in Lance
+which facilitates significant changes to network behavior through changes
+made only at the base station.
