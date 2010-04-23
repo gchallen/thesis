@@ -180,6 +180,40 @@ the Lance \textit{download manager} which is responsible for performing
 downloads, using a reliable data-collection protocol, such as
 Flush~\cite{flush-sensys07}.
 
+\subsection{Two-Tiered Value Assignment}
+
+Dividing the overall value computation into two components --- local
+summarization running on each node and global application value assignment
+and policy modules running at the base station --- is done to try and reap
+the benefits of global control while minimizing the costs. Fully accurate
+global value assignment requires downloading all data to the base station and
+reduces to full signal collection, which we have already argued is
+infeasible.
+
+Purely local assignment, where nodes each determine what data to send to the
+base station, is possible but also problematic.  Due to sensor and node
+differences we assume that nodes will not be able to determine what data is
+truly ``interesting'' without additional coordination. The highest-value ADU
+on one node may have a value below all ADUs on another, if the first has a
+poor sensor or the second is located near more interesting events. We could
+imagine working around this by having nodes send information about their
+local value distributions to some central location and then have information
+returned about how interesting their data is relative to others. This is
+similar in many ways to what we accomplish with Lance.
+
+The purely local approach also cannot easily support the cross-node
+visibility that Lance applications and policy modules benefit from due to
+their position at the base station. Of course, this information could be
+distributed throughout the network to allow each node to mimic the base
+station's behavior, but the overhead of such global state sharing would
+likely be higher than the cost of aggregating the summaries in Lance.
+
+Finally, the ability to easily change the network's operation without
+reprogramming nodes was another feature that argued for our two-tiered
+approach. Our initial deployment experiences described in the previous
+chapter left us wary of pushing too much complexity onto the nodes
+themselves.
+
 \subsection{Summarization Functions}
 
 Lance computes ADU values using two application-provided components. The
@@ -201,9 +235,9 @@ As a concrete example, consider a network for downloading seismic events from
 an earthquake zone. One commonly-used measure of overall seismicity during a
 time period is the Real-Time Seismic Amplitude Measurement
 (RSAM)~\cite{rsam}, which computes the average amplitude of a seismic signal
-over some time window (typically 1~to~10~minutes). This function is simple
-to compute and reduces a complex seismic waveform to a single scalar value,
-with higher values indicating greater seismic activity.
+over some time window (typically 1~to~10~minutes). This function is simple to
+compute and reduces a complex seismic waveform to a single scalar value, with
+higher values indicating greater seismic activity.
 
 Another form of summarization is an event detector, which would produce a
 nonzero value whenever an event of interest is contained within the ADU; the
