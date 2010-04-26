@@ -104,6 +104,16 @@ each node either downloading, routing, or overhearing the transmission.
 \subsection{Effectiveness of Scoring Functions}
 \label{lance-sec-eval-heuristics}
 
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=1.0\hsize]{./4-lance/figs/motivationexample.pdf}
+\end{center}
+
+\caption{\textbf{Example simple download problem.}}
+
+\label{lance-fig-simple}
+\end{figure}
+
 \begin{table}[t]
 \begin{center}
 \begin{tabular}{|l|l|ccc|}
@@ -147,7 +157,70 @@ routing hops away. The \textit{cost-bottleneck} scoring function should
 strike a balance between the two, since it considers only the most
 significant component of the cost vector when ranking ADUs.
 
-Figure~\ref{lance-fig-linear} shows simulation results using the 10-node
+To develop intuition, consider the simple download problem shown in
+Figure~\ref{lance-fig-simple}. The figure shows the network topology with the
+energy required to reliably use each link labeled. Note that since we assume
+that node radios are left on throughout the transfer the cost to route data
+towards the sink is driven by the worst link along the path.  links. So
+Nodes~2 and 1 in the figure shown will have a cost of 100~units to route each
+packet for Node~3 due to the poor link between Nodes~2 and 3. At this moment
+in time three ADUs are available in the network, one at each of nodes 1, 2,
+and 3, and the values of each are labeled. Also assume that Nodes 1, 2 and 3
+have 300, 600 and 2,000 units of available energy, respectively. 
+
+The question is: given the battery states, download costs, and values of each
+ADU, which ADU should Lance download? To summarize the three ADUs available:
+
+\begin{itemize}
+
+\item \textbf{$ADU_1$}: located at Node~1 with value $v_1 = 10$ and cost vector
+$\bar{c}_1 = \left[10, 0, 0\right]$. Note we are not considering the cost at the base
+station, which we assume to be powered.
+
+\item \textbf{$ADU_2$}: located at Node~2 with value $v_2 = 20$ and cost vector
+$\bar{c}_2 = \left[15, 15, 0\right]$.
+
+\item \textbf{$ADU_3$}: located at Node~3 with value $v_3 = 40$ and cost vector
+$\bar{c}_3 = \left[100, 100, 100\right]$.
+
+\end{itemize}
+
+For this example, the three scoring functions we are evaluating make three
+different choices:
+
+\begin{itemize}
+
+\item \textbf{\textit{value-only}} will choose the ADU with the highest
+value, $ADU_3$, regardless of the energy impact on the network.
+
+\item \textbf{\textit{cost-total}} will compute the total cost of each ADU
+and use that to weight the ADU's value. For this set of ADUs, $ADU_1$ has the
+best ratio of value to total cost of the three choices: $0.1$, $0.066$ and
+$0.013$ respectively.
+
+\item \textbf{\textit{cost-bottleneck}} will first compute the bottleneck
+node for each ADU by determining which node will be the most impacted by
+downloading it. In this case, Node~1 is the bottleneck node for all three
+ADUs, since it must devote 3.3\% of its remaining energy to $ADU_1$ (versus
+0\% for Nodes~2 and 3), 5.0\% to $ADU_2$ (versus 2.5\% for Node~2 and 0\% for
+Node~3), and 33\% to $ADU_3$ (versus 16\% for Node~2 and 5\% for Node~3).
+
+Identifying the bottleneck cost causes \textit{cost-bottleneck} to choose
+$ADU_2$, which has the best ratio of value to  bottleneck cost (or cost to Node~1 in
+this case): $0.13$ versus $0.1$ for $ADU_1$ and $0.04$ for $ADU_3$.
+
+\end{itemize}
+
+To convince ourselves that the \textit{cost-bottleneck} scoring function has
+made the correct choice for this simple example, imagine that we can
+repeatedly download ADUs with these values from each node in the network
+until nodes run out of energy. We can download 30 copies of $ADU_1$ for a
+total value of 300, 20 copies of $ADU_2$ for a total value of 400, or 3
+copies of $ADU_3$ for a total value of 120. $ADU_2$ is the correct choice.
+
+In many cases the node connecting the network to the powered sink quickly
+becomes the bottleneck node, since all network traffic must be routed through
+it. Figure~\ref{lance-fig-linear} shows simulation results using the 10-node
 linear topology with exponentially-distributed ADU values, and a target
 lifetime of 3~months. Nodes are numbered in increasing distance from the base
 station. The graph confirms the intuition behind the scoring function
@@ -155,7 +228,10 @@ behavior. \textit{value-only} downloads roughly equal value from each node,
 but fails to match the optimal performance. \textit{cost-total} downloads
 more data from nodes near the sink. \textit{cost-bottleneck} comes close to
 matching the optimal solution, retrieving over 99\% of the value retrieved by
-the optimal solution.
+the optimal solution. The smooth fall-off in the amount of value downloaded
+from each node is a result of the decaying transfer speeds as the protocol
+must communicate with nodes deeper in the tree. Node~1 is the bottleneck node
+for all transfers during this experiment.
 
 \begin{figure}[t]
 \begin{center}
@@ -203,6 +279,8 @@ lifetime increases. At low lifetime targets, the system is bandwidth
 constrained and cannot download data fast enough to exhaust the nodes'
 batteries. At high lifetime targets, the system is energy constrained and
 cannot download continuously without exhausting the nodes' batteries.
+
+\subsection{Limitations to \textit{cost-bottleneck}}
 
 \subsection{Bandwidth Adaptation}
 \label{lance-sec-eval-params}
