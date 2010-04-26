@@ -1,4 +1,5 @@
-\section{Using Lance for Mercury}
+\section{Application to Wearable Sensors for Activity Monitoring}
+\ref{lance-sec-mercury}
 
 Another application domain that we are exploring is motion analysis of
 patients with movement disorders, such as Parkinson's
@@ -22,31 +23,31 @@ exceed the radio channel bandwidth: a single node will consume more than a
 quarter of the best-case radio capacity, assuming no protocol overhead or
 retransmissions.
 
-Following our deployment at Tungurahua Volcano in 2008 we adapted the Lance
-system to support this medical monitoring application, resulting in a system
-called Mercury~\cite{mercury-sensys09}. Mercury makes use of Lance to drive
-the energy and bandwidth management. Each sensor node computes a series of
-high-level \textit{features} from the raw sensor data, such as peak
-amplitude, maximum entropy, and RMS. The node prioritization function assigns
-higher priority to features appearing to represent abnormal movement. The raw
-signal is also stored as separate ADUs with lower priority than the features,
-allowing Lance to restrict downloads of the raw data to periods with a strong
-radio link to the sensors. During periods of disconnection, nodes will buffer
-ADUs for later transmission; the wearable sensors we are using support a
-large (up to 2~GByte) flash memory for this purpose. Policy modules at the
-base station estimate the available bandwidth to the body sensors, based on
-radio link quality, and prioritize downloads accordingly.
+Adapting the Lance system to support this medical monitoring application
+resulted in a system called Mercury~\cite{mercury-sensys09}. Mercury makes
+use of Lance to drive the energy and bandwidth management. Each sensor node
+computes a series of high-level \textit{features} from the raw sensor data,
+such as peak amplitude, maximum entropy, and RMS. The node prioritization
+function assigns higher priority to features appearing to represent abnormal
+movement. The raw signal is also stored as separate ADUs with lower priority
+than the features, allowing Lance to restrict downloads of the raw data to
+periods with a strong radio link to the sensors. During periods of
+disconnection, nodes will buffer ADUs for later transmission; the wearable
+sensors we are using support a large (up to 2~GByte) flash memory for this
+purpose. Policy modules at the base station estimate the available bandwidth
+to the body sensors, based on radio link quality, and prioritize downloads
+accordingly.
 
-Adapting Lance to the Mercury application resulted in several changes to the
-architecture. For the volcano application, the node summaries which are sent
-to the base station are not considered valuable in and of themselves. They
-are only used to see the application-specific value assignment process. In
-Mercury, the nodes are computing sets of features which both have clinical
-value in and of themselves and are used to assign a value to the underlying
-raw data. In fact, the first goal of the Mercury application is to download
-sets of features from each node spanning all time intervals. Any spare energy
-left over after this primary goal is accomplished can be used to download the
-raw samples themselves.
+The process of using Lance to drive the Mercury application resulted in
+several changes to the architecture. For the volcano application, the node
+summaries which are sent to the base station are not considered valuable in
+and of themselves. They are only used to see the application-specific value
+assignment process. In Mercury, the nodes are computing sets of features
+which both have clinical value in and of themselves and are used to assign a
+value to the underlying raw data. In fact, the first goal of the Mercury
+application is to download sets of features from each node spanning all time
+intervals. Any spare energy left over after this primary goal is accomplished
+can be used to download the raw samples themselves.
 
 Another change was to the policy module architecture itself. When developing
 the Mercury application we found that the linear structure of the Lance

@@ -8,11 +8,7 @@ applications generally make use of extensive offline analysis to study the
 collected data, and it is often infeasible or impossible to perform this
 computation within the network itself.  Even in cases where it is possible to
 shift computation to the network, a system designer may wish to extract raw
-data occasionally for calibration or testing.  Examples of such applications
-include structural health
-monitoring~\cite{netshm-spots06,ggb-ipsn07,wimms-lynch06}, acoustic
-sensing~\cite{vango,vigilnet,girod-ipsn07,enviromic}, distributed camera
-networks~\cite{cyclops}, and geophysical monitoring~\cite{volcano-osdi06}.
+data occasionally for calibration or testing.
 
 These systems typically record data to flash at each sensor node and make use
 of a reliable bulk-transfer protocol to collect data at a base station. Given
@@ -21,27 +17,11 @@ downloaded, it is not possible to collect the complete signal from all nodes.
 The system is therefore forced to make a decision about what data to collect
 and what to throw away. In most cases this decision is application-specific:
 for example, a volcanologist may be chiefly interested in a specific type of
-seismic tremor, and a biologist may be looking for acoustic signatures of a
-specific species of marmot~\cite{girod-ipsn07}. The implication is that the
-system must be able to determine the intrinsic {\em value} of a given signal
-to determine whether resources should be devoted to storing and downloading
-that signal.
-
-Previous approaches have involved simple mechanisms tailored for specific
-applications. For example, in the
-NetSHM~\cite{netshm-spots06,netshm-emnets05} structural monitoring system,
-data collection is triggered manually following an excitation of the
-structure.  Sentri~\cite{ggb-ipsn07} has been used for vibration monitoring
-at the Golden Gate Bridge; it is unclear from the paper how sampling and
-communication are triggered, but reported experimental results suggest manual
-operation. The Reventador volcano monitoring system~\cite{volcano-osdi06}
-used a simple triggering algorithm to detect seismic events and initiate
-reliable transfer to the base station.  The Intel Predictive Maintenance
-system~\cite{intel-northseasensys} performs high-data-rate sampling staggered
-over infrequent, periodic collection periods to extend system lifetime.  All
-of these systems involve a tight binding of the {\em mechanisms} used to
-manage storage and bandwidth with their respective application-specific {\em
-policies}.
+seismic tremor, while a doctor may be looking for a particular type of
+muscular tremor associated with a specific condition. The implication is that
+the system must be able to determine the intrinsic \textit{value} of a given
+signal to determine whether resources should be devoted to storing and
+downloading that signal.
 
 The typical approach to download management is a FIFO model where downloads
 occur in a round-robin fashion across the network once a trigger occurs. In
@@ -66,12 +46,12 @@ bandwidth and energy.
 
 Our goal is to develop a general-purpose approach to bandwidth and energy
 management that complements a reliable data-collection protocol. Such a
-system should have several key properties.  First, it should be {\em
-customizable}, allowing different applications to specify their own policies
-for storage management and bandwidth prioritization. Second, the system
-should target a range of optimization goals. Examples include maximizing
-overall data priority, bounding energy consumption, maximizing temporal or
-spatial coverage of the collected data, or achieving fairness across sensor
-nodes. Third, the system should be decoupled from a specific routing
-protocol, reliable collection protocol, or sensor node platform, making it
-possible to leverage the system in different settings. 
+system should have several key properties.  First, it should be
+\textit{customizable}, allowing different applications to specify their own
+policies for storage management and bandwidth prioritization. Second, the
+system should target a range of optimization goals. Examples include
+maximizing overall data priority, bounding energy consumption, maximizing
+temporal or spatial coverage of the collected data, or achieving fairness
+across sensor nodes. Third, the system should be decoupled from a specific
+routing protocol, reliable collection protocol, or sensor node platform,
+making it possible to leverage the system in different settings. 

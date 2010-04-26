@@ -1,24 +1,18 @@
 \chapter{Addressing Data Quality with Lance}
 \label{chapter-lance}
 
-One of the core challenges emerging from our 2005 deployment at Reventador
-was the inability of the network to reliably collect all sampled data. Given
-the relatively modest size of our deployed network (16~nodes), we anticipated
-this problem impeding future efforts to deploy large scientific macroscopes
-at scale.
+One of the core challenges that emerges in high data-rate networks is the
+inability of the network to reliable collect all sampled data. This can be
+either due to bandwidth constraints --- when data is being sampled faster
+than it can be retrieved --- or to energy constraints that emerge when
+duty-cycling sensor node radios in order to save power and meet a target
+lifetime.
 
-Given that bandwidth and energy constraints prevented us from acquiring
-continuous signals from all nodes, our 2005 volcano monitoring system strove
-to identify and acquire the most ``interesting'' signals --- such as
-earthquakes and explosions --- and thereby avoid wasting resources on
-``uninteresting'' signals. In many cases, including our own application,
-these kind of resource-management decisions are made on an \textit{ad hoc}
-basis or embedded in application-specific logic, often resulting in
-suboptimal solutions that consume excessive bandwidth or lose data. We
-believed that an architectural solution to coordinated resource management
-that optimizes the application-specific value of the data acquired could both
-improve the performance of our volcano-monitoring macroscope while also
-benefiting other high data-rate applications.
+A typical approach to addressing this challenge is to try and prioritize
+certain signals over others. However, many times these resource-management
+decisions are made in \textit{ad hoc} or application-specific ways, limiting
+the applicability and hurting the performance of solutions that attempt to
+bridge multiple application domains.
 
 Optimizing reliable data acquisition requires a coordinated approach to
 managing both limited energy capacity and severely constrained radio
@@ -63,12 +57,31 @@ spatially-correlated data from across the network. Policy modules allow the
 network's behavior to be significantly altered at the base station, without
 reprogramming the sensor nodes themselves.
 
+Lance emerged as a direct result of our field experiences at Reventador
+volcano in 2005. We were frustrated by our network's inability to collect all
+sampled data, and, given it's relatively modest size (16~nodes), we
+anticipated this problem impeding future efforts to deploy large scientific
+macroscopes at scale. Our 2005 volcano monitoring system strove to identify
+and acquire the most ``interesting'' signals --- such as earthquakes and
+explosions --- and thereby avoid wasting resources on ``uninteresting''
+signals. However, like other approaches ours was too tailored to our target
+application and too embedded in application-specific code.
+
+We saw an opportunity for an architectural solution to coordinated resource
+management that would optimize the application-specific value of the data
+acquired. Such an architecture would both improve the performance of our
+volcano-monitoring macroscope while also benefiting other high data-rate
+applications. We have been able to validate the performance of Lance and
+demonstrate its utility both to our volcano-monitoring application and to a
+body sensor network designed to monitor patients with neuromuscular disease.
+
 This chapter is structured as follows:
 
 \begin{enumerate}
 
 \item We motivate the Lance architecture and describe its goal in more detail
-in Section~\ref{lance-sec-motivation}.
+in Section~\ref{lance-sec-motivation}, and introduce relevant related work in
+Section~\ref{lance-sec-related}.
 
 \item Section~\ref{lance-sec-architecture} presents the Lance architecture in
 detail, which is the first system to provide a value-driven bandwidth and
@@ -95,7 +108,9 @@ demonstrating the system's performance in a real field setting and the
 flexibility of policy modules for altering the network's operation following
 deployment.
 
-\item Finally, Section~\ref{lance-sec-related} discusses relevant related
-work.
+\item Finally, in Section~\ref{lance-sec-mercury} we discuss another
+application of the Lance architecture to a body sensor network designed for
+activity monitoring and summarize the evaluation of the system that emerged:
+Mercury.
 
 \end{enumerate}
