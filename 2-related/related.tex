@@ -33,7 +33,15 @@ sensor network for structural health monitoring, which involves studying the
 response of buildings, bridges, and other structures to localize structural
 damage, e.g., following an earthquake. This system shares many of the
 challenges of geophysical monitoring; indeed, the data rates involved (500~Hz
-per channel) are higher than are typically used in volcano studies. 
+per channel) are higher than are typically used in volcano studies. The
+Wireless Modular Monitoring System (WiMMS)~\cite{wimms-lynch06} is another
+structural monitoring network with similar goals that has been validated both
+in field deployments at the Geumdang Bridge in Icheon, South Korea, and in
+laboratory tests. This system is designed around a supporting decentralized
+control algorithms in order to respond to structural changes using actuators.
+In this context decentralization reduces the amount of data that must be
+transmitted to a central location while eliminating the base station as a
+single point-of-failure.
 
 NetSHM implements reliable data collection using both hop-by-hop caching and
 end-to-end retransmissions. Their work explores the use of local computations
@@ -116,6 +124,8 @@ devices, thus prolonging the lifetime of the embedded
 nodes~\cite{canetoad-tosn}. The second iteration explores compressive
 sampling techniques and also deploys a classification algorithm that can be
 run directly on the resource-constrained sensor nodes.
+
+\XXXnote{GWA: TODO: Add Cyclops and other camera-based sensor networks.}
 
 \subsection{Scientific Sensing}
 

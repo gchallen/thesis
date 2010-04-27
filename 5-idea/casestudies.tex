@@ -1,17 +1,13 @@
 \section{Case Studies}
 \label{idea-sec-casestudies}
 
-Throughout the rest of the chapter we demonstrate the utility of the
-information IDEA provides using two examples, each showing how components
-that determine energy load distribution can tune their behavior using IDEA.
-We introduce each example here, describing their implementation and
-interaction with IDEA in detail. Section~\ref{idea-sec-evaluation} presents
-results demonstrating the performance improvements that IDEA delivers for
-each application.
+Throughout the rest of the paper we demonstrate IDEA using two examples.
+Section~\ref{idea-sec-evaluation} presents results demonstrating the
+performance improvements that IDEA delivers for each application.
 
 \subsection{Energy-Aware Routing}
 
-Our second example shows how to integrate IDEA with an existing routing
+The second example shows how to integrate IDEA with an existing routing
 protocol, namely the Collection Tree Protocol (CTP)~\cite{ctp-sensys09}. CTP
 is a spanning-tree routing protocol that is a standard component in
 TinyOS~\cite{tinyos-asplos00}. In CTP, each node selects its parent in the
@@ -40,7 +36,7 @@ and ETX to neighboring nodes. ICTP adds additional information to these
 broadcasts, specifically the \textit{expected power}, or \textit{EPX}, for
 transmissions to the node's parent. This information increases the size of
 the broadcast packet sent by ICTP slightly, but does not appreciably affect
-the energy consumption of the protocol's own state sharing, since the cost to
+the energy consumption of the protocol's own data sharing, since the cost to
 transmit a packet using LPL is a function of the receiver's polling interval,
 not the packet size.
 
@@ -49,7 +45,7 @@ The local state space $s_n = \left\{s_n^{p_1}, s_n^{p_2}, \ldots, s_n^{p_k}
 \ldots, p^k \right\}$, each of them a prospective parent. CTP uses four-bit
 wireless link estimation~\cite{Fonseca07} to estimate the ETX to each
 neighbor, which ICTP multiplies by the power-per transmission to produce the
-EPX to each neighbor, $EPX(n, p_n^i)$. Through ICTP state dissemination node
+EPX to each neighbor, $EPX(n, p_n^i)$. Through ICTP data dissemination node
 $n$ also learns the EPX from each neighbor to their current parent,
 $EPX(p_n^i, \textrm{parent}(p_n^i))$. We have modified CTP to measure the
 traffic rate $\delta(n)$, which is the number of packets per given interval

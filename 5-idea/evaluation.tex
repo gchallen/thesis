@@ -1,51 +1,51 @@
 \section{Evaluation}
 \label{idea-sec-evaluation}
 
-To evaluate IDEA, we build and test the two energy-aware components and one
-energy-aware application described in Section~\ref{idea-sec-casestudies}. For
-the routing component, we compare the performance of our IDEA-based
-implementations an approach that is not energy-aware. For the application
-example, we use IDEA to implement several energy objective functions and
-compare their performance against each other and against a heuristic that
-does not consider energy availability.
+To evaluate IDEA, we build and test the energy-aware component and
+application described in Section~\ref{idea-sec-casestudies}. For the routing
+component, we compare the performance of our IDEA-based implementations to an
+approaches that is not energy-aware. For the application, we use IDEA to
+implement several energy objective functions and compare their performance
+against each other and against a heuristic that does not consider energy
+availability.
 
 \subsection{Experimental Setup}
 \label{idea-subsec-experimentalsetup}
 
 Throughout the evaluation we present results run in several different
 environments. We have implemented IDEA for TinyOS in order to run experiments
-on MoteLab~\cite{motelab}, our 180~node wireless sensor network testbed
-located across three floors of an office building. We also present results
-obtained using TOSSIM~\cite{tossim}, the TinyOS simulator. TOSSIM
-incorporates a closest-fit pattern matching noise model to accurately capture
-complex link dynamics~\cite{cpm-ipsn07}. TOSSIM allows us to run longer
-experiments incorporating various solar charging models. To improve the
-realism of TOSSIM we began with a modified version developed for the Koala
-project~\cite{koala-ipsn08} and performed further modifications to correctly
-simulate the operation of LPL. We use information collected on MoteLab to
-build a realistic TOSSIM radio model for our simulations. Finally, for the
-third application we built a Python simulator to allow rapid prototyping of
-various energy objective functions.
+on MoteLab~\cite{motelab}, our 180~node wireless sensor network testbed. We
+also present results obtained using TOSSIM~\cite{tossim}, the TinyOS
+simulator. TOSSIM incorporates a closest-fit pattern matching noise model to
+accurately capture complex link dynamics~\cite{cpm-ipsn07}. TOSSIM allows us
+to run longer experiments incorporating various solar charging models. To
+improve the realism of TOSSIM we began with a modified version developed for
+the Koala project~\cite{koala-ipsn08} and performed further modifications to
+correctly simulate the operation of low-power listening
+(LPL)~\cite{tinyos-lpl}, which is important to properly model the power
+consumption of the radio for the ICTP experiments. We use information
+collected on MoteLab to build a realistic TOSSIM radio model for our
+simulations. Finally, for the application we built a Python simulator to
+allow rapid prototyping of various energy objective functions.
 
 IDEA is designed to tune components in the face of variations in both load
 and charging rates, and to test this we present experiments using solar
-charging data collected off of a solar panel deployed on a Enfield, MA
+charging data collected off of a solar panel deployed on an Arlington, MA
 rooftop in March, 2009. Battery levels are calculated using a charging model
 based on a Nickel-Metal Hydride battery technology with a 66\% charging
 efficiency. We attenuate this data to simulate the charging produced by solar
 panels of several different sizes in order to evaluate IDEA's performance as
 available energy changes. We also perform experiments with a randomly
-attenuated charging profile to simulate the effects of bad solar panel
-placement or obstacles to incident sunlight that could effect the spatial
-distribution of collected energy.
+attenuated charging profile to simulate bad solar panel placement or
+obstacles to incident sunlight effecting the spatial distribution of
+collected energy.
 
 For our MoteLab experiments we determine the system's ability to span periods
-without charging inputs. We use two sets of initial conditions designed
-around our observations of the interaction between the charging data we
-collected and the capacity of the batteries deployed. If the solar panel is
-large enough it will provide considerable charging input and completely
-charge small batteries during the day. For this scenario all nodes begin the
-night with full batteries and are trying to last until sunrise. If the solar
+without charging inputs. We use two sets of initial conditions based on the
+interaction between the charging data we collected and the capacity of the
+batteries deployed. If the solar panel is large enough it will provide
+considerable charging input and completely charge small batteries during the
+day, so that all nodes begin the night with full batteries. If the solar
 panel is not large enough to completely charge the batteries nodes will begin
 the night with varying amounts of charge depending on their load rates during
 the day.
@@ -66,7 +66,7 @@ and cost of the hardware package.
 
 Experiments for the energy-aware routing case use the first-node death energy
 objective function described in
-Section~\ref{idea-subsec-energyobjectivefunctions}, and therefor we evaluate
+Section~\ref{idea-subsec-energyobjectivefunctions}, and therefore we evaluate
 the network lifetime as the time at which the first node runs out of energy.
 Our distributed localization application illustrates the process of designing
 an effective energy objective function when the overall goal of the system is
@@ -82,7 +82,7 @@ known.
 \includegraphics[width=0.7\hsize]{./5-idea/figs/ictp.pdf}\\
 \end{center}
 
-\caption{\textbf{Qualitative comparison of stock CTP and ICTP.} For this
+\caption{\textit{Qualitative comparison of stock CTP and ICTP.} For this
 experiment odd-numbered nodes (shaded) were set to charging rapidly, while
 even-numbered nodes were not charging. Unmodified CTP builds the tree shown
 in (a), which routes many packets through the even nodes. ICTP builds the
@@ -104,20 +104,43 @@ which we assume is powered). While this is an unrealistic charging pattern,
 it produces a clear difference in the routing protocol behavior.
 Figure~\ref{idea-fig-ictpqualitative}(a) shows that unmodified CTP is unaware
 of these charging differences and puts several even nodes, such as Node 92,
-into positions in the routing tree where they are routing for multiple nodes.
-The total number of nodes upstream from even numbered nodes in the stock CTP
-case is 14. In contrast, ICTP realizes that the odd-numbered nodes have
-energy to spare and the even-numbered nodes are lacking, and moves all even
-nodes into leaf roles. No even node in Figure~\ref{idea-fig-ictpqualitative}
-is routing data for any of its neighbors.
+into positions where they are routing for multiple nodes. The total number of
+nodes upstream from even numbered nodes in the stock CTP case is 14. In
+contrast, ICTP realizes that the odd-numbered nodes have energy to spare and
+the even-numbered nodes are lacking, and moves all even nodes to leaf roles.
+None of the even nodes in Figure~\ref{idea-fig-ictpqualitative} are routing
+data.
 
-We compared the performance of ICTP to unmodified CTP using 24-hour TOSSIM
-simulations and the three different solar charging scenarios previously
-described. As Table~\ref{idea-table-ictpvoptimaltossim} shows, ICTP shows
-improvements in lifetime over stock CTP of between 11 and 27\%. The different
-routing trees formed by ICTP did not effect the packet delivery rates
-appreciably with the largest change in packet delivery rate with respect to
-stock CTP being 2.8\% (97.8\% for CTP vs. 95.0\% for ICTP).
+Using a 20~node subset of our MoteLab topology, we compared the performance
+of ICTP to unmodified CTP using 24-hour TOSSIM simulations and the three
+different solar charging scenarios previously described. As
+Table~\ref{idea-table-ictpvoptimaltossim} shows, ICTP shows improvements in
+lifetime over stock CTP of between 11 and 27\%. The different routing trees
+formed by ICTP did not effect the packet delivery rates appreciably with the
+largest change in packet delivery rate being 2.8\% (97.8\% for CTP vs. 95.0\%
+for ICTP).
+
+Finally, Table~\ref{idea-table-etxsearchradius} shows how IDEA can trade off
+application utility with the energy objective function. The simulation
+experiment uses a 25~node grid topology and, similar to the previous
+experiment, half the nodes are charging rapidly while the other half are not.
+Here our application-defined metric is expected transmissions to reach the
+sink (ETX). A purely ETX-based tree will use the shortest route without
+routing around the uncharging nodes, whereas an energy-aware tree will avoid
+the uncharging nodes by constructing longer routes. We expect that,
+prioritizing ETX will cause the total ETX of the entire tree --- defined as
+the sum of the ETX of all the routes in use --- to decrease, while
+prioritizing energy performance will cause the first-node lifetime of the
+tree to increase.
+
+Indeed, Table~\ref{idea-table-etxsearchradius} confirms this is the case. For
+each experiment, we restrict the set of acceptable parents to be the minimum
+available parent ETX plus an extra amount we call the ETX search margin. For
+example, if the minimum available parent ETX is 5 and the ETX search margin
+is 10, then we will consider all parents with ETX < 15. As the search margin
+increases, IDEA will examine longer routes that may provide better energy
+performance. As the table shows, increasing the ETX search margin leads to
+longer average routes but also improves overall network lifetime.
 
 \begin{table}[t]
 \begin{center}
@@ -131,7 +154,7 @@ Random Attenuation & 10.5 & 12.2 & 16\% \\ \hline
 \end{tabular}
 \end{center}
 
-\caption{\textbf{ICTP performance with solar charging.} The table summarizes
+\caption{\textit{ICTP performance with solar charging.} The table summarizes
 the improvements in performance obtained by replacing CTP with ICTP. Three
 different solar charging profiles are used corresponding to a large panel
 that completely charges all batteries during the day, a small panel that does
@@ -139,6 +162,28 @@ not completely charge all batteries during the day, and a randomly attenuated
 charging profile that varies node-to-node.}
 
 \label{idea-table-ictpvoptimaltossim}
+\end{table}
+
+\begin{table}[t]
+\begin{center}
+\begin{tabular}{|l|cc|}
+\hline
+\textbf{ETX Search} & \textbf{Total ETX} & \textbf{Network Lifetime} \\
+\textbf{Margin (ETX)} & \textbf{(ETX)} & \textbf{(sec)} \\ \hline
+0 & 2442 & 4357 \\
+10 & 2591 & 4737 \\
+20 & 3207 & 5116 \\
+50 & 3127 & 6216 \\
+100 & 3442 & 6502 \\ \hline
+\end{tabular}
+\end{center}
+
+\caption{\textit{Tradeoff between energy-awareness and application utility.}
+The table shows results illustrating how IDEA can parameterize the tradeoff
+between optimizing for application-defined utility and the energy objective
+function.}
+
+\label{idea-table-etxsearchradius}
 \end{table}
 
 \subsection{Distributed Localization}
@@ -220,7 +265,7 @@ the degree to which the energy vector for the localization plan is a good
 \includegraphics[width=0.7\hsize]{./5-idea/figs/ideavheuristics.pdf}
 \end{center}
 
-\caption{\textbf{Performance of IDEA objective functions and heuristic.}
+\caption{\textit{Performance of IDEA objective functions and heuristic.}
 Simulation results are shown for the localization application. The graph
 compares the \texttt{Closest} heuristic, implemented without using IDEA,
 against three different IDEA objective functions: \texttt{MaxEnergy},
@@ -233,8 +278,8 @@ objective functions perform more poorly.}
 
 We began by experimenting with the \texttt{Closest}, \texttt{MaxEnergy} and
 \texttt{TotalEnergy} approaches. As Figure~\ref{idea-fig-ideavheuristics}
-shows, the \texttt{TotalEnergy} heuristic outperformed the two IDEA-based
-approaches. However, when examining the energy density plot shown in
+shows, the \texttt{Closest} heuristic outperformed the two IDEA-based
+approaches.  However, when examining the energy density plot shown in
 Figure~\ref{idea-fig-localizationdensityvtime} for the \texttt{Closest}
 heuristic we could see that it led to concentrations of available energy on
 nodes at dense locations on the irregular grid. This is despite the uniform
@@ -242,8 +287,8 @@ distribution of acoustic event sources, which one might expect to produce
 good energy load distribution without the need for tuning. After exploring
 several additional approaches we found an energy objective function capable
 of producing extremely good load distribution, the \texttt{WeightedEnergy}
-approach described above. Figure~\ref{idea-fig-ideavheuristics} shows that it
-outperforms \texttt{Closest}, increasing the network's lifetime by 15\%,
+approach described above. Figure~\ref{idea-fig-ideavheuristics} shows that
+it outperforms \texttt{Closest}, increasing the network's lifetime by 15\%,
 while Figure~\ref{idea-fig-localizationdensityvtime} illustrates how it
 utilizes all the nodes' available energy. Our experience with the
 localization application illustrates the role of the proper energy objective

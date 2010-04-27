@@ -1,6 +1,33 @@
 \chapter{Addressing Energy Distribution with IDEA}
 \label{chapter-idea}
 
+Energy-harvesting sensor networks experience variations in load and charging
+rates that threaten high-fidelity operation. Changing application demands
+produce variations in load rates, while energy-harvesting properties produce
+variations in charging rates. Energy mismanagement can lead to reduced
+fidelity, when nodes' batteries empty, or wasted energy, when nodes harvest
+energy they cannot store.
+
+Energy harvesting capabilities --- such as solar charging --- further
+complicate the distributed energy management task. The energy collected at
+each node may vary significantly based on node placement, and the energy
+collected daily may vary significantly based on weather patterns. Preparing
+the network for overnight operation requires capturing as much energy as
+possible during the day and minimizing energy wasted charging full batteries,
+while overnight operation requires adjusting the network's load profile to
+match the distribution of energy stored during daytime.
+
+Fortunately, dense networks provide redundancy that can be used to control
+the distribution of energy usage. Multiple possible routing paths may connect
+a node to the sink. Tuning MAC parameters allows nodes to shift communication
+load to their neighbors. Sensor inputs from multiple nodes may be redundant,
+allowing some to be disabled or operated at reduced fidelity. The existence
+of these choices implies that it is possible to tune the energy load of the
+network to better match energy availability. Effective load tuning can
+increase the fidelity provided to the application at a fixed battery size, or
+allow battery sizes to be reduced while maintaining the required fidelity
+level.
+
 Building on the core ideas developed by Lance, IDEA (Integrated Distributed
 Energy Awareness) takes two new directions. First, we try and build a true
 system service that multiple components can leverage, rather than focusing on
@@ -10,51 +37,23 @@ collaborative energy management. Approaches such
 TinyOS~\cite{tinyos-asplos00}, Pixie~\cite{pixie-sensys08},
 Eon~\cite{eon-sensys07} and Levels~\cite{levels-sensys07} facilitate local
 control only, failing when greedy node energy minimization fails to produce
-the best outcome. Network-wide solutions such as
-Lance~\cite{lance-sensys08}, Mercury~\cite{parkinsons-embs07}, and
-EnviroMic~\cite{enviromic} either require centralized control or are tailored
-to the needs of a specific application domain. In sensor networks the
-majority of energy consumption is consumed by multi-node collaboration. We
-argue that due to the distributed nature of energy consumption and
-availability, improving performance requires consideration of both
-\textit{where} energy is and \textit{how much} is being used.
-
-Second, we attempt to address the core challenge of unequal energy
+the best outcome. Network-wide solutions such as Lance~\cite{lance-sensys08},
+Mercury~\cite{parkinsons-embs07}, and EnviroMic~\cite{enviromic} either
+require centralized control or are tailored to the needs of a specific
+application domain. In sensor networks the majority of energy consumption is
+consumed by multi-node collaboration. We argue that due to the distributed
+nature of energy consumption and availability, improving performance requires
+consideration of both \textit{where} energy is and \textit{how much} is being
+used. Second, we attempt to address the core challenge of unequal energy
 distribution within the sensor network itself, particularly as it effects the
-overall data quality delivered by the macroscope. Energy-harvesting sensor
-networks experience variations in load and charging rates that threaten
-high-fidelity operation. Changing application demands can produce variations
-in load rates, while energy-harvesting properties can produce variations in
-charging rates. Energy mismanagement can lead to reduced fidelity, when
-nodes' batteries empty, or wasted energy, when nodes harvest energy they
-cannot store.
-
-Energy harvesting capabilities such as solar charging further complicate the
-distributed energy management task. The energy collected at each node may
-vary significantly based on node placement, and the energy collected
-day-to-day may vary significantly based on weather patterns. Preparing the
-network for overnight operation requires capturing as much energy as possible
-during the day and minimizing energy wasted by charging full batteries, while
-overnight operation itself requires adjusting the network's load profile to
-match the distribution of energy stored during daytime.
-
-Fortunately, dense networks provide redundancy that can be used to control
-the distribution of energy usage. Multiple possible routing paths may
-connect a node to the sink. Tuning MAC parameters allows nodes to shift
-communication load to their neighbors. Sensor inputs from multiple nodes may
-be redundant, allowing some to be disabled or operated at reduced fidelity.
-The existence of these choices implies that it is possible to tune the energy
-load of the network to better match energy availability. Effective load
-tuning can increase the fidelity provided to the application at a fixed
-battery size, or allow battery sizes to be reduced while maintaining the
-required fidelity level.
+overall data quality delivered by the macroscope.
 
 Matching load to availability across the network requires
 \textit{integrating} with application components producing energy load,
 \textit{distributing} load and availability information to facilitate node
 decision making, and \textit{awareness} of the connection between load,
-availability, and application-level fidelity. We propose Integrated
-Distributed Energy Awareness (IDEA), a sensor network service addressing
+availability, and application-level fidelity. We propose \textit{Integrated
+Distributed Energy Awareness (IDEA)}, a sensor network service addressing
 these goals. IDEA monitors and models the load and charge rates on each node.
 To allow nodes to reason about their impact on others, each node distributes
 its model parameters, updating them as necessary to ensure continued
