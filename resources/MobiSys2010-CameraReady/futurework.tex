@@ -1,0 +1,25 @@
+\section{Future Work and Conclusions}
+\label{sec-futurework}
+
+As future work we are interested in addressing the problem of cross-component
+interaction in order to optimize several IDEA components running
+simultaneously. This is complicated by the fact that there are likely to be
+dependencies between components that cause decisions made by one to affect
+others. As an example, the LPL intervals used by a node would effect the
+power cost to use the link seen by the routing protocol. In addition we are
+investigating ways to model the impact of node failure on other nodes. Many
+sensor network protocols will try to work around nodes leaving the network or
+going offline, but this repair process is costly and causes load within the
+network to shift.
+
+To conclude, we have described the IDEA architecture in detail, motivated its
+use through three examples, and demonstrated that for each example IDEA can
+improve performance by better managing distributed energy resources. We have
+also discussed the process of developing an application-specific energy
+objective function and shown how this can improve the performance of a
+localization application while maintaining application fidelity. 
+
+\section{Acknowledgements}
+
+This project was supported by the National Science Foundation under grant
+numbers CNS-0519675 and IIS-0926148, and by the Microsoft Corporation.

@@ -1,0 +1,233 @@
+\section{Case Studies}
+\label{sec-casestudies}
+
+Throughout the rest of the paper we demonstrate IDEA using three examples.
+Section~\ref{sec-evaluation} presents results demonstrating the performance
+improvements that IDEA delivers for each application.
+
+\subsection{LPL Tuning}
+\label{subsec-lpltuning}
+
+Low-power listening enables radio duty-cycling without requiring nodes
+arrange fixed transmission schedules. It is well-suited for environments
+where network topologies and traffic patterns are highly variable, since
+these variations challenge duty-cycling techniques that assume \textit{a
+priori} knowledge of traffic patterns.
+
+When using LPL, nodes poll the radio channel at a fixed rate, listening for
+packets addressed to them. The radio is shut off when not polling or sending
+packets. To send a packet to another node the sender must know that node's
+polling interval, and repeatedly send the packet with reduced MAC backoffs
+until either the packet is acknowledged, ending the packet train and
+indicating a successful transmission, or the length of the packet train
+exceeds the receiver's polling interval, at which point the transmission
+fails.
+
+The choice of LPL polling rate at a given node affects the continuous energy
+drain required to periodically poll the channel as well as the cost to other
+nodes to communicate with the given node. Assuming we model the radio as
+drawing $I_{listen}$ and $I_{transmit}$ mA of current in listen and transmit
+modes, respectively, then, given an interval between radio checks of $\gamma$
+sec, the current draw required to poll the channel is $\frac{1}{\gamma} \cdot
+t_{check} \cdot I_{listen}$, where $t_{check}$ is the time the radio must
+remain on to detect channel activity. The cost to transmit a packet to a node
+using an LPL interval of $\gamma$ is, on average, $\frac{\gamma}{2} \cdot
+I_{transmit}$. We can observe then that increasing $\gamma$ or polling the
+channel less frequently \textit{reduces} the current draw on the receiving
+node while \textit{increasing} the communication cost on sending nodes.
+
+On the CC2420 the receive and sends costs $I_{listen}$ and $I_{trasmit}$ are
+similar, and the radio can rapidly leave and return to a low-power state so
+$t_{check}$ is short, on the order of 10 ms, allowing the continuous receive
+cost to be minimized. As a point of comparison, using a $0.5$ second check
+interval produces a current draw of 0.37 mA while requiring 4.35 mAs to send
+a single packet. Put another way, sending a single packet requires as much
+energy as polling the channel for over 11 seconds.
+
+Adjusting LPL intervals offers a way of changing the energy consumption for
+communication between two nodes, and an opportunity for IDEA to tune the
+intervals to match the availability of energy within the network. To develop
+intuition about the tuning process, we consider a simple example where Node 1
+is transmitting packets to Node 2. If Node 1 has a lot of energy while Node 2
+has little, then Node 2 should poll the channel slowly and let Node 1 pay the
+high per-packet penalty. On the other hand, if Node 2 has a lot of energy
+while Node 1 has little, then Node 2 should poll the channel rapidly,
+increasing its own energy consumption but reducing the per-packet cost to
+Node 1.
+
+IDEA allows us to build a component to tune the LPL parameters on each node
+adaptively. Our local state space $s_n = \left\{s_n^5, s_n^6, \ldots,
+s_n^{10} \right\}$ where $s_n^j$ corresponds to polling at intervals of $2^j$
+on node $n$. For each state $s^j_n$, we construct the projected energy load
+vector $\bar{L}(s^j_n)$ out of two components: one measuring the receive cost
+to node $n$, the other measuring the transmission cost to other nodes to send
+to node $n$. The receive cost on node $n$, $\bar{r}_n$, has only a single
+component for node $n$, $r_n^n(s_n^j) = \frac{1024}{2^j} \cdot 0.010
+\textrm{sec} \cdot 19.7$ mA, where $0.010$ sec is the check interval and
+$19.7$ mA is the radio receive current. The transmission cost to nodes
+sending to node $n$, $\bar{t}_n$, has components of the form $t^i_n(s_n^j) =
+\frac{1}{2} \cdot \frac{2^j}{1024} \textrm{sec} \cdot \delta(i,n) \cdot 17.4$
+mA, where $\delta(i,n)$ is the rate at which node $i$ is sending packets to
+node $n$ and $17.4$ mA is the radio transmission current. We construct the
+total energy load vector $\bar{L}_n(s^j_n)$ as the component-wise sum of
+$\bar{r}_n$ and $\bar{t}_n$, and pass this information to IDEA to evaluate
+each state.
+
+When the LPL tuning component switches states, it must propagate this
+information to nearby nodes that might be sending it data. We use the ability
+of IDEA to propagate component state to disseminate this information. The
+tuning component intercepts outgoing transmissions, queries IDEA for the
+correct LPL interval to use for the given destination, and sets the packet's
+LPL interval accordingly.
+
+Changing the LPL interval also effects the total throughput possible over the
+link, which provides the component-specific measure of desirability, although
+the relationship is complicated by the ability of LPL to bunch transmissions
+to amortize the cost of awakening the receiver. For our evaluation we chose
+to set the tradeoff factor $\alpha=1$ and optimize only for energy, since the
+throughput of the link was not a limiting factor at the data rates we tested.
+
+Finally, low-power probing (LPP) approaches available in
+Contiki~\cite{contiki} and made possible by BackCast~\cite{backcast-hotnets}
+improve on the LPL approach by using receiver-initiated probing to eliminate
+the high channel contention caused by LPL's packet trains. However, they
+produce similar energy consumption patterns to LPL and could be tuned in the
+same way. We have focused on tuning LPL parameters due to LPL's availability
+in the standard TinyOS distribution, but are exploring LPP-based approaches
+as future work.
+
+\subsection{Energy-Aware Routing}
+\label{subsec-ictpcasestudy}
+
+The second example shows how to integrate IDEA with an existing routing
+protocol, namely the Collection Tree Protocol (CTP)~\cite{ctp-sensys09}. CTP
+is a spanning-tree routing protocol that is a standard component in
+TinyOS~\cite{tinyos-asplos00}. In CTP, each node selects its parent in the
+spanning tree based on the \textit{expected number of transmissions} (ETX) to
+reach the sink. This is an additive metric intended to limit queue occupancy
+at nodes along each routing path and maximize packet delivery rates. Although
+ETX can be directly converted to an energy measure (assuming the energy costs
+to transmit along a link are known), CTP does not explicitly consider energy
+availability in its routing decisions.
+
+We integrate IDEA with CTP to create \textit{ICTP}, an energy-aware
+load-balancing routing protocol that combines the use of ETX with IDEA's
+energy objective function. As described in
+Section~\ref{subsec-energyobjectivefunctions}, we parameterize the tradeoff
+between pure ETX and pure energy objective using the weighting factor
+$\alpha$. When $\alpha = 1$ the minimum ETX path is always used and ICTP
+behaves identically to unmodified CTP. When $0 < \alpha < 1$, potential
+parents with path ETX $<$ minimum ETX $\cdot \frac{1}{\alpha}$ will be
+considered, with the one producing the best energy objective score chosen.
+When $\alpha = 0$, ETX is not considered at all and parent selection is
+performed entirely on the basis of energy. Hence, $\alpha$ indirectly
+controls the degree of path stretch that is induced by energy awareness. 
+
+\vfill\eject
+
+In order to build routes, CTP must periodically broadcast the current parent
+and ETX to neighboring nodes. ICTP adds additional information to these
+broadcasts, specifically the \textit{expected power}, or \textit{EPX}, for
+transmissions to the node's parent. This information increases the size of
+the broadcast packet sent by ICTP slightly, but does not appreciably affect
+the energy consumption of the protocol's own data sharing, since the cost to
+transmit a packet using LPL is a function of the receiver's polling interval,
+not the packet size.
+
+The local state space $s_n = \left\{s_n^{p_1}, s_n^{p_2}, \ldots, s_n^{p_k}
+\right\}$ is defined by the node $n$'s neighbors $p_n = \left\{p^1, p^2,
+\ldots, p^k \right\}$, each of them a prospective parent. CTP uses four-bit
+wireless link estimation~\cite{Fonseca07} to estimate the ETX to each
+neighbor, which ICTP multiplies by the power-per transmission to produce the
+EPX to each neighbor, $EPX(n, p_n^i)$. Through ICTP data dissemination node
+$n$ also learns the EPX from each neighbor to their current parent,
+$EPX(p_n^i, \textrm{parent}(p_n^i))$. We have modified CTP to measure the
+traffic rate $\delta(n)$, which is the number of packets per given interval
+that node $n$ is forwarding to the sink. This is a function of both its own
+packet generation rate and of the traffic induced by nodes upstream that it
+is routing for. Given these parameters the projected energy load vector
+$\bar{L}(s_n^{p_i})$ has two components: $L_n = \textrm{EPX}(n, p_n^i) \cdot
+\delta(n)$ and $L_{p_i} = \textrm{EPX}(p_n^i, \textrm{parent}(p_n^i)) \cdot
+\delta(n)$. Based on this information, IDEA chooses the best neighbor as the
+node's parent.
+
+Depending on the energy objective function chosen ICTP responds to variations
+in load and charging rates in different ways. For the following discussion we
+assume that the application uses the \textit{maximize first-node lifetime}
+objective function described in
+Section~\ref{subsec-energyobjectivefunctions}, and so is willing to trade off
+reduced charging rates or lifetimes at nodes that are not the network's
+lifetime bottleneck in order to increase the lifetime of the node projected
+to die first. Routing trees by their very nature concentrate load near the
+base station, which we assume is powered. Without considering variances in
+non-routing load or charging rates ICTP will attempt to balance load across
+nodes that can communicate directly with the base station, arranging the
+routing tree considering both the number of nodes upstream from each of the
+base station's neighbors and the quality of their link to the base station.
+
+ICTP also responds to spatial variations in charging rates by building a tree
+that is sensitive to where in the network energy is available. ICTP will
+route around shadows in the network, or build routing backbones using
+quickly-charging nodes or nodes whose batteries are full while attempting to
+push nodes low on batteries into leaf roles, reducing or eliminating their
+routing responsibilities.
+
+Because ICTP reacts to changes in energy available by potentially choosing
+routes with larger ETX, small values of $\alpha$ can begin to effect the
+achieved packet delivery rate. We were able to find values of $\alpha$ that
+produced significant performance improvements while leaving the delivery rate
+unaltered. CTP has a persistent retransmission policy which assists us in
+achieving good performance.
+
+\subsection{Distributed Localization}
+
+The third case study illustrates how to use IDEA to control discrete, rather
+than continuous, network behavior. We consider a system designed to perform
+acoustic source localization. Several previous systems have explored this
+application in different contexts, including urban sniper
+localization~\cite{shooter-localization} and localizing animals based on
+mating calls~\cite{girod-marmots}. Using IDEA, it is possible to carefully
+manage the energy load at each sensor node to prolong battery lifetime while
+maintaining high localization accuracy.
+
+Acoustic source localization involves calculating the location of an acoustic
+source by collecting arrival times at several stations and performing a
+back-azimuth computation. We assume a dense sensor network deployment, so
+that an acoustic event is detected by many sensors. We also assume that for
+each event, any set of four sensors that heard the event can correctly
+perform the localization to within the application's error tolerance. 
+
+A centralized approach to localization requires nodes to transmit data to a
+base station where the computation is performed. Because we assume that nodes
+cannot accurately compute an arrival time by only considering their own
+sampled data, they must transmit a sizeable amount of data to the base
+station to implement the centralized strategy, with the bulk data transfer
+required producing a significant load on the nodes that heard the event as
+well as nodes required to route data. This approach also does not scale well
+as the size of the network increases.
+
+To avoid the overheads of centralization we want to perform the localization
+inside the network. However, the cost to transmit signals and perform the
+computation are still high, so it is important that localization be done in a
+way sensitive to the availability of energy within the network.
+
+When an event occurs, the goal is to select a single \textit{aggregator} node
+and three \textit{signal provider} nodes from the set of nodes that detected
+the event. The signal providers will transmit a portion of the acoustic
+signal to the aggregator, which performs the localization computation using a
+time-of-arrival and angle-of-arrival computation~\cite{Niculescu03adhoc}.
+For each event we expect multiple valid aggregator and signal provider sets
+to exist, each with its own energy consumption signature. We refer to a
+selection of four such nodes as a \textit{localization plan}. 
+
+Nodes that heard the signal participate in a leader election process, seeded
+by the value of the IDEA energy objective function for each proposed
+localization plan. Each candidate aggregator computes the energy objective
+function for the localization plan or plans that they are the aggregator for.
+If more than three nodes within a single hop of an aggregator heard the
+event, then the aggregator will have multiple plans to consider. The
+aggregator chooses the local plan with the best score and broadcasts a
+message advertising that score, which is propagated to all nodes that heard
+the event. If the aggregator does not hear a broadcast with a better score,
+it assumes that it won the leader election and proceeds to perform the
+localization as planned. 
