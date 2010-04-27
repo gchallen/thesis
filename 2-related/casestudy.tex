@@ -111,30 +111,47 @@ on triggered event collection.
 \includegraphics[width=0.9\hsize]{./2-related/figs/Standalone.pdf}
 \end{center} 
 \caption{\textbf{Wired seismoacoustic monitoring station.}}
-\label{introduction-fig-standalone}
+\label{related-fig-standalone}
 \end{figure}
 
 The type of instrumentation used to study volcanoes depends on the the
 science goals of the deployment. Geophysicists often use standalone
-dataloggers (e.g., Reftek 130~\cite{reftek}) that record signals from
-seismometers and microphones to a flash drive. These data loggers are large
-and power-hungry, typically powered by car batteries charged by solar panels.
-The sheer size and weight precludes deployments of more than a small number
-of stations in remote or hazardous areas. Additionally, data must be
-retrieved manually from each station every few weeks, involving significant
-effort. Analog and digital radio telemetry enables real-time transmission of
-data back to an observatory. However, existing telemetry equipment is very
-bulky and its limited radio bandwidth is a problem for collecting continuous
-data from multiple channels.
+dataloggers (e.g., Reftek 130-01~\cite{reftek}) that record signals from
+seismometers and microphones to a flash drive. These data loggers are
+expensize (\~\$9,000) bulky (8500~$cm^2$), heavy (2~kg) and power-hungry
+(1~to~2.1W), typically powered by lead-acid car batteries (14.5~kg each)
+charged by large (1~$m^2$) solar panels. The sheer size and weight of the
+resulting set of equipment precludes deployments of more than a small number
+of stations in remote or hazardous areas.
 
-As a result, many scientific experiments use a stand-alone data acquisition
-system at each recording station. The digitizer performs high-resolution
-analog-to-digital conversion from the wired sensors and stores data on a hard
-drive or Compact Flash card. However, these systems are cumbersome, power
-hungry ($\approx 10$~Watts), and require data to be manually retrieved from
-the station prior to processing. Depending on the size of the recording
-media, a station may record several days or weeks' worth of data before it
-must be serviced.
+Figure~\ref{related-fig-standalone} shows an example deployed wired
+monitoring station with the components labeled. Such a setup would support
+several high-resolution powered seismometers, acoustic microphones, and other
+instruments. The power supply (two lead-acid car batteries), Reftek data
+logger with Flash drive to store collected data, signal amplification and
+power distribution components are stored together in a large container and
+buried underground. The sensors --- in this case, powered seismometers and
+microphones --- are deployed nearby with wired connections to the Reftek data
+logger. A solar panel may also be located nearby to recharge the car
+batteries and enable long-term operation.
+
+Additionally, data must be retrieved manually from each station every few
+weeks, involving significant effort. Analog or digital radio telemetry can
+enable real-time transmission of data back to an observatory, and is
+typically installed for monitoring stations intended to be permanent.
+However, existing telemetry equipment is very bulky and difficult to install,
+and its limited radio bandwidth is a problem for collecting continuous data
+from multiple channels.
+
+As a result, many short-duration scientific experiments use a stand-alone
+data acquisition system at each recording station. The digitizer performs
+high-resolution analog-to-digital conversion from the wired sensors and
+stores data on a hard drive or Compact Flash card. However, these systems
+require data to be manually retrieved from the station prior to processing,
+which can be difficult or time-consuming depending on the location of the
+station and the duration of the intended deployment. Depending on the size of
+the recording media, a station may record several days or weeks' worth of
+data before it must be serviced.
 
 \section{Opportunities for Wireless Sensor Networks}
 
@@ -178,8 +195,9 @@ Unfortunately, the number of deployed sensors at a given volcano is usually
 limited by a variety of factors, including: monetary expenses such as sensor,
 communication, and power costs; logistical concerns related to time and
 access issues; and archival and telemetry bandwidth constraints. Due to their
-small size, light weight, and relatively low cost, wireless sensor nodes have
-an important role to play in augmenting and extending existing seismic
+small size (12.8~$cm^2$), light weight (0.015~kg without battery), low power
+consumption (\~60~mW) and relatively low cost (\$79), wireless sensor nodes
+have an important role to play in augmenting and extending existing seismic
 instrumentation, providing the increased spatial resolution necessary to
 support seismic applications like tomography.
 
