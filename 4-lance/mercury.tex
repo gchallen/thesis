@@ -65,3 +65,96 @@ allow policy modules to annotate the ADU data structures with additional
 metadata as they are passed along. This allows communication between policy
 modules, and permits certain complex policy modules to be split into several
 simpler pieces.
+
+In order to facilitate more functionality within policy module we also
+increased the amount of control these functions can exercise over node-level
+behaviors. Rather than being limited to simply affecting the download
+distribution, Lance policy modules can now call a number of functions
+exported by the node-level software allowing them to, as an example, start
+and stop sampling, change sampling rates, enable or disable certain sensors,
+and enable or disable Flash logging.
+
+This functionality substantially extends the options that policy modules have
+for controlling the energy consumption at each node. The original version of
+Lance that focused on bulk data-transfer could only affect the energy
+consumption at a node by choosing to use it to download or forward data, or
+by avoiding it. When nodes are running low on energy, the updated version can
+reduce their sampling rates (which conserves energy), disable logging of
+certain kinds of data (further conserving energy), or cease sampling and
+logging all-together, completely eliminating the sampling and storage
+components of node energy consumption. These additional energy-saving
+features are particularly important for the Mercury application because some
+of the sensors deployed for medical monitoring --- such as gyroscopes ---
+have energy consumptions that rival the radio, and their operation can thus
+have a significant impact on the node's ability to meet a lifetime schedule.
+
+Implementing these new control features allows a range of interesting policy
+modules to be written and evaluated. The overall goal of the Mercury system
+is to enable continuous data collection for 12 to 18 hours each day, which
+approximates the interval between charges when the patient would be wearing
+the device. Depending on the lifetime being targeted and the initial battery
+charge, the Mercury driver computes an \textit{energy schedule} for each node
+and tries to ensure that the nodes discharge rate matches the schedule.  If
+the node is consuming too much or two little energy, it will adjust the
+node's behavior to trade off application fidelity for lifetime.
+In~\cite{mercury-sensys09}, we implement and experiment with the following
+policies:
+
+\begin{enumerate}
+
+\item \textbf{throttle downloads}: since Mercury's first goal is to download
+features for each time unit, rather than raw samples, this policy only begins
+downloading raw signals if the node has spare energy in its energy budget.
+The reduction in radio traffic that accompanies not downloading large amounts
+of raw data can extend node lifetimes.
+
+\item \textbf{throttle gyro}: because the gyroscope consumes a great deal of
+energy, if a node is behind its energy schedule we can disable the gyroscope
+to allow it to catch up. This reduces the fidelity of the sampled data but
+can substantially increase the node's lifetime.
+
+\item \textbf{throttle storage}: since another source of energy consumption
+is using the Flash memory~\footnote{The SHIMMER~\cite{shimmer} node used for
+the Mercury project uses an external Flash card that has a significantly
+higher energy cost to read and write than the internal Flash chip used by the
+TMote Sky for our volcano deployments. The SHIMMER also carries significantly
+more Flash memory: up to 2~GB as opposed to the 1~MB on the TMote Sky.}, we
+may want to disable saving raw signals to Flash as another way of saving
+power. Again, this choice has an impact on the resulting data fidelity, since
+the discarded data cannot be downloaded over the radio at a later time, or
+retrieved when the node is cradled to charge.
+
+\item \textbf{throttle sampling}: this is obviously the most drastic option,
+since it completely disables all data collection on the node.
+
+\end{enumerate}
+
+The above policies can also be implemented in various permutations with each
+other to create, for example, a strategy that may disable both downloads and
+the gyroscope depending on how far the node is behind on its energy schedule.
+
+We found that the \textbf{throttle gyro} policy was effective at trading off
+feature coverage and lifetime across a range of lifetime targets. If we
+define \textit{full feature coverage} as the range of time spanned by
+features computed from all sensors (including the gyroscope) and
+\textit{degraded feature coverage} as the range of time spanned by features
+computed from all sensors but the gyroscope, for a 12~hour lifetime target
+\textbf{throttle gyro} enables \~100\% full feature coverage and for a
+60~hour lifetime target it enables \~100\% degraded feature coverage. It
+accomplishes this while still downloading a portion of the raw data for the
+experiment. \textbf{throttle storage} enables full feature coverage across
+the range of lifetime targets but does so by severely reducing the number of
+raw signals collected.
+
+In general we found the flexibility and power of the Lance architecture
+useful for quickly implementing and testing various policies for managing
+resource usage. The interface that we built to allow policy module to control
+node behavior limited the amount of reprogramming of the nodes themselves
+that we had to do in order to enact dramatic changes in node behavior.
+Because Mercury targets a network that is usually single-hop, we did not need
+to use the heuristic scoring functions described previously. Since we
+discovered that these were probably not equally suited to all applications,
+we altered the structure of the system to have them implemented as policy
+modules, available for applications to use when needed but not required as
+part of the Lance architecture itself. Overall we were excited by the success
+we experienced using Lance is this very different application context.
