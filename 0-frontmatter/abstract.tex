@@ -9,11 +9,11 @@ the application and devote system resources to capturing it, and respond to
 ongoing fluctuations in distributed energy availability.
 
 We present a case study and two architectural solutions addressing these core
-challenges. Working with volcano seismologists we have designed and evaluated
-the first sensor network designed to enable the study of erupting volcanos.
+challenges. Working with volcano seismologists, we have designed and
+evaluated the first sensor network enabling the study of erupting volcanos.
 We have performed three field studies of this system and validated that it
 can produce data suitable for scientific analysis. We found correcting and
-validating the timing accuracy of our data extremely difficult and important,
+validating the timing accuracy of our data extremely difficult and important
 and were able to develop a new \textit{post-hoc} time-rectification technique
 that can recover accurate timestamps even in the face of significant timing
 protocol failures.
@@ -22,7 +22,7 @@ To improve the performance of this application, we developed two
 general-purpose architectures targetting high data-rate sensor networks.
 Lance directs bulk data-collection in order to direct energy and bandwidth
 resources toward the most interesting signals identified by the application.
-Valuable data is identified using a two-tiered architecture which manages to
+Valuable data is identified using a two-tiered architecture that manages to
 leverage the increased visibility of a whole-network controller while
 limiting the overhead of centralized control. While designed to support the
 volcano-monitoring application, Lance has also been used to support the
@@ -34,5 +34,5 @@ allowing application components to tune their behavior in response to
 changing energy availability. This allows the network to adjust energy load
 as availability changes, of particular importance when energy-harvesting
 capabilities are incorporated. We have used IDEA to build energy-aware
-routing and MAC-parameter tuning protocols, and measured the performance
+routing and MAC-parameter tuning protocols and measured the performance
 improvement they provide over non-aware solutions.
