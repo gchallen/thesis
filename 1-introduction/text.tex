@@ -2,7 +2,7 @@
 \label{chap-introduction}
 
 Wireless sensor networks composed of tens or hundreds of low-power,
-resource-constrained devices, can aid scientific exploration by providing
+resource-constrained devices can aid scientific exploration by providing
 high-fidelity data at scales more difficult to achieve with traditional
 instrumentation. In his book \textit{The Macroscope}~\cite{rosnay79}, French
 futurist Joel de Rosnay envisioned a new scientific instrument: the
@@ -39,14 +39,14 @@ microprocessors, radios, and MEMS sensors enables embedded sensing on power
 budgets not feasible a decade ago.
 
 An example of a representative device is the TMote Sky~\cite{moteiv}. The
-TMote is a descendant of the original UC Berkeley Mica ``mote'' sensor node.
-It integrates a Texas Instruments MSP430 microcontroller, 48~kB of program
-memory, 10~kB of SRAM, 1~MB of external flash memory and a 2.4~GHz Chipcon
-IEEE 802.15.4 radio. The MSP430 is a 16~bit microcontroller running at 4~MHz.
-It is a popular basis for wireless sensor network nodes due to its many
-reconfigurable ports and low power consumption. The MSP430 consumes
-approximately 2~mA of current while active and can enter sleeps states
-consuming only microamps.
+TMote is a descendant of the original UC Berkeley Mica ``mote'' sensor
+node~\cite{hill-thesis}. It integrates a Texas Instruments MSP430
+microcontroller, 48~kB of program memory, 10~kB of SRAM, 1~MB of external
+flash memory and a 2.4~GHz Chipcon IEEE 802.15.4 radio. The MSP430 is a
+16~bit microcontroller running at 4~MHz.  It is a popular basis for wireless
+sensor network nodes due to its many reconfigurable ports and low power
+consumption. The MSP430 consumes approximately 2~mA of current while active
+and can enter sleeps states consuming only microamps.
 
 The CC2420 is a low-power 802.15.4 radio with a raw data rate of 250~kbps. On
 the TMote Sky in practice this is reduced considerably by the overheads
@@ -57,19 +57,18 @@ channel-polling and other kinds of low-power operation.
 
 Due to their low power budgets, sensor nodes can be designed to be
 lightweight and easy to deploy. We found it possible to power a TMote Sky for
-several weeks using a pair of D-cell batteries, and this was without
-attempting to duty cycle the radio, which is the largest consumer of energy
-on the device. Doing so could have allowed us to increase the node lifetime
-considerably. Another option would be to deploy nodes with energy-harvesting
-capabilities. Due to their low power consumption, even a small solar panel
-may be able to allow a TMote to run continuously, depending on assumptions
-made about available sunlight and the efficiency of the energy capture and
-storage circuitry.
+several weeks using a pair of D-cell batteries without attempting to duty
+cycle the radio, the largest consumer of energy on the device. Doing so could
+have allowed us to increase the node lifetime considerably. Another option
+would be to deploy nodes with energy-harvesting capabilities. Due to their
+low power consumption, even a small solar panel may be able to allow a TMote
+to run continuously, depending on assumptions made about available sunlight
+and the efficiency of the energy capture and storage circuitry.
 
 \section{Sensor Networks for Science: Architectural Challenges}
 
 Wireless sensor nodes can improve on existing instrumentation in several
-ways. In certain cases low-power embedded nodes can replicate functionality
+ways. In certain cases, low-power embedded nodes can replicate functionality
 now performed by larger, heavier devices. This provides a direct benefit to
 scientists, as it reduces the amount of equipment that must be transported
 and speeds deployment times. In addition, sensor networks come with telemetry
@@ -77,12 +76,12 @@ and speeds deployment times. In addition, sensor networks come with telemetry
 instrumentation that is replaced was untelemetered. Continuous communication
 with deployed sensors during the experiment allows scientists to begin to
 process data, assess the health of the network, or make adjustments on the
-fly. In other cases, embedded sensing provides occupies a different set of
+fly. In other cases, embedded sensing establishes a different set of
 tradeoffs between the ease of deployment and the sensing capability of each
-device. If, for the same amount of deployment effort and cost, a researcher
-can deploy either a small set of extremely accurate sensors or a much larger
-array of less accurate sensors, it is likely that either choice will provide
-the best tradeoff for a certain set of applications.
+device. For the same amount of deployment effort and cost, a researcher can
+deploy either a small set of extremely accurate sensors or a much larger
+array of less accurate sensors. It is likely that one choice will provide the
+best performance for a particular application.
 
 Early sensor network researchers saw the potential for these new devices to
 aid in scientific studies. One of the first published deployments of embedded
@@ -91,8 +90,14 @@ sensor nodes was used to study the nesting behavior of a colony of
 Seabirds~\cite{gdi-sensys04}. Another early experiment used similar nodes to
 study the microclimate of a single Redwood tree~\cite{berkeley-redwoods}.  In
 contrast to these early efforts, our group has focused on \textit{high
-data-rate} scientific applications. Compared with low data-rate monitoring,
-these produce a distinct set of research challenges.
+data-rate} scientific applications. As a point of comparison, the Redwoods
+deployment collected approximately 0.05 bytes-per-second (bps) from 30~nodes,
+for an aggregate network data rate of 1.5 bytes-per-second. Contrast this
+with the 2005 volcano monitoring deployment described in
+Chapter~\ref{chapter-evaluation} where each of 16~nodes collected 600~bps of
+data, for a network data rate of 9600~bps. Compared with low data-rate
+monitoring, high network data rates produce a distinct set of research
+challenges:
 
 \begin{itemize}
 
@@ -106,15 +111,15 @@ between multiple stations.
 
 \textit{Problem Statement:} Given a target application, build and validate a
 system that can provide data of fidelity sufficient to meet the scientific
-goals.
+goals. Addressed in Chapter~\ref{chapter-evaluation}.
 
 \item \textbf{Optimizing overall data quality.} In addition, high sampling
 rates challenge the ability of the system to achieve low-power operation.
 Sampling, storing, and transmitting large amounts of data prevents nodes from
 entering into low-power states and can consume a great deal of their stored
 energy. Once data rates and network sizes pass a certain point, all data
-cannot be collected in real time, meaning that the system must choose what
-data to discard and what to retrieve. Depending on the phenomena being
+cannot be collected in real time, meaning that the system must choose which
+data to discard and which to retrieve. Depending on the phenomena being
 monitored, some data is likely to be interesting and some less interesting. A
 habitat monitoring application may want to focus on collecting vocalizations
 from a certain kind of animal. Differences in sensor quality may also lead to
@@ -123,14 +128,15 @@ sample data that is of poor quality and of little value to the application.
 
 \textit{Problem Statement:} When all the data sampled cannot be collected due
 to energy or bandwidth constraints, ensure that the data that is retrieved is
-the most valuable to the application.
+the most valuable to the application. Addressed in
+Chapter~\ref{chapter-lance}.
 
 \item \textbf{Network-wide energy disparities.} When energy-harvesting
 technologies are deployed, variances in energy availability across the
 network can challenge the ability of the entire system to achieve good
 performance. Many sensor network protocols may concentrate energy usage on a
 small set of nodes, leading to poor network performance if and when those
-nodes batteries are exhausted. Enabling good performance of the network as a
+nodes' batteries are exhausted. Enabling good performance of the network as a
 whole requires adapting to variance in resource availability as it happens,
 and adjusting network behavior in ways that allow nodes with large amounts of
 energy to take on new roles and nodes with low batteries to reduce their
@@ -139,7 +145,7 @@ responsibilities.
 \textit{Problem Statement:} When disparities in energy availability emerge
 due to difference in load and charging rates at different nodes, adjust the
 network's behavior to tune the consumption of energy based on the
-application's goals.
+application's goals. Addressed in Chapter~\ref{chapter-idea}.
 
 \end{itemize}
 
@@ -161,7 +167,7 @@ This dissertation makes the following contributions:
 
 \item \textbf{Detailed evaluation of a scientific macroscope.} We have built
 and fielded the first sensor network designed to study active volcanos. After
-an initial pilot deployment, a system was designed giving careful
+an initial pilot deployment, we designed a system giving careful
 consideration to the scientific requirements. In total, we have performed
 three deployments of iterations of our system at active volcanoes in Ecuador.
 All three are summarized below:
@@ -176,16 +182,15 @@ collected over 54~hours of infrasonic signals.
 
 \item \textbf{August, 2005, Reventador volcano:} This deployment featured a
 larger, more capable network consisting of sixteen nodes fitted with
-seismoacoustic sensors deployed in a 3~km linear array. Collected data was
-routed over a multi-hop network and over a long-distance radio link to a
+seismoacoustic sensors deployed in a 3~km linear array. Collected data
+traveled over a multi-hop network and across a long-distance radio link to a
 logging laptop located at the observatory 9~km away from deployment site.
 Over three weeks the network captured 230 volcanic events.
 
 \item \textbf{July, 2007, Tungurahua volcano:} We returned to Tungurahua
-Volcano in 2007 and deployed eight sensor nodes in order to test Lance, a
-framework for optimizing high-resolution signal collection. The network was
-operational for a total of 71~hours, during which time we downloaded 77~MB of
-raw data.
+Volcano in 2007 and deployed eight sensor nodes to test Lance, a framework
+for optimizing high-resolution signal collection. The network was operational
+for a total of 71~hours, during which time we downloaded 77~MB of raw data.
 
 \end{enumerate}
 
@@ -208,19 +213,19 @@ network collected.
 
 \item \textbf{Architecture optimizing data quality.} Given limited batteries
 and low-bandwidth links, sensor networks must carefully manage resource
-usage, particularly with an eye to how these decisions impact the quality of
+usage, particularly with an eye to how these decisions affect the quality of
 the data provided to the application. Many sensor networks attempt to balance
 the cost and utility of actions taken by the network, but do so in ad-hoc
 ways embedded in application-specific logic.
 
-Lance provide an architectural solution to the problem of optimizing reliable
-data collection for high data-rate sensor network applications. Lance is
-based on two observations that emerged during the evaluation of our 2005
-volcano deployment. First, given the low-bandwidth of sensor network radios,
-even with a moderately-sized network it was not possible to reliably extract
-all the data the nodes were collecting. Given the inevitability of data loss,
-Lance attempts to ensure that the subset of data that was downloaded provides
-the highest value to the application.
+Lance provides an architectural solution to the problem of optimizing
+reliable data collection for high data-rate sensor network applications.
+Lance is based on two observations that emerged during the evaluation of our
+2005 volcano deployment. First, given the low-bandwidth of sensor network
+radios, even with a moderately-sized network it was not possible to reliably
+extract all the data the nodes were collecting. Given the inevitability of
+data loss, Lance attempts to ensure that the subset of data that was
+downloaded provides the highest value to the application.
 
 Second, given the high power consumption of sensor network radios, the energy
 consumption associated with reliable data collection was the dominant source
@@ -245,7 +250,7 @@ network behavior to meet energy availability, it was limited in several
 respects. First, Lance relies on a centralized controller. Since the overhead
 of centralized control scales badly as the network size grows, this limits
 the applicability of this approach. Second, Lance's only way of effecting
-energy usage is in the choice of what data to retrieve from the network. This
+energy usage is in the choice of which data to retrieve from the network. This
 is appropriate for high data-rate networks where data download is the primary
 source of energy consumption, but not for networks where this is not the
 case.
@@ -264,9 +269,9 @@ application.
 The remainder of this dissertation is organized as follows. The next chapter
 (Chapter~\ref{chapter-related}) introduces sensor networks for volcano
 monitoring, a high data-rate application that we have studied in detail and
-which has motivated the architectural contributions outlined in this
-dissertation; it also presents related efforts aimed at building scientific
-sensor macroscopes using sensor network technology.
+that has motivated the architectural contributions outlined in this
+dissertation; it also presents other projects that have built sensor
+macroscopes using sensor network technology.
 
 Chapter~\ref{chapter-evaluation} presents the design and a detailed
 evaluation of a sensor network system built to study active volcanos.
