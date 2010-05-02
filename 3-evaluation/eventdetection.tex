@@ -60,7 +60,7 @@ it would be unnecessary to simultaneously record signals for one event while
 downloading another. As a result, we missed a number of impressive
 back-to-back eruptions typical of the activity at Reventador. It is worth
 noting that the variable number of event reports is itself a measure of the
-volcano's activity level and could be used to assess hazard levels. 
+volcano's activity level and could be used to assess hazard levels.
 
 \subsection{Event Detector Accuracy}
 \label{sec-eventdetectaccuracy}
@@ -100,14 +100,14 @@ The network could have failed to detect a seismic event for one of four
 reasons: (1) failure of individual nodes; (2) failure of the base station or
 radio modem; (3) the low sensitivity of our seismometers; or (4) failure of
 the event detection algorithm itself. To factor out the increased sensitivity
-of the broadband seismometers, we only consider the 174~events with SNR~$\geq
+of the broadband seismometers, we consider only the 174~events with SNR~$\geq
 10$ from both stations, which we expect the geophones should have been able
 to detect as well. Also, Section~\ref{evaluation-sec-robustness} has already
 addressed the question of uptime, so we focus here on the inherent accuracy
 of the event detector when the network was operating correctly. 136~of the
 174~broadband events occurred during times when the network was operational.
 Taking these two factors into account, the network's detection accuracy is
-still only about 5\%. 
+still only about 5\%.
 
 Recall that during a Fetch download cycle, nodes disabled sampling to avoid
 overwriting data in flash. Download cycles could take up to several minutes
@@ -117,7 +117,7 @@ new events. During the Fetch cycles on August 15, the broadband stations
 recorded 42~events, 24\% of the total events detected. This indicates that,
 all else being equal, the sensor network could have detected approximately
 24\% more events had we designed the protocol to sample and download
-simultaneously. 
+simultaneously.
 
 In the end, we believe that our low detection rate is the result of the
 parameters used in the EWMA-based event detection algorithm. These parameters
@@ -127,7 +127,7 @@ experiment with modifying them in the field, as it was difficult for us to
 immediately assess the scientific significance of the data our system was
 collecting. Indeed, using our algorithm with these same parameters on the
 broadband data for August~15 detects only 101~events, a fraction of the
-events chosen manually by an expert. 
+events chosen manually by an expert.
 
 Given that our event detection algorithm functioned as a binary classifier,
 the choice of EWMA parameters should have been performed more carefully. This

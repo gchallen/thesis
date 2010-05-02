@@ -15,12 +15,7 @@ Our volcano monitoring sensor station consists of a Moteiv TMote
 Sky~\cite{moteiv} wireless sensor network node, an 8~dBi~2.4GHz external
 omnidirectional antenna, one or more seismometers, a microphone, and a custom
 hardware interface board. An example node with components labeled is shown in
-Figure~\ref{evaluation-fig-node}.
-
-The TMote Sky is a descendant of the UC Berkeley Mica ``mote'' sensor node.
-It features a Texas Instruments MSP430 microcontroller, 48~kB of program
-memory, 10~kB of SRAM, 1~MB of external flash memory and a 2.4GHz Chipcon
-CC2420 IEEE 802.11.4 radio. The TMote Sky was designed to run
+Figure~\ref{evaluation-fig-node}.  The TMote Sky was designed to run
 TinyOS~\cite{tinyos-asplos00}, and all of our software development made use
 of this environment. We chose the TMote Sky for several reasons. The MSP430
 microprocessor provides a large number of configurable ports, easily
@@ -46,7 +41,7 @@ Anticipating a remote network location, D~cells provided the best combination
 of low cost, high capacity, and ready availability, and are able to power a
 node for over a week. Approximately 75\% of the power drawn by each node is
 consumed by the sensor interface board, primarily due to the high power
-consumption of the ADCs. 
+consumption of the ADCs.
 
 For sensors, nodes are fitted with either a Geospace Industrial GS-11
 geophone --- a single-axis seismometer with a corner frequency of 4.5~Hz,
@@ -80,7 +75,7 @@ storing the data in local flash memory. Nodes also transmit periodic status
 messages and participate in routing and time-synchronization protocols. When
 a node detects an interesting event, it routes a message to the base station
 laptop. If enough nodes report an event within a short time interval, the
-laptop initiates data collection which proceeds in a round-robin fashion.
+laptop initiates data collection, which proceeds in a round-robin fashion.
 Between 30~and~60~s of data is downloaded from each node with a reliable data
 collection protocol, ensuring that all buffered data from the event is
 retrieved. When data collection completes, nodes return to sampling and
@@ -99,14 +94,14 @@ from each node) it is infeasible to continuously transmit all sensor data.
 Rather, nodes are programmed to locally detect interesting seismic events and
 transmit event reports to the base station. If enough nodes trigger in a
 short time interval, the base station attempts to download the last 60~s of
-data from each node. This design forgoes continuous data collection for
-increased resolution following significant seismic events, which include
-earthquakes, eruptions, or long-period (LP) events, such as tremor. The
-download window of 60~s was chosen to capture the bulk of the eruptive and
-earthquake events, although many LP events can exceed this window (sometimes
-lasting minutes or hours). To validate our network against existing
-scientific instrumentation, our network was designed for high-resolution
-signal collection rather than extensive in-network processing.
+data from each node. This forgoes continuous data collection for increased
+resolution following significant seismic events, which include earthquakes,
+eruptions, or long-period (LP) events, such as tremors. The download window
+of 60~s was chosen to capture the bulk of the eruptive and earthquake events,
+although many LP events can exceed this window (sometimes lasting minutes or
+hours). To validate our network against existing scientific instrumentation,
+our network was designed for high-resolution signal collection rather than
+extensive in-network processing.
 
 Sampled data is stored in the local flash memory of the node, which is
 treated as a circular buffer. Each block of data is timestamped using the
@@ -135,8 +130,8 @@ station laptop. If the base station receives triggers from 30\% of the active
 nodes within a given time window, the laptop initiates data collection from
 the entire network, including nodes that did not report the event. This
 global filtering prevents spurious event detections from triggering a data
-collection cycle. Because nodes can only buffer 20 minutes of eruption data
-locally each, and data collection from the entire network may exceed this
+collection cycle. Because each node can buffer only 20 minutes of eruption
+data locally, and data collection from the entire network may exceed this
 envelope (we found that fetching 60~s of data from 16 nodes takes over 1
 hour) each node pauses sampling and reporting events until its data has been
 uploaded.
@@ -157,7 +152,7 @@ number of \textit{chunks}, each sent in a single radio message. The base
 station laptop retrieves a block by flooding a request to the network using
 \texttt{Drip}, a variant of the TinyOS \texttt{Trickle}~\cite{trickle}
 data-dissemination protocol. The request contains the target node ID, the
-block sequence number, and a bitmap identifying missing chunks in the block. 
+block sequence number, and a bitmap identifying missing chunks in the block.
 
 The target node replies by sending the requested chunks over a multihop path
 to the base station. The routing tree is constructed using
@@ -192,7 +187,7 @@ routing tree, buffer status, local and global timestamps, battery voltage,
 and other information. In addition, the base station can issue a
 \textit{command} to each node, instructing it to respond with an immediate
 status message, start or stop data sampling, and set various software
-parameters. 
+parameters.
 
 We developed a Java-based GUI for monitoring the network's behavior and
 manually setting parameters, such as sampling rates and event detection

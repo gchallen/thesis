@@ -5,9 +5,9 @@ The first evaluation metric that we consider is the \textit{robustness} of
 the sensor network. Sensor network deployments have typically been plagued by
 failures of individual nodes and the support infrastructure. Clearly,
 robustness has a direct effect on the resulting data yield. Our evaluation
-shows that while nodes exhibited very high uptimes, the base station
-infrastructure was very unreliable, and a single bug affecting the Deluge
-protocol caused a three-day outage of the entire network.
+shows that while nodes exhibited high uptimes, the base station
+infrastructure was unreliable, and a single bug affecting the Deluge protocol
+caused a three-day outage of the entire network.
 
 \subsection{Overall Network Uptime}
 
@@ -36,7 +36,7 @@ the first on August~1 and the second on August~3. At label (1) the entire
 16~node network is operational. However, initial software misconfiguration
 required rebooting several nodes during a third visit to the deployment site
 on August~5. The network then ran with 16~nodes active for a little more than
-2~days. 
+2~days.
 
 \item \textbf{(2)} At label (2) on August~8, a software command was
 transmitted to reboot the network, using Deluge~\cite{deluge}, in an attempt
@@ -47,11 +47,11 @@ on August~8.
 
 \item \textbf{(3)} After repeated attempts to recover the network, we
 returned to the deployment site on August~11 (label (3)) to manually
-reprogram each node. 
+reprogram each node.
 
 \item \textbf{(4)} However, only 11~nodes could be reached before nightfall,
 forcing a return to the observatory. On August~12 (label (4)) we returned to
-the deployment site and reprogrammed the remaining 5~nodes. 
+the deployment site and reprogrammed the remaining 5~nodes.
 
 \item \textbf{(5)} From August~13 through 18, all 16~nodes were reporting
 nearly continuously. The intermittent failures (label (5)) were caused by
@@ -93,7 +93,7 @@ failures did not affect individual nodes, the middle bar shows the apparent
 uptime including only the 3-day outage. In this case, the mean node uptime
 is~69\%. However, with the 3-day outage factored out, nodes achieved an
 average uptime of~96\%. These numbers are encouraging and suggest that the
-sensor nodes were very reliable in spite of the software crash.
+sensor nodes were reliable in spite of the software crash.
 
 Based on discussions with the authors of Deluge, we believe this failure was
 caused by a single bug in the \texttt{InternalFlash} TinyOS component (which

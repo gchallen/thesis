@@ -4,7 +4,7 @@
 \begin{figure}[t!]
 \begin{center}
 \includegraphics[width=\hsize]{./3-evaluation/figs/globaltimeproblem.pdf}
-\end{center} 
+\end{center}
 
 \caption{\textbf{Example of observed FTSP instability.} The global time value
 reported by sensor nodes and the GPS node is plotted against the time that
@@ -57,17 +57,17 @@ In this section, we provide an overview of the time synchronization errors
 observed in the field. We then present a novel \textit{time rectification}
 technique that allows us to recover accurate timing despite protocol
 failures. We evaluate our approach through lab experiments with a known,
-ground-truth timebase, and by comparing our signals with signals recorded by
+ground-truth timebase and by comparing our signals with signals recorded by
 the colocated data loggers.
 
 \subsection{Time Synchronization Architecture}
 
 We chose to use the Flooding Time Synchronization Protocol
 (FTSP)~\cite{ftsp}, an existing protocol developed for wireless sensor nodes.
-In the original FTSP work~\cite{ftsp}, timing errors of less than 67~$\mu$s
-were reported for an 11-hop network of Mica2 nodes. We verified in our
-testbed that FTSP provided a 90th-percentile time error of under 2.1~ms in a
-5-hop linear network of TMote Sky nodes.
+The original FTSP work~\cite{ftsp} reports timing errors of less than
+67~$\mu$s for an 11-hop network of Mica2 nodes. We verified in our testbed
+that FTSP provided a 90th-percentile time error of under 2.1~ms in a 5-hop
+linear network of TMote Sky nodes.
 
 A single MicaZ sensor node was used as the root of the FTSP synchronization
 tree. It interfaced to a Garmin GPS receiver and received a 1~Hz interrupt
@@ -106,12 +106,11 @@ Figure~\ref{evaluation-fig-globaltimeproblem} shows an example of the FTSP
 instability observed in the field. The global time reported by two nodes
 suddenly jumps off by several hours, and the nodes do not resynchronize until
 rebooted 4.5~hours later. It turns out that two bugs conflated to cause this
-problem. First, it was discovered that the TinyOS clock driver would
-occasionally return bogus local timestamps. This bug was fixed in February
-2006, several months after our deployment. Second, FTSP does not check the
-validity of synchronization messages, so a node reading an incorrect value
-for its local clock can corrupt the state of other nodes, throwing off the
-global time calculation.
+problem. First, the TinyOS clock driver would occasionally return bogus local
+timestamps. This bug was fixed in February 2006, several months after our
+deployment. Second, FTSP does not check the validity of synchronization
+messages, so a node reading an incorrect value for its local clock can
+corrupt the state of other nodes, throwing off the global time calculation.
 
 \begin{figure}[t]
 \begin{center}
@@ -191,13 +190,13 @@ regression on the remaining timestamps.}
 The goal of \textit{time rectification} is to assign a GMT timestamp to each
 sample in the recorded data. In order to do so, we build two models: one
 mapping a node's local time to global time, and another mapping global time
-to GMT. 
+to GMT.
 
 From those status messages that pass the filter, we build a piecewise linear
 model mapping \textit{LT} to \textit{GT} using a series of linear
-regressions. Models are constructed for each node separately, since local
-times vary significantly between nodes. Each regression spans up to 5~minutes
-of data and we initiate a new regression if the gap between subsequent
+regressions. We construct separate models for each node, since local times
+vary significantly between nodes. Each regression spans up to 5~minutes of
+data and we initiate a new regression if the gap between subsequent
 \textit{(LT, GT)} pairs exceeds 5~minutes. Each interval must contain at
 least two valid status messages to construct the model. We take the
 \textit{LT} value stored in each data block and use this model to recover the
@@ -259,10 +258,10 @@ instabilities similar to those seen during our deployment.
 \begin{table}[t]
 \begin{center}
 \begin{tabular}{|lll|} \hline & \textbf{Raw error} & \textbf{Rectified error} \\ \hline
-\textbf{1 hop}, 50th percentile & 1.52 ms & 1.42 ms \\ 
-\textbf{1 hop}, 90th percentile & 9.86 ms & 6.77 ms \\ \hline 
-\textbf{6 hops}, 50th percentile & 2.63 ms & 2.18 ms \\ 
-\textbf{6 hops}, 90th percentile & 13.5 ms & 6.8 ms \\ \hline 
+\textbf{1 hop}, 50th percentile & 1.52 ms & 1.42 ms \\
+\textbf{1 hop}, 90th percentile & 9.86 ms & 6.77 ms \\ \hline
+\textbf{6 hops}, 50th percentile & 2.63 ms & 2.18 ms \\
+\textbf{6 hops}, 90th percentile & 13.5 ms & 6.8 ms \\ \hline
 \end{tabular}
 \end{center}
 
