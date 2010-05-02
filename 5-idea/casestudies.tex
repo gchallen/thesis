@@ -7,7 +7,7 @@ performance improvements that IDEA delivers for each application.
 
 \subsection{Energy-Aware Routing}
 
-The second example shows how to integrate IDEA with an existing routing
+The first example shows how to integrate IDEA with an existing routing
 protocol, namely the Collection Tree Protocol (CTP)~\cite{ctp-sensys09}. CTP
 is a spanning-tree routing protocol that is a standard component in
 TinyOS~\cite{tinyos-asplos00}. In CTP, each node selects its parent in the
@@ -30,6 +30,36 @@ considered, with the one producing the best energy objective score chosen.
 When $\alpha = 0$, ETX is not considered at all and parent selection is
 performed entirely on the basis of energy. Hence, $\alpha$ indirectly
 controls the degree of path stretch that is induced by energy awareness. 
+
+Making the link power a function of its usage requires that the radio be
+disabled when it is not in use. Low-power listening (LPL)~\cite{tinyos-lpl}
+enables radio duty-cycling without requiring nodes arrange fixed transmission
+schedules. It is well-suited for environments where network topologies and
+traffic patterns are highly variable, since these variations challenge
+duty-cycling techniques that assume \textit{a priori} knowledge of traffic
+patterns.
+
+The choice of LPL polling rate at a given node affects the continuous energy
+drain required to periodically poll the channel as well as the cost to other
+nodes to communicate with the given node. Assuming we model the radio as
+drawing $I_{listen}$ and $I_{transmit}$ mA of current in listen and transmit
+modes, respectively, then, given an interval between radio checks of $\gamma$
+sec, the current draw required to poll the channel is $\frac{1}{\gamma} \cdot
+t_{check} \cdot I_{listen}$, where $t_{check}$ is the time the radio must
+remain on to detect channel activity. The cost to transmit a packet to a node
+using an LPL interval of $\gamma$ is, on average, $\frac{\gamma}{2} \cdot
+I_{transmit}$. We can observe then that increasing $\gamma$ or polling the
+channel less frequently \textit{reduces} the current draw on the receiving
+node while \textit{increasing} the communication cost on sending nodes.
+
+When using LPL, nodes poll the radio channel at a fixed rate, listening for
+packets addressed to them. The radio is shut off when not polling or sending
+packets. To send a packet to another node the sender must know that node's
+polling interval, and repeatedly send the packet with reduced MAC backoffs
+until either the packet is acknowledged, ending the packet train and
+indicating a successful transmission, or the length of the packet train
+exceeds the receiver's polling interval, at which point the transmission
+fails.
 
 In order to build routes, CTP must periodically broadcast the current parent
 and ETX to neighboring nodes. ICTP adds additional information to these
@@ -88,7 +118,7 @@ achieving good performance.
 
 \subsection{Distributed Localization}
 
-The third case study illustrates how to use IDEA to control discrete, rather
+The second case study illustrates how to use IDEA to control discrete, rather
 than continuous, network behavior. We consider a system designed to perform
 acoustic source localization. Several previous systems have explored this
 application in different contexts, including urban sniper
@@ -101,12 +131,13 @@ Acoustic source localization involves calculating the location of an acoustic
 source by collecting arrival times at several stations and performing a
 back-azimuth computation. We assume a dense sensor network deployment, so
 that an acoustic event is detected by many sensors. We also assume that for
-each event, any set of four sensors that heard the event can correctly
-perform the localization to within the application's error tolerance. 
+each event, any set of four nodes that heard the event can correctly perform
+the localization to within the application's error tolerance, since this is
+the minimum number to overconstrain the localization calculation.
 
 A centralized approach to localization requires nodes to transmit data to a
 base station where the computation is performed. Because we assume that nodes
-cannot accurately compute an arrival time by only considering their own
+cannot accurately compute an arrival time by considering only their own
 sampled data, they must transmit a sizeable amount of data to the base
 station to implement the centralized strategy, with the bulk data transfer
 required producing a significant load on the nodes that heard the event as

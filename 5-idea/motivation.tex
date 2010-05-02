@@ -46,7 +46,7 @@ topology, with the energy required to reliably transfer a packet over each
 link shown. (To simplify the example we ignore receive costs, assume all
 nodes have the same data rate of one packet per second, and assume a powered
 sink.) The application attempts to localize events by collecting data from
-the network, and must use all four nodes, meaning that the loss of a single
+the network and must use all four nodes, meaning that the loss of a single
 node will render the network useless.
 
 Node~3 has two routes to the sink Node 0: $3,1,0$ and $3,2,0$. If Node~3
@@ -125,5 +125,5 @@ does above, changes in load distribution must be managed by the application
 based on its own goals and requirements. Had our application above been able
 to tolerate the loss of Node~1, it might have chosen to optimize charging at
 Nodes~2 and~3 in the third example. Respecting these differences, IDEA is
-designed to facilitate application-level input into its decision-making
+designed to incorporate application-level input into its decision-making
 process.

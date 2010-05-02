@@ -29,7 +29,7 @@ network applications. In IDEA, we use the term \textit{client} to refer to
 either an application (such as a tracking system) or an individual software
 component (such as a MAC, routing, or time synchronization protocol) that
 wishes to perform energy tuning. Clients interact with the IDEA runtime
-residing on each sensor node to make decisions that impact energy consumption
+residing on each sensor node to make decisions that affect energy consumption
 and data fidelity.
 
 Sensor network software components commonly operate by making local
@@ -46,7 +46,7 @@ IDEA guides the selection of the optimal state for each client component
 based on both the inherent value of that state (such as the path quality to
 the sink in a routing protocol) as well as the \textit{distributed energy
 impact} of choosing that state. In the case of routing, selecting a given
-parent impacts the energy of the parent as well as each node along the
+parent affects the energy of the parent as well as each node along the
 routing path to the sink. The ideal choice of a parent may change over time,
 for example, based on network load or energy availability. IDEA clients
 periodically reevaluate their current state and may switch to a new state if
@@ -54,7 +54,7 @@ it is deemed more desirable.
 
 IDEA quantifies the distributed energy impact of each state using an
 application-defined \textit{energy objective function}. Each state $s \in
-\mathcal{S}$ has a corresponding a energy load vector, $\bar{L}$, where each
+\mathcal{S}$ has a corresponding energy load vector, $\bar{L}$, where each
 component $L_i^n(s_n)$ represents the estimated energy load on node $i$ that
 will result from node $n$ setting its local state to $s_n$. We represent the
 current battery level (in joules) at node $i$ by $B_i$ and the current
@@ -145,16 +145,16 @@ communication overheads, reducing energy efficiency. Central control also
 precludes nodes from making rapid local changes to states, for example, to
 select a new parent in a routing tree if the current parent dies.
 
-IDEA seeks to perform optimization in a \textit{decentralized} fashion, with
-the goal of closely approximating the globally optimal solution. An important
-observation is that \textit{most state changes only the impact energy
+IDEA performs optimization in a \textit{decentralized} fashion, with the goal
+of closely approximating the globally optimal solution. An important
+observation is that \textit{most state changes only affect the energy
 consumption of a node's immediate neighbors}.\footnote{In the routing case
-referenced previously, while a node's choice of parent impacts all nodes
+referenced previously, while a node's choice of parent affects all nodes
 between it and the sink, it can only \textit{directly} control the load
 placed on its parent. The impact on nodes farther downstream is a function of
 other local choices.} Hence, nodes can perform a local optimization using
-information gathered from their neighbors. Although this approach does not
-ensure that the state assignment will be globally optimal, we show in
+information gathered locally. Although this approach does not ensure that the
+state assignment will be globally optimal, we show in
 Section~\ref{idea-sec-evaluation} that it efficiently approximates the
 optimal solution.
 

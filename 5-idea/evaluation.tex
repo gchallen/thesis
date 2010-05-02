@@ -1,10 +1,10 @@
 \section{Evaluation}
 \label{idea-sec-evaluation}
 
-To evaluate IDEA, we build and test the energy-aware component and
+To evaluate IDEA, we built and tested the energy-aware component and
 application described in Section~\ref{idea-sec-casestudies}. For the routing
 component, we compare the performance of our IDEA-based implementations to an
-approaches that is not energy-aware. For the application, we use IDEA to
+approach that is not energy-aware. For the application, we use IDEA to
 implement several energy objective functions and compare their performance
 against each other and against a heuristic that does not consider energy
 availability.
@@ -22,7 +22,7 @@ to run longer experiments incorporating various solar charging models. To
 improve the realism of TOSSIM we began with a modified version developed for
 the Koala project~\cite{koala-ipsn08} and performed further modifications to
 correctly simulate the operation of low-power listening
-(LPL)~\cite{tinyos-lpl}, which is important to properly model the power
+(LPL), which is important to properly model the power
 consumption of the radio for the ICTP experiments. We use information
 collected on MoteLab to build a realistic TOSSIM radio model for our
 simulations. Finally, for the application we built a Python simulator to
@@ -189,8 +189,8 @@ function.}
 \subsection{Distributed Localization}
 
 To evaluate the distributed localization application we built a Python
-simulator, which improves significantly on TOSSIM performance at this scale
-and allowed rapid iteration and experimentation with different energy
+simulator, which improves significantly on TOSSIM performance for hundreds of
+nodes and allowed rapid iteration and experimentation with different energy
 objective functions. Our simulator models acoustic event sources within the
 sensor network, each of which triggers a distributed localization operation.
 The energy overheads of communication, both the leader election process and
@@ -237,7 +237,7 @@ functions:
 \begin{enumerate}
 
 \item \textbf{\texttt{Closest}:} produces a localization plan with the node
-closest to the event source as the aggregator and the next three closest
+closest to the event source as the aggregator and the three next closest
 nodes as signal providers. We assume a real solution would use an imperfect
 estimate of proximity such as total signal energy or signal-to-noise ratio,
 but for the simulations we use the known simulated event location to choose
