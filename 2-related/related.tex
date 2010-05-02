@@ -2,7 +2,7 @@
 \label{sec-relatedwork}
 
 This section discusses four kinds of related systems: ones designed to cope
-with high data-rates; ones designed to operate in scientific contexts, and
+with high data-rates, ones designed to operate in scientific contexts, and
 those related to Lance and IDEA, respectively.
 
 \subsection{High Data-Rate Sensing}
@@ -43,7 +43,7 @@ transmitted to a central location while eliminating the base station as a
 single point-of-failure.
 
 NetSHM implements reliable data collection using both hop-by-hop caching and
-end-to-end retransmissions. Their work explores the use of local computations
+end-to-end retransmissions. The work explores the use of local computations
 on sensors to reduce bandwidth requirements. Rather than a global
 time-synchronization protocol, the base station timestamps each sample upon
 reception. The \textit{residence time} of each sample as it flows from sensor
@@ -52,7 +52,7 @@ to deduce the original sample time.
 
 Several factors distinguish our work on volcano science from structural
 monitoring applications. First, structural monitoring networks typically
-either collect data following controlled excitations of a structure, or at
+either collect data following controlled excitations of a structure or at
 periodic intervals, which simplifies transmission scheduling. In our case,
 volcanic activity is bursty and highly variable, requiring more sophisticated
 approaches to event detection and data transfer. While the Golden Gate Bridge
@@ -74,10 +74,10 @@ address data fidelity issues.
 
 While many early environmental monitoring applications are characterized by
 low data-rates, some have focused on applications requiring high-speed data
-acquisition. A group at MIT led by Lew Girod has explored several generations
-of hardware and software solutions for distributed acoustic monitoring, with
-the driving application originally being monitoring colonies of
-marmots.~\cite{girod-marmots}. This work led to the Acoustic
+acquisition. An example application is monitoring colonies of marmots. A
+group at MIT led by Lew Girod has explored several generations of hardware
+and software solutions for distributed acoustic monitoring driven by this
+application~\cite{girod-marmots}. This work produced the Acoustic
 ENSBox~\cite{girod-ensbox}, a self-calibrating hardware solution designed to
 be easy to deploy in support of acoustic sensing applications. The ENSBox
 features an ARM processor, which puts it at a different point on the
@@ -100,7 +100,7 @@ time-synchronization, routing, and node localization that applications
 running in this environment can make use of. Once the program is written and
 installed on nodes, VoxNet includes a set of control and visualization tools
 intended to allow users to interact with the running system and view the data
-as it is collected. A system using VoxNet was deployed on 2008 at the Rocky
+as it is collected. A system using VoxNet was deployed in 2008 at the Rocky
 Mountain Biological Laboratory and used to study the alarm calls of marmots.
 Acoustic monitoring has scientific applications to other species as well, as
 a variety of animals and birds produce scientifically-interesting
@@ -145,10 +145,10 @@ deployment~\cite{berkeley-redwoods}, which involved 33~nodes monitoring the
 microclimate of a redwood tree for 44~days. Their study focuses on novel ways
 of visualizing and presenting the data captured by the sensor network, as
 well as on the data yield of the system. The authors show that the
-microclimactic measurements are consistent with existing models, but not
-ground truth of the data is established. This paper does highlight many of
-the challenges involved in using wireless sensors to augment or replace
-existing scientific instrumentation.
+microclimactic measurements are consistent with existing models, but ground
+truth of the data is not established. This paper does highlight many of the
+challenges involved in using wireless sensors to augment or replace existing
+scientific instrumentation.
 
 A group at UCLA has built a system for soil monitoring and deployed it in the
 AMARSS transect in the James Reserve, a biological field station operated by
@@ -159,13 +159,13 @@ has collected over 26~million measurements, which are retrieved periodically
 by a technician visiting the deployment site. The goal is to study the carbon
 cycle and estimate the flux of carbon dioxide from the soil.
 
-The largest challenge that faced these researchers was coping with missing
-data, and to address it they built a system called Suelo~\cite{suelo-sensys09}.
-Suelo is intended to aid human researchers in monitoring and assisting the
-health of the deployment, sense the soil-monitoring sensors used are quite
-fragile. Suelo monitors the readings capture by the network and tries to
-distinguish between ``interesting'' and ``faulty'' data, and to initiate human
-intervention when sensors require replacements or recalibration.
+The largest challenge facing these researchers was coping with missing data.
+To address it, they built a system called Suelo~\cite{suelo-sensys09}.  Suelo
+is intended to aid human researchers in monitoring and assisting the health
+of the deployment, sense the soil-monitoring sensors used are quite fragile.
+Suelo monitors the readings capture by the network and tries to distinguish
+between ``interesting'' and ``faulty'' data, and initiating human
+intervention when sensors require replacement or recalibration.
 
 Computer scientists at UMass Amherst have been deploying GPS-enabled sensors
 to study the movement of a threatened species of turtle. This work led to
@@ -248,12 +248,12 @@ nearby.
 
 Quanto~\cite{quanto-osdi08} provides a framework for tracking and
 understanding energy consumption in embedded sensor systems. The existence of
-systems like Quanto was a primary motivation for IDEA, since the visibility
-distributed resource tracking provides creates an opportunity to adapt to
-changes in availability across the network. Currently IDEA requires that
-components model their own energy consumption, which may be difficult for
-components with complex behavior. We are exploring integrating Quanto into
-IDEA to provide more precise tracking of energy at runtime, which could
+systems such as Quanto was a primary motivation for IDEA, since the
+visibility distributed resource tracking provides creates an opportunity to
+adapt to changes in availability across the network. Currently IDEA requires
+that components model their own energy consumption, which may be difficult
+for components with complex behavior. We are exploring integrating Quanto
+into IDEA to provide more precise tracking of energy at runtime, which could
 eliminate the need for component-specific modeling and ease the process of
 integrating applications with IDEA.
 
@@ -266,7 +266,7 @@ taking a series of actions. While SORA, using correctly set prices, could
 produce similar network-wide behavior to that enabled by IDEA, the connection
 between prices and the behavior of the network is not completely clear. IDEA
 simplifies the problem of global network control through the energy objective
-function which directly expresses the application's goal.
+function which encapsulates the application's goal.
 
 Some work on energy-aware routing~\cite{ShahRabaey2002,381685} has addressed
 equitable energy distribution within the network by probabilistically

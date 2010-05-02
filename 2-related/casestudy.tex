@@ -1,35 +1,36 @@
 \chapter{Case Study and Related Work}
 \label{chapter-related}
 
-This chapter first presents a case study describing an application that we
-have studied in detail: volcano monitoring. We have built several generations
-of sensor networks designed to study eruptive activity at volcanos and
-deployed them in Ecuador. The second portion of this chapter reviews other
-efforts to build the scientific macroscope using sensor network technology.
+The first part of this chapter presents a case study describing an
+application that we have studied in detail: volcano monitoring. We have built
+several generations of sensor networks designed to study eruptive activity at
+volcanos and deployed them in Ecuador. The second part of the chapter reviews
+other efforts to build the scientific macroscope using sensor network
+technology.
 
 \section{Case Study: Volcano Monitoring}
 
 Beginning in 2004, computer scientists from Harvard University joined forces
 with seismologists from the University of New Hampshire, the University of
 North Carolina, and Instituto Geof\'{i}sico, Escuela Polit\'{e}cnica
-Nacional, Ecuador, to begin a collaboration aimed at using sensor networks to
-further the study of active volcanoes. From a simple starting point --- a
-handful of nodes streaming continuous data from a single sensor per node ---
-we have developed a sophisticated resource-aware architecture carefully
-balancing the value of the data to the application against the network-wide
-cost of extraction. These design changes were motivated by the science goals,
-responsive to changing hardware platforms, and driven by experience gained
-deploying prior iterations. 
+Nacional, Ecuador to begin a collaboration whose goal was to use sensor
+networks to further the study of active volcanoes. From a simple starting
+point --- a handful of nodes streaming continuous data from a single sensor
+per node --- we have developed a sophisticated resource-aware architecture
+carefully balancing the value of the data to the application against the
+network-wide cost of extraction. These design changes were motivated by the
+science goals, responsive to changing hardware platforms, and driven by
+experience gained deploying prior iterations.
 
 From the beginning of our work, providing high quality data has remained a
-part of our research agenda. This focus emerged out of both the scientific
-goals, and constraints of the devices we have deployed. Because seismologists
-are used to processing high-resolution data from multiple stations, wireless
-sensor networks --- while considerably less burdensome than existing
-instrumentation --- must provide data of similar quality before they can be
-used for scientific study. The scale made possible by rapid deployment
-promised by augmenting existing seismological instrumentation with wireless
-sensor network hardware is new, but the existence of data processing
+key part of our research agenda. This focus emerged from the scientific goals
+as well as the constraints of the devices we have deployed. Because
+seismologists are used to processing high-resolution data from multiple
+stations, wireless sensor networks --- while considerably less burdensome
+than existing instrumentation --- must provide data of similar quality before
+they can be used for scientific study. The scale made possible by rapid
+deployment promised by augmenting existing seismological instrumentation with
+wireless sensor network hardware is new, but the existence of data processing
 techniques means that the requirements are already firmly in place.
 
 Designing wireless sensor network applications in this space has required
@@ -55,7 +56,7 @@ source location and origin time of an earthquake, though using more seismic
 elements enhances hypocenter resolution and the understanding of source
 mechanisms. Understanding spatial and temporal changes in the character of
 volcanic earthquakes is essential for tracking volcanic activity, as well as
-predicting eruptions and paroxysmal events~\cite{McNutt96}. 
+predicting eruptions and paroxysmal events~\cite{McNutt96}.
 
 Another use of seismic networks is the imaging of the internal structure of a
 volcano through tomographic inversion. Earthquakes recorded by
@@ -73,29 +74,29 @@ back-azimuth calculations, and enhanced signal-to-noise recovery.
 
 \subsection{Scientific Requirements}
 
-\begin{figure}[t] 
-\begin{center} 
+\begin{figure}[t]
+\begin{center}
 \includegraphics[width=0.9\hsize]{./2-related/figs/NewCartoon.pdf}
-\end{center} 
+\end{center}
 \caption{\textbf{Sensors used for volcano monitoring.}}
-\label{introduction-fig-cartoon} 
+\label{introduction-fig-cartoon}
 \end{figure}
 
 The geophysics community has well-established tools and techniques used to
 process the signals extracted by volcanic data collection networks. These
 analytical methods require that our wireless sensor network provide data of
 extremely high fidelity. A single missed or corrupted sample can invalidate
-an entire record. Small differences in sampling rates between two nodes can
-frustrate analysis. Samples must be accurately time-stamped to allow
-comparisons between nodes and between networks.
+an entire portion of data. Small differences in sampling rates between two
+nodes can frustrate analysis. Samples must be accurately time-stamped to
+allow comparisons between nodes and between networks.
 
 An important feature of volcanic signals is that much of the data analysis
 focuses on discrete events, such as eruptions, earthquakes, or tremor
 activity. Although volcanoes differ significantly in the nature of their
 activity, during our deployment many of the interesting signals at Reventador
-spanned less than 60~s and occurred at the rate of several dozen per day.
-This allowed us to design the network to capture time-limited events, rather
-than continuous signals. 
+spanned fewer than 60 seconds and occurred at the rate of several dozen per
+day. This allowed us to design the network to capture time-limited events,
+rather than continuous signals.
 
 This is not to say that recording individual events is adequate to answer all
 of the scientific questions volcanologists pose. Indeed, understanding
@@ -106,10 +107,10 @@ on triggered event collection.
 
 \subsection{Existing Volcano Instrumentation}
 
-\begin{figure}[t] 
-\begin{center} 
+\begin{figure}[t]
+\begin{center}
 \includegraphics[width=0.9\hsize]{./2-related/figs/Standalone.pdf}
-\end{center} 
+\end{center}
 \caption{\textbf{Wired seismoacoustic monitoring station.}}
 \label{related-fig-standalone}
 \end{figure}
@@ -139,8 +140,8 @@ Additionally, data must be retrieved manually from each station every few
 weeks, involving significant effort. Analog or digital radio telemetry can
 enable real-time transmission of data back to an observatory, and is
 typically installed for monitoring stations intended to be permanent.
-However, existing telemetry equipment is very bulky and difficult to install,
-and its limited radio bandwidth is a problem for collecting continuous data
+However, existing telemetry equipment is bulky and difficult to install, and
+its limited radio bandwidth can preclude collecting large amounts of data
 from multiple channels.
 
 As a result, many short-duration scientific experiments use a stand-alone
@@ -150,23 +151,23 @@ stores data on a hard drive or Compact Flash card. However, these systems
 require data to be manually retrieved from the station prior to processing,
 which can be difficult or time-consuming depending on the location of the
 station and the duration of the intended deployment. Depending on the size of
-the recording media, a station may record several days or weeks' worth of
-data before it must be serviced.
+the recording media, a station may record several days or weeks worth of data
+before it must be serviced.
 
 \section{Opportunities for Wireless Sensor Networks}
 
-\begin{figure}[t] 
-\begin{center} 
+\begin{figure}[t]
+\begin{center}
 \begin{tabular}{ccc}
 \includegraphics[width=0.3\hsize]{./2-related/figs/TMoteSky.pdf} &
 \includegraphics[width=0.3\hsize]{./2-related/figs/GS1.pdf} &
 \includegraphics[width=0.3\hsize]{./2-related/figs/GS11.pdf} \\
 \textbf{(a)} & \textbf{(b)} & \textbf{(c)} \\
 \end{tabular}
-\end{center} 
+\end{center}
 
 \caption{\textbf{Equipment used by our volcano-monitoring sensor network.}
-From right to left: (a) a TMote Sky sensor ``mote''; (b) a GS-1 1Hz
+From left to right: (a) a TMote Sky sensor ``mote''; (b) a GS-1 1Hz
 seismometer; (c) a GS-11 4.5Hz seismometer, or ``Geophone''. Both
 seismometers are passive, single-axis instruments. The GS-1 is significantly
 more expensive and accurate. Our deployment used primarily GS-11's, due to
@@ -183,8 +184,8 @@ GPS, tilt-meter, optical thermal, and gas flux. Volcanic sensors range from
 widely dispersed instrument networks to more confined sensor arrays. An
 individual sensor station could consist of a single sensor (e.g., seismometer
 or tilt sensor), or an array of several closely-spaced ($10^2$ to $10^3$~m
-aperture) wired sensors, perhaps of different types.  Multiple stations may
-be integrated into a larger network installed over an extended azimuthal
+aperture) wired sensors, perhaps of different types. Multiple stations may be
+integrated into a larger network installed over an extended azimuthal
 distribution and radial distance ($10^2$ to $10^4$~m) from the volcanic vent.
 Data from various stations may be either recorded continuously or as
 triggered events and the acquisition bandwidth depends upon the specific data
