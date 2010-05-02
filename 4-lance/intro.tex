@@ -30,8 +30,8 @@ energy management for reliable signal collection in wireless sensor networks.
 In Lance, each node acquires data at potentially high rates. For each
 application data unit (ADU), each node generates a concise ADU
 \textit{summary}, which is periodically sent to the base station and used to
-compute a ADU \textit{value}. Lance computes an ADU \textit{download
-schedule} based on these values, and uses a reliable transfer protocol to
+compute an ADU \textit{value}. Lance computes an ADU \textit{download
+schedule} based on these values and uses a reliable transfer protocol to
 download ADUs according to this schedule.
 
 Energy usage and battery lifetime are major concerns for long-term sensor
@@ -39,7 +39,7 @@ network deployments. Lance incorporates a \textit{cost estimator} that
 predicts the energy cost for reliably downloading each ADU from the network.
 We describe a novel energy cost estimation algorithm that uses information on
 the network topology to determine the energy cost at the sensor node hosting
-the ADU as well as intermediate nodes impacted by the multihop transfer
+the ADU as well as intermediate nodes affected by the multihop transfer
 protocol. Information from the cost estimator is used to adjust the download
 schedule for ADUs, allowing Lance to target a battery lifetime for the
 network by load-balancing download operations in a manner that adheres to an
@@ -61,8 +61,8 @@ Lance emerged as a direct result of our field experiences at Reventador
 volcano in 2005. We were frustrated by our network's inability to collect all
 sampled data, and, given it's relatively modest size (16~nodes), we
 anticipated this problem impeding future efforts to deploy large scientific
-macroscopes at scale. Our 2005 volcano monitoring system strove to identify
-and acquire the most ``interesting'' signals --- such as earthquakes and
+macroscopes. Our 2005 volcano monitoring system strove to identify and
+acquire the most ``interesting'' signals --- such as earthquakes and
 explosions --- and thereby avoid wasting resources on ``uninteresting''
 signals. However, like other approaches ours was too tailored to our target
 application and too embedded in application-specific code.
@@ -70,7 +70,7 @@ application and too embedded in application-specific code.
 We saw an opportunity for an architectural solution to coordinated resource
 management that would optimize the application-specific value of the data
 acquired. Such an architecture would both improve the performance of our
-volcano-monitoring macroscope while also benefiting other high data-rate
+volcano-monitoring macroscope while benefiting other high data-rate
 applications. We have been able to validate the performance of Lance and
 demonstrate its utility both to our volcano-monitoring application and to a
 body sensor network designed to monitor patients with neuromuscular disease.
@@ -90,11 +90,10 @@ energy management framework for high-data-rate sensor networks.
 which offer a clean separation of policy and mechanism that allows the system
 to be tailored to a broad range of applications.
 
-\item Section~\ref{lance-sec-adaptation} discusses the process of
-adapting our volcano-monitoring system to the Lance architecture and also
-point out other applications that are a good fit for this approach.
-Throughout the rest of the chapter we focus on the volcano-monitoring example
-in detail.
+\item Section~\ref{lance-sec-adaptation} discusses the process of adapting
+our volcano-monitoring system to the Lance architecture and also points out
+other applications that are a good fit for this approach.  Throughout the
+rest of the chapter we focus on the volcano-monitoring example in detail.
 
 \item Section~\ref{lance-sec-evaluation} shows through detailed simulation
 measurements that Lance achieves \textit{near optimal} efficiency (greater
