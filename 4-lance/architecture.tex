@@ -299,12 +299,12 @@ the background level.
 The Lance optimizer is responsible for scheduling ADUs for download, based on
 knowledge of the set of ADUs currently stored by the network, their
 associated values, and the costs of downloading them. ADU download itself is
-accomplished using a reliable transfer protocol such as
-Fetch~\cite{volcano-osdi06} or Flush~\cite{flush-sensys07}. In our design,
-Lance attempts to download a single ADU at a time, in order to prevent
-network congestion, although it may be possible to download multiple ADUs
-simultaneously, depending on the network topology. A download completes
-either when the entire ADU has been received or a timeout occurs.
+accomplished using a reliable transfer protocol (such as Fetch or
+Flush~\cite{flush-sensys07}). In our design, Lance attempts to download a
+single ADU at a time, in order to prevent network congestion, although it may
+be possible to download multiple ADUs simultaneously, depending on the
+network topology. A download completes either when the entire ADU has been
+received or a timeout occurs.
 
 Lance's optimization process attempts to maximize the value of the ADUs
 retrieved while adhering to the lifetime target $L$. In essence, we seek a
