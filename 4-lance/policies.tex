@@ -5,16 +5,16 @@ Policy modules provide an interface through which applications can tune the
 operation of the Lance optimizer. Since policy modules are loaded into the
 system at the base station, they can be modified at any time without
 necessitating reprogramming of the sensor nodes themselves. In this section
-we provide a general discussion of policy modules and provide a series of
-examples of various policies that can be implemented through this feature.
+we provide a general discussion of policy modules and examples of policies
+that can be implemented using this feature.
 
 \subsection{Definitions}
 
 A policy module is an application-supplied function that takes as input an
-ADU summary tuple $a_i = \{ i, n_i, t_i, d_i, \bar{c}_i, s_i, v_i \}$ and
-produces a new tuple $a'_i$ with a possibly modified value $v'_i$. Policy
-modules run at the base station, can maintain internal state, and operate
-with global knowledge of the ADUs stored in the network.
+ADU $a_i = \{ i, n_i, t_i, d_i, \bar{c}_i, s_i, v_i \}$ and produces a new
+ADU $a'_i$ with a possibly modified value $v'_i$. Policy modules run at the
+base station, can maintain internal state, and operate with global knowledge
+of the ADUs stored in the network.
 
 A series of policy modules $\{m_1, m_2, ... m_n\}$ are composed into a linear
 chain, which is passed the ADU information extracted from the ADU summary
@@ -42,7 +42,7 @@ such as Deluge~\cite{deluge} permit over-the-air reprogramming, any changes
 to the sensor node software could result in unexpected failures that can be
 very difficult to debug without manual intervention. On the other hand,
 introducing new policy modules at the base station is relatively
-straightforward, and can be quickly reversed without risking sensor node
+straightforward and can be quickly reversed without risking sensor node
 failures.
 
 \subsection{Example policy modules}
@@ -143,7 +143,8 @@ fewer than $k$ ADUs above the threshold, and assigns the max value across the
 set to all ADUs. This can be useful in systems that wish to perform
 collection of time-correlated data, but avoid spurious high-value data from
 just a few nodes. This policy is similar to the volcanic earthquake detector
-reported in~\cite{volcano-osdi06}, expressed as a simple policy module chain.
+discussed in Section~\ref{evaluation-sec-eventdetection}, expressed as a
+simple policy module chain.
 
 \item \textbf{Cost-based filtering:} Lance's optimizer considers both the
 cost of ADUs as well as their application-assigned values when making

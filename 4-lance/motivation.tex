@@ -3,10 +3,10 @@
 
 Wireless sensor networks are becoming more common for applications that focus
 on reliable collection of raw signals at relatively high sampling rates, as
-opposed to in-network aggregation of low-data-rate samples.  These
+opposed to in-network aggregation of low-data-rate samples. These
 applications generally make use of extensive offline analysis to study the
 collected data, and it is often infeasible or impossible to perform this
-computation within the network itself.  Even in cases where it is possible to
+computation within the network itself. Even in cases where it is possible to
 shift computation to the network, a system designer may wish to extract raw
 data occasionally for calibration or testing.
 
@@ -14,21 +14,21 @@ These systems typically record data to flash at each sensor node and make use
 of a reliable bulk-transfer protocol to collect data at a base station. Given
 that the network is capable of sampling data at a higher rate than it can be
 downloaded, it is not possible to collect the complete signal from all nodes.
-The system is therefore forced to make a decision about what data to collect
-and what to throw away. In most cases this decision is application-specific:
-for example, a volcanologist may be chiefly interested in a specific type of
-seismic tremor, while a doctor may be looking for a particular type of
-muscular tremor associated with a specific condition. The implication is that
-the system must be able to determine the intrinsic \textit{value} of a given
-signal to determine whether resources should be devoted to storing and
-downloading that signal.
+The system is therefore forced to make decisions about what data to collect
+and what to throw away. In most cases these decisions are
+application-specific: for example, a volcanologist may be chiefly interested
+in a specific type of seismic tremor, while a doctor may be looking for a
+particular type of muscular tremor associated with a specific condition. The
+implication is that the system must be able to determine the intrinsic
+\textit{value} of a given signal to determine whether resources should be
+devoted to storing and downloading that signal.
 
 The typical approach to download management is a FIFO model where downloads
 occur in a round-robin fashion across the network once a trigger occurs. In
 general, new data may be sampled and stored to flash while a download is
-taking place.  Therefore, the trigger frequency, download cycle duration and
+taking place. Therefore, the trigger frequency, download cycle duration and
 the number of nodes in the network all effect the amount of data captured by
-such an approach.  For example, the Flush~\cite{flush-sensys07} protocol
+such an approach. For example, the Flush~\cite{flush-sensys07} protocol
 achieves only 8~Kbps for a reliable transfer over multiple hops; the
 Fetch~\cite{volcano-osdi06} and Straw~\cite{ggb-ipsn07} protocols fare
 somewhat worse. The RCRT protocol~\cite{rcrt-sensys07} is designed for a case
@@ -38,7 +38,7 @@ incoming data rates exceed download capacity, FIFO download management can
 produce excessive delays between data acquisition and retrieval.
 
 Lance assumes that sensor nodes contain adequate flash storage to buffer
-signals prior to download.  While the popular TMote~Sky platform supports a
+signals prior to download. While the popular TMote~Sky platform supports a
 relatively small 1~MB flash, more recent sensor designs~\cite{shimmer} have
 several GB~of flash, and we expect this trend to continue. Rather than
 focusing on per-node storage, our primary concern is with limitations on
@@ -46,7 +46,7 @@ bandwidth and energy.
 
 Our goal is to develop a general-purpose approach to bandwidth and energy
 management that complements a reliable data-collection protocol. Such a
-system should have several key properties.  First, it should be
+system should have several key properties. First, it should be
 \textit{customizable}, allowing different applications to specify their own
 policies for storage management and bandwidth prioritization. Second, the
 system should target a range of optimization goals. Examples include
@@ -54,4 +54,4 @@ maximizing overall data priority, bounding energy consumption, maximizing
 temporal or spatial coverage of the collected data, or achieving fairness
 across sensor nodes. Third, the system should be decoupled from a specific
 routing protocol, reliable collection protocol, or sensor node platform,
-making it possible to leverage the system in different settings. 
+making it possible to leverage the system in different settings.

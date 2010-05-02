@@ -3,22 +3,22 @@
 
 As mentioned, the Lance approach grew out of challenges emerging from our
 2005 field deployment at Reventador. Although this system was successfully
-deployed, it exhibited several deficiencies which led to a significant loss
-of data~\cite{volcano-osdi06}.
+deployed, it exhibited several deficiencies that led to a significant loss of
+data.
 
 The first problem is that the decision used to download a given signal was
 based on a simplistic binary approach, based on the event-detection algorithm
 running on each node. As a result, the system could not prioritize certain
 events over others. The event-detector logic used a simple threshold scheme,
-and as reported in~\cite{volcano-osdi06}, the threshold was set too low,
-causing the network to trigger on less than 5\% of the actual seismic events.
+and as previously discussed in Section~\ref{evaluation-sec-eventdetection},
+the threshold was set too low, causing the network to trigger on less than
+5\% of the actual seismic events.
 
 The second problem was that following each trigger, the network initiated a
 \textit{nonpreemptive} download from every node in the network in a
 round-robin fashion. This policy caused the system to devote resources to
 downloading small precursor earthquakes that immediately preceded larger
-eruptions~\cite{volcano-osdi06}. As a result, many such larger events were
-not captured.
+eruptions. As a result, many such larger events were not captured.
 
 Finally, our 2005 system made no attempt to manage energy. As a result, the
 expected lifetime of the network is only about a week (using D-cell
@@ -59,7 +59,7 @@ is value-driven rather than FIFO. Also, Lance can download ADUs from
 different events out of order, avoiding the nonpreemptive download problems
 of the earlier system.
 
-While our original system was designed to capture short earthquakes, were
+While our original system was designed to capture short earthquakes, we were
 also interested in determining whether Lance could be used to capture
 different types of volcanic activity. For this, we make use of the Real-Time
 Seismic Amplitude Measurement (RSAM)~\cite{rsam}, which computes the average
@@ -94,17 +94,17 @@ signals to download. Two examples follow.
 
 \item \textbf{Structural monitoring:} Structural monitoring systems collect
 vibration waveforms from a building, bridge, or other structure in order to
-study structural properties and seismic response. In previous
-systems~\cite{netshm-emnets05,ggb-ipsn07}, data collection has been triggered
-manually or on a simple periodic schedule. Instead, Lance can be used to
-prioritize signals following an earthquake or forced excitation of the
-structure, similar to the EWMA and RSAM functions described earlier. To save
-energy, the system could choose a subset of nodes from which to download data
-to achieve a good spatial distribution across the structure. The size of the
-subset could be chosen depending on the strength of the excitation. In
-addition, policy modules can be used to perform periodic downloading of ADUs
-from each sensor for calibration, as well as to determine whether each sensor
-is still functioning properly.
+study structural properties and seismic response. Previous
+systems~\cite{netshm-emnets05,ggb-ipsn07} triggered data collection manually
+or on a simple periodic schedule. Instead, Lance can be used to prioritize
+signals following an earthquake or forced excitation of the structure,
+similar to the EWMA and RSAM functions described earlier. To save energy, the
+system could choose a subset of nodes from which to download data to achieve
+a good spatial distribution across the structure. The size of the subset
+could be chosen depending on the strength of the excitation. In addition,
+policy modules can be used to perform periodic downloading of ADUs from each
+sensor for calibration, as well as to determine whether each sensor is still
+functioning properly.
 
 \item \textbf{Animal habitat monitoring:} Habitat monitoring applications
 that deploy high-bandwidth sensors, such as microphones or cameras, are good

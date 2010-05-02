@@ -15,13 +15,12 @@ bandwidth to the body sensor network (including disconnections), depending on
 the patient's location.
 
 Use of low-power wireless sensors keeps the size and weight of each device
-down: for example, the wearable sensor node described
-in~\cite{parkinsons-embs07} measures $44 \times 20 \times 13$~mm and weighs
-just 10~g. While the sensor network is not spatially distributed, and all
-nodes are within a single radio hop of each other, the data rates greatly
-exceed the radio channel bandwidth: a single node will consume more than a
-quarter of the best-case radio capacity, assuming no protocol overhead or
-retransmissions.
+down: for example, the SHIMMER wearable sensor node~\cite{parkinsons-embs07}
+measures $44 \times 20 \times 13$~mm and weighs just 10~g. While the sensor
+network is not spatially distributed, and all nodes are within a single radio
+hop of each other, the data rates greatly exceed the radio channel bandwidth:
+a single node will consume more than a quarter of the best-case radio
+capacity, assuming no protocol overhead or retransmissions.
 
 Adapting the Lance system to support this medical monitoring application
 resulted in a system called Mercury~\cite{mercury-sensys09}. Mercury makes
@@ -94,7 +93,7 @@ is to enable continuous data collection for 12 to 18 hours each day, which
 approximates the interval between charges when the patient would be wearing
 the device. Depending on the lifetime being targeted and the initial battery
 charge, the Mercury driver computes an \textit{energy schedule} for each node
-and tries to ensure that the nodes discharge rate matches the schedule.  If
+and tries to ensure that the nodes discharge rate matches the schedule. If
 the node is consuming too much or two little energy, it will adjust the
 node's behavior to trade off application fidelity for lifetime.
 In~\cite{mercury-sensys09}, we implement and experiment with the following
