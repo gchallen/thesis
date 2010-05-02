@@ -22,9 +22,9 @@ development of Lance required a great deal of exchange between the domain and
 computer scientists involved. Seismologists are used to systems able to
 provide complete, high-fidelity signals from all stations spanning all time
 intervals. The capabilities of the instruments that they typically deploy
-have meant that they have not had to think about how to classify data once
-not all signals have been collected. Although they were initially quite
-hesitant, we were able to convince them that the ease of deployment and
+have meant that they have not had to consider classification techniques
+necessary when not all data can be collected. Although they were initially
+quite hesitant, we were able to convince them that the ease of deployment and
 promise of increased spatial resolution provided by our low-power devices
 made it worth abandoning complete temporal coverage. Once convinced, they
 were very helpful in suggesting ways to prioritize collected signals and
@@ -75,7 +75,7 @@ the entire system as seen by the application.
 
 Despite advances in this area, sensor networks have just begun to make
 inroads in augmenting and replacing existing scientific instrumentation. The
-macroscope is still a new instrument, and requires much more research and
+macroscope is still a new instrument and requires much more research and
 development before it can truly deliver the kind of views envisioned by de
 Rosnay.
 
@@ -84,14 +84,14 @@ and domain scientists in many areas. As described in
 Chapter~\ref{chapter-related}, parallel efforts have already succeeded in
 leveraging this technology to study animal habitats and behavior and a
 variety of natural environments. Moving forward we expect to see these kinds
-of scientific sensor networks defining an unique research agenda, with
+of scientific sensor networks defining a unique research agenda, with
 emphasis on scaling out to thousands or millions of nodes, delivering large
 amounts of high-fidelity data, and achieving perpetual operation predicated
 on improved energy-harvesting capabilities.
 
 These goals will continue to place pressure on key system capabilities
 developed by the research described in this dissertation. Resources will
-still be precious, and must be devoted to the most important information; and
+still be precious and must be devoted to the most important information; and
 energy availability will vary across the network in unpredictable ways,
 potentially threatening high-fidelity operation.
 
@@ -114,14 +114,13 @@ As far as IDEA, for future work we are interested in addressing the problem
 of cross-component interaction which would allow us to optimize the operation
 of several IDEA components running in the network simultaneously. This is
 complicated by the fact that there is likely to be dependencies between
-components that cause decisions made by one to affect others. As an example,
-the LPL intervals used by a node would effect the power cost to use the link
-seen by the routing protocol. Considering cross-component interaction also
-rapidly expands the search space when nodes try to identify the right local
-state to select. Currently we assume that the search space is small enough
-that we can search it exhaustively. Cross-component support may require that
-we develop more intelligent search strategies in order to allow this process
-to be performed on computationally-constrained devices.
+components that cause decisions made by one to affect others. Considering
+cross-component interaction also rapidly expands the search space when nodes
+try to identify the right local state to select. Currently we assume that the
+search space is small enough that we can search it exhaustively.
+Cross-component support may require that we develop more intelligent search
+strategies in order to allow this process to be performed on
+computationally-constrained devices.
 
 In addition we are investigating ways to model the impact of node failure on
 other nodes. Many sensor network protocols will try to work around nodes
