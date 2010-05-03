@@ -73,7 +73,7 @@ Likewise, this state assignment has an associated application-defined
 state --- for example, minimizing path length in a routing protocol. The
 choice of $u(S)$ can be provided by the application as a static function, or
 learned over time by measuring application quality as it runs. IDEA is
-agnostic as to its form as it is evaluated online. 
+agnostic as to its form as it is evaluated online.
 
 The system's goal is to determine the optimal state \[ S^\star = \arg
 \max_{S} O(\bar{L}(S), \bar{B}, \bar{C}) \cdot \alpha + u(S) \cdot
@@ -101,7 +101,7 @@ work.
 Before describing the IDEA system itself, we first consider the space of
 energy optimization goals that the system can target. We expect that
 different applications will allocate energy differently, and the objective
-function allows the behavior of IDEA to be tuned to meet a variety of needs. 
+function allows the behavior of IDEA to be tuned to meet a variety of needs.
 
 Examples of possible objective functions include:
 
@@ -174,7 +174,7 @@ optimal solution.
 
 Figure~\ref{idea-fig-architecture} provides an overview of the IDEA
 architecture. Each node \textit{monitors} its own load rate, charging rate,
-and battery level.  Monitoring output is passed to a \textit{modeling
+and battery level. Monitoring output is passed to a \textit{modeling
 component} that produces models of load and charging behavior. Model
 parameters are distributed to other nodes via a \textit{data sharing}
 component, which maintains a distributed table allowing energy information to
