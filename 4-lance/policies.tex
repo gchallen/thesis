@@ -179,3 +179,33 @@ percentile. The filter threshold can also be adjusted online based on the
 vaue distribution as ADUs are sampled.
 
 \end{itemize}
+
+\subsection{Interaction with ADU Summary Delivery}
+
+The policy module chain is invoked each time a new summarization message
+arrives at the base station. Once the application has assigned an initial
+value, the ADU is passed to the policy module chain for processing. Note that
+ADU inputs may stall along the policy module chain, or be grouped by policy
+modules, so that inserting a new ADU into the chain may produce that ADU as
+output, may not produce an output, or may produce a different ADU or set of
+ADUs as output.
+
+Note that policies modules like \texttt{correlated} which rely on information
+from multiple nodes have to cope with delayed or missing information
+resulting from dropped summarization messages. These policy modules will
+usually hold sets of ADUs while awaiting members that have not yet arrived,
+and then release a whole group at once after they have heard from a complete
+set of nodes or a timeout occurs. When data is missing or delayed, we expect
+different policy modules to respond differently. Some may choose to compute
+their functions over incomplete sets of ADUs, others may not and either set
+the values to zero (inhibiting download) or leave them unchanged when they
+cannot gather a complete set to operate over.
+
+Depending on the sensitivity of the policy modules in use to missing data,
+different summarization message formats can be used. For our experiments we
+send summarization messages each time an ADU is sampled, but which contain
+the last $k$ ADU summaries (up to the maximum packet size). This ensures
+that, if one is dropped, the next will contain the missing information. Other
+applications may want to reduce the summarization overhead further by not
+sending summarization messages each time an ADU is produced, with resulting
+higher delays in policy modules like \texttt{correlated}.
