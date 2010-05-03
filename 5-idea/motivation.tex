@@ -57,20 +57,29 @@ power consumption of the links $1,0$ and $2,0$, with no other information it
 still chooses the route though Node~1, which consumes less total energy per
 packet than the route through Node~2, 1.0~mJ per packet versus 2.0~mJ.
 
+To facilitate our discussion we define $B_n$, $C_n$ and $L_n$ as the
+battery in joules, charging rate in mJ per second, and non-routing load in mJ
+per second at Node $n$ respectively.  $R^{Route}_n$ represents the cost to
+Node $n$ assuming Node 3 uses the route indicated.  (Node~1 and Node~2 route
+directly to the sink.) The choice we are considering is between two possible
+load distributions, $R \in \mathcal{R}$, where:
+
+\begin{itemize}
+
+\item \textbf{$\mathbf{R^{3,1,0} = (0.0, 1.0, 1.0, 0.5)}$:} Node~1 uses 0.5~mJ sending
+its own packet and 0.5~mJ routing for Node~3. Node~2 uses 1.0~mJ sending its
+own packet. Node~3 uses 0.5~mJ sending its own packet to Node~1.
+
+\item \textbf{$\mathbf{R^{3,2,0} = (0.0, 0.5, 2.0, 1.0)}$:} Node~1 uses 0.5~mJ
+sending its own packet. Node~2 uses 1.0~mJ sending its own packet and 1.0~mJ
+routing for Node~3. Node~3 uses 1.0~mJ sending its own packet to Node~2.
+
+\end{itemize}
+
 The question we ask is, under what conditions will using route $3,1,0$ ---
 which consumes the least energy locally and globally --- actually
 \textit{harm} application performance?  We identify four situations where
-using the alternative route $3,2,0$ is the correct choice, each described
-below. To facilitate our discussion we define $B_n$, $C_n$ and $L_n$ as the
-battery in joules, charging rate in mJ per second, and non-routing load in mJ
-per second at Node $n$ respectively. The choice we are considering is between
-two possible load distributions, $R \in \mathcal{R}$, where $R^{3,1,0} =
-(0.0, 1.0, 1.0, 0.5)$ and $R^{3,2,0} = (0.0, 0.5, 2.0, 1.0)$. $R^{Route}_n$
-represents the cost to Node $n$ assuming Node 3 uses the route indicated.
-(Node~1 and Node~2 route directly to the sink.)  For example, $R^{3,2,0}_2$
-is 2.0 mJ because the cost to send a packet from Node~2 to Node~0 is 1.0 mJ
-and Node~2 must send two packets, one from Node~3 as well as a packet from
-the data generated locally at Node~2.
+using the alternative route $3,2,0$ is the correct choice:
 
 \begin{itemize}
 
