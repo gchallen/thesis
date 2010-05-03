@@ -283,10 +283,6 @@ constrained and cannot download data fast enough to exhaust the nodes'
 batteries. At high lifetime targets, the system is energy constrained and
 cannot download continuously without exhausting the nodes' batteries.
 
-\XXXnote{GWA: TODO: Add some text here.}
-
-\subsection{Limitations to \textit{cost-bottleneck}}
-
 \subsection{Bandwidth Adaptation}
 \label{lance-sec-eval-params}
 
@@ -308,6 +304,18 @@ be difficult. As shown in Figure~\ref{lance-fig-error}, even a 40\% error in
 each component of the cost vector $\bar{c}_i$ for a given ADU only degrades
 optimality by approximately 15\%. We conclude that accurate estimations of
 download costs are not strictly necessary to achieve good performance.
+
+Note that \textit{cost-bottleneck} depends on the ability to correctly
+identify the bottleneck node. This is critical as that is the node whose cost
+will be used to weight the value. In general we cannot compute the cost
+perfectly \textit{a priori}, as described above. If two nodes have similar
+values of $B(a_i,n)$ during the calculation of the bottleneck score, it is
+possible that, assuming some error in the cost vector $\bar{c}_i$, we will
+identify the wrong bottleneck and weight the value incorrectly. If the errors
+are evenly distributed then over time we expect these mistakes to even out.
+However, if there is a persistent miscalculation affecting one or both of the
+nodes then we may repeatedly identify the wrong node as the bottleneck,
+reducing optimality.
 
 \subsection{Testbed Experiments}
 \label{lance-sec-eval-policies}

@@ -335,10 +335,13 @@ cost than those located near the base station.
 
 The third scoring function, \textit{cost-bottleneck}, scales the ADU value
 $v_i$ by the cost to the node that is an energy bottleneck for downloading
-this ADU. That is, let $b$ represent the node with the minimum value of
-$E(b)$ such that $c_i^b > 0$. \textit{cost-bottleneck} sets the score
-$\hat{v}_i = v_i / c_i^b$. The intuition behind this scoring function is that
-the most energy-constrained node should be considered when scoring ADUs for
+this ADU. To do this we compute the percent of each node's remaining energy
+that would be consumed downloading this ADU. Given node $n$ and ADU $a_i$,
+$B(a_i,n) = c_i^n / E(n)$ scales the cost to the node by its remaining energy
+$E(n)$. Let $b$ be the node the maximum value of $B(a_i,n)$.
+\textit{cost-bottleneck} sets the score $\hat{v}_i = v_i / c_i^b$. The
+intuition behind this scoring function is that the node that is the most
+affected by a given transfer should be considered when scoring ADUs for
 download. We evaluate all three scoring functions in this chapter and show
 that they yield rather different results in terms of spatial distribution and
 energy efficiency.
