@@ -160,13 +160,19 @@ precludes nodes from making rapid local changes to states, for example, to
 select a new parent in a routing tree if the current parent dies.
 
 IDEA performs optimization in a \textit{decentralized} fashion, with the goal
-of closely approximating the globally optimal solution. An important
-observation is that \textit{most state changes only affect the energy
-consumption of a node's immediate neighbors}.\footnote{In the routing case
-referenced previously, while a node's choice of parent affects all nodes
+of closely approximating the globally optimal solution. Note that no
+solution, centralized or decentralized, can know the global state $S$. Since
+IDEA is decentralized, our goal is to limit the about of state that must be
+exchanged during the optimization process while maintaining an accurate
+enough approximation of the global state in order to allow the optimization
+to succeed.
+
+An important observation is that \textit{most state changes only affect the
+energy consumption of a node's immediate neighbors}\footnote{In the routing
+case referenced previously, while a node's choice of parent affects all nodes
 between it and the sink, it can only \textit{directly} control the load
 placed on its parent. The impact on nodes farther downstream is a function of
-other nodes' local choices.} Hence, nodes can perform a local optimization
+other nodes' local choices.}. Hence, nodes can perform a local optimization
 using information gathered from their neighbors. Although this approach does
 not ensure that the state assignment will be globally optimal, we show in
 Section~\ref{idea-sec-evaluation} that it efficiently approximates the
