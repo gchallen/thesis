@@ -15,7 +15,7 @@ Our volcano monitoring sensor station consists of a Moteiv TMote
 Sky~\cite{moteiv} wireless sensor network node, an 8~dBi~2.4GHz external
 omnidirectional antenna, one or more seismometers, a microphone, and a custom
 hardware interface board. An example node with components labeled is shown in
-Figure~\ref{evaluation-fig-node}.  The TMote Sky was designed to run
+Figure~\ref{evaluation-fig-node}. The TMote Sky was designed to run
 TinyOS~\cite{tinyos-asplos00}, and all of our software development made use
 of this environment. We chose the TMote Sky for several reasons. The MSP430
 microprocessor provides a large number of configurable ports, easily
@@ -61,7 +61,7 @@ requirements Before motivating and explaining our design we provide a
 high-level overview of typical network operation.
 Figure~\ref{evaluation-fig-architecture} outlines the main system components.
 
-\begin{figure}[t]
+\begin{figure}[t!]
 \begin{center}
 \includegraphics[width=0.7\hsize]{./3-evaluation/figs/architecture.pdf}
 \end{center}
@@ -139,6 +139,22 @@ uploaded.
 \subsection{Reliable Data Transmission and Time Synchronization}
 \label{evaluation-subsec-fetch}
 
+\begin{figure}[t!]
+\begin{center}
+\includegraphics[width=0.7\hsize]{./3-evaluation/figs/fetchprotocol.pdf}
+\end{center}
+
+\caption{\textbf{Operation of the \texttt{Fetch} data transfer protocol.}
+Fetch requests include the block and node ID and are propagated using a
+reliable broadcast protocol. 256~byte blocks are fragmented into 8~chunks,
+each sent in a single radio message. The sample transfer shows packets being
+lost during transmission and a repair operation which requests any missing
+chunks. Once all chunks for a block are received, the next block is
+requested.}
+
+\label{evaluation-fig-fetchprotocol}
+\end{figure}
+
 Extracting high-fidelity data from a wireless sensor network is challenging
 for two primary reasons. First, radio links are lossy and frequently
 asymmetrical. Second, low-cost crystal oscillators on sensor nodes have low
@@ -146,14 +162,16 @@ tolerances and so clock rates vary across the network. Much prior research
 has focused on addressing these challenges.
 
 We developed a reliable data-collection protocol, called \texttt{Fetch}, that
-retrieves buffered data from each node over a multihop network. Samples are
-buffered locally in \textit{blocks} of 256~B, tagged with a sequence number
-and timestamp. During transmission each requested block is fragmented into a
-number of \textit{chunks}, each sent in a single radio message. The base
-station laptop retrieves a block by flooding a request to the network using
-\texttt{Drip}, a variant of the TinyOS \texttt{Trickle}~\cite{trickle}
-data-dissemination protocol. The request contains the target node ID, the
-block sequence number, and a bitmap identifying missing chunks in the block.
+retrieves buffered data from each node over a multihop network.
+Figure~\ref{evaluation-fig-fetchprotocol} provides an overview of the
+protocol's operation. Samples are buffered locally in \textit{blocks} of
+256~B, tagged with a sequence number and timestamp. During transmission each
+requested block is fragmented into a number of \textit{chunks}, each sent in
+a single radio message. The base station laptop retrieves a block by flooding
+a request to the network using \texttt{Drip}, a variant of the TinyOS
+\texttt{Trickle}~\cite{trickle} data-dissemination protocol. The request
+contains the target node ID, the block sequence number, and a bitmap
+identifying missing chunks in the block.
 
 The target node replies by sending the requested chunks over a multihop path
 to the base station. The routing tree is constructed using
