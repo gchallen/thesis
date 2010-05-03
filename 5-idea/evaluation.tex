@@ -282,18 +282,52 @@ objective functions perform more poorly.}
 We began by experimenting with the \texttt{Closest}, \texttt{MaxEnergy} and
 \texttt{TotalEnergy} approaches. As Figure~\ref{idea-fig-ideavheuristics}
 shows, the \texttt{Closest} heuristic outperformed the two IDEA-based
-approaches.  However, when examining the energy density plot shown in
+approaches. However, when examining the energy density plot shown in
 Figure~\ref{idea-fig-localizationdensityvtime} for the \texttt{Closest}
 heuristic we could see that it led to concentrations of available energy on
-nodes at dense locations on the irregular grid. This is despite the uniform
-distribution of acoustic event sources, which one might expect to produce
-good energy load distribution without the need for tuning. After exploring
-several additional approaches we found an energy objective function capable
-of producing extremely good load distribution, the \texttt{WeightedEnergy}
-approach described above. Figure~\ref{idea-fig-ideavheuristics} shows that
-it outperforms \texttt{Closest}, increasing the network's lifetime by 15\%,
-while Figure~\ref{idea-fig-localizationdensityvtime} illustrates how it
-utilizes all the nodes' available energy. Our experience with the
-localization application illustrates the role of the proper energy objective
-function in enabling good application performance, and points to the
-increases in system lifetime possible through better energy distribution. 
+nodes at dense locations on the irregular grid, while \texttt{MaxEnergy} did
+a better job of exhausting all nodes simultaneously, as evidenced by the
+extremely sharp drop in network capability it produces. This is despite the
+uniform distribution of acoustic event sources, which one might expect to
+produce good energy load distribution without the need for tuning.
+
+Our analysis determined that the \texttt{MaxEnergy} suffers because it will
+always route data through extra nodes in order to reach the node with the
+most energy. So if that node is on the edge of the cluster of nodes that
+heard the event, energy may be consumed by nodes within the interior in order
+to allow the signal provides to communicate with the aggregator.
+\texttt{MaxEnergy} leads to an even usage of energy across the network, but a
+short lifetime, because it always prioritizes the distribution of energy over
+the amount consumed when choosing how to localize each event.
+
+In contrast, \texttt{Closest}, while it performs better, has the opposite
+problem. While it does not consider energy directly, the effect of the
+heuristic is to choose based on the total amount of energy consumed. By
+selecting the nodes closest to the event, the heuristic almost always leads
+to clusters where all signal providers can communicate with the aggregator,
+so no extra energy expenditures by other nodes for routing are needed.
+However, the non-uniform distribution of nodes means that some nodes more
+likely to be the closest node than others, leading to unequal energy
+distribution. While the lifetime is better than \texttt{MaxEnergy}, the
+existence of energy at some nodes once the capability drops below 90\% led us
+to believe that a hybrid approach was possible that would outperform both
+\texttt{MaxEnergy} and \texttt{Closest}.
+
+After exploring several additional approaches we found an energy objective
+function capable of producing extremely good load distribution, the
+\texttt{WeightedEnergy} approach described above.
+Figure~\ref{idea-fig-ideavheuristics} shows that it outperforms
+\texttt{Closest}, increasing the network's lifetime by 15\%, while
+Figure~\ref{idea-fig-localizationdensityvtime} illustrates how it utilizes
+all the nodes' available energy, achieving an even distribution similar to
+\texttt{MaxEnergy}. It does this by combining aspects of both earlier
+approaches. By weighing the total energy consumed it avoids the extremely
+high-energy localization plans that the \texttt{MaxEnergy} function will
+sometimes use. By also weighing the ``fit'' using the cosine similarity
+metric we address unequal energy distribution in a way that the
+\texttt{Closest} heuristic does not.
+
+Our experience with the localization application illustrates the role of the
+proper energy objective function in enabling good application performance,
+and points to the increases in system lifetime possible through better energy
+distribution. 
