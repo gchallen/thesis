@@ -64,10 +64,31 @@ the colocated data loggers.
 
 We chose to use the Flooding Time Synchronization Protocol
 (FTSP)~\cite{ftsp}, an existing protocol developed for wireless sensor nodes.
-The original FTSP work~\cite{ftsp} reports timing errors of less than
-67~$\mu$s for an 11-hop network of Mica2 nodes. We verified in our testbed
-that FTSP provided a 90th-percentile time error of under 2.1~ms in a 5-hop
-linear network of TMote Sky nodes.
+The original FTSP work reports timing errors of less than 67~$\mu$s for an
+11-hop network of Mica2 nodes. We verified in our testbed that FTSP provided
+a 90th-percentile time error of under 2.1~ms in a 5-hop linear network of
+TMote Sky nodes.
+
+FTSP works by using broadcast transmission and reception as a synchronous
+moment that can identify the same time in two different frames: the sender's
+and the receiver's\footnote{This ignores message propagation delay which,
+given the speed of light, is taken to be neglible.}. FTSP uses the time kept
+by a single node --- the FTSP root --- as the frame to which all other nodes
+are synchronized. It uses special radio hooks to timetstamp outgoing messages
+at the moment that they actually hit the air, which is typically different
+from the time that the FTSP component sent them due to MAC delays. Incoming
+messages are also timestamped at the moment of radio reception. By using
+these two timestamps, one in the sender's frame of reference, the other in
+the receiver's, a linear mapping from the sender's time to the receiver's can
+be constructed. This mapping accounts for both time \textit{offset}
+(resulting from nodes being booted or resetting their clocks at different
+times) and \textit{skew}, differences in clock rates caused by oscillator
+variation or environmental conditions. By performing a linear fit over only
+the last several received timestamps, FTSP also accounts for \textit{drift},
+slow changes in the oscillator rate over time. Each node participating in
+FTSP periodically broadcasts messages allowing neighbors to construct a
+timebase based on its own. This allows nodes multiple hops from the root node
+to synchronize to the global timebase.
 
 A single MicaZ sensor node was used as the root of the FTSP synchronization
 tree. It interfaced to a Garmin GPS receiver and received a 1~Hz interrupt
@@ -299,7 +320,7 @@ excellent match.}
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\hsize]{./3-evaluation/figs/timingscatterplot.pdf}
+\includegraphics[width=\hsize]{./3-evaluation/figs/timingscatterplot-cropped.pdf}
 \end{center}
 
 \caption{\textbf{Lag times between Node~213 and RVEN.} The best lag time
