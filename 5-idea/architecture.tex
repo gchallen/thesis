@@ -79,7 +79,21 @@ The system's goal is to determine the optimal state \[ S^\star = \arg
 \max_{S} O(\bar{L}(S), \bar{B}, \bar{C}) \cdot \alpha + u(S) \cdot
 (1-\alpha)\] where $\alpha$ represents the tradeoff factor between energy
 impact and intrinsic utility. Setting $\alpha=1$ optimizes only for energy;
-$\alpha=0$ only for application-defined utility. 
+$\alpha=0$ only for application-defined utility.
+
+Note that, while $\alpha$ parameterizes a trade-off between energy- and
+utility-driven optimization, because the metrics are probably expressed in
+different units and do not scale linearly, finding the $\alpha$ parameter
+that correctly expressing a given tradeoff is expected to be challenging, and
+may require an online search. However, this is not the only way that
+applications can combine energy awareness with other information. Another
+approach perhaps easier to reason about is to search for the best energy
+state given constraints on acceptable degradation to another metric. For
+example, a routing protocol concerned with delivery latency may bound the
+increase in latency at a given percentage of the minimum achievable and look
+for energy states meeting this constraint. A more complete treatment of the
+tradeoff between energy and other metrics is an important area of future
+work.
 
 \subsection{Energy Objective Functions}
 \label{idea-subsec-energyobjectivefunctions}

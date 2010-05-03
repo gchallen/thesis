@@ -122,6 +122,17 @@ Cross-component support may require that we develop more intelligent search
 strategies in order to allow this process to be performed on
 computationally-constrained devices.
 
+We are also concerned with better expressing the tradeoffs between
+energy-based performance metrics, such as lifetime, and other performance
+characteristics important to particular applications. This is challenging due
+to the fact that the multiple metrics are usually expressed in different
+units, making simple linear combinations difficult. We are hopeful that we
+can eventually present tradeoffs to the application designer of the following
+form: "Are you willing to increase the packet latency by $X$ seconds in order
+to achieve an increase in network lifetime of $Y$ seconds?" The answers to
+these queries can then be used to design a hydrid optimization function
+expressing the tradeoff properly.
+
 In addition we are investigating ways to model the impact of node failure on
 other nodes. Many sensor network protocols will try to work around nodes
 leaving the network or going offline, but this repair process is costly and
