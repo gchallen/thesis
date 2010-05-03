@@ -107,6 +107,30 @@ latency varies with the depth of the node in the routing tree.
 Figure~\ref{evaluation-fig-fetchlatency} compares Fetch latency for Nodes~200
 and 214, located 1~and~6 hops away from the sink, respectively. Node~200 had
 a median Fetch latency of 94~s, while Node~214 had a median latency of 409~s,
-about 63~s per hop. This is due to both increased delay for propagating Fetch
-command messages, as well as increasing packet loss and retransmission
-overheads as the data flows over multiple hops to the base.
+about 63~s per hop. This is due to several factors affected by increased node
+depth, including:
+
+\begin{itemize}
+
+\item \textbf{Transmission time:} as data travels over multiple hops, the
+time necessary to transmit a packet to the base station increases.
+
+\item \textbf{Command latency:} the Fetch protocol uses \texttt{Drip} to
+propagate its fetch and retry commands. \texttt{Drip} was built to support
+the reliable dissemination of slowly-changing state and is less well-suited
+to low-latency command propagation. In particular, nodes that receive drip
+broadcasts will process the command locally but, in order to avoid colliding
+with the broadcast they are receiving, will delay for an interval before
+rebroadcasting the command. This introduces an additional latency of, on
+average, 0.125~s per hop. Because we must send a command to request each
+256~byte block of data, and additional commands for retransmissions, this
+delay is significant and can dominate the time spent retrieving data.
+
+\item \textbf{Increased retransmissions:} as Fetch reply packets are
+propagated across multiple hops the probability that they will be dropped
+before reaching the base station grows. Retransmissions are expensive for two
+reasons. First, the base station must time out on a Fetch request before
+initiating retransmission. Second, they require sending the node an
+additional command, and so incur the command latency described above.
+
+\end{itemize}
