@@ -96,7 +96,7 @@ missing-fail: missing
 clean:
 	@/bin/rm -f $(PDF) *.dvi *.aux *.ps *~ *.log *.lot *.lof *.toc *.blg *.bbl url.sty *.out *.bak .embed.pdf
 
-install:: ssp xxxnote embed
+install:: ssp noxxxnote embed
 	scp $(PDF) werner@minitrue.eecs.harvard.edu:/home/werner/public_html/private/thesis/$(INSTALLDIR)/$(PDF)
 
 pages: $(PDF)
