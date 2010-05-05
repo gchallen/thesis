@@ -124,7 +124,20 @@ nodes~\cite{canetoad-tosn}. The second iteration explores compressive
 sampling techniques and also deploys a classification algorithm that can be
 run directly on the resource-constrained sensor nodes.
 
-\XXXnote{GWA: TODO: Add Cyclops and other camera-based sensor networks.}
+Camera-based sensor networks also produce high data-rates and have been the
+subject of considerable study. A group at UCLA built a system called
+Cyclops~\cite{cyclops-sensys05} which brings vision technology to sensor
+network devices by offering a low-power imaging devices better suited to mating
+with resource-constrained sensor nodes. They show that Cyclops nodes can
+successfully perform fundamental vision-recognition tasks such as object
+detection and hand posture recognition. Another team at UMass Amherst sees
+motes fitted with imagers as forming one tier of a multi-tier multi-modal
+($M^2$) sensor network~\cite{m2-nossdav05}. Such $M^2$ networks consist of
+several tiers operating at different power levels while attempting to combine
+the capabilities of multiple types of devices. The lowest tier might consist of
+low-power sensor nodes equipped with vibration sensors and be used to trigger
+the operation of more power-hungry devices --- such as
+Stargates~\cite{stargate} fitted with webcams --- in the upper tiers.
 
 \subsection{Scientific Sensing}
 
@@ -175,6 +188,50 @@ tries to make resource usage explicit to programmers by allowing them to
 annotate their code with energy states. At runtime, Eon will adapt the
 behavior of the node based on resource availability.
 
+Similar to our work in its application to environmental hazard mitigation,
+previous projects have explored sensor networks for flood and landslide
+detection, at MIT and John Hopkins University, respectively. The MIT system
+feeds data from a network of sensors into a model designed to predict
+rainfall-triggered flooding~\cite{basha-sensys08}. They were able to show the
+demonstrate the accuracy of their approach using data collected over multiple
+field deployments on Honduras between 2004 and 2007. JHU's approach to
+landslide detection employs sensor columns, vertical underground
+installations of several different sensors~\cite{landslide-sensys05}. When a
+portion of the deployed network detects that a slip surface is forming, nodes
+cooperate to estimate the position of the slip surface which is fed into a
+model that predicts whether and when a landslide will occur. Both of these
+projects differ from our work by involving significant modeling and
+prediction components, whereas we have focused primarily on raw data
+collection.
+
+Of particular interest is ongoing work at Washington State University using
+camera-dropped sensor networks to monitor the activity of Mt. St.
+Helens~\cite{wsuvolcano-mobisys09}. This project shares many of our goals,
+including ease of deployment and data fidelity, but differs in its focus on
+system lifetimes of up to 1~year, and in its aim to replace, rather than
+augment, existing volcano monitoring stations. The reliance on helicopter
+support while deploying nodes also leads to a different set of design
+decisions, including much larger batteries and more capable nodes.
+
+The WSU group uses an iMote2~\cite{imote2} sensor node, which shares the
+CC2420 802.15.4 radio with our TMote but features the PXA271 XScale processor
+with significantly more computational horsepower than the MSP430. The
+expanded form factor and power budget permits the use of GPS at each node,
+simplifying time sychronization (although FTSP is available as a backup if
+the GPS signal is lost).
+
+While the system aims to provide continuous data collection, the limited
+bandwidth of the 802.15.4 radios on each sensor node and the 900~MHz
+Freewave~\cite{freewave} modem used to maintain a connection with the
+observatory limit the data that can be collected. Similar to our
+volcano-monitoring system, an impulse detector implemented as a short-term
+average over long-term average (STA/LTA) is used to assign a priority to the
+data as it is collected. Data prioritization is used during data collection
+and routing to ensure that data from detected events reaches the observatory
+first. Currently the system works around energy limitations by using heavy
+AIR-ALKALINE batteries, which are feasible because the nodes are being
+deployed by helicopter.
+
 \section{Data Quality Optimization Frameworks}
 \label{lance-sec-related}
 
@@ -221,8 +278,6 @@ and could be used to process signal data prior to collection, although our
 focus is on collecting \textit{raw} sensor data from large networks. These
 systems do not attempt to optimize data collection under varying energy and
 bandwidth constraints. 
-
-\XXXnote{GWA: TODO: Add Vigilnet.}
 
 \section{Energy Load-Balancing Services}
 \label{idea-sec-related}
@@ -278,6 +333,17 @@ decentralized algorithm to tune optimum data collection rates in perpetual
 networks when static routes are used, all nodes route to a single sink, and
 the recharging profiles of the nodes are known ahead of time. Rate allocation
 could be implemented in IDEA and comparing the two is planned future work.
+
+VigilNet~\cite{vigilnet} is a target-tracking system that attempts to save
+energy by rotating ``sentry'' duties between a group of nearby nodes. Nodes
+that are not assigned as sentries can sleep and conserve energy while the
+sentry monitors the area. When an event occurs, the sentry awakes nearby
+nodes and initiates the tracking process. VigilNet assigns sentry duties
+based on each node's energy availability while trying to ensure that the
+entire area being monitoring is covered. Given the desire both to extend
+system lifetime and maintain a desired application fidelity, VigilNet could
+be implemented using IDEA, allowing both energy availability and harvesting
+to be considered when assigning setries.
 
 EnviroMic~\cite{enviromic} is a distributed acoustic storage system for
 sensor networks. When EnviroMic nodes hear an acoustic event, a leader is
