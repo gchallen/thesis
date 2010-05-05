@@ -232,6 +232,44 @@ GMT values assigned to the first sample in each block. This process makes no
 assumptions about sampling rate, which varies slightly from node to node due
 to clock drift.
 
+\subsection{Related Approaches}
+
+Our time rectification approach is similar to strategies developed to enable
+sound measurements of systems like the Internet~\cite{paxson-imc04}. Previous
+work has looked at this problem in the context of measuring packet transit
+times between two Internet hosts, with the hosts' clocks assumed to be
+independent, uncalibrated, and occasionally reset~\cite{paxson-sigmetrics98}.
+The tool that emerged is \texttt{tcpanaly}. One challenge is identifying
+clock adjustments, which can take place when machines reboot or attempt to
+recalibrate their clocks, affecting both the relative offset and skew between
+the sender-receiver pair. Their algorithm is similar to one that we use to
+detect discontinuities in nodes' local \textit{LT} values. However, we must
+distinguish between the two causes of these discontinuities --- node reboots
+and FTSP failures --- since they have different implications for the
+underlying accuracy of the \textit{GT} information from during that period.
+
+For dealing with skew \texttt{tcpanaly} must also cope with network effects
+such as queuing that can confuse simple linear fits. Instead, it uses a
+statistical test based on cumulative minima to distinguish between changes in
+relative skew and other factors that can influence one-way packet transit
+times. Another project developed a linear-programming approach to the skew
+removal problem and showed that it outperformed the statistical approach used
+by \texttt{tcpanaly} as well as linear regression~\cite{moon-mittechreport}.
+More recent work has proposed another approach using convex hulls, as well as
+addressing the problem of identifying clock resets~\cite{zhang-infocom02}.
+
+These prior approaches face a more difficult problem, since their data
+includes both signal (actual delays in the underlying packet transit times)
+as well as noise (clock skew and offset changes), complicating skew
+detection. Our piecewise linear fit would not be suitable for those
+environments but works well for the problem we face. Offset detection is more
+complicated for our system, however, since it may or may not indicate
+protocol errors. In practice we are aided by the fact that node reboots
+always reset the local clock offset to zero, allowing us to distinguish
+between the two causes of offset jumps. It is also significant that FTSP does
+not attempt to adjust the local clock in any way, preserving properties of
+the local clock important to our approach.
+
 \subsection{Evaluation}
 \label{evaluation-timing-postdeployment}
 
