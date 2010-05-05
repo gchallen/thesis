@@ -14,14 +14,17 @@ These systems typically record data to flash at each sensor node and make use
 of a reliable bulk-transfer protocol to collect data at a base station. Given
 that the network is capable of sampling data at a higher rate than it can be
 downloaded, it is not possible to collect the complete signal from all nodes.
-The system is therefore forced to make decisions about what data to collect
-and what to throw away. In most cases these decisions are
-application-specific: for example, a volcanologist may be chiefly interested
-in a specific type of seismic tremor, while a doctor may be looking for a
-particular type of muscular tremor associated with a specific condition. The
-implication is that the system must be able to determine the intrinsic
-\textit{value} of a given signal to determine whether resources should be
-devoted to storing and downloading that signal.
+These systems may employ lossless compression to reduce bandwidth
+requirements, but once the network grows large enough or sampling rates grow
+high enough the aggregate sampling rate will outstrip the bulk-transfer
+protocol's bandwidth. The system is therefore forced to make decisions about
+what data to collect and what to throw away. In most cases these decisions
+are application-specific: for example, a volcanologist may be chiefly
+interested in a specific type of seismic tremor, while a doctor may be
+looking for a particular type of muscular tremor associated with a specific
+condition. The implication is that the system must be able to determine the
+intrinsic \textit{value} of a given signal to determine whether resources
+should be devoted to storing and downloading that signal.
 
 The typical approach to download management is a FIFO model where downloads
 occur in a round-robin fashion across the network once a trigger occurs. In

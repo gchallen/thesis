@@ -40,7 +40,7 @@ deliver high-resolution data meeting strict timing requirements, but found
 flexibility in terms of providing a complete data set from every node
 covering all moments of time.
 
-\section{Overview of Seismoacoustic Monitoring}
+\subsection{Overview of Seismoacoustic Monitoring}
 
 Volcanic monitoring has a wide range of goals, related to both scientific
 studies and hazard monitoring. Figure~\ref{introduction-fig-cartoon} displays
@@ -154,7 +154,7 @@ station and the duration of the intended deployment. Depending on the size of
 the recording media, a station may record several days or weeks worth of data
 before it must be serviced.
 
-\section{Opportunities for Wireless Sensor Networks}
+\subsection{Opportunities for Wireless Sensor Networks}
 
 \begin{figure}[t]
 \begin{center}
@@ -238,5 +238,31 @@ cost. Instead, we rely on a network time synchronization
 protocol~\cite{rbs,ftsp} and a \textit{single} GPS receiver. However,
 correcting for errors in the time synchronization protocol requires extensive
 post-processing of the raw timestamps.
+
+\item \textbf{Estimating data quality.} Coping with bandwidth and energy
+limitations led us to develop approaches predicated on domain-specific
+notions of \textit{data quality}. Estimating the inherent \textit{value} of
+signals allows us to prioritize resource usage, devoting energy and bandwidth
+to the most interesting signals at the expense of uninteresting ones.
+However, our attempts to measure quality for this application were challenged
+by the continuous-recording capability of wired data loggers which have
+allowed the volcano science community to not confront this issue. Because
+they are used to working with complete signals spanning long time intervals,
+our collaborators were unable to predict how the data loss due to resource
+limitations would affect their scientific outcomes.
+
+The interaction between the data quality properties of the signals used and
+the resulting scientific conclusions is beyond the scope of this dissertation
+and not a problem that we have explored directly. What we have observed is
+that volcano scientists spend a great deal of time interacting with the raw
+data in unstructured ways: browsing, zooming in and out, mapping signals
+between the time and frequency domains, etc. This type of human-aided data
+exploration is not the kind of intelligence we anticipate being able to
+engineer into the network itself. Instead, our preliminary estimates of data
+quality are based on established metrics in use within the seismology
+community, which were both easy to compute and acceptable to our
+collaborators. Improving the notion of data quality and the resulting system
+efficiency further by identifying exactly what data scientists want, perhaps
+by using iterative interaction with human experts, is an area of future work.
 
 \end{itemize}

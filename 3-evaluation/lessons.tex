@@ -86,12 +86,22 @@ low-power, unreliable, embedded devices fitted with low-resolution sensors.
 
 Good communication between computer and domain scientists is also critical.
 During our deployment, the seismologists were eager to see the collected
-signals, which were initially in an unprocessed format with timing errors as
-described earlier. From the CS perspective, the early data provided evidence
-of successful data collection, but from the geophysics perspective it
-highlighted failures in the time synchronization protocol. It took a great
-deal of effort after the deployment to build confidence in the validity of
-our data.
+signals, and we were eager to have scientific feedback about whether or not
+the data we were collecting was useful. Volcano scientist have a suite of
+commonly-used visualization and analysis tools. However, we were not ready to
+convert our data into a format that they could use. In fact, this only
+happened several months after we returned. Instead, we quickly built several
+tools ourselves, but their limitations and the fact that the volcanologists
+didn't use them hampered their ability to help us analyze our data.
+
+In our eagerness to present some data to our collaborators, we also initially
+showed them unprocessed data containing the timing errors mentioned earlier.
+From our perspective, this early data provided evidence that many components
+of our system --- such as sampling, routing, and data collection --- were
+operating properly. However, from the geophysics perspective it highlighted
+failures in the time synchronization protocol. It took a great deal of effort
+after the deployment to rebuild confidence in the validity of our data that
+we had damaged through these early viewings.
 
 \item \textbf{Incorporating flexibility for experimentation and system
 adaptation:} Designing a system that is flexible and provides a great deal of
@@ -116,6 +126,33 @@ Given more time it would have been interesting to experiment with other
 system components. We could have varied the metrics used by the routing tree,
 compared various event detection algorithms, or tweaked parameters used by
 the bulk data-transfer protocol.
+
+\item \textbf{Designing the evaluation along with the system:} Many of the
+challenges that we faced in evaluating our system and working with our
+collaborators in the field could have been averted had we designed the
+evaluation along with the system. As it happened, we were racing to complete
+the implementation of the system as the deployment deadline neared. Several
+important components were not completely finished until we arrived in Ecuador
+at the deployment site.
+
+While our system implementation was itself behind schedule, none of our
+timelines had included time needed to design an evaluation strategy for our
+field deployment. We did build a great deal of logging infrastructure into
+our toolchain in order to collect data which eventually did prove important
+for the validation of our system. However, taking the evaluation design
+process seriously before deployment would have had several positive outcomes.
+First, we would almost certainly have noticed the ground-truthing problems we
+were forced to work around later. Second, we would have developed a set of
+tools for converting our data into a format that the seismologists could use,
+which would improved our interaction with them at the deployment site and
+allowed them to help us tune the behavior of our system. Finally, had we been
+more confident about our ability to evaluate the system's performance, we may
+have been more willing to experiment with different protocols or parameter
+settings while on-site.
+
+For our system and other systems like it, field deployments are critical and
+often expensive, and so deployment time is extremely valuable. Planning how
+to use it should not be overlooked.
 
 \end{itemize}
 
