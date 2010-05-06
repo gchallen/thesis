@@ -78,8 +78,9 @@ agnostic as to its form as it is evaluated online.
 The system's goal is to determine the optimal state \[ S^\star = \arg
 \max_{S} O(\bar{L}(S), \bar{B}, \bar{C}) \cdot \alpha + u(S) \cdot
 (1-\alpha)\] where $\alpha$ represents the tradeoff factor between energy
-impact and intrinsic utility. Setting $\alpha=1$ optimizes only for energy;
-$\alpha=0$ only for application-defined utility.
+impact and intrinsic utility. In order to properly compare $u(S)$ and
+$\bar{L}(S)$ we normalize both to between $0$ and $1$. Setting $\alpha=1$
+optimizes only for energy; $\alpha=0$ only for application-defined utility.
 
 Note that, while $\alpha$ parameterizes a trade-off between energy- and
 utility-driven optimization, because the metrics are probably expressed in
