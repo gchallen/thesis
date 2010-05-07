@@ -6,9 +6,9 @@ LOG = $(addsuffix .log, $(TARGET))
 
 DOBIBTEX = $(shell if [ -n "`grep '\\cite' $(TEXFILES) 2>/dev/null`" ] ; then echo "Yes"; else echo "No"; fi)
 
+all: final
 draft: ssp xxxnote $(PDF) missing
 final: dsp noxxxnote $(PDF) missing
-all: final
 
 ssp:
 	@echo "\\ssp" > .spacing-new
