@@ -419,9 +419,9 @@
   \begin{center}
     {\ssp
     {\large\bf{\@title}}\\
-    \vspace*{0.20in}
+    \vspace*{0.40in}
     {\LARGE\bf{Abstract}}
-    \vspace*{-0.20in}}
+    \vspace*{-0.10in}}
   \end{center}
 }
 {}
