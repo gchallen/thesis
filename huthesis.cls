@@ -352,7 +352,6 @@
   \newpage
   \thispagestyle{empty}
   \phantomsection
-  \addcontentsline{toc}{section}{Title Page}
   \centerline{\ }
   \vspace{0.5in}
   \begin{center}
@@ -420,9 +419,9 @@
   \begin{center}
     {\ssp
     {\large\bf{\@title}}\\
-    \vspace*{0.3in}
+    \vspace*{0.20in}
     {\LARGE\bf{Abstract}}
-    \vspace*{-0.1in}}
+    \vspace*{-0.20in}}
   \end{center}
 }
 {}
@@ -452,7 +451,6 @@
   \newpage
   \phantomsection
   \thispagestyle{plain}
-  \addcontentsline{toc}{section}{Dedication}
 }
 {}
 
@@ -461,7 +459,6 @@
   \newpage
   \phantomsection
   \thispagestyle{plain}
-  \addcontentsline{toc}{section}{Epigram}
 }
 {}
 
@@ -475,8 +472,7 @@
   \newpage
   \phantomsection
   {\ssp
-  \chapter*{Acknowledgments}
-  \addcontentsline{toc}{section}{Acknowledgments}}
+  \chapter*{Acknowledgments}}
 }
 {}
 
