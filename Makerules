@@ -8,7 +8,7 @@ DOBIBTEX = $(shell if [ -n "`grep '\\cite' $(TEXFILES) 2>/dev/null`" ] ; then ec
 
 draft: ssp xxxnote $(PDF) missing
 final: dsp noxxxnote $(PDF) missing
-all: draft
+all: final
 
 ssp:
 	@echo "\\ssp" > .spacing-new

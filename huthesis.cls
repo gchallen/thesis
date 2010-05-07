@@ -166,7 +166,6 @@
 \DeclareOption{final}{\renewcommand\@draftmark{0}}
 \ExecuteOptions{letterpaper,11pt,oneside,final}
 
-
 % CHOOSING THE TYPE SIZE:
 %
 %  The type size option is handled by reading a different file for each
@@ -352,6 +351,7 @@
 	\hsp % intermediate spacing for title page.
   \newpage
   \thispagestyle{empty}
+  \phantomsection
   \addcontentsline{toc}{section}{Title Page}
   \centerline{\ }
   \vspace{0.5in}
@@ -411,16 +411,18 @@
 \newenvironment{abstract}
 {
   \newpage
+  \phantomsection
   \thispagestyle{plain}    % use empty for no page #s here
 	\@mkboth{\abstractname}{\abstractname}
   \addcontentsline{toc}{section}{Abstract}
 	\vspace*{-.8in}
 	\noindent Dissertation Advisor: Professor \@advisor \hfill \@author \\
   \begin{center}
+    {\ssp
     {\large\bf{\@title}}\\
-    \vspace*{0.4in}
+    \vspace*{0.3in}
     {\LARGE\bf{Abstract}}
-    \vspace*{0.2in}
+    \vspace*{-0.1in}}
   \end{center}
 }
 {}
@@ -428,6 +430,7 @@
 \newenvironment{sspabstract}
 {
   \newpage
+  \phantomsection
   \thispagestyle{plain}
 	\@mkboth{\abstractname}{\abstractname}
   \addcontentsline{toc}{section}{Abstract}
@@ -447,8 +450,18 @@
 \newenvironment{dedication}
 {
   \newpage
+  \phantomsection
   \thispagestyle{plain}
   \addcontentsline{toc}{section}{Dedication}
+}
+{}
+
+\newenvironment{epigram}
+{
+  \newpage
+  \phantomsection
+  \thispagestyle{plain}
+  \addcontentsline{toc}{section}{Epigram}
 }
 {}
 
@@ -460,12 +473,10 @@
 \newenvironment{acknowledgments}
 {
   \newpage
-  \thispagestyle{plain}
-	\@mkboth{\acknowledgename}{\acknowledgename}
-  \addcontentsline{toc}{section}{Acknowledgments}
-  \vspace*{-.8in}
-  {\centerline{\bf {\LARGE Acknowledgments}}}
-  \vspace*{.2in}
+  \phantomsection
+  {\ssp
+  \chapter*{Acknowledgments}
+  \addcontentsline{toc}{section}{Acknowledgments}}
 }
 {}
 
