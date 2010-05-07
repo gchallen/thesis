@@ -11,30 +11,30 @@ availability. Our thesis is that by managing distributed resource usage, we
 can improve the data quality provided by sensor networks to scientific
 applications.
 
-We make three core contributions. First, working with volcano seismologists,
-we have designed and evaluated the first sensor network enabling the study of
-erupting volcanos. Through three field studies we validated that it produces
-data suitable for scientific analysis. We found verifying the timing accuracy
-of our data both difficult and important and were able to develop a new
-\textit{post-hoc} time-rectification technique that can reconstruct accurate
-timestamps in the face of timing protocol failures.
+We present three core contributions. First, working with volcano
+seismologists, we designed and evaluated the first sensor network enabling
+the study of erupting volcanos. Through three field studies we validated that
+it produces data suitable for scientific analysis. We found verifying the
+timing accuracy of our data both difficult and important and were able to
+develop a new \textit{post-hoc} time-rectification technique that can
+reconstruct accurate timestamps in the face of timing protocol failures.
 
-Second, we developed Lance, a general-purpose architecture targeting high
+Second, we developed Lance, a general-purpose architecture supporting high
 data-rate sensor networks. Lance manages data-collection in order to direct
 energy and bandwidth resources toward the most interesting signals. Valuable
-data is identified using a two-tiered architecture that leverages the
-increased visibility of a network controller while limiting the overhead of
-centralized control. Lance has been used to support volcano studies as well
-as the Mercury project, which enables monitoring of patients with
+data is identified using a two-tiered process that leverages the increased
+visibility of a network controller while limiting the overhead of centralized
+control. Lance has been used to support volcano studies as well as the
+Mercury project, which uses sensor nodes to monitor patients with
 neuromuscular disorders. We show that Lance's resource allocation heuristic
 achieves near-optimal efficiency, within 5\% of an offline optimal solution
 in most cases.
 
-Finally, we present IDEA (Integrated Distributed Energy Awareness), a sensor
+Finally, we describe IDEA (Integrated Distributed Energy Awareness), a sensor
 network service allowing system components to tune their behavior in response
 to changing energy availability. This allows the network to adjust energy
 load as availability changes, which is particularly important when nodes are
 harvesting energy. We have used IDEA to build energy-aware routing and MAC
 protocols and measured the performance improvement they provide over
 non-energy-aware solutions. By better distributing energy consumption, IDEA
-can extend network lifetimes by up to 27\%.
+extends network lifetimes by up to 27\%.
