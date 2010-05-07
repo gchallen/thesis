@@ -4,37 +4,37 @@ This dissertation presents architectural solutions that improve the
 performance of scientific sensor networks. Wireless sensor networks composed
 of tens or hundreds of low-power, resource-constrained devices, can aid
 scientific exploration by collecting data at scales difficult to achieve with
-traditional instrumentation. To do so, sensor networks must provide
-high-fidelity data suitable for scientific study, identify and devote system
-resources to the data most valuable to the application, and respond to
-fluctuations in energy availability. Our thesis is that by managing
-distributed resource usage, we can improve the data quality provided by
-sensor networks to scientific applications.
+traditional instrumentation. To do so, they must provide high-fidelity data
+suitable for scientific study, identify and devote system resources to the
+data most valuable to the application, and respond to fluctuations in energy
+availability. Our thesis is that by managing distributed resource usage, we
+can improve the data quality provided by sensor networks to scientific
+applications.
 
 We make three core contributions. First, working with volcano seismologists,
-we have designed and evaluated the first sensor network enabling the
-study of erupting volcanos. Through three field studies we validate that
-it produces data suitable for scientific analysis. We found verifying the
-timing accuracy of our data both difficult and important and were able
-to develop a new \textit{post-hoc} time-rectification technique that can
-recover accurate timestamps even in the face of timing protocol failures.
+we have designed and evaluated the first sensor network enabling the study of
+erupting volcanos. Through three field studies we validated that it produces
+data suitable for scientific analysis. We found verifying the timing accuracy
+of our data both difficult and important and were able to develop a new
+\textit{post-hoc} time-rectification technique that can reconstruct accurate
+timestamps in the face of timing protocol failures.
 
 Second, we developed Lance, a general-purpose architecture targeting high
 data-rate sensor networks. Lance manages data-collection in order to direct
 energy and bandwidth resources toward the most interesting signals. Valuable
-data is identified using a two-tiered architecture leveraging the increased
-visibility of a network controller while limiting the overhead of centralized
-control. Lance has been used to support the volcano-monitoring application as
-well as the Mercury project, which enables monitoring of patients with
+data is identified using a two-tiered architecture that leverages the
+increased visibility of a network controller while limiting the overhead of
+centralized control. Lance has been used to support volcano studies as well
+as the Mercury project, which enables monitoring of patients with
 neuromuscular disorders. We show that Lance's resource allocation heuristic
 achieves near-optimal efficiency, within 5\% of an offline optimal solution
 in most cases.
 
 Finally, we present IDEA (Integrated Distributed Energy Awareness), a sensor
-network service allowing application components to tune their behavior in
-response to changing energy availability. This allows the network to adjust
-energy load as availability changes, particularly important when
-energy-harvesting capabilities are being used. We have used IDEA to build
-energy-aware routing and MAC protocols and measured the performance
-improvement they provide over non-aware solutions. By better distributing
-energy consumption, IDEA extends the network's lifetime by up to 27\%.
+network service allowing system components to tune their behavior in response
+to changing energy availability. This allows the network to adjust energy
+load as availability changes, which is particularly important when nodes are
+harvesting energy. We have used IDEA to build energy-aware routing and MAC
+protocols and measured the performance improvement they provide over
+non-energy-aware solutions. By better distributing energy consumption, IDEA
+can extend network lifetimes by up to 27\%.
