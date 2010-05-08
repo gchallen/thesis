@@ -3,49 +3,48 @@
 
 This section discusses four kinds of related systems, those designed to cope
 with high data-rates, designed to operate in scientific contexts, and related
-to Lance and IDEA.
+to Lance or IDEA.
 
 \subsection{High Data-Rate Sensing}
 
-Many sensor network applications involve the acquisition of high-resolution
-signals using low-power wireless sensor nodes. Examples include monitoring
-acoustic, seismic, and vibration waveforms in bridges, industrial equipment,
-and animal habitats~\cite{girod-ipsn07,enviromic}. These systems all attempt
-to acquire high data-rate (100~Hz or higher), high-fidelity data across the
-network, subject to severe constraints on radio bandwidth and energy usage.
+Many sensor network applications require collecting high-resolution signals
+using low-power nodes. Examples include monitoring acoustic, seismic, and
+vibration waveforms in bridges, industrial equipment, and animal habitats.
+These systems all attempt to acquire high data-rate (100~Hz or higher),
+high-fidelity data across the network subject to severe constraints on radio
+bandwidth and energy usage.
 
-A group from UC Berkeley performed the largest deployment of sensor network
-nodes for structural health monitoring: 46 nodes placed on the Golden Gate
-Bridge in San Francisco~\cite{ggb-ipsn07}. Nodes collect vibration data at
-1~kHz, and the network uses many of the same routing and time-synchronization
-protocols used by our volcano-monitoring system. A special bulk
-data-collection protocol, called Straw, was developed for the deployment. The
-highly linear topology of the deployed network later gave rise to the
-topologies used to test the Flush data-collection
+A group from UC Berkeley performed the largest deployment to date of sensor
+network nodes for structural health monitoring: 46 nodes placed on the Golden
+Gate Bridge~\cite{ggb-ipsn07}. Nodes collect vibration data at 1~kHz, and the
+network uses many of the same routing and time synchronization protocols used
+by our volcano monitoring system. A special bulk data collection protocol,
+called Straw, was developed for the deployment. The highly linear topology of
+the deployed network was later used to test the Flush data collection
 protocol~\cite{flush-sensys07}. The deployment at the Golden Gate Bridge also
 gave rise to a system called the Structural Health Monitoring Toolkit
-(Sentri). This interfaces between the outside world and the sensor network by
+(Sentri) that interfaces between the outside world and the sensor network by
 transmitting commands to nodes as necessary.
 
-NetSHM~\cite{netshm-ewsnsubmission,netshm-emnets05,wisan} is a wireless
-sensor network for structural health monitoring, which involves studying the
-response of buildings, bridges, and other structures to localize structural
-damage, e.g., following an earthquake. This system shares many of the
-challenges of geophysical monitoring; indeed, the data rates involved (500~Hz
-per channel) are higher than are typically used in volcano studies. The
-Wireless Modular Monitoring System (WiMMS)~\cite{wimms-lynch06} is another
+NetSHMis a wireless sensor network for structural health monitoring, which
+involves studying the response of buildings, bridges, and other structures to
+localize structural damage, e.g., following an
+earthquake~\cite{netshm-ewsnsubmission,netshm-emnets05,wisan}. This system
+shares many of the challenges of geophysical monitoring. Indeed, the data
+rates involved (500~Hz per channel) are higher than are typically used in
+volcano studies. The Wireless Modular Monitoring System (WiMMS) is another
 structural monitoring network with similar goals that has been validated both
 in field deployments at the Geumdang Bridge in Icheon, South Korea, and in
-laboratory tests. This system is designed around a supporting decentralized
-control algorithms in order to respond to structural changes using actuators.
-In this context decentralization reduces the amount of data that must be
-transmitted to a central location while eliminating the base station as a
-single point-of-failure.
+laboratory tests~\cite{wimms-lynch06}. This system is designed to supporting
+decentralize control algorithm that respond to structural changes using
+actuators. In this context decentralization reduces the amount of data that
+must be transmitted to a central location while eliminating the base station
+as a single point of failure.
 
 NetSHM implements reliable data collection using both hop-by-hop caching and
 end-to-end retransmissions. The work explores the use of local computations
 on sensors to reduce bandwidth requirements. Rather than a global
-time-synchronization protocol, the base station timestamps each sample upon
+time synchronization protocol, the base station timestamps each sample upon
 reception. The \textit{residence time} of each sample as it flows from sensor
 to base is calculated based on measurements at each transmission hop and used
 to deduce the original sample time.
@@ -64,13 +63,12 @@ Condition-based maintenance is another emerging area for wireless sensor
 networks. The typical approach is to collect vibration waveforms from
 equipment (e.g., chillers, pumps, etc.) and perform time- and
 frequency-domain analysis to determine when the equipment requires servicing.
-Intel Research has explored this area through two deployments at a
-fabrication plant and an oil tanker in the North
-Sea~\cite{intel-northseasensys}. Although this application involves high
-sampling rates, it does not necessarily require time synchronization as
-signals from multiple sensors need not be correlated. The initial evaluation
-of these deployments only considers the network performance and does not
-address data fidelity issues.
+Intel Research has explored this area through deployments at a fabrication
+plant and an oil tanker in the North Sea~\cite{intel-northseasensys}.
+Although this application involves high sampling rates, it does not
+necessarily require time synchronization as signals from multiple sensors
+need not be correlated. The initial evaluation of these deployments only
+considers the network performance and does not address data fidelity issues.
 
 While many early environmental monitoring applications are characterized by
 low data-rates, some have focused on applications requiring high-speed data
@@ -96,7 +94,7 @@ Users compose a set of filters and other stream operators into a ``script''
 similar to a data-flow graph.
 
 The VoxNet platform includes a variety of network services, such as
-time-synchronization, routing, and node localization that applications
+time synchronization, routing, and node localization that applications
 running in this environment can make use of. Once the program is written and
 installed on nodes, VoxNet includes a set of control and visualization tools
 intended to allow users to interact with the running system and view the data
