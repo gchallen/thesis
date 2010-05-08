@@ -42,7 +42,7 @@ budgets not feasible a decade ago.
 An representative device is the TMote Sky~\cite{moteiv}. A descendant of the
 original UC Berkeley Mica ``mote'' sensor node~\cite{hill-thesis}, it
 includes a Texas Instruments MSP430 microcontroller, 48~kB of program memory,
-10~kB of SRAM, 1~MB of external flash memory and a 2.4~GHz Chipcon IEEE
+10~kB of SRAM, 1~MB of external flash memory, and a 2.4~GHz Chipcon IEEE
 802.15.4 radio. The MSP430 is a 16~bit microcontroller running at 4~MHz and a
 popular basis for wireless sensor network nodes due to its many
 reconfigurable ports and low power consumption. It draws approximately 2~mA
@@ -88,9 +88,9 @@ aid in scientific studies. One of the first published deployments of embedded
 sensing technology was on Great Duck Island in Maine, where a network of 32
 sensor nodes was used to study the nesting behavior of a colony of
 Seabirds~\cite{gdi-sensys04}. Another early experiment used similar nodes to
-study the microclimate of a single Redwood tree~\cite{berkeley-redwoods}.  In
-contrast to these early efforts, our group has focused on \textit{high
-data rate} scientific applications. As a point of comparison, the Redwoods
+study the microclimate of a single Redwood tree~\cite{berkeley-redwoods}. In
+contrast to these early efforts, our group has focused on \textit{high data
+rate} scientific applications. As a point of comparison, the Redwoods
 deployment collected approximately 0.05 bytes-per-second (bps) from 30~nodes,
 for an aggregate network data rate of 1.5 bps. Contrast this with our 2005
 volcano monitoring deployment (described in Chapter~\ref{chapter-evaluation})
@@ -123,7 +123,7 @@ monitored, some data is likely to be interesting and some less interesting. A
 habitat monitoring application may want to focus on collecting vocalizations
 from a certain kind of animal. Differences in sensor quality may also lead to
 data value disparities, when poorly-located or poorly-functioning sensors
-sample data that is of poor quality and of little value to the application.
+sample poor-quality of little value to the application.
 
 \textit{Problem Statement:} When all data cannot be collected due to resource
 limitations, retrieve the data most valuable to the application. Addressed in
@@ -157,22 +157,14 @@ value provided by the entire system to the application.
 
 \section{Dissertation Summary and Contributions}
 
-\vspace*{-0.1in}
-
 This dissertation makes the following contributions:
 
-\begin{itemize}
+\vspace*{0.1in}
 
-\vspace*{-0.1in}
-
-\item \textbf{Detailed evaluation of a scientific macroscope.} We have built
-and fielded the first sensor network designed to study active volcanos. After
-an initial pilot deployment, we designed a system giving careful
-consideration to the scientific requirements. In total, we have performed
-three deployments of iterations of our system at active volcanoes in Ecuador,
-each summarized below:
-
-\vspace*{-0.1in}
+\noindent \textbf{Detailed evaluation of a scientific macroscope.} Giving
+careful consideration to the scientific requirements, we have built and
+fielded the first sensor network designed to study active volcanoes. We have
+deployed three system iterations at active volcanoes in Ecuador:
 
 \begin{enumerate}
 
@@ -189,14 +181,12 @@ traveled over a multi-hop network and across a long-distance radio link to a
 laptop located at the observatory 9~km away. Over three weeks the network
 captured 230 volcanic events.
 
-\item \textbf{July, 2007, Tungurahua volcano:} We deployed eight
-sensor nodes to test Lance, a framework for optimizing high-resolution signal
-collection. The network was operational for a total of 71~hours and
-downloaded 77~MB of data.
+\item \textbf{July, 2007, Tungurahua volcano:} We deployed eight sensor nodes
+to test Lance, a framework for optimizing high-resolution signal collection.
+The network was operational for a total of 71~hours and downloaded 77~MB of
+data.
 
 \end{enumerate}
-
-\vspace*{-0.1in}
 
 Following our 2005 deployment we took a hard look at the performance of our
 system from the perspective of our seismology collaborators. Rather than
@@ -204,88 +194,76 @@ dwelling on metrics interesting to computer scientists, we attempted to
 address performance aspects critical to scientific adoption. We identified
 two core concerns: data \textit{fidelity}, encompassing the quality and
 accuracy of the collected data; and \textit{yield}, measuring the amount of
-data that the system could successfully retrieve.
+data that the system could retrieve.
 
 We conducted a rigorous examination of our 2005 deployment along these lines.
 A unique challenge arose when attempting to assign timing information to our
-data to allow it to be used for scientific analysis, and this led to the
-development of a novel time rectification approach. This new technique was
-able to correct timing protocol failures during our field deployment and
-allow us to accurately assign timestamps to almost all of the data our
-network collected.
+data to facilitate scientific analysis. This led to the development of a
+novel time rectification approach that was able to correct the timing
+protocol failures that occurred during our field deployment and accurately
+assign timestamps to almost all of the data our network collected.
 
-\XXXnote{GWA : Stopped here.}
+\vspace*{0.1in}
 
-\item \textbf{Architecture optimizing data quality.} Given limited batteries
-and low-bandwidth links, sensor networks must carefully manage resource
-usage, particularly with an eye to how these decisions affect the quality of
-the data provided to the application. Many sensor networks attempt to balance
-the cost and utility of actions taken by the network, but do so in ad-hoc
-ways embedded in application-specific logic.
+\noindent \textbf{Lance: an architecture optimizing data quality.} Given
+limited batteries and low-bandwidth links, sensor networks must identify how
+resource management decisions affect application data quality. Many sensor
+networks attempt to balance the cost and utility of actions taken by the
+network, but embed these decisions in application-specific logic.
 
 Lance provides an architectural solution to the problem of optimizing
 reliable data collection for high data rate sensor network applications.
 Lance is based on two observations that emerged during the evaluation of our
-2005 volcano deployment. First, given the low-bandwidth of sensor network
-radios, even with a moderately-sized network it was not possible to reliably
-extract all the data the nodes were collecting. Given the inevitability of
-data loss, Lance attempts to ensure that the subset of data that was
-downloaded provides the highest value to the application.
+2005 volcano deployment. First, given the low bandwidth of sensor network
+radios, even a moderately-sized network makes it impossible to reliably
+extract all the data sampled. Given the inevitability of data loss, Lance
+attempts to ensure that the data that is downloaded provides the highest
+value to the application.
 
-Second, given the high power consumption of sensor network radios, the energy
-consumption associated with reliable data collection was the dominant source
-of discretionary energy usage in our deployed network. Thus, attempting to
-ensure that all nodes met a target lifetime required consideration of the
-distributed energy impact of multihop reliable data transfer. Lance attempts
-to balance the cost of downloading data against the value of that data to the
-application. We were able to develop a simple heuristic for selecting which
-data to download that delivers near-optimal performance under a range of
-constraints and network properties.
+Second, given the high power consumption of sensor node radios, reliable data
+collection was the dominant source of discretionary energy usage in our
+deployed network. Thus, attempting to ensure that all nodes met a target
+lifetime required considering the distributed energy impact of multihop data
+transfer. Lance balances the cost of downloading data against its value to
+the application using a simple online heuristic that achieves excellent
+performance: within 5\% of optimal for most cases.
 
 Lance is a general-purpose architecture targeting high data rate
-applications. While it emerged as a result of and has been used to support
-the volcano-monitoring application mentioned above, we have also used Lance
-to drive a body sensor network designed to enable continuous monitoring of
-patients with neuromuscular disorders such as Parkison's Disease, epilepsy,
-and stroke.
+applications. Along with the volcano-monitoring application, we have also
+used Lance to drive a body sensor network enabling continuous monitoring of
+patients with neuromuscular disorders.
 
-\item \textbf{Service for collaborative distributed energy management.} While
-Lance demonstrated the improvements in performance achievable by adjusting
-network behavior to meet energy availability, it was limited in several
-respects. First, Lance relies on a centralized controller. Since the overhead
-of centralized control scales badly as the network size grows, this limits
-the applicability of this approach. Second, Lance's only way of effecting
-energy usage is in the choice of which data to retrieve from the network. This
-is appropriate for high data rate networks where data download is the primary
-source of energy consumption, but not for networks where this is not the
-case.
+\clearpage
+
+\noindent \textbf{IDEA: a service enabling collaborative distributed energy
+management.} While Lance demonstrated the performance improvements achievable
+by adjusting network behavior to meet energy availability, it was limited in
+several ways. First, Lance relies on a centralized controller. Since the
+overhead of centralized control scales poorly as the network grows, this
+limits the applicability of this approach. Second, Lance's only way of
+controlling energy usage is choosing what data to download, which is only
+appropriate for networks where data download is the dominant source of energy
+consumption.
 
 IDEA (Integrated Distributed Energy Awareness) is a sensor network service
-designed to provide the benefits of energy awareness to all sensor network
-components in a distributed fashion. IDEA distributes information about each
-node's energy load and charging rates and provides intelligence that assists
-components in adjusting their own state in ways beneficial to the target
-application.
-
-\end{itemize}
+that provides the benefits of energy awareness to any sensor network
+component in a distributed fashion. IDEA distributes information about each
+node's energy load and charging rates in order to assist components in
+adjusting their state in ways benefiting the application. By better
+distributing energy consumuption, IDEA extends network lifetimes by up to
+27\%.
 
 \section{Dissertation Road Map}
 
-The remainder of this dissertation is organized as follows. The next chapter
-(Chapter~\ref{chapter-related}) introduces sensor networks for volcano
-monitoring, a high data rate application that we have studied in detail and
-that has motivated the architectural contributions outlined in this
-dissertation; it also presents other projects that have built sensor
-macroscopes using sensor network technology.
-
-Chapter~\ref{chapter-evaluation} presents the design and a detailed
-evaluation of a sensor network system built to study active volcanos.
-Chapters~\ref{chapter-lance} and \ref{chapter-idea} presents Lance and IDEA,
-two architectural approaches tackling problems emerging from our field
-deployments. Lance is designed to optimize the output data quality of the
-macroscope given constraints on bandwidth and energy, while IDEA aims to
-improve the performance of the macroscope by enabling collaborative
-management of distributed energy resources within the instrument.
-
-Finally, Chapter~\ref{chapter-lessons} presents lessons learned in the course
-of building these systems and presents opportunities for future work.
+The remainder of this dissertation is organized as follows.
+Chapter~\ref{chapter-related} introduces sensor networks for volcano
+monitoring and presents other projects that have built macroscopes using
+sensor network technology. Chapter~\ref{chapter-evaluation} presents the
+design and detailed evaluation of a sensor network built to study active
+volcanoes. Chapters~\ref{chapter-lance} and \ref{chapter-idea} present Lance
+and IDEA, two architectures tackling problems emerging from our field
+deployments. Lance optimizes output data quality given constraints on
+bandwidth and energy, while IDEA improves performance by enabling
+collaborative energy management. Chapter~\ref{chapter-lessons} presents
+lessons learned while building these systems and opportunities for future
+work.
