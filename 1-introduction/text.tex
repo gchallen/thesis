@@ -5,8 +5,8 @@ Wireless sensor networks composed of tens or hundreds of low-power,
 resource-constrained devices can aid scientific exploration by providing
 high-fidelity data at scales difficult to achieve with traditional
 instrumentation. In his book \textit{The Macroscope}~\cite{rosnay79}, French
-futurist Joel de Rosnay envisioned a new scientific instrument. A large-scale
-analog to the microscope, \textit{the macroscope} would provide insights into
+futurist Joel de Rosnay envisioned a new scientific instrument. An analog to
+the microscope, \textit{the macroscope} would provide holistic views of
 systems difficult to study at scale: cities, ecosystems, or the entire
 biosphere.
 
@@ -23,21 +23,20 @@ applications.
 \clearpage
 
 This dissertation presents the design of a scientific macroscope using
-wireless sensor networks as an enabling technology, along with two
-architectural solutions improving the macroscope's performance by managing
-distributed resources. After validating that data collected by wireless
-sensor nodes can meet the needs of a demanding, high data rate scientific
-application --- volcano monitoring --- we then describe new sensor network
-architectures improving the data quality provided to the application.
-Together these techniques begin the process of realizing de Rosnay's vision
-using embedded sensing.
+wireless sensor networks as an enabling technology. After validating that
+data collected by wireless sensor nodes can meet the needs of a demanding,
+high data-rate scientific application --- volcano monitoring --- we describe
+two new sensor network architectures that improve the data quality provided
+to the application by managing distributed resources. Together these
+techniques begin the process of realizing de Rosnay's vision using embedded
+sensing.
 
 \section{Wireless Sensor Networks}
 
 Wireless sensor networks consist of nodes integrating modest amounts of
 computation, storage, and communication capabilities. Low-power
-microprocessors, radios, and MEMS sensors enable embedded sensing on power
-budgets not feasible a decade ago.
+microprocessors, radios, and MEMS sensors enable embedded sensing not
+feasible a decade ago.
 
 An representative device is the TMote Sky~\cite{moteiv}. A descendant of the
 original UC Berkeley Mica ``mote'' sensor node~\cite{hill-thesis}, it
@@ -48,22 +47,24 @@ popular basis for wireless sensor network nodes due to its many
 reconfigurable ports and low power consumption. It draws approximately 2~mA
 of current while active and can enter sleeps states consuming only microamps.
 
-The CC2420 is a low-power 802.15.4 radio with a raw data rate of 250~kbps. In
-practice the raw data rate is reduced considerably by the overheads necessary
-to enable medium access control and the limitations of the SPI bus. The
-CC2420 consumes roughly 20~mA of current while active but can quickly enter
-and leave a low-power sleep state, which enables channel-polling and other
-kinds of low-power operation.
+The CC2420 is a low-power 2.4~GHz 802.15.4 radio. It has a raw data-rate of
+250~kbps, although in practice this is reduced considerably by the overheads
+necessary to enable medium access control and the limitations of the SPI bus.
+The CC2420 consumes roughly 20~mA of current while active but can quickly
+enter and leave a low-power sleep state, which enables channel polling and
+other kinds of low-power operation.
+
+\clearpage
 
 Due to their low power budgets, sensor nodes can be lightweight and easy to
 deploy. We found it possible to power a TMote Sky for several weeks using a
-pair of D-cell batteries. By duty-cycling the radio, the largest consumer of
+pair of D-cell batteries. By duty cycling the radio, the largest consumer of
 energy on the device, we could have increased the node's lifetime
-considerably. If extended-duration operation is desired, nodes can be
+considerably. If extended duration operation is desired, nodes can be
 equipped with energy-harvesting capabilities. Due to their low power
-consumption, even a small solar panel can allow a TMote to run continuously,
-depending on incident sunlight and the efficiency of energy capture and
-storage.
+consumption, even a small solar panel can allow a TMote to operate
+perpetually, depending on incident sunlight and the efficiency of energy
+capture and storage.
 
 \section{Sensor Networks for Science: Architectural Challenges}
 
@@ -71,37 +72,36 @@ Wireless sensor nodes can improve on existing instrumentation in several
 ways. In certain cases, low-power embedded nodes can replicate functionality
 now performed by larger, heavier devices, reducing the amount of equipment
 that must be transported and accelerating the deployment process. In
-addition, sensor networks come with telemetry ``built in'', which may also
-provide a significant benefit when compared with existing untelemetered
-instrumentation. Continuous communication with deployed sensors during the
-experiment allows scientists to begin to process data, assess the health of
-the network, or make adjustments on the fly. In other cases, embedded sensing
-establishes a different set of tradeoffs between the ease of deployment and
-the sensing capability of each device. For the same amount of deployment
-effort and cost, a researcher can deploy either a small set of extremely
-accurate sensors or a much larger array of less accurate sensors. It is
-likely that one choice will provide the best performance for a particular
-application.
+addition, sensor networks come with built-in telemetry, which may also
+provide a significant benefit compared to existing untelemetered systems.
+Continuous communication with deployed sensors during the experiment allows
+scientists to begin to process data, assess the health of the network, or
+make adjustments on the fly. In other cases, embedded sensing establishes a
+different set of tradeoffs between the ease of deployment and the sensing
+capability of each device. For the same amount of deployment effort and cost,
+a researcher can deploy either a small set of extremely accurate sensors or a
+much larger array of less-accurate sensors. It is likely that one option
+provide the best performance for a particular application.
 
 Early sensor network researchers saw the potential for these new devices to
 aid in scientific studies. One of the first published deployments of embedded
-sensing technology was on Great Duck Island in Maine, where a network of 32
-sensor nodes was used to study the nesting behavior of a colony of
-Seabirds~\cite{gdi-sensys04}. Another early experiment used similar nodes to
-study the microclimate of a single Redwood tree~\cite{berkeley-redwoods}. In
-contrast to these early efforts, our group has focused on \textit{high data
-rate} scientific applications. As a point of comparison, the Redwoods
-deployment collected approximately 0.05 bytes-per-second (bps) from 30~nodes,
-for an aggregate network data rate of 1.5 bps. Contrast this with our 2005
-volcano monitoring deployment (described in Chapter~\ref{chapter-evaluation})
-where each of 16~nodes collected 600~bps of data, for a network data rate of
-9600~bps. Compared with low data rate monitoring, high network data rates
+sensing technology was on Great Duck Island in Maine, where a network of
+32~sensor nodes was used to study the nesting behavior of a colony of
+Seabirds~\cite{gdi-sensys04}. Another experiment used similar nodes to study
+the microclimate of a single Redwood tree~\cite{berkeley-redwoods}. In
+contrast to these efforts, our group has focused on \textit{high data-rate}
+scientific applications. As a point of comparison, the Redwoods deployment
+collected approximately 0.05 bytes-per-second (bps) from 30~nodes, for an
+aggregate network data-rate of 1.5 bps. Contrast this with our 2005 volcano
+monitoring deployment (described in Chapter~\ref{chapter-evaluation}) where
+each of 16~nodes collected 600~bps of data, for a network data-rate of
+9600~bps. Compared with low data-rate monitoring, high network data-rates
 produce a distinct set of research challenges:
 
 \begin{itemize}
 
-\item \textbf{Data fidelity.} High data rates stress the ability of the
-system to provide high fidelity data. Sampling at high rates introduces
+\item \textbf{Data fidelity.} High data-rates stress the ability of the
+system to provide high-fidelity data. Sampling at high rates introduces
 additional load on each node, which can interfere with its participation in
 routing, time synchronization, or data transfer protocols. Frequently, timing
 accuracy requirements scale with the sampling rate, so that data sampled at
@@ -109,21 +109,21 @@ high rates must be assigned precise timestamps to facilitate comparisons
 between multiple stations.
 
 \textit{Problem Statement:} Given a target application, build and validate a
-system providing data-fidelity sufficient to meet the scientific goals.
+system providing data fidelity sufficient to meet the scientific goals.
 Addressed in Chapter~\ref{chapter-evaluation}.
 
 \item \textbf{Optimizing overall data quality.} In addition, high sampling
 rates challenge the ability of the system to achieve low-power operation.
 Sampling, storing, and transmitting large amounts of data prevents nodes from
 entering into low-power states and can consume a great deal of their stored
-energy. Once data rates and network sizes pass a certain point, all data
+energy. Once data-rates and network sizes pass a certain point, all data
 cannot be collected in real time, meaning that the system must choose which
 data to discard and which to retrieve. Depending on the phenomena being
 monitored, some data is likely to be interesting and some less interesting. A
 habitat monitoring application may want to focus on collecting vocalizations
 from a certain kind of animal. Differences in sensor quality may also lead to
-data value disparities, when poorly-located or poorly-functioning sensors
-sample poor-quality of little value to the application.
+data value disparities, when poorly located or poorly functioning sensors
+sample data of little value to the application.
 
 \textit{Problem Statement:} When all data cannot be collected due to resource
 limitations, retrieve the data most valuable to the application. Addressed in
@@ -212,7 +212,7 @@ networks attempt to balance the cost and utility of actions taken by the
 network, but embed these decisions in application-specific logic.
 
 Lance provides an architectural solution to the problem of optimizing
-reliable data collection for high data rate sensor network applications.
+reliable data collection for high data-rate sensor network applications.
 Lance is based on two observations that emerged during the evaluation of our
 2005 volcano deployment. First, given the low bandwidth of sensor network
 radios, even a moderately-sized network makes it impossible to reliably
@@ -228,7 +228,7 @@ transfer. Lance balances the cost of downloading data against its value to
 the application using a simple online heuristic that achieves excellent
 performance: within 5\% of optimal for most cases.
 
-Lance is a general-purpose architecture targeting high data rate
+Lance is a general-purpose architecture targeting high data-rate
 applications. Along with the volcano-monitoring application, we have also
 used Lance to drive a body sensor network enabling continuous monitoring of
 patients with neuromuscular disorders.
