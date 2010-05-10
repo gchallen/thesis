@@ -1,73 +1,67 @@
 \chapter{Lessons Learned and Future Work}
 \label{chapter-lessons}
 
-This chapter summarizes some key observations and lessons that have emerged
-from the work described in this dissertation. We describe a set of important
-takeaways from our experiences deploying real systems, while also identifying
-some strengths and weaknesses of two architectures described in the preceding
-chapters. We also briefly outline areas for future work.
+This chapter presents lessons emerging from the work described in this
+dissertation, while also identifying some strengths and weaknesses of two
+architectures described in the previous chapters. We also briefly outline
+areas for future work.
 
 \section{Lessons Learned}
 
 Since Chapter~\ref{evaluation-sec-lessons} has already addressed many of the
-important lessons that emerged in a deployment context, we focus here on
-commenting on the strengths and weaknesses of the two architectural solutions
-to sensor network resource management we have presented: Lance and IDEA.
+important deployment lessons, we focus here on the two architectural
+solutions we have presented: Lance and IDEA.
 
 \begin{itemize}
 
-\item \textbf{Working with scientists.} In addition to the valuable
-domain-specific understanding that we gained from our collaborators, the
-development of Lance required a great deal of exchange between the domain and
-computer scientists involved. Seismologists are used to systems able to
-provide complete, high-fidelity signals from all stations spanning all time
-intervals. The capabilities of the instruments that they typically deploy
-have meant that they have not had to consider classification techniques
-necessary when not all data can be collected. Although they were initially
-quite hesitant, we were able to convince them that the ease of deployment and
-promise of increased spatial resolution provided by our low-power devices
-made it worth abandoning complete temporal coverage. Once convinced, they
-were very helpful in suggesting ways to prioritize collected signals and
-suggested the node-level summarization functions used during the 2007
-deployment.
+\item \textbf{Working with scientists.} The development of Lance required a
+great deal of exchange between the domain and computer scientists involved.
+Seismologists are used to working with high-fidelity signals from all
+stations spanning all time intervals, and have not had to consider
+classification techniques necessary when not all data can be collected.
+Although they were initially hesitant, once we convinced them that the
+increased spatial resolution possible using low-power devices justified
+abandoning complete temporal coverage, they suggested ways to prioritize
+signals and contributed the node-level summarization functions used during
+the 2007 deployment.
 
 \item \textbf{Balance centralization and decentralization.} Many sensor
-network architectures have discarded centralized approaches as inimical to
-the goal of scaling to hundreds of nodes. Lance takes a different approach,
-and attempts to balance the advantages of centralization --- such as
-increased visibility and the ability to implement network-wide optimizations
---- against the overhead of transmitting data to a single location. Lance
-derives the utility of sampled data using a two step process: node-level
-summarization, which reduces the amount of data that must be transmitted to
-the sink, and the final application utility determination and policy module
-operation which occurs at the base station.
+network architectures have avoided centralized approaches that may not scale
+to hundreds of nodes. Lance takes a different approach, and attempts to
+balance the advantages of centralization --- such as increased visibility and
+the ability to implement network-wide optimizations --- against the overhead
+of transmitting data to a single location. Lance derives the value of sampled
+data using a two step process: node-level summarization, which reduces the
+amount of data that must be transmitted to the sink, and the final
+application value determination and policy module operation which occurs at
+the base station.
 
-\item \textbf{Energy is the most important resource.} Both Lance and IDEA
-are driven by the need to manage energy consumption. Energy --- above
-bandwidth, storage, or computation --- is the defining resource in wireless
-sensor networks. While Lance was designed to manage both bandwidth and
-energy, in most cases the energy consumption of each wireless link supersedes
-the bandwidth limitations in terms of controlling link usage.
+\item \textbf{Energy is the most important resource.} Both Lance and IDEA are
+driven by the need to manage energy consumption. Energy --- above bandwidth,
+storage, or computation --- is the defining resource in wireless sensor
+networks. While Lance was designed to manage both bandwidth and energy, in
+most cases the energy consumption of each wireless link dominates the
+bandwidth limitations and controls link usage.
 
-IDEA maintains this focus while attempting to provide a general-purpose
-framework for allowing energy usage to drive decision making. Many existing
+\hspace{0.25in} IDEA maintains this focus while providing a general-purpose
+framework allowing energy usage to drive decision making. Many existing
 sensor network protocols embed energy awareness into protocol-specific code,
 resulting in approaches that may conflict with each other or fail to react
 well when differences in load and charging rates arise. The development of
 IDEA observed the need to manage energy as a network resource, and we believe
-that it will aid in the development of new, energy-aware components.
+that it will aid in the development of new energy-aware components.
 
-\item \textbf{Treat the entire network as a single instrument.} Particularly
-when supporting scientific study, it is important to consider a sensor
-network as a set of devices cooperating to support a single application. Both
-Lance and IDEA willingly trade off the performance or availability of certain
-nodes in exchange for more data or better performance from others. IDEA
-attempts to move the network toward globally-optimal states using node-local
-decisions. It remains as future work to study in detail how effective this
-approach is when compared with ones possessing a consistent global view of
-the entire network, but treating the entire network as a single instrument
-drives architectures that connect local node behavior with the performance of
-the entire system as seen by the application.
+\item \textbf{Treat the entire network as a single instrument.} When
+supporting scientific study, it is important to consider a sensor network as
+a set of devices cooperating to support a single application. Both Lance and
+IDEA willingly trade off the performance or availability of certain nodes in
+exchange for more data or better performance from others. IDEA attempts to
+move the network toward globally-optimal states using node-local decisions.
+It remains as future work to study in detail how effective this approach is
+when compared with ones possessing a consistent global view of the entire
+network, but treating the entire network as a single instrument drives
+architectures that connect local node behavior with the performance of the
+entire system.
 
 \end{itemize}
 
@@ -75,25 +69,21 @@ the entire system as seen by the application.
 
 Despite advances in this area, sensor networks have just begun to make
 inroads in augmenting and replacing existing scientific instrumentation. The
-macroscope is still a new instrument and requires much more research and
-development before it can truly deliver the kind of views envisioned by de
-Rosnay.
+macroscope is still young and requires more research and development before
+it can truly deliver on its promise.
 
-Opportunities remain for collaborations between sensor network researchers
-and domain scientists in many areas. As described in
-Chapter~\ref{chapter-related}, parallel efforts have already succeeded in
-leveraging this technology to study animal habitats and behavior and a
-variety of natural environments. Moving forward we expect to see these kinds
-of scientific sensor networks defining a unique research agenda, with
-emphasis on scaling out to thousands or millions of nodes, delivering large
-amounts of high-fidelity data, and achieving perpetual operation predicated
-on improved energy-harvesting capabilities.
-
-These goals will continue to place pressure on key system capabilities
-developed by the research described in this dissertation. Resources will
-still be precious and must be devoted to the most important information; and
-energy availability will vary across the network in unpredictable ways,
-potentially threatening high-fidelity operation.
+Opportunities abound for collaboration between sensor network researchers and
+domain scientists. As described in Chapter~\ref{chapter-related}, parallel
+efforts have already leveraged this technology to study animal habitats and a
+variety of natural environments. Moving forward we expect to see scientific
+sensor networks defining a unique research agenda, with emphasis on scaling
+out to thousands or millions of nodes, delivering large amounts of
+high-fidelity data, and achieving perpetual operation using improved
+energy-harvesting capabilities. But many research challenges described in
+this dissertation will remain. Resources will still be precious and must be
+devoted to the most important information; and energy availability will vary
+across the network in unpredictable ways, threatening high-fidelity
+operation.
 
 The Lance architecture described in Chapter~\ref{chapter-lance} was broadened
 and decentralized to produce IDEA, but several core challenges still remain.
@@ -113,14 +103,13 @@ too far away from devices with significant computational capabilities.
 As far as IDEA, for future work we are interested in addressing the problem
 of cross-component interaction which would allow us to optimize the operation
 of several IDEA components running in the network simultaneously. This is
-complicated by the fact that there is likely to be dependencies between
-components that cause decisions made by one to affect others. Considering
+complicated by the fact that there are likely to be dependencies between
+components causing decisions made by one to affect others. Considering
 cross-component interaction also rapidly expands the search space when nodes
 try to identify the right local state to select. Currently we assume that the
-search space is small enough that we can search it exhaustively.
-Cross-component support may require that we develop more intelligent search
-strategies in order to allow this process to be performed on
-computationally-constrained devices.
+search space is small enough that we can search it exhaustively, and so
+cross-component support may require more intelligent search strategies to
+allow this process to be performed on computationally-constrained devices.
 
 We are also concerned with better expressing the tradeoffs between
 energy-based performance metrics, such as lifetime, and other performance
@@ -130,22 +119,24 @@ units, making simple linear combinations difficult. We are hopeful that we
 can eventually present tradeoffs to the application designer of the following
 form: "Are you willing to increase the packet latency by $X$ seconds in order
 to achieve an increase in network lifetime of $Y$ seconds?" The answers to
-these queries can then be used to design a hydrid optimization function
+these queries can then be used to design a hybrid optimization function
 expressing the tradeoff properly.
+
+\clearpage
 
 In addition we are investigating ways to model the impact of node failure on
 other nodes. Many sensor network protocols will try to work around nodes
 leaving the network or going offline, but this repair process is costly and
 causes load within the network to shift in ways that are difficult to
-anticipate \textit{a priori}. One option here is to use network-level
-simulators running in parallel with the deployed system itself. Information
-about the deployment environment can be harvested continuously to increase
-the reality of the simulated outcomes. When trying to adjust network
-behavior, the impact of various decisions could be evaluated quickly in
-simulation incorporating the effect of node failures.
+anticipate \textit{a priori}. One option is to use network-level simulators
+running in parallel with the deployed system. Information about the
+deployment environment can be harvested continuously to increase the reality
+of the simulated outcomes. When trying to adjust network behavior, the impact
+of various decisions could be evaluated quickly in simulation incorporating
+the effect of node failures.
 
 Finally, further study is required to determine how close our locally-driven
-state search can get to the global network-wide optimal. This is particularly
+state search gets to the global network-wide optimal. This is particularly
 important when determining the proper distance to distribute energy state
 information. Distributing state across the entire network would, in
 principle, allow a globally-optimal state to be determined. However, this
@@ -153,5 +144,5 @@ would be costly, with the energy overhead likely outweighing improvements in
 energy consumption achievable through protocol tuning. At the other extreme,
 only sharing state locally can prevent nodes from understanding the complete
 impact of their energy-management decisions, but has considerably lower
-overhead. Understanding how to choose the right midpoint between these
-extremes will further improve the network's performance.
+overhead. Choosing the right midpoint between these extremes will further
+improve network performance.
