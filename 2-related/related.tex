@@ -5,40 +5,36 @@ This section discusses four kinds of related systems, those designed to cope
 with high data rates, designed to operate in scientific contexts, and related
 to Lance or IDEA.
 
-\subsection{High Data Rate Sensing}
+\subsection{High Data-Rate Sensing}
 
 Many sensor network applications require collecting high-resolution signals
-using low-power nodes. Examples include monitoring acoustic, seismic, and
-vibration waveforms in bridges, industrial equipment, and animal habitats.
-These systems all attempt to acquire high data rate (100~Hz or higher),
-high-fidelity data subject to energy and bandwidth constraints.
+using low-power nodes, including monitoring acoustic, seismic, and vibration
+waveforms in bridges, industrial equipment, and animal habitats. These
+systems all attempt to acquire high data-rate (100+~Hz), high fidelity data
+subject to energy and bandwidth constraints.
 
 A group from UC Berkeley performed the largest deployment to date of sensor
 network nodes for structural health monitoring: 46 nodes placed on the Golden
 Gate Bridge~\cite{ggb-ipsn07}. Nodes collect vibration data at 1~kHz, and the
 network uses many of the same routing and time synchronization protocols used
-by our volcano monitoring system. A special bulk data collection protocol,
-called Straw, was developed for the deployment. The highly linear topology of
-the deployed network was later used to test the Flush data collection
-protocol~\cite{flush-sensys07}. The deployment at the Golden Gate Bridge also
-gave rise to a system called the Structural Health Monitoring Toolkit
-(Sentri) that interfaces between the outside world and the sensor network by
-transmitting commands to nodes as necessary.
+by our volcano monitoring system. A data collection protocol called Straw was
+developed for the deployment, and the highly linear deployment topology was
+later used to test the Flush data collection protocol~\cite{flush-sensys07}.
+This project also produced the Structural Health Monitoring Toolkit (Sentri)
+that interfaces between the outside world and the network by relaying
+commands to nodes.
 
-NetSHM is a wireless sensor network for structural health monitoring, which
-involves studying the response of buildings, bridges, and other structures to
-localize structural damage, e.g., following an
-earthquake~\cite{netshm-ewsnsubmission,netshm-emnets05,wisan}. This system
-shares many of the challenges of geophysical monitoring. Indeed, the data
-rates involved (500~Hz per channel) are higher than are typically used in
-volcano studies. The Wireless Modular Monitoring System (WiMMS) is another
-structural monitoring network with similar goals that has been validated both
-in field deployments at the Geumdang Bridge in Icheon, South Korea, and in
-laboratory tests~\cite{wimms-lynch06}. This system is designed to supporting
-decentralize control algorithm that respond to structural changes using
-actuators. In this context decentralization reduces the amount of data that
-must be transmitted to a central location while eliminating the base station
-as a single point of failure.
+NetSHM is a wireless sensor network for structural health monitoring
+developed to study the response of structures earthquake
+damage~\cite{netshm-ewsnsubmission,netshm-emnets05,wisan}. Sampling data at
+500~Hz per channel, this system shares many of the challenges of high
+data-rate monitoring. The Wireless Modular Monitoring System (WiMMS) is
+another structural monitoring network that has been validated in field
+deployments at the Geumdang Bridge in Icheon, South
+Korea~\cite{wimms-lynch06}. WiMMS supports a decentralized control algorithm
+that responds to structural changes using actuators. Decentralization reduces
+the amount of data that must be transmitted to a central location while
+eliminating the base station as a point of failure.
 
 NetSHM implements reliable data collection using both hop-by-hop caching and
 end-to-end retransmissions. The work explores the use of local computations
