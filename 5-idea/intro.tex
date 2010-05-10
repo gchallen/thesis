@@ -17,6 +17,8 @@ possible during the day and minimizing energy wasted charging full batteries,
 while overnight operation requires adjusting the network's load profile to
 match the distribution of energy stored during daytime.
 
+\vfill\eject
+
 Fortunately, dense networks provide redundancy that can be used to control
 the distribution of energy usage. Multiple possible routing paths may connect
 a node to the sink. Tuning MAC parameters allows nodes to shift communication
@@ -59,9 +61,8 @@ its model parameters, updating them as necessary to ensure continued
 accuracy. IDEA clients are responsible for estimating their own distributed
 energy impact. When changing state, IDEA helps them evaluate each proposed
 option using an energy objective function tailored to meet specific
-application goals. By tracking availability and informing the energy
-decision-making process, IDEA simplifies the construction of energy-aware
-components.
+application goals. By tracking availability and informing energy decision
+making, IDEA simplifies the construction of energy-aware components.
 
 The rest of this chapter is structured as follows:
 
@@ -69,16 +70,16 @@ The rest of this chapter is structured as follows:
 
 \item Section~\ref{idea-sec-motivation} motivates the IDEA approach with a
 simple example.
-
+\vspace*{-0.1in}
 \item In Section~\ref{idea-sec-architecture}, we describe IDEA, a new service
-uniting energy monitoring, load modeling and distributed state sharing into a
-single service facilitating distributed decision making.
-
+uniting energy monitoring, load modeling and distributed state sharing to
+facilitate distributed decision making.
+\vspace*{-0.1in}
 \item We present three case studies illustrating how to use IDEA in
 Section~\ref{idea-sec-casestudies}, including an existing routing protocol
 modified to choose energy-aware routes and an application using IDEA to
 determine how to localize acoustic events.
-
+\vspace*{-0.1in}
 \item Using simulation and testbed results, in
 Section~\ref{idea-sec-evaluation} we compare the performance of IDEA with
 approaches that do not consider energy distribution, showing that IDEA

@@ -33,7 +33,7 @@ controlling distributed load to perform collaborative energy management.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=0.6\hsize]{./5-idea/figs/motivationexample.pdf}
+\includegraphics[width=0.5\hsize]{./5-idea/figs/motivationexample.pdf}
 \end{center}
 \caption{\textbf{Example routing problem.} The edges are the energy in mJ to
 send a packet.}
@@ -46,8 +46,8 @@ topology, with the energy required to reliably transfer a packet over each
 link shown. (To simplify the example we ignore receive costs, assume all
 nodes have the same data rate of one packet per second, and assume a powered
 sink.) The application attempts to localize events by collecting data from
-the network and must use all four nodes, meaning that the loss of a single
-node will render the network useless.
+all four nodes, meaning the loss of a single node will render the network
+useless.
 
 Node~3 has two routes to the sink Node 0: $3,1,0$ and $3,2,0$. If Node~3
 conserves power by making a local greedy decision, it will route through
@@ -69,7 +69,7 @@ load distributions, $R \in \mathcal{R}$, where:
 \item \textbf{$\mathbf{R^{3,1,0} = (0.0, 1.0, 1.0, 0.5)}$:} Node~1 uses 0.5~mJ sending
 its own packet and 0.5~mJ routing for Node~3. Node~2 uses 1.0~mJ sending its
 own packet. Node~3 uses 0.5~mJ sending its own packet to Node~1.
-
+\vspace{-0.1in}
 \item \textbf{$\mathbf{R^{3,2,0} = (0.0, 0.5, 2.0, 1.0)}$:} Node~1 uses 0.5~mJ
 sending its own packet. Node~2 uses 1.0~mJ sending its own packet and 1.0~mJ
 routing for Node~3. Node~3 uses 1.0~mJ sending its own packet to Node~2.
@@ -87,9 +87,9 @@ using the alternative route $3,2,0$ is the correct choice:
 harvesting energy ($C_n = 0 \forall n$), no non-routing load exist ($L_n = 0
 \forall n$), and Nodes~2 and~3 have significantly more energy than Node~1,
 then routing through Node~2 will increase the lifetime of Node~1, which due
-to its low battery level defines the lifetime of the entire network.
-Specifically, if $B_2 > B_1 * 2$ and $B_3 > B_1 * 2$  then using $R^{3,2,0}$
-will increase the lifetime of the network.
+to its low battery level defines the lifetime of the network. Specifically,
+if $B_2 > B_1 * 2$ and $B_3 > B_1 * 2$  then using $R^{3,2,0}$ will increase
+the network's lifetime.
 
 \item \textbf{Differences in non-routing load rates:} Assuming equal initial
 energy availability and no harvesting, consideration of non-routing load
@@ -108,10 +108,12 @@ option. However, if $C = [0.0, 0.5, 2.0, 2.0]$, then the application must
 choose between the lower aggregate charging rate of $1.5$~mJ/s but better
 survivability of $R^{3,2,0}$ and the higher aggregate charging rate of
 $2.5$~mJ/s but unsustainability of $R^{3,1,0}$. Since our application cannot
-tolerate the loss of a single node, it chooses the lifetime of Node~1 over
-charging at Nodes~2 and~3, and thus $R^{3,2,0}$. Note that if $C = [0, 0.5,
-1.0, 1.0]$, then no $R \in \mathcal{R}$ leads to a non-zero charging rate and
-the best route is $R^{3,1,0}$.
+lose a single node, it chooses the lifetime of Node~1 over charging at
+Nodes~2 and~3, and thus $R^{3,2,0}$. Note that if $C = [0, 0.5, 1.0, 1.0]$,
+then no $R \in \mathcal{R}$ leads to a non-zero charging rate and the best
+route is $R^{3,1,0}$.
+
+\vfill\eject
 
 \item \textbf{Overcharging:} Assuming that the batteries at Nodes~2 and~3
 have reached capacity, but Node~1 has not, if $R^{3,2,0}_2 > C_2$ and

@@ -1,3 +1,4 @@
+\vfill\eject
 \section{Architecture}
 \label{idea-sec-architecture}
 
@@ -13,11 +14,7 @@ component in detail.
 \caption{\textbf{Overview of IDEA architecture.} IDEA combines load and
 charge monitoring and modeling, energy state distribution and an
 application-provided energy objective function into a single service which
-can easily be integrated into application components. Client states are
-evaluated by the energy objective function and also assigned an application
-utility. These scores are combined by the optimizer to select the state best
-balancing the application's distributed energy goals against the state's
-intrinsic desirability.}
+can easily be integrated into application components.}
 
 \label{idea-fig-architecture}
 \end{figure}
@@ -26,11 +23,12 @@ intrinsic desirability.}
 
 IDEA is intended to address the problem of energy-aware tuning in sensor
 network applications. In IDEA, we use the term \textit{client} to refer to
-either an application (such as a tracking system) or an individual software
-component (such as a MAC, routing, or time synchronization protocol) that
-wishes to perform energy tuning. Clients interact with the IDEA runtime
-residing on each sensor node to make decisions that affect energy consumption
-and data fidelity.
+either an application (such as a tracking system) or a software component
+(such as a MAC, routing, or time synchronization protocol) that wishes to
+perform energy tuning. Clients interact with the IDEA runtime on each node to
+make decisions affecting energy consumption and data fidelity.
+
+\vfill\eject
 
 Sensor network software components commonly operate by making local
 decisions. For example, routing protocols~\cite{ctp,awoo-multihop} typically
@@ -160,13 +158,14 @@ communication overheads, reducing energy efficiency. Central control also
 precludes nodes from making rapid local changes to states, for example, to
 select a new parent in a routing tree if the current parent dies.
 
+\vfill\eject
+
 IDEA performs optimization in a \textit{decentralized} fashion, with the goal
-of closely approximating the globally optimal solution. Note that no
-solution, centralized or decentralized, can know the global state $S$. Since
-IDEA is decentralized, our goal is to limit the about of state that must be
-exchanged during the optimization process while maintaining an accurate
-enough approximation of the global state in order to allow the optimization
-to succeed.
+of approximating the globally optimal solution. Note that no solution,
+centralized or decentralized, can know the global state $S$. Since IDEA is
+decentralized, our goal is to limit the state that must be exchanged during
+the optimization process while maintaining an accurate enough approximation
+of the global state in order to allow the optimization to succeed.
 
 An important observation is that \textit{most state changes only affect the
 energy consumption of a node's immediate neighbors}\footnote{In the routing
@@ -204,8 +203,7 @@ IDEA relies on the ability to measure and model load and charging rates at
 each sensor node. This can be performed using either hardware support, as in
 systems like Quanto~\cite{quanto-osdi08}, or using software monitoring, as in
 Pixie~\cite{pixie-sensys08}. Modularizing these components allows IDEA to
-easily support multiple node platforms and a variety of energy-harvesting
-hardware.
+easily support a variety of node platforms and energy-harvesting hardware.
 
 IDEA monitors both the energy load on a node as well as the charging rate,
 both represented as joules per second. The battery level is monitored as
@@ -216,17 +214,17 @@ those nodes to estimate the source node's energy load and charging profile
 over time. 
 
 IDEA provides a component that models load or charging rates by producing an
-average across a fixed time window, which over time produces a
-piecewise-linear model of varying load or charging rates. To estimate the
-load on a single node $n$ at time $t$, $L_n(t)$, we compute $l_n =
-\frac{\int_{t - \Delta t}^t \!  L_n(t)\, dt}{\Delta t}$, and distribute our
-estimate $l_n$ as the single model parameter. This simple model must
-distribute new parameters to incorporate time-varying load or charging rates.
-However, IDEA's modeling architecture is modular and it would be
-straightforward to incorporate more sophisticated charging models based on
-understanding of the underlying dynamics of the energy harvesting technique
-being used. A seasonal ARIMA model like that used by PRESTO~\cite{presto-TON}
-would provide more accuracy when projecting future charging behavior.
+average across a fixed time window, building a piecewise-linear model of
+varying load or charging rates. To estimate the load on a single node $n$ at
+time $t$, $L_n(t)$, we compute $l_n = \frac{\int_{t - \Delta t}^t \! L_n(t)\,
+dt}{\Delta t}$, and distribute our estimate $l_n$ as the single model
+parameter. This simple model must distribute new parameters to incorporate
+time-varying load or charging rates. However, IDEA's modeling architecture is
+modular and it would be straightforward to incorporate more sophisticated
+models better capturing the underlying dynamics of the energy harvesting
+technique being used. A seasonal ARIMA model like that used by
+PRESTO~\cite{presto-TON} would provide more accuracy when projecting future
+charging behavior.
 
 IDEA distributes the battery level $B_n(t_0)$ at the time $t_0$ when it
 updates the load or charging model parameters. To estimate the battery level
@@ -317,7 +315,7 @@ s^n_k\right\}$ that the client component on node $n$ can enter;
 represented as a scalar value; and
 
 \item For each state $s^n_i$, a projected energy load vector $\bar{L}(s^n_i)$
-representing the estimated energy impact (in terms of joules/sec) induced by
+representing the estimated energy impact (in terms of joules/s) induced by
 the node entering state $s^n_i$. $\bar{L}$ has one element for each of the
 node's neighbors.
 

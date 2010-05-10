@@ -3,11 +3,10 @@
 
 To evaluate IDEA, we built and tested the energy-aware component and
 application described in Section~\ref{idea-sec-casestudies}. For the routing
-component, we compare the performance of our IDEA-based implementations to an
-approach that is not energy-aware. For the application, we use IDEA to
-implement several energy objective functions and compare their performance
-against each other and against a heuristic that does not consider energy
-availability.
+protocol, we compare our IDEA-based implementation to an approach that is not
+energy-aware. For the application, we use IDEA to implement several energy
+objective functions and compare their performance against each other and
+against a heuristic that does not consider energy availability.
 
 \subsection{Experimental Setup}
 \label{idea-subsec-experimentalsetup}
@@ -93,15 +92,15 @@ tree shown in (b), which moves all even nodes to leaf roles.}
 
 Using IDEA we were able to integrate energy awareness into CTP, the routing
 protocol included as part of TinyOS. For these experiments each node in a
-20~node network is sending packets to the sink at the rate of 6 packets per
-second. Static LPL intervals of 0.5 second were used. 
+20~node network sends 6 packets to the sink per second. Static LPL intervals
+of 0.5 second were used. 
 
 Figure~\ref{idea-fig-ictpqualitative} shows a qualitative demonstration of
-the differences between energy-aware and non-energy-aware routing trees. This
+the difference between energy-aware and non-energy-aware routing trees. This
 TOSSIM simulation ran with all odd numbered nodes charging rapidly and all
-even numbered nodes not charging (with the exception of the sink, Node 118,
-which we assume is powered). While this is an unrealistic charging pattern,
-it produces a clear difference in the routing protocol behavior.
+even numbered nodes not charging (with the exception of the powered sink,
+Node 118). While this is an unrealistic charging pattern, it produces a clear
+difference in routing protocol behavior.
 Figure~\ref{idea-fig-ictpqualitative}(a) shows that unmodified CTP is unaware
 of these charging differences and puts several even nodes, such as Node 92,
 into positions where they are routing for multiple nodes. The total number of
@@ -155,11 +154,10 @@ Random Attenuation & 10.5 & 12.2 & 16\% \\ \hline
 \end{center}
 
 \caption{\textbf{ICTP performance with solar charging.} The table summarizes
-the improvements in performance obtained by replacing CTP with ICTP. Three
-different solar charging profiles are used corresponding to a large panel
-that completely charges all batteries during the day, a small panel that does
-not completely charge all batteries during the day, and a randomly attenuated
-charging profile that varies node-to-node.}
+the performance improvements obtained by replacing CTP with ICTP. Three
+different solar charging profiles are used: a large panel that completely
+charges all batteries each day, a small panel that does not, and a randomly
+attenuated charging profile that varies node-to-node.}
 
 \label{idea-table-ictpvoptimaltossim}
 \end{table}
@@ -179,9 +177,8 @@ charging profile that varies node-to-node.}
 \end{center}
 
 \caption{\textbf{Tradeoff between energy-awareness and application utility.}
-The table shows results illustrating how IDEA can parameterize the tradeoff
-between optimizing for application-defined utility and the energy objective
-function.}
+The results illustrate how IDEA can parameterize the tradeoff between
+application-defined utility and the energy objective function.}
 
 \label{idea-table-etxsearchradius}
 \end{table}
@@ -230,8 +227,8 @@ the network be able to be able to localize a high percentage of events that
 occur, and design our energy objective functions with this in mind. As an
 example, an intruder localization application is no longer useful once it
 fails to detect a very high percentage of intrusion attempts. We quote the
-system lifetime as the the 90\% capability time, that is the time at which
-the network's capability drops below 90\%.
+system lifetime as the the 90\% capability time, the time at which the
+network's capability drops below 90\%.
 
 We experimented with several approaches to choosing a localization plan, one
 that does not use IDEA and three that do using different energy objective

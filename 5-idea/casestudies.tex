@@ -110,11 +110,10 @@ push nodes low on batteries into leaf roles, reducing or eliminating their
 routing responsibilities.
 
 Because ICTP reacts to changes in energy available by potentially choosing
-routes with larger ETX, small values of $\alpha$ can begin to effect the
-achieved packet delivery rate. We were able to find values of $\alpha$ that
-produced significant performance improvements while leaving the delivery rate
-unaltered. CTP has a persistent retransmission policy which assists us in
-achieving good performance.
+routes with larger ETX, small values of $\alpha$ can affect the achieved
+packet delivery rate. However, we found $\alpha$ values producing significant
+performance improvements while leaving the delivery rate unaltered. CTP has a
+retransmission policy helping us achieve good performance.
 
 \subsection{Distributed Localization}
 
@@ -153,10 +152,10 @@ When an event occurs, the goal is to select a single \textit{aggregator} node
 and three \textit{signal provider} nodes from the set of nodes that detected
 the event. The signal providers will transmit a portion of the acoustic
 signal to the aggregator, which performs the localization computation using a
-time-of-arrival and angle-of-arrival computation~\cite{Niculescu03adhoc}.
-For each event we expect multiple valid aggregator and signal provider sets
-to exist, each with its own energy consumption signature. We refer to a
-selection of four such nodes as a \textit{localization plan}. 
+time-of-arrival and angle-of-arrival computation~\cite{Niculescu03adhoc}. For
+each event we expect multiple valid aggregator and signal provider sets to
+exist, each with its own energy consumption signature. We refer to a set of
+four such nodes as a \textit{localization plan}. 
 
 Nodes that heard the signal participate in a leader election process, seeded
 by the value of the IDEA energy objective function for each proposed
