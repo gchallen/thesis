@@ -18,14 +18,14 @@ by research projects. Frequently it takes a great deal of time between when
 the code is made publicly available and all of the errors and problems are
 removed.
 
-In the case of FTSP, we tried to do the right thing by careful
-experimentation before we deployed our system, but were still surprised by
-its poor performance in the field. In the case of Deluge, we were guilty of
-incorporating it into the system extremely late, and did not have time to
-test it as rigorously as other components. In addition, our lack of
-experience with the Deluge code meant that, when it failed, we had no choice
-but to remove it and try to reproduce some of the important functionality it
-was providing elsewhere.
+\hspace{0.25in} In the case of FTSP, we tried to do the right thing by
+careful experimentation before we deployed our system, but were still
+surprised by its poor performance in the field. In the case of Deluge, we
+were guilty of incorporating it into the system extremely late, and did not
+have time to test it as rigorously as other components. In addition, our lack
+of experience with the Deluge code meant that, when it failed, we had no
+choice but to remove it and try to reproduce some of the important
+functionality it was providing elsewhere.
 
 \item \textbf{Ground truth and self-validation mechanisms:}
 During our deployment, we did not initially consider colocating several
@@ -37,11 +37,11 @@ provide detailed information on the health and accuracy of the data recorded
 by the network. The periodic ``heartbeat'' messages that we built into our
 system proved essential to remotely tracking system operation.
 
-More generally, it is critical to design the evaluation process well before
-the system being studied is designed and deployed. Deployments are expensive
-and deployment time is valuable, and if the system is not properly
-instrumented it can be difficult to assess its performance after the
-deployment has ended.
+\hspace{0.25in} More generally, it is critical to design the evaluation
+process well before the system being studied is designed and deployed.
+Deployments are expensive and deployment time is valuable, and if the system
+is not properly instrumented it can be difficult to assess its performance
+after the deployment has ended.
 
 \item \textbf{Coping with infrastructure and protocol failures:} As discussed
 previously, we were surprised to find that the sensor nodes themselves were
@@ -52,14 +52,14 @@ devote enough attention to assuring the reliability of the base station and
 radio modem infrastructure, assuming it would be a trivial matter of plugging
 into wall power. This single point of failure was more fragile than expected.
 
-Additionally, several pieces of deployed software, including Deluge and FTSP,
-exhibited failures in the field that we had not expected given our laboratory
-experiments. These failures both speak for and show the limitations of
-careful, pre-deployment testing. While we were fortunate to be able to
-correct protocol errors in the field and during post-processing, the risk of
-uncorrectable problems argues for more rigorous testing and analysis. At the
-same time, the unpredictability of field deployments places demands on the
-flexibility and adaptability of the researchers involved.
+\hspace{0.25in} Additionally, several pieces of deployed software, including
+Deluge and FTSP, exhibited failures in the field that we had not expected
+given our laboratory experiments. These failures both speak for and show the
+limitations of careful, pre-deployment testing. While we were fortunate to be
+able to correct protocol errors in the field and during post-processing, the
+risk of uncorrectable problems argues for more rigorous testing and analysis.
+At the same time, the unpredictability of field deployments places demands on
+the flexibility and adaptability of the researchers involved.
 
 \item \textbf{Building confidence inside cross-domain scientific
 collaborations:} It is important when working with domain scientists to
@@ -73,10 +73,10 @@ more complexity into the sensor network can improve lifetime and performance,
 but the resulting system must be carefully validated before deployment to
 ensure that the resulting data is scientifically accurate.
 
-Effective collaboration involves both meeting and managing scientific
-expectations. Particularly when using low-power devices, it can be difficult
-to duplicate the properties of existing high-power instrumentation.  In our
-case, we were unable to provide continuous signals for analysis.
+\hspace{0.25in} Effective collaboration involves both meeting and managing
+scientific expectations. Particularly when using low-power devices, it can be
+difficult to duplicate the properties of existing high-power instrumentation.
+In our case, we were unable to provide continuous signals for analysis.
 Understanding the scientists' goals makes it more likely that you can
 convince them that your system can meet them, despite the fact that it is
 probably providing different information with different properties than they
@@ -84,24 +84,25 @@ are used to. Simply duplicating existing instrumentation is not a path to the
 macroscope. Scientists also have to devise new techniques for harnessing
 low-power, unreliable, embedded devices fitted with low-resolution sensors.
 
-Good communication between computer and domain scientists is also critical.
-During our deployment, the seismologists were eager to see the collected
-signals, and we were eager to have scientific feedback about whether or not
-the data we were collecting was useful. Volcano scientist have a suite of
-commonly-used visualization and analysis tools. However, we were not ready to
-convert our data into a format that they could use. In fact, this only
-happened several months after we returned. Instead, we quickly built several
-tools ourselves, but their limitations and the fact that the volcanologists
-didn't use them hampered their ability to help us analyze our data.
+\hspace{0.25in} Good communication between computer and domain scientists is
+also critical. During our deployment, the seismologists were eager to see the
+collected signals, and we were eager to have scientific feedback about
+whether or not the data we were collecting was useful. Volcano scientist have
+a suite of commonly-used visualization and analysis tools. However, we were
+not ready to convert our data into a format that they could use. In fact,
+this only happened several months after we returned. Instead, we quickly
+built several tools ourselves, but their limitations and the fact that the
+volcanologists didn't use them hampered their ability to help us analyze our
+data.
 
-In our eagerness to present some data to our collaborators, we also initially
-showed them unprocessed data containing the timing errors mentioned earlier.
-From our perspective, this early data provided evidence that many components
-of our system --- such as sampling, routing, and data collection --- were
-operating properly. However, from the geophysics perspective it highlighted
-failures in the time synchronization protocol. It took a great deal of effort
-after the deployment to rebuild confidence in the validity of our data that
-we had damaged through these early viewings.
+\hspace{0.25in} In our eagerness to present some data to our collaborators,
+we also initially showed them unprocessed data containing the timing errors
+mentioned earlier. From our perspective, this early data provided evidence
+that many components of our system --- such as sampling, routing, and data
+collection --- were operating properly. However, from the geophysics
+perspective it highlighted failures in the time synchronization protocol. It
+took a great deal of effort after the deployment to rebuild confidence in the
+validity of our data that we had damaged through these early viewings.
 
 \item \textbf{Incorporating flexibility for experimentation and system
 adaptation:} Designing a system that is flexible and provides a great deal of
@@ -109,23 +110,23 @@ diagnostic output can be a great way to facilitate deployment
 experimentation. It also has the side benefit of making it more likely that
 researchers can work around unforseen failures.
 
-Our system included two features that improved flexibility and visibility and
-that we found very helpful. First was the command-and-control interface
-discussed earlier. We used the ability to reboot nodes remotely to help work
-around the FTSP failures, and the ability to change node state could have
-helped if other protocols had not worked as expected. For example, had the
-routing protocol failed or produced poor performance we could have chosen
-each node's parent manually. Second, the periodic status messages provided
-critical information about the functioning of the system. Despite the rapid
-rate at which they were being sent (every 10~s), their overhead did not have
-an appreciable effect on the system's performance, and the ability to quickly
-view the effects of changes to the network was extremely helpful when
-debugging.
+\hspace{0.25in} Our system included two features that improved flexibility
+and visibility and that we found very helpful. First was the
+command-and-control interface discussed earlier. We used the ability to
+reboot nodes remotely to help work around the FTSP failures, and the ability
+to change node state could have helped if other protocols had not worked as
+expected. For example, had the routing protocol failed or produced poor
+performance we could have chosen each node's parent manually. Second, the
+periodic status messages provided critical information about the functioning
+of the system. Despite the rapid rate at which they were being sent (every
+10~s), their overhead did not have an appreciable effect on the system's
+performance, and the ability to quickly view the effects of changes to the
+network was extremely helpful when debugging.
 
-Given more time it would have been interesting to experiment with other
-system components. We could have varied the metrics used by the routing tree,
-compared various event detection algorithms, or tweaked parameters used by
-the bulk data-transfer protocol.
+\hspace{0.25in} Given more time it would have been interesting to experiment
+with other system components. We could have varied the metrics used by the
+routing tree, compared various event detection algorithms, or tweaked
+parameters used by the bulk data-transfer protocol.
 
 \item \textbf{Designing the evaluation along with the system:} Many of the
 challenges that we faced in evaluating our system and working with our
@@ -135,24 +136,24 @@ the implementation of the system as the deployment deadline neared. Several
 important components were not completely finished until we arrived in Ecuador
 at the deployment site.
 
-While our system implementation was itself behind schedule, none of our
-timelines had included time needed to design an evaluation strategy for our
-field deployment. We did build a great deal of logging infrastructure into
-our toolchain in order to collect data which eventually did prove important
-for the validation of our system. However, taking the evaluation design
-process seriously before deployment would have had several positive outcomes.
-First, we would almost certainly have noticed the ground-truthing problems we
-were forced to work around later. Second, we would have developed a set of
-tools for converting our data into a format that the seismologists could use,
-which would improved our interaction with them at the deployment site and
-allowed them to help us tune the behavior of our system. Finally, had we been
-more confident about our ability to evaluate the system's performance, we may
-have been more willing to experiment with different protocols or parameter
-settings while on-site.
+\hspace{0.25in} While our system implementation was itself behind schedule,
+none of our timelines had included time needed to design an evaluation
+strategy for our field deployment. We did build a great deal of logging
+infrastructure into our toolchain in order to collect data which eventually
+did prove important for the validation of our system. However, taking the
+evaluation design process seriously before deployment would have had several
+positive outcomes. First, we would almost certainly have noticed the
+ground-truthing problems we were forced to work around later. Second, we
+would have developed a set of tools for converting our data into a format
+that the seismologists could use, which would improved our interaction with
+them at the deployment site and allowed them to help us tune the behavior of
+our system. Finally, had we been more confident about our ability to evaluate
+the system's performance, we may have been more willing to experiment with
+different protocols or parameter settings while on-site.
 
-For our system and other systems like it, field deployments are critical and
-often expensive, and so deployment time is extremely valuable. Planning how
-to use it should not be overlooked.
+\hspace{0.25in} For our system and other systems like it, field deployments
+are critical and often expensive, and so deployment time is extremely
+valuable. Planning how to use it should not be overlooked.
 
 \end{itemize}
 

@@ -96,21 +96,22 @@ Moreover, since each node computes the ADU summary based only on local sensor
 data, it may be necessary to normalize the ADU values in order to compare
 values across nodes.
 
-\texttt{adjust} adds or subtracts a node-specific offset to each ADU value to
-correct for differences in sensor calibration.\texttt{smooth} applies a
-simple low-pass filter on the raw ADU values to remove spikes caused by
-spurious sensor noise. Likewise, \texttt{debias} is intended to remove
-sensor-specific DC~bias from the ADU values. \texttt{debias} computes the
-median ADU value for a given node over a time window. It then subtracts the
-median from each ADU value before passing it along to the next module in the
-chain.
+\hspace{0.25in} \texttt{adjust} adds or subtracts a node-specific offset to
+each ADU value to correct for differences in sensor
+calibration.\texttt{smooth} applies a simple low-pass filter on the raw ADU
+values to remove spikes caused by spurious sensor noise. Likewise,
+\texttt{debias} is intended to remove sensor-specific DC~bias from the ADU
+values. \texttt{debias} computes the median ADU value for a given node over a
+time window. It then subtracts the median from each ADU value before passing
+it along to the next module in the chain.
 
-Likewise, when a sensor network contains multiple sensors with varying
-sensitivity, it is natural to prioritize data from more sensitive
-instruments. In cases where networks are deployed to monitor fixed physical
-phenomena, it may be desirable to prioritize data from nodes located close to
-the phenomena being observed. The \texttt{adjust} module can be used to scale
-raw ADU values based on a sensor's location, SNR, or other attributes.
+\hspace{0.25in} Likewise, when a sensor network contains multiple sensors
+with varying sensitivity, it is natural to prioritize data from more
+sensitive instruments. In cases where networks are deployed to monitor fixed
+physical phenomena, it may be desirable to prioritize data from nodes located
+close to the phenomena being observed. The \texttt{adjust} module can be used
+to scale raw ADU values based on a sensor's location, SNR, or other
+attributes.
 
 \item \textbf{Value dilation:} Another useful policy is to dilate a high (or
 low) ADU value observed in one ADU across different ADUs sampled at different
@@ -119,6 +120,7 @@ temporal coverage of an interesting signal observed at one or more nodes. The
 \texttt{timespread} detects ADUs with a value above some threshold $T$ and
 assigns the same value to those ADUs sampled just before and just after.
 
+\hspace{0.25in}
 Likewise, the \texttt{spacespread} module groups ADUs from across multiple
 nodes into time windows and assigns the maximum ADU value to all ADUs in that
 window. Define a window $W(t,\delta)$ as the set of ADUs such that $t-\delta
@@ -135,8 +137,8 @@ $k$ ADUs meet this criterion, we assume that there is a correlated stimulus,
 and the values for all ADUs in the set are passed through. Otherwise, we
 filter out the ADUs in the window by setting $v'_i = 0$ for each ADU in $W$.
 
-As an example of composing policy modules to implement an interesting
-behavior, consider the chain \[
+\hspace{0.25in} As an example of composing policy modules to implement an
+interesting behavior, consider the chain \[
 \mathit{filter}(T)\rightarrow\mathit{correlated}(k)\rightarrow\mathit{spacespread}
 \] This policy filters incoming values, rejects time-correlated sets with
 fewer than $k$ ADUs above the threshold, and assigns the max value across the
@@ -168,15 +170,15 @@ distribution of ADU values based on the activity levels seen during that time
 period. Lance can use this distribution to decide how interesting a
 particular ADU is in the context of a longer period of activity.
 
-This can be particularly helpful as a way of bootstrapping the system.
-Without seeding it in this way, if Lance begins running while the volcano is
-quiet it will greedily begin downloading the highest-value ADUs available
-despite the fact that these do not in fact contain interesting data, wasting
-energy that could be saved and used later. Instead, it could use the
-\textit{valuefilter} policy module with a filter threshold chosen based on
-the expected ADU distribution, perhaps chosen to ADUs with values in the top
-percentile. The filter threshold can also be adjusted online based on the
-vaue distribution as ADUs are sampled.
+\hspace{0.25in} This can be particularly helpful as a way of bootstrapping
+the system. Without seeding it in this way, if Lance begins running while the
+volcano is quiet it will greedily begin downloading the highest-value ADUs
+available despite the fact that these do not in fact contain interesting
+data, wasting energy that could be saved and used later. Instead, it could
+use the \textit{valuefilter} policy module with a filter threshold chosen
+based on the expected ADU distribution, perhaps chosen to ADUs with values in
+the top percentile. The filter threshold can also be adjusted online based on
+the vaue distribution as ADUs are sampled.
 
 \end{itemize}
 

@@ -114,14 +114,14 @@ classification or localization~\cite{girod-ipsn07}. The summarization
 function could involve either a triggered event detector, an audio waveform
 classifier, or motion detector from a series of camera images~\cite{cyclops}.
 
-At the base station, policy modules can use offline knowledge of node
-positions to modify the initial ADU value. One approach might enhance spatial
-coverage by prioritizing data collection from nodes nearby the source of the
-signal. Another could reject noise by deprioritizing signals detected by only
-one node. For example, if fewer than three nodes report an audio event, it is
-impossible to perform acoustic localization and Lance need not waste
-bandwidth on the signal. Policy modules can take other metrics into account
-as well, such as the SNR of the recorded signal or the time of day (e.g.,
-reducing confidence in camera images taken at night).
+\hspace{0.25in} At the base station, policy modules can use offline knowledge
+of node positions to modify the initial ADU value. One approach might enhance
+spatial coverage by prioritizing data collection from nodes nearby the source
+of the signal. Another could reject noise by deprioritizing signals detected
+by only one node. For example, if fewer than three nodes report an audio
+event, it is impossible to perform acoustic localization and Lance need not
+waste bandwidth on the signal. Policy modules can take other metrics into
+account as well, such as the SNR of the recorded signal or the time of day
+(e.g., reducing confidence in camera images taken at night).
 
 \end{enumerate}
