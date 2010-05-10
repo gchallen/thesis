@@ -418,10 +418,11 @@
 	\noindent Dissertation Advisor: Professor \@advisor \hfill \@author \\
   \begin{center}
     {\ssp
+    \vspace*{-0.15in}
     {\large\bf{\@title}}\\
-    \vspace*{0.40in}
+    \vspace*{0.20in}
     {\LARGE\bf{Abstract}}
-    \vspace*{-0.10in}}
+    \vspace*{-0.35in}}
   \end{center}
 }
 {}
