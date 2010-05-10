@@ -41,7 +41,7 @@ including the location of the node, the orientation of the seismometer, and
 the quality of the seismometer-to-ground coupling. Note that the trigger rate
 does not seem to be related to distance from the vent. Although Node~204 was
 closest to the vent and reported the most triggers, nodes 200, 205, and 210
-all had high trigger counts despite being significantly farther away.
+had high trigger counts despite being farther away.
 
 \subsection{Event Triggers Over Time}
 
@@ -85,8 +85,8 @@ a more sensitive seismometer with a much wider frequency response. The
 geophones used by our sensor nodes have a corner frequency of 4.5~Hz, while
 the broadband sensors have a corner frequency of 0.033~Hz. Additionally, the
 broadband seismometers are much more sensitive, generating voltages of
-800~V/m/s, whereas the geophones have a sensitivity of only 32~V/m/s. As a
-result, the broadband sensors are able to detect much weaker seismic signals.
+800~V/m/s, whereas the geophones have a sensitivity of only 32~V/m/s,
+allowing the broadband sensors to detect much weaker seismic signals.
 
 We focus our attention on a single day of data where the broadband stations
 were recording clean data and the sensor network was relatively stable. One
@@ -128,6 +128,8 @@ immediately assess the scientific significance of the data our system was
 collecting. Indeed, using our algorithm with these same parameters on the
 broadband data for August~15 detects only 101~events, a fraction of the
 events chosen manually by an expert.
+
+\vfill\eject
 
 Given that our event detection algorithm functioned as a binary classifier,
 the choice of EWMA parameters should have been performed more carefully. This

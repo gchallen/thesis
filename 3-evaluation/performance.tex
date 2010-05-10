@@ -82,11 +82,6 @@ Node~251 was five radio hops from the gateway.
 
 \subsection{Fetch Latency}
 
-Transfer latency directly impacts data yield. Because we disabled sampling on
-each node (apart from Node~250) during a Fetch download cycle, the duration
-of the data transfer also affects a node's ability to record back-to-back
-events.
-
 \begin{figure}[t]
 \begin{center}
 \includegraphics[width=\hsize]{./3-evaluation/figs/fetchlatency.pdf}
@@ -101,14 +96,17 @@ away.}
 \label{evaluation-fig-fetchlatency}
 \end{figure}
 
-The median latency for Fetch operations (downloading 60~s worth of data from
-a single node) was 186~s and the 90th percentile was 444~s. Unsurprisingly,
-latency varies with the depth of the node in the routing tree.
-Figure~\ref{evaluation-fig-fetchlatency} compares Fetch latency for Nodes~200
-and 214, located 1~and~6 hops away from the sink, respectively. Node~200 had
-a median Fetch latency of 94~s, while Node~214 had a median latency of 409~s,
-about 63~s per hop. This is due to several factors affected by increased node
-depth, including:
+Transfer latency directly impacts data yield. Because we disabled sampling on
+each node (apart from Node~250) during a Fetch download cycle, the duration
+of the data transfer also affects a node's ability to record back-to-back
+events. The median latency for Fetch operations (downloading 60~s worth of
+data from a single node) was 186~s and the 90th percentile was 444~s.
+Unsurprisingly, latency varies with the depth of the node in the routing
+tree. Figure~\ref{evaluation-fig-fetchlatency} compares Fetch latency for
+Nodes~200 and 214, located 1~and~6 hops away from the sink, respectively.
+Node~200 had a median Fetch latency of 94~s, while Node~214 had a median
+latency of 409~s, about 63~s per hop. This is due to several factors affected
+by increased node depth, including:
 
 \begin{itemize}
 

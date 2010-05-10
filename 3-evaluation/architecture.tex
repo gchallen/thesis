@@ -1,8 +1,6 @@
 \section{Network Hardware and Architecture}
 \label{evaluation-sec-architecture}
 
-\subsection{Hardware}
-
 \begin{figure}[t]
 \begin{center}
 \includegraphics[width=1.0\hsize]{./3-evaluation/figs/node.pdf}
@@ -50,8 +48,8 @@ GS-1 seismometers with corner frequencies of 1~Hz, yielding separate signals
 in each of the three axes. Both sensors are passive instruments: ground
 motion generates a voltage which is amplified and digitized by the sampling
 board. In addition, each node was attached to an omnidirectional microphone,
-the Panasonic WM-034BY. This microphone has been used in other infrasonic
-monitoring studies~\cite{johnson-etal-04b}.
+the Panasonic WM-034BY, which has been used in other infrasonic monitoring
+studies~\cite{johnson-etal-04b}.
 
 \subsection{Network Operation}
 
@@ -85,11 +83,11 @@ storing sensor data.
 
 When designing high data-rate sensing applications an important limitation of
 current sensor network nodes is low radio bandwidth. IEEE 802.15.4 radios,
-such as the Chipcon CC2420, have raw data rates of around 30~kBps. However
+such as the Chipcon CC2420, have raw data-rates of around 30~kBps. However
 overheads caused by packet framing, medium access control (MAC), and multihop
-routing reduce the achievable data rate to less than 10~kBps even in a
-single-hop network. Because of the high data rates involved (600-1200~Bps
-from each node) it is infeasible to continuously transmit all sensor data.
+routing reduce the achievable data-rate to less than 10~kBps even in a
+single-hop network. Because of the high data-rates involved (600-1200~Bps
+from each node) it is infeasible to continuously transmit all data.
 
 Rather, nodes are programmed to locally detect interesting seismic events and
 transmit event reports to the base station. If enough nodes trigger in a
@@ -114,6 +112,8 @@ two metrics: a more sensitive detector correctly identifies more events at
 the expense of producing more false positives. We evaluate the performance of
 our event detection algorithm further in
 Section~\ref{evaluation-sec-eventdetection}.
+
+\vfill\eject
 
 The data set produced by our previous deployment at Tungurahua
 volcano~\cite{volcano-ewsn05} aided in the design of the event detector. We
@@ -191,9 +191,9 @@ chose to use the Flooding Time Synchronization Protocol (FTSP)~\cite{ftsp} to
 establish a global clock across our network. The published accuracy of FTSP
 is very high and the TinyOS code was straightforward to integrate into our
 application. One of the nodes used a Garmin GPS receiver to map the FTSP
-global time to GMT. Unfortunately, FTSP protocol failures during our field
-deployment made assigning accurate timestamps quite challenging, as
-documentented in Section~\ref{evaluation-sec-timing}.
+global time to GMT. Unfortunately, FTSP failures during our field deployment
+made assigning accurate timestamps challenging, as documentented in
+Section~\ref{evaluation-sec-timing}.
 
 \subsection{Command and Control}
 
@@ -221,5 +221,5 @@ the node ID; local and global timestamps; various status flags; the amount of
 locally-stored data; depth, parent, and radio link quality in the routing
 tree; and the node's temperature and battery voltage. This functionality
 greatly aided sensor deployment, as a team member could rapidly determine
-whether a new node had joined the network and the quality of its radio
+whether a node had joined the network and the quality of its radio
 connectivity.

@@ -37,10 +37,9 @@ of existing instrumentation.
 As described earlier, seismologists typically deploy a GPS receiver at each
 station. Because GPS receivers are expensive and power hungry, we opted to
 use a single GPS receiver and employ a multihop time-synchronization protocol
-to establish a global timebase. The protocol worked well in laboratory
-experiments. However, it experienced significant failures in the field,
-requiring extensive postprocessing of the data to recover accurate timing for
-each signal.
+to establish a global timebase. The protocol worked well in laboratory tests,
+but experienced significant failures in the field, requiring extensive
+postprocessing of the data to recover accurate timing for each signal.
 
 Prior internet measurement work has examined similar techniques for error
 detection and recovery and produced valuable insights and
@@ -62,21 +61,20 @@ the colocated data loggers.
 
 \subsection{Time Synchronization Architecture}
 
-We chose to use the Flooding Time Synchronization Protocol
-(FTSP)~\cite{ftsp}, an existing protocol developed for wireless sensor nodes.
-The original FTSP work reports timing errors of less than 67~$\mu$s for an
-11-hop network of Mica2 nodes. We verified in our testbed that FTSP provided
-a 90th-percentile time error of under 2.1~ms in a 5-hop linear network of
-TMote Sky nodes.
+We chose to use the Flooding Time Synchronization Protocol (FTSP)~\cite{ftsp}
+developed for wireless sensor nodes. The original FTSP work reports timing
+errors of less than 67~$\mu$s for an 11-hop network of Mica2 nodes. We
+verified in our testbed that FTSP provided a 90th-percentile time error of
+under 2.1~ms in a 5-hop linear network of TMote Sky nodes.
 
-FTSP works by using broadcast transmission and reception as a synchronous
-moment that can identify the same time in two different frames: the sender's
-and the receiver's\footnote{This ignores message propagation delay which,
-given the speed of light, is taken to be neglible.}. FTSP uses the time kept
-by a single node --- the FTSP root --- as the frame to which all other nodes
-are synchronized. It uses special radio hooks to timetstamp outgoing messages
-at the moment that they actually hit the air, which is typically different
-from the time that the FTSP component sent them due to MAC delays. Incoming
+FTSP uses broadcast transmission and reception as a synchronous moment
+identifying the same time in two different frames: the sender's and the
+receiver's\footnote{This ignores message propagation delay which, given the
+speed of light, is taken to be neglible.}. FTSP uses the time kept by a
+single node --- the FTSP root --- as the frame to which all other nodes are
+synchronized. It uses special radio hooks to timetstamp outgoing messages at
+the moment that they actually hit the air, which is typically different from
+the time that the FTSP component sent them due to MAC delays. Incoming
 messages are also timestamped at the moment of radio reception. By using
 these two timestamps, one in the sender's frame of reference, the other in
 the receiver's, a linear mapping from the sender's time to the receiver's can
@@ -105,10 +103,9 @@ recover the time for each sample in the block.
 
 Therefore, we have three relevant timebases: the \textit{local time} at each
 node; the \textit{global time} established by the FTSP protocol; and the
-\textit{GPS time} recorded by the FTSP root. The information in the nodes'
-status messages can be used to map local time to global time, and the
-information in the GPS node's status messages can be used to map global time
-to GPS-based GMT.
+\textit{GPS time} recorded by the FTSP root. Information in the nodes' status
+messages maps local time to global time, and information in the GPS node's
+status messages maps global time to GMT.
 
 \subsection{FTSP Field Failures}
 \label{evaluation-timing-deploymentfailures}
@@ -122,6 +119,8 @@ behavior in the time synchronization protocol than in the lab. For example,
 occasional message loss or failure of a neighbor could cause the node's
 global time to drift from the rest of the network. However, in lab tests that
 constrained the network topology we did not observe these instabilities.
+
+\vfill\eject
 
 Figure~\ref{evaluation-fig-globaltimeproblem} shows an example of the FTSP
 instability observed in the field. The global time reported by two nodes
@@ -246,7 +245,7 @@ the sender-receiver pair. Their algorithm is similar to one that we use to
 detect discontinuities in nodes' local \textit{LT} values. However, we must
 distinguish between the two causes of these discontinuities --- node reboots
 and FTSP failures --- since they have different implications for the
-underlying accuracy of the \textit{GT} information from during that period.
+underlying accuracy of the \textit{GT} information.
 
 For dealing with skew \texttt{tcpanaly} must also cope with network effects
 such as queuing that can confuse simple linear fits. Instead, it uses a
@@ -277,10 +276,11 @@ Evaluating this time rectification process has proved difficult, primarily
 because we have no ground truth for the timing of the signals recorded in the
 field. However, by reproducing the deployment conditions in the lab, we were
 able to measure the accuracy of the recovered timing in a controlled setting.
-In addition, as described earlier, two GPS-synchronized data loggers were
-colocated with our sensor network, providing us the opportunity to directly
-compare our time-rectified signals with those recorded by conventional
-instrumentation.
+Additionally, two GPS-synchronized data loggers were colocated with our
+sensor network, providing us the opportunity to compare our time-rectified
+signals with those recorded by conventional instrumentation.
+
+\vfill\eject
 
 Our first validation took place in the lab. Feeding the output of a signal
 generator to both a miniature version of our sensor network and to a
@@ -381,6 +381,8 @@ expected: a seismic wave passing each station could be as slow as 1.5~km/sec,
 so the time lag between the signals could be as high as 37~ms. However, due
 to differences in the seismometers and the placement and ground coupling of
 the sensors, we would not expect perfectly correlated signals in every case.
+
+\vfill\eject
 
 We identified 28~events recorded by both RVEN and Node~213. The data for
 Node~213 was time rectified as described earlier, and the RVEN data was

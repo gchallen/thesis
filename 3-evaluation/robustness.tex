@@ -92,19 +92,19 @@ base station failures and single 3-day software outage. Because base station
 failures did not affect individual nodes, the middle bar shows the apparent
 uptime including only the 3-day outage. In this case, the mean node uptime
 is~69\%. However, with the 3-day outage factored out, nodes achieved an
-average uptime of~96\%. These numbers are encouraging and suggest that the
-sensor nodes were reliable in spite of the software crash.
+average uptime of~96\%. These numbers are encouraging and suggest the sensor
+nodes were reliable despite the software crash.
 
 Based on discussions with the authors of Deluge, we believe this failure was
-caused by a single bug in the \texttt{InternalFlash} TinyOS component (which
-has since been fixed). This bug prevented Deluge from storing critical state
-information, causing nodes to reboot continuously at short intervals. We did
-not see this behavior in the lab before deployment, although we had not
-rigorously tested this portion of the code. In retrospect, it was optimistic
-of us to rely on a complex network reboot protocol that had not been
-field-tested. Deluge was removed from the binary used during the network
-reprogram following the failure; it was replaced with a simpler mechanism to
-reboot individual nodes using a radio command.
+caused by a single bug in the \texttt{InternalFlash} TinyOS component, which
+prevented Deluge from storing critical state information, causing nodes to
+reboot continuously at short intervals. We did not see this behavior in the
+lab before deployment, although we had not rigorously tested this portion of
+the code. In retrospect, it was optimistic of us to rely on a complex network
+reboot protocol that had not been field-tested. Deluge was removed from the
+binary used during the network reprogram following the failure; it was
+replaced with a simpler mechanism to reboot individual nodes using a radio
+command.
 
 \subsection{Discussion}
 
