@@ -2,7 +2,7 @@ TARGET = thesis
 INSTALLDIR = ""
 include Makerules
 
-install:: ssp noxxxnote missing-fail embed
+install:: dsp noxxxnote missing-fail embed
 	scp $(PDF) werner@minitrue.eecs.harvard.edu:/home/werner/public_html/private/thesis/$(INSTALLDIR)/$(PDF)
 
 allmake:
