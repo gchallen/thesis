@@ -2,7 +2,7 @@
 \label{sec-relatedwork}
 
 This section discusses four kinds of related systems, those designed to cope
-with high data rates, designed to operate in scientific contexts, and related
+with high data-rates, designed to operate in scientific contexts, and related
 to Lance or IDEA.
 
 \subsection{High Data-Rate Sensing}
@@ -10,7 +10,7 @@ to Lance or IDEA.
 Many sensor network applications require collecting high-resolution signals
 using low-power nodes, including monitoring acoustic, seismic, and vibration
 waveforms in bridges, industrial equipment, and animal habitats. These
-systems all attempt to acquire high data-rate (100+~Hz), high fidelity data
+systems all attempt to acquire high data-rate ($>$ 100~Hz), high fidelity data
 subject to energy and bandwidth constraints.
 
 A group from UC Berkeley performed the largest deployment to date of sensor
@@ -36,169 +36,148 @@ that responds to structural changes using actuators. Decentralization reduces
 the amount of data that must be transmitted to a central location while
 eliminating the base station as a point of failure.
 
-NetSHM implements reliable data collection using both hop-by-hop caching and
-end-to-end retransmissions. The work explores the use of local computations
-on sensors to reduce bandwidth requirements. Rather than a global
-time synchronization protocol, the base station timestamps each sample upon
-reception. The \textit{residence time} of each sample as it flows from sensor
-to base is calculated based on measurements at each transmission hop and used
-to deduce the original sample time.
+NetSHM implements reliable data collection using hop-by-hop caching and
+end-to-end retransmissions, using node computation to reduce bandwidth
+requirements. Rather than a global time synchronization protocol, the base
+station timestamps each sample upon reception. The \textit{residence time} of
+each sample as it flows from sensor to base is calculated based on
+measurements at each hop and used to compute the actual sample time.
 
-Several factors distinguish our work on volcano science from structural
-monitoring applications. First, structural monitoring networks typically
-either collect data following controlled excitations of a structure or at
-periodic intervals, which simplifies transmission scheduling. In our case,
-volcanic activity is bursty and highly variable, requiring more sophisticated
-approaches to event detection and data transfer. While the Golden Gate Bridge
-system is sparsely deployed like our volcano sensor networks, many structural
-monitoring applications are deployed in relatively dense networks, making
-data collection and time synchronization more robust. 
+Several factors distinguish our work from structural monitoring applications.
+First, structural monitoring networks typically collect data either following
+controlled excitations or at periodic intervals, simplifying transmission
+scheduling. In contrast, volcanic activity is bursty and variable, requiring
+more sophisticated approaches to event detection and data transfer. While the
+Golden Gate Bridge system is sparsely deployed like our volcano sensor
+networks, many structural monitoring applications are deployed in relatively
+dense networks, making data collection and time synchronization more robust. 
 
-Condition-based maintenance is another emerging area for wireless sensor
-networks. The typical approach is to collect vibration waveforms from
-equipment (e.g., chillers, pumps, etc.) and perform time- and
-frequency-domain analysis to determine when the equipment requires servicing.
-Intel Research has explored this area through deployments at a fabrication
-plant and an oil tanker in the North Sea~\cite{intel-northseasensys}.
-Although this application involves high sampling rates, it does not
-necessarily require time synchronization as signals from multiple sensors
-need not be correlated. The initial evaluation of these deployments only
-considers the network performance and does not address data fidelity issues.
+Condition-based maintenance is another application of wireless sensor
+networks. A typical approach is to collect vibration waveforms from equipment
+and perform time- and frequency-domain analyses to determine when it requires
+servicing. Intel Research has explored this area through deployments at a
+fabrication plant and an oil tanker in the North
+Sea~\cite{intel-northseasensys}. Although this application involves high
+sampling rates, it does not necessarily require time synchronization as
+signals from multiple sensors need not be correlated. 
 
-While many early environmental monitoring applications are characterized by
-low data rates, some have focused on applications requiring high-speed data
-acquisition. An example application is monitoring colonies of marmots. A
-group at MIT led by Lew Girod has explored several generations of hardware
-and software solutions for distributed acoustic monitoring driven by this
-application~\cite{girod-marmots}. This work produced the Acoustic
-ENSBox~\cite{girod-ensbox}, a self-calibrating hardware solution designed to
-be easy to deploy in support of acoustic sensing applications. The ENSBox
-features an ARM processor, which puts it at a different point on the
-power-performance curve from typical sensor network nodes and makes it more
-suitable for the high-speed processing necessary to capture acoustic signals.
+While many environmental monitoring applications are characterized by low
+data-rates, some, such as marmot monitoring, require high-speed data
+acquisition. A group at MIT led by Lew Girod has developed several
+generations of hardware and software solutions for distributed acoustic
+monitoring driven by this application~\cite{girod-marmots}, including the
+Acoustic ENSBox~\cite{girod-ensbox}, a self-calibrating hardware solution
+designed for ease of deployment. The ENSBox features an ARM processor, which
+consumes more power than the MSP430 but is more suited to the high-speed
+processing necessary to capture acoustic signals.
 
 The software environment for the ENSBox was originally provided by
 EmStar~\cite{emstar}, which targets Linux-based platforms. More recently, the
 ENSBox has been used as the basis of the VoxNet platform, an environment
 designed for acoustic signal collection and processing.
-VoxNet~\cite{voxnet-ipsn08} is comprised of three pieces:
-Wavescope~\cite{wavescope}, a programming environment targeting
-heterogeneous sensor networks. Wavescope programs are written in
-WaveScript~\cite{wavescript-techreport08}, a stream-processing language.
-Users compose a set of filters and other stream operators into a ``script''
-similar to a data-flow graph.
+VoxNet~\cite{voxnet-ipsn08} is comprised of three pieces: the Acoustic
+ENSBox, a set of network services, and Wavescope~\cite{wavescope}, a
+programming environment targeting heterogeneous sensor networks. Wavescope
+programs are written in WaveScript~\cite{wavescript-techreport08}, a
+stream-processing language. Users compose filters and other stream operators
+into a ``script'' similar to a data-flow graph.
 
-The VoxNet platform includes a variety of network services, such as
-time synchronization, routing, and node localization that applications
-running in this environment can make use of. Once the program is written and
-installed on nodes, VoxNet includes a set of control and visualization tools
-intended to allow users to interact with the running system and view the data
-as it is collected. A system using VoxNet was deployed in 2008 at the Rocky
-Mountain Biological Laboratory and used to study the alarm calls of marmots.
-Acoustic monitoring has scientific applications to other species as well, as
-a variety of animals and birds produce scientifically-interesting
+The VoxNet platform includes a set of network services that applications can
+use, such as time synchronization, routing, and node localization. Once the
+program is written and installed, VoxNet includes a set of control and
+visualization tools allowing users to interact with the running system and
+view the data as it is collected. A system using VoxNet was deployed in 2008
+at the Rocky Mountain Biological Laboratory and used to study the alarm calls
+of marmots. Acoustic monitoring has scientific applications to other species
+as well, as a variety of animals and birds produce scientifically interesting
 vocalizations.
 
-Another application of high data rate sensing to habitat monitoring is the
-cane toad monitoring project run by a team at Portland State University,
-CSIRO, and the University of New South Wales. The cane toad is an invasive
-species in Australia, and their spread is being monitored due to concerns
-about their impact on the country's native fauna. The goals of the project
-are to design a system permitting \textit{in situ} classification of various
-frog species based on their vocalizations.
+Another high data-rate habitat monitoring application is the cane toad
+monitoring project at Portland State University, CSIRO, and the University of
+New South Wales. The cane toad is an invasive species in Australia, and their
+spread is being monitored due to their impact on the country's native fauna.
+The goals of the project are to design a system permitting \textit{in situ}
+classification of various frog species based on their vocalizations.
 
-After completing a pilot study, two additional iterations advanced the design
-of the system. In the first, a hybrid network was developed, mating low-power
-sensor nodes and middle-tier devices with more advanced processing and
-storage capabilities. Data reduction is performed on the sensor nodes in
-order to limit the amount of information that must be sent to the high-power
-devices, thus prolonging the lifetime of the embedded
+After a pilot study, two iterations advanced the system's design. First, a
+hybrid network was developed, mating low-power sensor nodes and middle-tier
+devices with more advanced processing and storage capabilities. Data
+reduction is performed on the sensor nodes to limit the information sent to
+the high-power devices and prolonging the lifetime of the embedded
 nodes~\cite{canetoad-tosn}. The second iteration explores compressive
-sampling techniques and also deploys a classification algorithm that can be
-run directly on the resource-constrained sensor nodes.
+sampling techniques and a classification algorithm that can run directly on
+the resource-constrained sensor nodes.
 
-Camera-based sensor networks also produce high data rates and have been the
-subject of considerable study. A group at UCLA built a system called
-Cyclops~\cite{cyclops-sensys05} which brings vision technology to sensor
-network devices by offering a low-power imaging devices better suited to mating
-with resource-constrained sensor nodes. They show that Cyclops nodes can
-successfully perform fundamental vision-recognition tasks such as object
-detection and hand posture recognition. Another team at UMass Amherst sees
-motes fitted with imagers as forming one tier of a multi-tier multi-modal
-($M^2$) sensor network~\cite{m2-nossdav05}. Such $M^2$ networks consist of
-several tiers operating at different power levels while attempting to combine
-the capabilities of multiple types of devices. The lowest tier might consist of
-low-power sensor nodes equipped with vibration sensors and be used to trigger
-the operation of more power-hungry devices --- such as
-Stargates~\cite{stargate} fitted with webcams --- in the upper tiers.
+Camera sensor networks also produce high data-rates and have been the subject
+of considerable study. A group at UCLA built a system called
+Cyclops~\cite{cyclops-sensys05} bringing vision technology to sensor nodes
+through low-power imagers better suited to mating with resource-constrained
+devices. They show that Cyclops nodes can successfully perform fundamental
+vision recognition tasks such as object detection. Another team at UMass
+Amherst sees motes fitted with imagers as forming one tier of a multi-tier
+multi-modal ($M^2$) sensor network~\cite{m2-nossdav05}. $M^2$ networks
+consist of several tiers operating at different power levels, combining the
+capabilities of multiple types of devices. The lowest tier might consist of
+sensor nodes equipped with vibration sensors and be used to trigger the
+operation of more power-hungry devices --- such as Stargates~\cite{stargate}
+fitted with webcams --- in the upper tiers.
 
 \subsection{Scientific Sensing}
 
-The first generation of sensor network deployments focused on distributed
-monitoring of environmental conditions. Representative projects include the
-Great Duck Island~\cite{spm:04habitat,polastre-masters,mainwaring-habitat},
-Berkeley Redwood Forest~\cite{berkeley-redwoods}, and James
+The first generation of sensor network deployments focused on environmental
+monitoring. Representative projects include the Great Duck
+Island~\cite{spm:04habitat,polastre-masters,mainwaring-habitat}, Berkeley
+Redwood Forest~\cite{berkeley-redwoods}, and James
 Reserve~\cite{cerpa-habitat} deployments. These systems are characterized by
-low data rates (sampling intervals on the order of minutes) and very
-low-duty-cycle operation to conserve power. Research in this area has made
-valuable contributions in establishing sensor networks as a viable platform
-for scientific monitoring and developing essential components used in our
-work. 
+low data-rates ($<<$ 1~Hz) and very low-duty-cycle operation to conserve
+power. Research in this area has made valuable contributions in establishing
+sensor networks as a viable platform for scientific monitoring and developing
+essential components used in our work. 
 
-This previous work has not yet focused on the efficacy of a sensor network as
-a scientific instrument. The best example is the Berkeley Redwood Forest
+Most previous work has not addressed the efficacy of a sensor network as a
+scientific instrument. The best example is the Berkeley Redwood Forest
 deployment~\cite{berkeley-redwoods}, which involved 33~nodes monitoring the
 microclimate of a redwood tree for 44~days. Their study focuses on novel ways
-of visualizing and presenting the data captured by the sensor network, as
-well as on the data yield of the system. The authors show that the
-microclimactic measurements are consistent with existing models, but ground
-truth of the data is not established. This paper does highlight many of the
-challenges involved in using wireless sensors to augment or replace existing
-scientific instrumentation.
+of visualizing and presenting the captured data, as well as on the data yield
+of the system. The authors show that their measurements are consistent with
+existing models, but do not establish ground truth. This paper does highlight
+the challenges involved in using wireless sensors to augment or replace
+existing instrumentation.
 
 A group at UCLA has built a system for soil monitoring and deployed it in the
 AMARSS transect in the James Reserve, a biological field station operated by
 the University of California. The goal was to augment a set of wired data
-loggers with wireless sensor technology, similar in spirit to what we have
-attempted with our volcano monitoring system. Since 2005 the deployed system
-has collected over 26~million measurements, which are retrieved periodically
-by a technician visiting the deployment site. The goal is to study the carbon
+loggers with wireless sensor technology, similar to what we have attempted
+with our volcano monitoring system. Since 2005 the deployed system has
+collected over 26~million measurements, which are retrieved periodically by a
+technician visiting the deployment site. The goal is to study the carbon
 cycle and estimate the flux of carbon dioxide from the soil.
 
 The largest challenge facing these researchers was coping with missing data.
-To address it, they built a system called Suelo~\cite{suelo-sensys09}.  Suelo
-is intended to aid human researchers in monitoring and assisting the health
-of the deployment, sense the soil-monitoring sensors used are quite fragile.
-Suelo monitors the readings capture by the network and tries to distinguish
-between ``interesting'' and ``faulty'' data, and initiating human
-intervention when sensors require replacement or recalibration.
-
-Computer scientists at UMass Amherst have been deploying GPS-enabled sensors
-to study the movement of a threatened species of turtle. This work led to
-Eon, a language and runtime system designed to enable energy-aware
-programming. Eon claims to be the first energy-aware programming language and
-tries to make resource usage explicit to programmers by allowing them to
-annotate their code with energy states. At runtime, Eon will adapt the
-behavior of the node based on resource availability.
+To address it, they built a system called Suelo~\cite{suelo-sensys09}. Suelo
+aids human researchers in monitoring the health of the deployment, as the
+soil-monitoring sensors used are quite fragile. Suelo monitors captured
+readings captured and tries to distinguish between interesting and faulty
+data, initiating human intervention when sensors require replacement or
+recalibration.
 
 Similar to our work in its application to environmental hazard mitigation,
 previous projects have explored sensor networks for flood and landslide
 detection, at MIT and John Hopkins University, respectively. The MIT system
 feeds data from a network of sensors into a model designed to predict
-rainfall-triggered flooding~\cite{basha-sensys08}. They were able to show the
+rainfall-triggered flooding~\cite{basha-sensys08}. They were able to
 demonstrate the accuracy of their approach using data collected over multiple
 field deployments on Honduras between 2004 and 2007. JHU's approach to
 landslide detection employs sensor columns, vertical underground
 installations of several different sensors~\cite{landslide-sensys05}. When a
-portion of the deployed network detects that a slip surface is forming, nodes
-cooperate to estimate the position of the slip surface which is fed into a
-model that predicts whether and when a landslide will occur. Both of these
-projects differ from our work by involving significant modeling and
-prediction components, whereas we have focused primarily on raw data
-collection.
+portion of the network detects a slip surface forming, nodes estimate the
+position of the slip surface which is fed into a model that predicts whether
+and when a landslide will occur. Both of these projects differ from our work
+by involving significant modeling and prediction components, whereas we have
+focused primarily on raw data collection.
 
-Of particular interest is ongoing work at Washington State University using
-camera-dropped sensor networks to monitor the activity of Mt. St.
+Ongoing work at Washington State University uses camera-dropped sensor
+networks to monitor the activity of Mt. St.
 Helens~\cite{wsuvolcano-mobisys09}. This project shares many of our goals,
 including ease of deployment and data fidelity, but differs in its focus on
 system lifetimes of up to 1~year, and in its aim to replace, rather than
@@ -210,64 +189,60 @@ The WSU group uses an iMote2~\cite{imote2} sensor node, which shares the
 CC2420 802.15.4 radio with our TMote but features the PXA271 XScale processor
 with significantly more computational horsepower than the MSP430. The
 expanded form factor and power budget permits the use of GPS at each node,
-simplifying time sychronization (although FTSP is available as a backup if
-the GPS signal is lost).
-
-While the system aims to provide continuous data collection, the limited
-bandwidth of the 802.15.4 radios on each sensor node and the 900~MHz
-Freewave~\cite{freewave} modem used to maintain a connection with the
-observatory limit the data that can be collected. Similar to our
-volcano-monitoring system, an impulse detector implemented as a short-term
-average over long-term average (STA/LTA) is used to assign a priority to the
-data as it is collected. Data prioritization is used during data collection
-and routing to ensure that data from detected events reaches the observatory
-first. Currently the system works around energy limitations by using heavy
-AIR-ALKALINE batteries, which are feasible because the nodes are being
-deployed by helicopter.
+simplifying time synchronization. While the system aims to provide continuous
+data collection, the limited bandwidth of the 802.15.4 radios on each sensor
+node and the 900~MHz Freewave~\cite{freewave} modem used to maintain a
+connection with the observatory limit the data that can be collected. Similar
+to our volcano-monitoring system, an impulse detector implemented as a
+short-term average over long-term average (STA/LTA) is used to assign a
+priority to the data as it is collected. Data prioritization is used during
+data collection and routing to ensure that data from detected events reaches
+the observatory first. Currently the system addresses energy limitations by
+using heavy AIR-ALKALINE batteries, feasible assuming helicopter support.
 
 \subsection{Data Quality Optimization Frameworks}
 \label{lance-sec-related}
 
-Several systems are related to Lance but differ substantially in their goals
-and assumptions.
+Several systems are related to Lance but differ in their goals and
+assumptions.
 
-EnviroMic~\cite{enviromic} is a system designed to support distributed
-acoustic recording by leveraging the collective storage resources of multiple
-sensor nodes. It performs cooperative recording by organizing nodes into
-groups when multiple nodes detect the same acoustic event, and using these
-groups to ensure that only one node is recording acoustic data for as long as
-the event of interest continues. This is intended to reduce the amount of
-data that must be stored by eliminating redundant signal collection.
+EnviroMic~\cite{enviromic} is designed to support distributed acoustic
+recording by leveraging the collective storage resources of multiple sensor
+nodes. When multiple nodes detect the same event, it performs cooperative
+recording by organizing nodes into groups and rotating recording within the
+group as long as the event continues. This is intended to reduce the amount
+of data that must be stored by eliminating redundant signal collection.
 
-EnviroMic also focuses on distributing the storage load within the network to
-ensure that the distributed storage can be utilized and signals of interest
-not lost due to full Flash drives. While nodes may exchange data to rebalance
-storage during the experiment, the fundamental assumption of the architecture
-is that data will be manually retrieved from sensor nodes following the
-deployment. Unlike Lance, EnviroMic is not intended for applications with
-real-time data needs.
+\clearpage
+
+EnviroMic also distributed storage load within the network to ensure that the
+all storage can be used and signals not lost due to full Flash drives. While
+nodes may continuously exchange data to rebalance storage, the fundamental
+assumption of the architecture is that data will be manually retrieved from
+sensor nodes following the deployment. Unlike Lance, EnviroMic is not
+intended for applications with real-time data needs.
 
 ICEDB~\cite{zhang2007icedb} supplies a delay-tolerant and priority-driven
 query processor for the CarTel~\cite{cartel} system. ICEDB provides SQL
 extensions allowing queries to assign both inter- and intra-stream
 priorities, which are used by the query processor to manage bandwidth and
 storage resources. ICEDB also uses a similar node-level summarization
-technique to that used by Lance.
-
-While ICEDB considers bandwidth limitations, it does not consider energy as a
-constraint. The fundamental goal of ICEDB --- to provide database-like access
-to mobile nodes that may experience periods of disconnection or poor
-connectivity --- differs from that of Lance, which explains the architectural
-differences. CarTel nodes are much higher-power and assumed to be attached to
-power sources in the vehicles that they are deployed in.
+technique to that used by Lance. While ICEDB considers bandwidth limitations,
+it does not consider energy as a constraint, due to readily-available power
+in the vehicles where nodes are deployed. The fundamental goal of ICEDB ---
+to provide database-like access to mobile nodes that may experience periods
+of disconnection or poor connectivity --- differs from that of Lance,
+explaining the architectural differences. CarTel nodes are much higher-power
+and assumed to be attached to power sources in the vehicles where they are
+deployed.
 
 VanGo~\cite{vango} provides an architecture for collecting and processing
-high-resolution sensor data on resource-constrained nodes. VanGo focuses on a
-programming model based on a linear filter chain and implementing efficient
-signal-processing operations with limited computational power.
+high-resolution sensor data on resource-constrained nodes. VanGo provides a
+programming model based on a linear filter chain and focuses on implementing
+efficient signal-processing operations with limited computational power.
 WaveScope~\cite{wavescope} and Flask~\cite{flask-tr} are languages for stream
 processing applications. These systems are largely complementary to Lance,
-and could be used to process signal data prior to collection, although our
+and while they could be used to process signal data prior to collection, our
 focus is on collecting \textit{raw} sensor data from large networks. These
 systems do not attempt to optimize data collection under varying energy and
 bandwidth constraints. 
@@ -280,19 +255,18 @@ such as sensor coverage, role assignment, and energy-aware routing. Other
 efforts in sensor networks have focused on reducing the power consumption at
 individual nodes without considering energy distribution. Many of these
 efforts are specific to a particular application or component and do not
-provide a service like IDEA that can be used by a variety of applications. 
+provide a service that can be used by a variety of applications. 
 
 A number of existing systems such as Odyssey~\cite{odyssey-osr99},
 PowerScope~\cite{powerscope-wmcsa99} and more recently
 Cinder~\cite{cinder-mobiheld09}, have addressed measuring or adapting to
 energy variations on battery-powered devices, primarily to support mobile
 applications. This naturally produces a difference in approach from IDEA,
-since IDEA targets networks consisting of multiple nodes but treated as a
-single entity. Since nodes are collaborating we can enable more sharing and
-ask nodes to sacrifice for each other, whereas mobile device users would
-likely be upset if they discovered that their phone was running low on power
-because it was trying to improve the lifetime of a stranger's phone located
-nearby.
+since IDEA targets networks of multiple nodes treated as a single entity.
+Since nodes are collaborating we expect nodes to sacrifice for each other,
+whereas mobile device users would likely be upset if they discovered that
+their phone was running low on power trying to improve the lifetime of a
+nearby stranger's phone.
 
 Quanto~\cite{quanto-osdi08} provides a framework for tracking and
 understanding energy consumption in embedded sensor systems. The existence of
@@ -300,32 +274,39 @@ systems such as Quanto was a primary motivation for IDEA, since the
 visibility distributed resource tracking provides creates an opportunity to
 adapt to changes in availability across the network. Currently IDEA requires
 that components model their own energy consumption, which may be difficult
-for components with complex behavior. We are exploring integrating Quanto
-into IDEA to provide more precise tracking of energy at runtime, which could
-eliminate the need for component-specific modeling and ease the process of
-integrating applications with IDEA.
+for components with complex behavior. We are exploring integrating Quanto and
+IDEA to provide more precise tracking of energy at runtime, which could
+eliminate the need for component-specific modeling and ease application
+integration.
 
-Eon~\cite{eon-sensys07} performs similar energy tracking and forward
-projection but focuses on single-node, not network-wide adaptations.
-SORA~\cite{sora-nsdi05} focuses on decentralized resource allocation based on
-an economic model in which nodes respond to incentives to produce data or
-perform specific tasks, with each node trying to maximize its profit for
+Computer scientists at UMass Amherst have deployed GPS-enabled sensors to
+study the movement of a threatened species of turtle, which led to Eon, a
+language and runtime system designed to enable energy-aware programming. Eon
+claims to be the first energy-aware programming language and tries to make
+resource usage explicit to programmers by allowing them to annotate their
+code with energy states. At runtime, Eon will adapt the behavior of the node
+based on resource availability. Eon~\cite{eon-sensys07} performs similar
+energy tracking and forward projection but focuses on single-node, not
+network-wide adaptations.
+
+SORA~\cite{sora-nsdi05} performs decentralized resource allocation based on
+an economic model where nodes respond to incentives to produce data or
+perform specific tasks and each node attempts to maximize its profit for
 taking a series of actions. While SORA, using correctly set prices, could
-produce similar network-wide behavior to that enabled by IDEA, the connection
-between prices and the behavior of the network is not completely clear. IDEA
-simplifies the problem of global network control through the energy objective
-function which encapsulates the application's goal.
+produce network-wide behavior similar to IDEA, the connection between prices
+and the behavior of the network is not clear. IDEA simplifies the problem of
+global network control through the energy objective function encapsulating
+the application's goal.
 
 Some work on energy-aware routing~\cite{ShahRabaey2002,381685} has addressed
 equitable energy distribution within the network by probabilistically
 choosing between multiple good paths between each source and sink pair.
-LEACH~\cite{leach} and other similar approaches attempt to distributed energy
+LEACH~\cite{leach} and other similar approaches attempt to distribute energy
 in an entirely decentralized way, using local heuristics to do so.
 Lexicographically maximum rate allocation~\cite{fairrate-sensys08} uses a
-decentralized algorithm to tune optimum data collection rates in perpetual
+decentralized algorithm to tune optimal data collection rates in perpetual
 networks when static routes are used, all nodes route to a single sink, and
-the recharging profiles of the nodes are known ahead of time. Rate allocation
-could be implemented in IDEA and comparing the two is planned future work.
+the recharging profiles of the nodes are known ahead of time.
 
 VigilNet~\cite{vigilnet} is a target-tracking system that attempts to save
 energy by rotating ``sentry'' duties between a group of nearby nodes. Nodes
@@ -336,16 +317,9 @@ based on each node's energy availability while trying to ensure that the
 entire area being monitoring is covered. Given the desire both to extend
 system lifetime and maintain a desired application fidelity, VigilNet could
 be implemented using IDEA, allowing both energy availability and harvesting
-to be considered when assigning setries.
+to be considered when assigning sentries.
 
-EnviroMic~\cite{enviromic} is a distributed acoustic storage system for
-sensor networks. When EnviroMic nodes hear an acoustic event, a leader is
-elected to assign recording tasks to nodes in the group. As storage space is
-limited, EnviroMic attempts to push data to quiet sections of the network
-with unused storage, balancing storage consumption across the network. Both
-of these tasks involve choosing from a set of nodes that can perform the same
-storage task, and so EnviroMic could be integrated with IDEA allowing the
-energy overheads of data transfers to be considered.
+\clearpage
 
 The IDEA architecture emerged from our own prior work on energy management
 for wireless sensor networks, including Lance (Chapter~\ref{chapter-lance})
@@ -357,10 +331,9 @@ policies. Pixie does not consider the energy impact of a node on other nodes.
 
 Peloton proposed an architecture for distributed resource management in
 sensor networks combining state sharing, vector tickets to represent
-distributed resource consumption and a decentralized architecture in which
-nodes serve as ticket agents managing the resource consumption of themselves
-and on behalf of nearby nodes. IDEA shares many features with Peloton and can
-be viewed as the beginnings of an implementation of the Peloton design, with
-state sharing to enable energy decision making and every node serving as a
-ticket agent for itself but considering the distributed impact of its own
-local state.
+distributed resource consumption, and a decentralized architecture in which
+nodes serve as ticket agents managing resource consumption for themselves and
+nearby nodes. IDEA shares many features with Peloton and can be viewed as the
+beginning of an implementation of the Peloton design, with state sharing to
+enable energy decision making and every node serving as a ticket agent for
+itself but considering the distributed impact of its own local state.
