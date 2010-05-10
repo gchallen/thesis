@@ -16,6 +16,8 @@ ADU $a'_i$ with a possibly modified value $v'_i$. Policy modules run at the
 base station, can maintain internal state, and operate with global knowledge
 of the ADUs stored in the network.
 
+\vfill\eject
+
 A series of policy modules $\{m_1, m_2, ... m_n\}$ are composed into a linear
 chain, which is passed the ADU information extracted from the ADU summary
 messages received at the base station. The first policy module in the chain
@@ -120,14 +122,15 @@ temporal coverage of an interesting signal observed at one or more nodes. The
 \texttt{timespread} detects ADUs with a value above some threshold $T$ and
 assigns the same value to those ADUs sampled just before and just after.
 
-\hspace{0.25in}
-Likewise, the \texttt{spacespread} module groups ADUs from across multiple
-nodes into time windows and assigns the maximum ADU value to all ADUs in that
-window. Define a window $W(t,\delta)$ as the set of ADUs such that $t-\delta
-\leq t_i \leq t+\delta$ where $t$ represents the center of the window and
-$\delta$ the window size. \texttt{spacespread} determines the maximum ADU in
-the window $v^* = \arg_{i \in W} \max v_i$ and sets $v'_i = v^{*}$ for each
-ADU in $W$.
+\hspace{0.25in} Likewise, the \texttt{spacespread} module groups ADUs from
+multiple nodes into time windows and assigns the maximum ADU value to all
+ADUs in that window. Define a window $W(t,\delta)$ as the set of ADUs such
+that $t-\delta \leq t_i \leq t+\delta$ where $t$ represents the center of the
+window and $\delta$ the window size. \texttt{spacespread} determines the
+maximum ADU in the window $v^* = \arg_{i \in W} \max v_i$ and sets $v'_i =
+v^{*}$ for each ADU in $W$.
+
+\vfill\eject
 
 \item \textbf{Correlated event detection:} The \texttt{correlated} module is
 used to select for ADUs that appear to represent a correlated event observed
@@ -143,10 +146,9 @@ interesting behavior, consider the chain \[
 \] This policy filters incoming values, rejects time-correlated sets with
 fewer than $k$ ADUs above the threshold, and assigns the max value across the
 set to all ADUs. This can be useful in systems that wish to perform
-collection of time-correlated data, but avoid spurious high-value data from
-just a few nodes. This policy is similar to the volcanic earthquake detector
-discussed in Section~\ref{evaluation-sec-eventdetection}, expressed as a
-simple policy module chain.
+collection of time-correlated data, but avoid spurious high-value data from a
+few nodes. This policy is similar to the earthquake detector discussed in
+Section~\ref{evaluation-sec-eventdetection}.
 
 \item \textbf{Cost-based filtering:} Lance's optimizer considers both the
 cost of ADUs as well as their application-assigned values when making
@@ -178,7 +180,7 @@ data, wasting energy that could be saved and used later. Instead, it could
 use the \textit{valuefilter} policy module with a filter threshold chosen
 based on the expected ADU distribution, perhaps chosen to ADUs with values in
 the top percentile. The filter threshold can also be adjusted online based on
-the vaue distribution as ADUs are sampled.
+the value distribution as ADUs are sampled.
 
 \end{itemize}
 
@@ -200,8 +202,7 @@ and then release a whole group at once after they have heard from a complete
 set of nodes or a timeout occurs. When data is missing or delayed, we expect
 different policy modules to respond differently. Some may choose to compute
 their functions over incomplete sets of ADUs, others may not and either set
-the values to zero (inhibiting download) or leave them unchanged when they
-cannot gather a complete set to operate over.
+the values to zero (inhibiting download) or leave them unchanged.
 
 Depending on the sensitivity of the policy modules in use to missing data,
 different summarization message formats can be used. For our experiments we

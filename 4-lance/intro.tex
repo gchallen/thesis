@@ -5,14 +5,11 @@ One of the core challenges that emerges in high data-rate networks is the
 inability of the network to reliable collect all sampled data. This can be
 either due to bandwidth constraints --- when data is being sampled faster
 than it can be retrieved --- or to energy constraints that emerge when
-duty-cycling sensor node radios in order to save power and meet a target
-lifetime.
-
-A typical approach to addressing this challenge is to try and prioritize
-certain signals over others. However, many times these resource-management
-decisions are made in \textit{ad hoc} or application-specific ways, limiting
-the applicability and hurting the performance of solutions that attempt to
-bridge multiple application domains.
+duty-cycling sensor node radios to meet a target lifetime. A typical way of
+addressing this challenge is to prioritize certain signals over others.
+However, many times these decisions are made in \textit{ad hoc} or
+application-specific ways, damaging the applicability and performance of
+solutions bridging multiple application domains.
 
 Optimizing reliable data acquisition requires a coordinated approach to
 managing both limited energy capacity and severely constrained radio
@@ -64,8 +61,8 @@ anticipated this problem impeding future efforts to deploy large scientific
 macroscopes. Our 2005 volcano monitoring system strove to identify and
 acquire the most ``interesting'' signals --- such as earthquakes and
 explosions --- and thereby avoid wasting resources on ``uninteresting''
-signals. However, like other approaches ours was too tailored to our target
-application and too embedded in application-specific code.
+signals. However, like other approaches ours was tailored to our target
+application and embedded in application-specific code.
 
 We saw an opportunity for an architectural solution to coordinated resource
 management that would optimize the application-specific value of the data

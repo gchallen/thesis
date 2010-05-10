@@ -158,7 +158,7 @@ scoring function incorporates a notion of cost, but will tend to favor nodes
 closer to the base station at the expense of high-valued ADUs that are more
 routing hops away. The \textit{cost-bottleneck} scoring function should
 strike a balance between the two, since it considers only the most
-significant component of the cost vector when ranking ADUs.
+significant cost vector component when ranking ADUs.
 
 To develop intuition, consider the simple download problem shown in
 Figure~\ref{lance-fig-simple}. The figure shows the network topology with the
@@ -166,10 +166,10 @@ energy required to reliably use each link labeled. Note that since we assume
 that node radios are left on throughout the transfer the cost to route data
 towards the sink is driven by the worst link along the path. links. So
 Nodes~2 and 1 in the figure shown will have a cost of 100~units to route each
-packet for Node~3 due to the poor link between Nodes~2 and 3. At this moment
-in time three ADUs are available in the network, one at each of nodes 1, 2,
-and 3, and the values of each are labeled. Also assume that Nodes 1, 2 and 3
-have 300, 600 and 2,000 units of available energy, respectively.
+packet for Node~3 due to the poor link between Nodes~2 and 3. Three ADUs are
+available in the network, one at each of nodes 1, 2, and 3, and the values of
+each are labeled. Also assume that Nodes 1, 2 and 3 have 300, 600 and 2,000
+units of available energy, respectively.
 
 The question is: given the battery states, download costs, and values of each
 ADU, which ADU should Lance download? To summarize the three ADUs available:
@@ -179,17 +179,17 @@ ADU, which ADU should Lance download? To summarize the three ADUs available:
 \item \textbf{$ADU_1$}: located at Node~1 with value $v_1 = 10$ and cost vector
 $\bar{c}_1 = \left[10, 0, 0\right]$. Note we are not considering the cost at the base
 station, which we assume to be powered.
-
+\vspace*{-0.1in}
 \item \textbf{$ADU_2$}: located at Node~2 with value $v_2 = 20$ and cost vector
 $\bar{c}_2 = \left[15, 15, 0\right]$.
-
+\vspace*{-0.1in}
 \item \textbf{$ADU_3$}: located at Node~3 with value $v_3 = 40$ and cost vector
 $\bar{c}_3 = \left[100, 100, 100\right]$.
 
 \end{itemize}
 
-For this example, the three scoring functions we are evaluating make three
-different choices:
+
+For this example, the three scoring functions make three different choices:
 
 \begin{itemize}
 
@@ -234,8 +234,8 @@ more data from nodes near the sink. \textit{cost-bottleneck} comes close to
 matching the optimal solution, retrieving over 99\% of the value retrieved by
 the optimal solution. The smooth fall-off in the amount of value downloaded
 from each node is a result of the decaying transfer speeds as the protocol
-must communicate with nodes deeper in the tree. Node~1 is the bottleneck node
-for all transfers during this experiment.
+must communicate with nodes deeper in the tree. Node~1 is always the
+bottleneck node during this experiment.
 
 \begin{figure}[t]
 \begin{center}
@@ -275,6 +275,8 @@ target lifetime, using the 25-node tree topology and a Zipfian data value
 distribution. As the figure shows, the \textit{cost-bottleneck} scoring
 function maintains a high degree of optimality as the network bandwidth
 changes.
+
+\vfill\eject
 
 To illustrate the effect of varying lifetime targets in more detail,
 Figure~\ref{lance-fig-crossover} shows how the optimal solution transitions

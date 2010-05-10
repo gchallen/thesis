@@ -32,8 +32,10 @@ ground truth. A separate gateway node relayed data (using a FreeWave radio
 modem) to the base station laptop at the volcano observatory, 8~km from the
 deployment site. Time synchronization was established using FTSP~\cite{ftsp}
 with a single GPS receiver as the root of the synchronization tree. We
-experimented with two different summarization functions as well as several
-different policy modules during the field deployment.
+experimented with two summarization functions and several policy modules
+during the field deployment.
+
+\vfill\eject
 
 \subsection{Overall Performance and Data Yield}
 
@@ -57,15 +59,15 @@ different policy modules during the field deployment.
 \label{lance-fig-throughput}
 \end{table}
 
-The sensor network was operational for a total of 71~hours, out of which the
-Lance download manager ran for a total of 56~hours. During this time, Lance
-successfully downloaded 1232~ADUs, or 77~MB of raw data. An additional
-308~downloads failed due to timeout or stale summary information, for an
-overall success rate of 80\%. 11012~unique ADU summaries were received from
-the network, representing an aggregate of 688~MB of sampled data. Lance
-therefore downloaded approximately 11\% of the data produced by the network.
+The sensor network was operational for a total of 71~hours, during which
+Lance ran for a total of 56~hours. During this time, Lance successfully
+downloaded 1232~ADUs, or 77~MB of raw data. An additional 308~downloads
+failed due to timeout or stale summary information, for an overall success
+rate of 80\%. 11012~unique ADU summaries were received from the network,
+representing an aggregate of 688~MB of sampled data. Lance therefore
+downloaded approximately 11\% of the data produced by the network.
 Figure~\ref{lance-fig-throughput} summarizes the number of ADUs downloaded
-and the mean throughput for each node.
+and mean throughput for each node.
 
 \begin{figure}[t]
 \begin{center}
@@ -193,7 +195,7 @@ coverage for the same event across multiple nodes.
 \includegraphics[width=1.0\hsize]{./4-lance/figs/everything.pdf}
 \end{center}
 
-\caption{\textbf{Lance download behavior overlayed with average ADU value.}
+\caption{\textbf{Lance download behavior overlaid with average ADU value.}
 The top plot shows the continuous seismic signal collected by a single node.
 The lower plot shows the average value of ADUs and the number of ADUs
 downloaded for each window.}
@@ -202,13 +204,13 @@ downloaded for each window.}
 \end{figure}
 
 Figure~\ref{lance-fig-everything} shows the behavior of Lance during a
-representative 83-minute period. In the figure, we have broken time into
-windows of one-half an ADU duration (55~s in this case), and computed the
-mean ADU value as well as the number of downloaded ADUs that overlap each
-time window. As the data shows, elevated seismic activity is well-correlated
-with an increase in the ADU value from across the network, as well as the
-number of downloaded ADUs. Moreover, the few cases of clear seismic activity
-in the trace (at times 111000, 112700, and so forth) tend to have more ADUs
-downloaded. Of the 9~separate seismic events, a total of 27~ADUs were
-downloaded, representing a per-event ``coverage'' of 3~ADUs per event. This
-represents just under half of the 7~nodes participating in the network.
+representative 83-minute period. The figure breaks time into windows of
+one-half an ADU duration (55~s in this case), and computed the mean ADU value
+as well as the number of downloaded ADUs that overlap each time window. As
+the data shows, elevated seismic activity is well-correlated with an increase
+in the ADU value from across the network, as well as the number of downloaded
+ADUs. Moreover, the few cases of clear seismic activity in the trace (at
+times 111000, 112700, and so forth) tend to have more ADUs downloaded. Of the
+9~separate seismic events, a total of 27~ADUs were downloaded, representing a
+per-event ``coverage'' of 3~ADUs per event. This represents just under half
+of the 7~nodes participating in the network.

@@ -1,4 +1,4 @@
-\section{Adaptating Applications to Lance}
+\section{Adapting Applications to Lance}
 \label{lance-sec-adaptation}
 
 As mentioned, the Lance approach grew out of challenges emerging from our
@@ -18,13 +18,13 @@ The second problem was that following each trigger, the network initiated a
 \textit{nonpreemptive} download from every node in the network in a
 round-robin fashion. This policy caused the system to devote resources to
 downloading small precursor earthquakes that immediately preceded larger
-eruptions. As a result, many such larger events were not captured.
+eruptions. As a result, many such larger events were missed.
 
-Finally, our 2005 system made no attempt to manage energy. As a result, the
-expected lifetime of the network is only about a week (using D-cell
-batteries), necessitating frequent battery changes over a long deployment.
-Clearly, this system could benefit from a prioritized approach to download
-management that also considers energy costs to increase lifetime.
+Finally, our 2005 system did not manage energy. As a result, the expected
+lifetime of the network is only about a week (using D-cell batteries),
+necessitating frequent battery changes over a long deployment. Clearly, this
+system could benefit from a prioritized approach to download management that
+also considers energy costs to increase lifetime.
 
 \subsection{Volcano Monitoring}
 \label{lance-subsec-volcano}
@@ -60,13 +60,12 @@ different events out of order, avoiding the nonpreemptive download problems
 of the earlier system.
 
 While our original system was designed to capture short earthquakes, we were
-also interested in determining whether Lance could be used to capture
-different types of volcanic activity. For this, we make use of the Real-Time
-Seismic Amplitude Measurement (RSAM)~\cite{rsam}, which computes the average
-seismic amplitude over a given time window. Intuitively, RSAM measures the
-total amount of ground shaking caused by earthquakes and tremor, and is often
-used by volcano observatories to characterize the overall level of seismic
-activity.
+also interested in whether Lance could be used to capture different types of
+volcanic activity. For this, we make use of the Real-Time Seismic Amplitude
+Measurement (RSAM)~\cite{rsam}, which computes the average seismic amplitude
+over a given time window. Intuitively, RSAM measures the total amount of
+ground shaking caused by earthquakes and tremor, and is often used by volcano
+observatories to characterize the level of seismic activity.
 
 Different summarization functions and policy modules can be used to implement
 a wide range of geophysical monitoring systems with Lance. For example, a
@@ -90,23 +89,26 @@ network. These applications require high data rates, precluding continuous
 data collection, and rely on classification techniques to determine which
 signals to download. Two examples follow.
 
-\begin{enumerate}
+\vspace*{0.1in}
 
-\item \textbf{Structural monitoring:} Structural monitoring systems collect
+\noindent \textbf{Structural monitoring:} Structural monitoring systems collect
 vibration waveforms from a building, bridge, or other structure in order to
 study structural properties and seismic response. Previous
 systems~\cite{netshm-emnets05,ggb-ipsn07} triggered data collection manually
 or on a simple periodic schedule. Instead, Lance can be used to prioritize
 signals following an earthquake or forced excitation of the structure,
-similar to the EWMA and RSAM functions described earlier. To save energy, the
-system could choose a subset of nodes from which to download data to achieve
-a good spatial distribution across the structure. The size of the subset
-could be chosen depending on the strength of the excitation. In addition,
-policy modules can be used to perform periodic downloading of ADUs from each
-sensor for calibration, as well as to determine whether each sensor is still
-functioning properly.
+similar to the EWMA and RSAM functions described earlier.
 
-\item \textbf{Animal habitat monitoring:} Habitat monitoring applications
+To save energy, the system could choose a subset of nodes from which to
+download data to achieve a good spatial distribution across the structure.
+The size of the subset could be chosen depending on the strength of the
+excitation. In addition, policy modules can be used to perform periodic
+downloading of ADUs from each sensor for calibration, as well as to determine
+whether each sensor is still functioning properly.
+
+\vspace*{0.1in}
+
+\noindent \textbf{Animal habitat monitoring:} Habitat monitoring applications
 that deploy high-bandwidth sensors, such as microphones or cameras, are good
 candidates for prioritized data extraction. An example application may
 attempt to download interesting audio signals facilitating offline species
@@ -114,14 +116,12 @@ classification or localization~\cite{girod-ipsn07}. The summarization
 function could involve either a triggered event detector, an audio waveform
 classifier, or motion detector from a series of camera images~\cite{cyclops}.
 
-\hspace{0.25in} At the base station, policy modules can use offline knowledge
-of node positions to modify the initial ADU value. One approach might enhance
-spatial coverage by prioritizing data collection from nodes nearby the source
-of the signal. Another could reject noise by deprioritizing signals detected
-by only one node. For example, if fewer than three nodes report an audio
-event, it is impossible to perform acoustic localization and Lance need not
-waste bandwidth on the signal. Policy modules can take other metrics into
-account as well, such as the SNR of the recorded signal or the time of day
-(e.g., reducing confidence in camera images taken at night).
-
-\end{enumerate}
+At the base station, policy modules can use offline knowledge of node
+positions to modify the initial ADU value. One approach might enhance spatial
+coverage by prioritizing data collection from nodes nearby the source of the
+signal. Another could reject noise by deprioritizing signals detected by only
+one node. For example, if fewer than three nodes report an audio event, it is
+impossible to perform acoustic localization and Lance need not waste
+bandwidth on the signal. Policy modules can take other metrics into account
+as well, such as the SNR of the recorded signal or the time of day (e.g.,
+reducing confidence in camera images taken at night).

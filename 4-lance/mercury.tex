@@ -46,7 +46,7 @@ which both have clinical value in and of themselves and are used to assign a
 value to the underlying raw data. In fact, the first goal of the Mercury
 application is to download sets of features from each node spanning all time
 intervals. Any spare energy left over after this primary goal is accomplished
-can be used to download the raw samples themselves.
+can be used to download raw samples.
 
 Another change was to the policy module architecture itself. When developing
 the Mercury application we found that the linear structure of the Lance
@@ -87,17 +87,16 @@ of the sensors deployed for medical monitoring --- such as gyroscopes ---
 have energy consumptions that rival the radio, and their operation can thus
 have a significant impact on the node's ability to meet a lifetime schedule.
 
-Implementing these new control features allows a range of interesting policy
-modules to be written and evaluated. The overall goal of the Mercury system
-is to enable continuous data collection for 12 to 18 hours each day, which
-approximates the interval between charges when the patient would be wearing
-the device. Depending on the lifetime being targeted and the initial battery
-charge, the Mercury driver computes an \textit{energy schedule} for each node
-and tries to ensure that the nodes discharge rate matches the schedule. If
-the node is consuming too much or two little energy, it will adjust the
-node's behavior to trade off application fidelity for lifetime.
-In~\cite{mercury-sensys09}, we implement and experiment with the following
-policies:
+Implementing these new control features allows a range of policy modules to
+be written. The overall goal of the Mercury system is to enable continuous
+data collection for 12 to 18 hours each day, which approximates the interval
+between charges when the patient would be wearing the device. Depending on
+the lifetime being targeted and the initial battery charge, the Mercury
+driver computes an \textit{energy schedule} for each node and tries to ensure
+that the nodes discharge rate matches the schedule. If the node is consuming
+too much or two little energy, it will adjust the node's behavior to trade
+off application fidelity for lifetime. In~\cite{mercury-sensys09}, we
+implement and experiment with the following policies:
 
 \begin{enumerate}
 
@@ -109,8 +108,8 @@ of raw data can extend node lifetimes.
 
 \item \textbf{throttle gyro}: because the gyroscope consumes a great deal of
 energy, if a node is behind its energy schedule we can disable the gyroscope
-to allow it to catch up. This reduces the fidelity of the sampled data but
-can substantially increase the node's lifetime.
+to allow it to catch up. This reduces the fidelity of the data while
+substantially increasing the node's lifetime.
 
 \item \textbf{throttle storage}: since another source of energy consumption
 is using the Flash memory~\footnote{The SHIMMER~\cite{shimmer} node used for
