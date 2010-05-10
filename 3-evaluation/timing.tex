@@ -70,9 +70,9 @@ under 2.1~ms in a 5-hop linear network of TMote Sky nodes.
 FTSP uses broadcast transmission and reception as a synchronous moment
 identifying the same time in two different frames: the sender's and the
 receiver's\footnote{This ignores message propagation delay which, given the
-speed of light, is taken to be neglible.}. FTSP uses the time kept by a
+speed of light, is taken to be negligible.}. FTSP uses the time kept by a
 single node --- the FTSP root --- as the frame to which all other nodes are
-synchronized. It uses special radio hooks to timetstamp outgoing messages at
+synchronized. It uses special radio hooks to timestamp outgoing messages at
 the moment that they actually hit the air, which is typically different from
 the time that the FTSP component sent them due to MAC delays. Incoming
 messages are also timestamped at the moment of radio reception. By using
@@ -125,7 +125,7 @@ constrained the network topology we did not observe these instabilities.
 Figure~\ref{evaluation-fig-globaltimeproblem} shows an example of the FTSP
 instability observed in the field. The global time reported by two nodes
 suddenly jumps off by several hours, and the nodes do not resynchronize until
-rebooted 4.5~hours later. It turns out that two bugs conflated to cause this
+rebooted 4.5~hours later. It turns out that two bugs combined to cause this
 problem. First, the TinyOS clock driver would occasionally return bogus local
 timestamps. This bug was fixed in February 2006, several months after our
 deployment. Second, FTSP does not check the validity of synchronization
@@ -377,7 +377,7 @@ stations colocated with our sensor network. The RVEN (for ``Reventador
 vent'') station was located 56~m from sensor Node~213. Given their proximity,
 we would expect the seismic waveforms captured by both RVEN and Node~213 to
 be well correlated. Some time shift between the two signals would be
-expected: a seismic wave passing each station could be as slow as 1.5~km/sec,
+expected: a seismic wave passing each station could be as slow as 1.5~km/s,
 so the time lag between the signals could be as high as 37~ms. However, due
 to differences in the seismometers and the placement and ground coupling of
 the sensors, we would not expect perfectly correlated signals in every case.
