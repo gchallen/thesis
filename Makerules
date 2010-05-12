@@ -1,5 +1,6 @@
 SHELL := /bin/bash
 TEXFILES = $(shell find . -maxdepth 2 -name "*.tex")
+TARGETTEX = $(addsuffix .tex, $(TARGET))
 PDF = $(addsuffix .pdf, $(TARGET))
 PS = $(addsuffix .ps, $(TARGET))
 LOG = $(addsuffix .log, $(TARGET))
@@ -44,21 +45,21 @@ noxxxnote:
 
 %.dvi: %.tex
 
-%.pdf: %.tex %.bib %.blg %.toc $(TEXFILES) .spacing .xxxnote
-	pdflatex $*.tex
+%.pdf: $(TARGETTEX) references.bib references.blg %.toc $(TEXFILES) .spacing .xxxnote
+	pdflatex $(TARGETTEX)
 ifeq ($(DOBIBTEX), Yes)
 	bibtex $*
 endif
-	pdflatex $*.tex
-	pdflatex $*.tex
-	pdflatex $*.tex
+	pdflatex $(TARGETTEX)
+	pdflatex $(TARGETTEX)
+	pdflatex $(TARGETTEX)
 
 %.blg: %.bib 
 	@true
 ifeq ($(DOBIBTEX), Yes)
-	pdflatex $*.tex
-	bibtex $*
-	pdflatex $*.tex
+	pdflatex $(TARGETTEX)
+	bibtex $(TARGET)
+	pdflatex $(TARGETTEX)
 endif
 
 $(PS): $(PDF)
