@@ -1,3 +1,4 @@
-TARGET = 0-frontmatter
+TARGET = $(shell basename `pwd`)
 INSTALLDIR = "chapters"
+SUBDIRS = "."
 include ../Makerules
