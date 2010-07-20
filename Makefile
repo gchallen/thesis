@@ -1,10 +1,26 @@
+# 10 Jul 2010 : GWA : Makefile for the whole bloody thing.
+
 TARGET = thesis
+
+# 10 Jul 2010 : GWA : Add subdirs here as needed. They will be built into the
+# 						  complete document in order. Probably best to have each
+# 						  correspond to a chapter in the thesis, but that's not
+# 						  strictly required.
+
 SUBDIRS = 0-frontmatter 1-introduction 2-related 3-evaluation 4-lance 5-idea 6-lessons 7-conclusion
+
+# 10 Jul 2010 : GWA : Leave this empty.
+
 INSTALLDIR = ""
 include Makerules
 
+# 10 Jul 2010 : GWA : Change this to point to where you want your thesis
+# 							installed if you're pushing it to a webshare.
+
 install:: dsp noxxxnote missing-fail embed
 	scp $(PDF) werner@minitrue.eecs.harvard.edu:/home/werner/public_html/private/thesis/$(INSTALLDIR)/$(PDF)
+
+# 10 Jul 2010 : GWA : Helpers that only make sense at the top level.
 
 allmake: all
 	for i in $(SUBDIRS); do $(MAKE) -C $$i --no-print-directory all; done
@@ -13,24 +29,9 @@ allclean: clean
 	for i in $(SUBDIRS); do $(MAKE) -C $$i --no-print-directory clean; done
 
 allpages: pages
-	@$(MAKE) -C 0-frontmatter --no-print-directory pages
-	@$(MAKE) -C 1-introduction --no-print-directory pages
-	@$(MAKE) -C 2-related --no-print-directory pages
-	@$(MAKE) -C 3-evaluation --no-print-directory pages
-	@$(MAKE) -C 4-lance --no-print-directory pages
-	@$(MAKE) -C 5-idea --no-print-directory pages
-	@$(MAKE) -C 6-lessons --no-print-directory pages
-	@$(MAKE) -C 7-conclusion --no-print-directory pages
+	for i in $(SUBDIRS); do $(MAKE) -C $$i --no-print-directory pages; done
 
 allinstall: install
-	@$(MAKE) -C 0-frontmatter --no-print-directory install
-	@$(MAKE) -C 1-introduction --no-print-directory install
-	@$(MAKE) -C 2-related --no-print-directory install
-	@$(MAKE) -C 3-evaluation --no-print-directory install
-	@$(MAKE) -C 4-lance --no-print-directory install
-	@$(MAKE) -C 5-idea --no-print-directory install
-	@$(MAKE) -C 6-lessons --no-print-directory install
-	@$(MAKE) -C 7-conclusion --no-print-directory install
+	for i in $(SUBDIRS); do $(MAKE) -C $$i --no-print-directory install; done
 
 FORCE:
-

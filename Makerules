@@ -1,16 +1,52 @@
 SHELL := /bin/bash
+
+# 10 Jul 2010 : GWA : This watches all .tex files in your directory to decide
+#               when to rebuild things. I think that the implications are
+#               clear.
+
 TEXFILES = $(shell find . -maxdepth 2 -name "*.tex")
+
 TARGETTEX = $(addsuffix .tex, $(TARGET))
 PDF = $(addsuffix .pdf, $(TARGET))
 PS = $(addsuffix .ps, $(TARGET))
 LOG = $(addsuffix .log, $(TARGET))
 
+# 10 Jul 2010 : GWA : Decide whether to run bibtex by grepping for "\cite"
+#               commands.
+
 DOBIBTEX = $(shell if [ -n "`grep '\\cite' $(TEXFILES) 2>/dev/null`" ] ; then echo "Yes"; else echo "No"; fi)
 
-all: final
-draft: ssp xxxnote $(PDF) missing
-final: dsp noxxxnote $(PDF) missing
+# 10 Jul 2010 : GWA : You will probably want to change these targets.
+#               For now:
+#               Default is draft.
+#               Draft builds single spaced, with XXXnotes, and missing
+#               references check.
+#               Final builds double spaces, without XXXnotes, with
+#               missing references check and embedded fonts. Depending on
+#               your system the embed magic below may or may not work
+#               properly or at all. Give it a go and see what happens.
+#         
+#               If you want to be even more careful about references you can
+#               define "missing-fail" which will halt the build if it finds a
+#               missing reference. This works fine at the top level but not
+#               so well in single-chapter builds since references between
+#               chapters will likely be broken.
 
+all: final
+draft: chapterincludes ssp xxxnote $(PDF) missing
+final: chapterincludes dsp noxxxnote $(PDF) missing embed
+
+chapterincludes:
+	@if [ ! -e .chapterincludes ]; then\
+		touch .chapterincludes;\
+	fi
+	@for i in $(SUBDIRS); do echo "\\include{$$i/include}" >> .chapterincludes-new; done
+	@if [ -n "`diff -N 2>/dev/null .chapterincludes .chapterincludes-new`" ]; then\
+		mv .chapterincludes-new .chapterincludes; \
+		else\
+		rm -f .chapterincludes-new; \
+		fi
+  
 ssp:
 	@echo "\\ssp" > .spacing-new
 	@if [ -n "`diff -N 2>/dev/null .spacing .spacing-new`" ]; then\
@@ -45,7 +81,7 @@ noxxxnote:
 
 %.dvi: %.tex
 
-%.pdf: $(TARGETTEX) references.bib references.blg %.toc $(TEXFILES) .spacing .xxxnote
+%.pdf: $(TARGETTEX) references.bib references.blg %.toc $(TEXFILES) .spacing .xxxnote .chapterincludes
 	pdflatex $(TARGETTEX)
 ifeq ($(DOBIBTEX), Yes)
 	bibtex $*
@@ -99,6 +135,9 @@ clean:
 
 install:: dsp noxxxnote embed
 	scp $(PDF) werner@minitrue.eecs.harvard.edu:/home/werner/public_html/private/thesis/$(INSTALLDIR)/$(PDF)
+
+# 10 Jul 2010 : GWA : A few little convenience things here. Adjust to your
+#               specifications.
 
 pages: $(PDF)
 	@pdfinfo $(PDF) 2>/dev/null | grep "Pages" | awk '{print "$(PDF)", $$2;}'
