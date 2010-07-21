@@ -1,26 +1,4 @@
-\documentclass[11pt,oneside,final]{huthesis}
-\usepackage{url,graphicx,color,multirow,hyperref}
-\hypersetup{
-  bookmarks=true,
-  unicode=true,
-  pdftoolbar=true,
-  pdfmenubar=true,
-  pdffitwindow=true,
-  pdfstartview={FitV},
-  pdftitle={Data Fidelity and Resource Management for Data-Rich Sensor Networks}
-  pdfauthor={Geoffrey Werner Challen},
-  pdfnewwindow=true,
-  colorlinks=false,
-  pdfdisplaydoctitle=true,
-  pdfborder={0 0 0}
-}
-\usepackage[all]{hypcap}
-
-\pdfinfo{
-   /Author (Geoffrey Werner Challen)
-   /Title  (Data Fidelity and Resource Management for Data-Rich Sensor Networks)
-}
-
+\input{template.chapter}
 \input{.xxxnote}
 
 % 11 Jan 2010 : GWA : Maximum table of contents depth.
@@ -31,23 +9,9 @@
 
 \begin{document}
 
-% 11 Jan 2010 : GWA : Spacing: \ssp for draft mode, \dsp for GSAS
-%               requirement.
-%\input{.spacing}
-
 % 11 Jan 2010 : GWA : Chapter content.
 
-% 11 Jan 2010 : GWA : frontmatter includes the abstract, table of contents,
-%               acknowledgments and dedication.
-
-\include{0-frontmatter/include}
-\include{1-introduction/include}
-\include{2-related/include}
-\include{3-evaluation/include}
-\include{4-lance/include}
-\include{5-idea/include}
-\include{6-lessons/include}
-\include{7-conclusion/include}
+\input{.chapterincludes}
 
 % 11 Jan 2010 : GWA : Bibliography.
 
